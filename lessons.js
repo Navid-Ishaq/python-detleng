@@ -99,6 +99,87 @@ print("One step at a time")`,
         }
       ]
     },
+    freshPracticeGenerator: {
+      templates: [
+        {
+          id: "fresh-greeting",
+          skill: "Change One Message",
+          title: "A Fresh Greeting",
+          mission: "Change the message so Python displays exactly: {{target}}",
+          starterCode: `print("{{starter}}")`,
+          hint: "Keep print(), the parentheses and quotation marks. Replace only the words inside the quotation marks.",
+          solution: `print("{{target}}")`,
+          success: "Python displayed the fresh greeting exactly as requested.",
+          check: { minimumPrints: 1, mustChange: true, requiredOutput: ["{{target}}"] },
+          values: {
+            starter: ["Hello, Python!", "Welcome!", "Good morning!", "Ready to learn!", "My code works!", "A new day begins!"],
+            target: ["Hello, learner!", "Welcome to Python!", "I can write code!", "Small steps matter!", "I am ready!", "Let us begin!"]
+          }
+        },
+        {
+          id: "fresh-two-lines",
+          skill: "Two Messages",
+          title: "Two Fresh Lines",
+          mission: "Change both instructions so the first output line is '{{first}}' and the second is '{{second}}'.",
+          starterCode: `print("Change this first line")\nprint("Change this second line")`,
+          hint: "Edit the words inside both pairs of quotation marks. Keep each print() instruction on its own line.",
+          solution: `print("{{first}}")\nprint("{{second}}")`,
+          success: "Your two print() instructions displayed the requested messages in order.",
+          check: { minimumPrints: 2, mustChange: true, expectedOutput: ["{{first}}", "{{second}}"] },
+          values: {
+            first: ["Learning starts here", "Python is listening", "My program begins", "One small instruction", "Hello from my code", "I pressed Run"],
+            second: ["I can do this", "The output appeared", "Now I understand", "Another step complete", "My message worked", "I will keep going"]
+          }
+        },
+        {
+          id: "fresh-add-line",
+          skill: "Add an Instruction",
+          title: "Add One Fresh Message",
+          mission: "Add one new print() instruction so the final output line is exactly: {{target}}",
+          starterCode: `print("{{first}}")\nprint("{{second}}")`,
+          hint: "Add a third line using the same shape: print(\"your message\").",
+          solution: `print("{{first}}")\nprint("{{second}}")\nprint("{{target}}")`,
+          success: "You added a third Python instruction and produced the requested final line.",
+          check: { minimumPrints: 3, requiredOutput: ["{{target}}"] },
+          values: {
+            first: ["My program started", "Python is ready", "A tiny story begins", "First line complete", "I wrote some code", "The screen is waiting"],
+            second: ["The next line runs", "I am still learning", "The program continues", "Second line complete", "Python follows along", "Now add one more"],
+            target: ["I did it!", "Keep going!", "My program is complete!", "Three lines are working!", "Python followed my instructions!", "Another success!"]
+          }
+        },
+        {
+          id: "fresh-fix-quote",
+          skill: "Fix and Run",
+          title: "Repair a Fresh Message",
+          mission: "This program has one missing quotation mark. Repair it so both messages appear.",
+          starterCode: `print("{{broken}})\nprint("{{working}}")`,
+          hint: "The first message opens with a quotation mark. Add its matching quotation mark just before the closing parenthesis.",
+          solution: `print("{{broken}}")\nprint("{{working}}")`,
+          success: "You repaired the quotation marks and made both instructions run.",
+          check: { minimumPrints: 2, mustChange: true, expectedOutput: ["{{broken}}", "{{working}}"] },
+          values: {
+            broken: ["Hello again!", "I can fix this!", "My first line works", "Python, try again", "A quote belongs here", "This message is repaired"],
+            working: ["Both lines are ready", "The second line works", "I learned from the error", "Now the program runs", "Fixing code is learning", "Success after one change"]
+          }
+        },
+        {
+          id: "fresh-mini-poster",
+          skill: "Build a Tiny Poster",
+          title: "A Fresh Python Poster",
+          mission: "Complete the tiny poster by adding a third print() instruction that displays exactly: {{ending}}",
+          starterCode: `print("{{heading}}")\nprint("{{middle}}")`,
+          hint: "Give the ending its own line and place its words between quotation marks inside print().",
+          solution: `print("{{heading}}")\nprint("{{middle}}")\nprint("{{ending}}")`,
+          success: "You completed a fresh three-line poster using only print().",
+          check: { minimumPrints: 3, requiredOutput: ["{{ending}}"] },
+          values: {
+            heading: ["PYTHON LEARNER", "MY FIRST PROGRAM", "TODAY'S SMALL WIN", "HELLO, COMPUTER", "LEARNING IN PROGRESS", "CODE CAN BE FRIENDLY"],
+            middle: ["One line at a time", "Run, notice, learn", "I choose the message", "Every try teaches me", "Simple code can be useful", "I am building confidence"],
+            ending: ["Keep going!", "You can learn this!", "Run it again!", "Small steps win!", "My code works!", "More practice, more confidence!"]
+          }
+        }
+      ]
+    },
     challengeGenerator: {
       activities: [
         {

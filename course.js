@@ -136,10 +136,50 @@
     return randomInteger(specification.minimum, specification.maximum);
   }
 
+  function renderFreshTemplate(value, replacements) {
+    if (typeof value === "string") {
+      return value.replace(/\{\{([a-zA-Z0-9_]+)\}\}/g, (_, key) => String(replacements[key] ?? ""));
+    }
+    if (Array.isArray(value)) return value.map(item => renderFreshTemplate(item, replacements));
+    if (value && typeof value === "object") {
+      return Object.fromEntries(Object.entries(value).map(([key, item]) => [key, renderFreshTemplate(item, replacements)]));
+    }
+    return value;
+  }
+
+  function createTemplateFreshPractice(generator, saved, recent) {
+    for (let attempt = 0; attempt < 80; attempt += 1) {
+      const template = generator.templates[randomInteger(0, generator.templates.length - 1)];
+      const replacements = {};
+      for (const [key, choices] of Object.entries(template.values || {})) {
+        replacements[key] = choices[randomInteger(0, choices.length - 1)];
+      }
+      const signature = `${template.id}:${Object.values(replacements).join(":")}`;
+      if (recent.has(signature)) continue;
+      const rendered = renderFreshTemplate(template, replacements);
+      const generated = {
+        ...rendered,
+        id: `fresh-${lessonId}-${saved.counter + 1}`,
+        generated: true,
+        freshCompleted: false,
+        signature,
+        stage: `Fresh Practice · ${rendered.skill}`
+      };
+      saved.counter += 1;
+      saved.seen = [...(saved.seen || []), signature];
+      saveFreshLessonProgress(saved);
+      return generated;
+    }
+    return null;
+  }
+
   function createFreshPractice() {
     const generator = lesson.freshPracticeGenerator;
     const saved = freshLessonProgress();
     const recent = new Set(saved.seen || []);
+    if (generator.templates && generator.templates.length) {
+      return createTemplateFreshPractice(generator, saved, recent);
+    }
     for (let attempt = 0; attempt < 80; attempt += 1) {
       const scenario = generator.scenarios[randomInteger(0, generator.scenarios.length - 1)];
       let left;
@@ -192,7 +232,7 @@
     const firstUnseen = lesson.practiceCoach.activities.findIndex(activity => !completed.includes(activity.id));
     activePracticeIndex = firstUnseen < 0 ? 0 : firstUnseen;
     showPractice(activePracticeIndex);
-    if (lesson.freshPracticeGenerator && lesson.freshPracticeGenerator.scenarios.length) {
+    if (lesson.freshPracticeGenerator && (lesson.freshPracticeGenerator.templates?.length || lesson.freshPracticeGenerator.scenarios?.length)) {
       byId("freshPractice").style.display = "block";
       updateFreshPracticeCount();
     }
