@@ -278,7 +278,7 @@ const savedCurrent=Number(localStorage.getItem('python.detleng.current')||localS
 const current=Math.min(100,Math.max(1,Number.isInteger(savedCurrent)?savedCurrent:1));
 for(let i=1;i<=100;i++){
   const a=document.createElement('a');
-  a.className='lesson-btn'+(i===current?' current':'')+(i<=3?' demo':'');
+  a.className='lesson-btn'+(i===current?' current':'')+(i<=4?' demo':'');
   a.textContent=String(i).padStart(2,'0')+(completed.includes(i)?' ✓':'');
   a.href='lesson.html?id='+i;
   if(completed.includes(i))a.setAttribute('aria-label',`Lesson ${i}, completed`);

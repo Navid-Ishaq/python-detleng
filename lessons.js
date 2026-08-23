@@ -113,5 +113,60 @@ print("Second")`,
       correct: 1,
       explanation: "Correct — the first line is a comment, so Python runs only the second line and displays Second."
     }
+  },
+  4: {
+    title: "Variables",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "15 minutes",
+    tags: ["Remembering values", "Meaningful names"],
+    intro: "Until now, Python has followed instructions. Today, you will give a value a name, use it later, and watch the program remember your choice.",
+    explanation: "A <strong>variable</strong> is a name that lets us refer to a value. Think of it as a useful label. In <code>name = \"Amina\"</code>, Python remembers the text <code>\"Amina\"</code> under the name <code>name</code>. Nothing is displayed until we ask <code>print()</code> to show that value.",
+    concept: "A variable gives a useful name to a value so we can use that value again and change it in one place.",
+    starterCode: `name = "Learner"
+city = "Your city"
+
+print("NAME")
+print(name)
+
+print("CITY")
+print(city)`,
+    expectedOutput: `NAME
+Learner
+CITY
+Your city`,
+    lineByLine: [
+      '<code>name = "Learner"</code> gives the text <code>"Learner"</code> the useful name <code>name</code>. Read <code>=</code> here as “give this value this name.”',
+      '<code>city = "Your city"</code> creates another variable. Python is now remembering two values.',
+      '<code>print("NAME")</code> displays the text inside quotation marks, exactly as you learned earlier.',
+      '<code>print(name)</code> has no quotation marks around <code>name</code>, so Python looks up the value remembered by that variable.',
+      "Names such as <code>name</code>, <code>city</code>, and <code>total_price</code> explain what their values mean. Variable names cannot contain spaces or begin with a number, and capital letters matter."
+    ],
+    outputExplanation: "The labels <code>NAME</code> and <code>CITY</code> come directly from the two text-printing instructions. The other lines come from the values stored in <code>name</code> and <code>city</code>. Replace those two values with your own information and the program tells your story without changing its <code>print()</code> instructions.",
+    changeIt: "First, replace <code>\"Learner\"</code> and <code>\"Your city\"</code> with your own name and city, then run the program.<br><br>Next, try this small prediction: set <code>weather = \"sunny\"</code>, print it, then set <code>weather = \"rainy\"</code> and print it again. The variable name stays the same, but its value changes as the program moves forward.",
+    challenge: "Build a tiny Player Card. Change only the three values near the top—not the <code>print()</code> instructions. Give the player a new name, move them to a new place, and make them reach level 2:<br><br><code>player = \"Alex\"</code><br><code>level = 1</code><br><code>place = \"Green Valley\"</code><br><br><code>print(\"PLAYER\")</code><br><code>print(player)</code><br><code>print(\"LEVEL\")</code><br><code>print(level)</code><br><code>print(\"LOCATION\")</code><br><code>print(place)</code>",
+    hint: "Look only at the three variable lines near the top. Change the values after <code>=</code>. Leave every <code>print()</code> instruction unchanged.",
+    solution: `player = "Amina"
+level = 2
+place = "Crystal Forest"
+
+print("PLAYER")
+print(player)
+
+print("LEVEL")
+print(level)
+
+print("LOCATION")
+print(place)`,
+    quiz: {
+      question: "What will this program display?",
+      code: `score = 5
+score = 10
+
+print(score)`,
+      options: ["5", "10", "5 10", "score"],
+      correct: 1,
+      explanation: "Correct — score was given a newer value before print(score), so Python displays 10."
+    }
   }
 };
