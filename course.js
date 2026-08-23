@@ -194,6 +194,22 @@
       if (rule.minimumPrints && (code.match(printPattern) || []).length < rule.minimumPrints) return `Use print(${rule.name}) so Python can show the remembered value.`;
       if (rule.minimumPrints && values.some(value => !outputLines.includes(value))) return `Run the program so each value stored in ${rule.name} appears in the output.`;
     }
+    if (activity.check.calculation) {
+      const rule = activity.check.calculation;
+      const escaped = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const expression = new RegExp(`^\\s*${escaped(rule.target)}\\s*=\\s*${escaped(rule.left)}\\s*\\${rule.operator}\\s*${escaped(rule.right)}\\s*(?:#.*)?$`, "m");
+      if (!expression.test(code)) return `Use ${rule.target} = ${rule.left} ${rule.operator} ${rule.right} to make the requested calculation.`;
+      const leftValues = assignmentValues(code, rule.left);
+      const rightValues = assignmentValues(code, rule.right);
+      if (!leftValues.length || !rightValues.length) return "Give both number variables values, then run the calculation again.";
+      const left = Number(leftValues[leftValues.length - 1]);
+      const right = Number(rightValues[rightValues.length - 1]);
+      const operations = { "+": (a, b) => a + b, "-": (a, b) => a - b, "*": (a, b) => a * b, "/": (a, b) => a / b };
+      const expected = operations[rule.operator](left, right);
+      if (!Number.isFinite(expected) || !outputLines.some(line => line !== "" && Number(line) === expected)) {
+        return `Run the program and make sure print(${rule.target}) displays the calculated answer.`;
+      }
+    }
     return "";
   }
 

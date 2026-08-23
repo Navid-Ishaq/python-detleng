@@ -1157,5 +1157,307 @@ print(score)`,
       correct: 1,
       explanation: "Correct — score was given a newer value before print(score), so Python displays 10."
     }
+  },
+  5: {
+    title: "Numbers — Integers and Floats",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "18 minutes",
+    tags: ["Integers & floats", "First calculations"],
+    intro: "Variables gave Python something to remember. Today, you will give it numbers, make it calculate, and change the values to watch the answer change.",
+    explanation: "Python commonly works with two kinds of numbers. An <strong>integer</strong> is a whole number such as <code>4</code>, <code>0</code>, or <code>-3</code>. A <strong>float</strong> contains a decimal point, such as <code>2.5</code> or <code>10.0</code>. A value's kind is called its <strong>type</strong>. Unlike text, numbers do not need quotation marks.",
+    concept: "Integers are whole numbers, floats contain a decimal point, and Python can calculate with both.",
+    starterCode: `apples = 4
+oranges = 3
+
+total_fruit = apples + oranges
+
+print(apples)
+print(oranges)
+print(total_fruit)`,
+    expectedOutput: `4
+3
+7`,
+    lineByLine: [
+      '<code>apples = 4</code> gives the whole number <code>4</code> the useful name <code>apples</code>. Because it has no decimal point, it is an integer.',
+      '<code>oranges = 3</code> remembers another integer. Numbers do not need quotation marks.',
+      '<code>total_fruit = apples + oranges</code> asks Python to add the two remembered values and names the answer <code>total_fruit</code>.',
+      '<code>print(apples)</code> and <code>print(oranges)</code> display the two starting values in top-to-bottom order.',
+      '<code>print(total_fruit)</code> displays the calculated answer: <code>7</code>.'
+    ],
+    outputExplanation: "The first two output lines are the remembered values. The third line is Python's calculated answer. If one value changes, Python recalculates <code>total_fruit</code>. A float may lose an unnecessary final zero when displayed—for example, <code>3.50</code> may appear as <code>3.5</code>.",
+    changeIt: "First, change <code>apples</code> from <code>4</code> to <code>10</code>. Predict the new total, then run the program.<br><br>Next, change <code>+</code> to <code>-</code> and predict again. Finally, try <code>price = 2.5</code>, <code>quantity = 4</code>, and <code>total = price * quantity</code>. Notice that the result is displayed as a float.",
+    challenge: "Create a café order. Store a drink price and snack price as floats, add them, and display the total price:<br><br><code>drink_price = 2.5</code><br><code>snack_price = 3.0</code><br><code>total_price = drink_price + snack_price</code><br><code>print(total_price)</code>",
+    hint: "Numbers do not need quotation marks. Use <code>+</code> to add, <code>-</code> to subtract, <code>*</code> to multiply, and <code>/</code> to divide.",
+    solution: `drink_price = 2.5
+snack_price = 3.0
+
+total_price = drink_price + snack_price
+print(total_price)`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["integers", "floats", "addition", "subtraction", "multiplication", "division", "calculated variables"],
+        previous: ["print()", "comments", "variables", "changing values", "top-to-bottom execution"],
+        prohibited: ["input", "string-number joining", "f-strings", "comparisons", "conditions", "loops", "collections", "user-defined functions", "imports"]
+      },
+      activities: [
+        {
+          id: "add-the-fruit",
+          stage: "Easy Start · Add Two Values",
+          title: "Add the Fruit",
+          mission: "Change both fruit amounts, predict their total, then run the program and check your calculation.",
+          starterCode: `apples = 3
+bananas = 2
+
+total = apples + bananas
+print(total)`,
+          hint: "Change only the two number values first. Keep total = apples + bananas.",
+          success: "Python added the two integer values you chose.",
+          check: { mustChange: true, variables: [{ name: "apples", notValues: ["3"] }, { name: "bananas", notValues: ["2"] }], calculation: { target: "total", left: "apples", operator: "+", right: "bananas" } }
+        },
+        {
+          id: "points-remaining",
+          stage: "Easy Start · Find What Remains",
+          title: "Points Remaining",
+          mission: "Change the starting points and used points, then use subtraction to find what remains.",
+          starterCode: `points = 20
+used = 6
+
+remaining = points - used
+print(remaining)`,
+          hint: "Keep remaining = points - used, and make the starting points larger than the used points.",
+          success: "You used subtraction to calculate a remaining amount.",
+          check: { mustChange: true, variables: [{ name: "points", notValues: ["20"] }, { name: "used", notValues: ["6"] }], calculation: { target: "remaining", left: "points", operator: "-", right: "used" } }
+        },
+        {
+          id: "boxes-of-pencils",
+          stage: "Growing · Build Equal Groups",
+          title: "Boxes of Pencils",
+          mission: "Change the number of boxes and pencils in each box. Predict the total, then let Python multiply.",
+          starterCode: `boxes = 4
+pencils_each = 6
+
+total_pencils = boxes * pencils_each
+print(total_pencils)`,
+          hint: "Python uses * for multiplication. Keep total_pencils = boxes * pencils_each.",
+          success: "You used multiplication to calculate several equal groups.",
+          check: { mustChange: true, variables: [{ name: "boxes", notValues: ["4"] }, { name: "pencils_each", notValues: ["6"] }], calculation: { target: "total_pencils", left: "boxes", operator: "*", right: "pencils_each" } }
+        },
+        {
+          id: "share-the-slices",
+          stage: "Growing · Share an Amount",
+          title: "Share the Slices",
+          mission: "Change the slices and friends to values that share evenly. Run the program and notice the float result.",
+          starterCode: `slices = 12
+friends = 3
+
+slices_each = slices / friends
+print(slices_each)`,
+          hint: "Python uses / for division. Try values such as 20 slices and 4 friends.",
+          success: "You used division and saw Python display the share as a float.",
+          check: { mustChange: true, variables: [{ name: "slices", notValues: ["12"] }, { name: "friends", notValues: ["3"] }], calculation: { target: "slices_each", left: "slices", operator: "/", right: "friends" } }
+        },
+        {
+          id: "repair-the-calculation",
+          stage: "Growing · Fix and Learn",
+          title: "Repair the Calculation",
+          mission: "The calculation is missing an operator. Add + so Python can calculate and display all the tickets.",
+          starterCode: `adult_tickets = 2
+child_tickets = 3
+
+total_tickets = adult_tickets child_tickets
+print(total_tickets)`,
+          hint: "Put + between adult_tickets and child_tickets.",
+          success: "You read an error, repaired the calculation, and produced the correct total.",
+          check: { mustChange: true, calculation: { target: "total_tickets", left: "adult_tickets", operator: "+", right: "child_tickets" } }
+        },
+        {
+          id: "update-the-score",
+          stage: "Ready for a Challenge · Update a Value",
+          title: "Update the Score",
+          mission: "Change the starting score and bonus. Predict the updated score before running the program.",
+          starterCode: `score = 10
+bonus = 5
+
+score = score + bonus
+print(score)`,
+          hint: "Python reads the old score, adds the bonus, then stores the answer back in score.",
+          success: "You used a variable's old value to calculate and remember its new value.",
+          check: { mustChange: true, variables: [{ name: "score", notValues: ["10"] }, { name: "bonus", notValues: ["5"] }], calculation: { target: "score", left: "score", operator: "+", right: "bonus" } }
+        }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        {
+          id: "shopping-total-challenge",
+          title: "The Shopping Total",
+          mission: "Change the price and quantity, then calculate the complete cost with multiplication.",
+          starterCode: `price = 2.5
+quantity = 4
+
+total = price * quantity
+print(total)`,
+          hint: "Change the two values near the top. Keep * between price and quantity.",
+          solution: `price = 3.5
+quantity = 3
+
+total = price * quantity
+print(total)`
+        },
+        {
+          id: "game-score-challenge",
+          title: "The Game Score",
+          mission: "Give the player a different starting score and bonus, then display the correct final score.",
+          starterCode: `starting_score = 20
+bonus = 10
+
+final_score = starting_score + bonus
+print(final_score)`,
+          hint: "Use + to combine the starting score and bonus.",
+          solution: `starting_score = 35
+bonus = 15
+
+final_score = starting_score + bonus
+print(final_score)`
+        },
+        {
+          id: "seats-remaining-challenge",
+          title: "Seats Remaining",
+          mission: "Change the total and occupied seats, then calculate how many seats remain.",
+          starterCode: `total_seats = 30
+occupied_seats = 18
+
+remaining_seats = total_seats - occupied_seats
+print(remaining_seats)`,
+          hint: "Subtract occupied_seats from total_seats.",
+          solution: `total_seats = 50
+occupied_seats = 32
+
+remaining_seats = total_seats - occupied_seats
+print(remaining_seats)`
+        },
+        {
+          id: "pages-read-challenge",
+          title: "Pages Read",
+          mission: "Create a new reading plan. Multiply the days by pages read each day and predict the total.",
+          starterCode: `days = 5
+pages_each_day = 8
+
+total_pages = days * pages_each_day
+print(total_pages)`,
+          hint: "Use * because the same number of pages is read each day.",
+          solution: `days = 7
+pages_each_day = 6
+
+total_pages = days * pages_each_day
+print(total_pages)`
+        },
+        {
+          id: "share-treasure-challenge",
+          title: "Share the Treasure",
+          mission: "Change the coins and players, then calculate each player's equal share.",
+          starterCode: `coins = 24
+players = 4
+
+coins_each = coins / players
+print(coins_each)`,
+          hint: "Use / to divide the coins by the number of players.",
+          solution: `coins = 30
+players = 5
+
+coins_each = coins / players
+print(coins_each)`
+        },
+        {
+          id: "cafe-order-challenge",
+          title: "The Café Order",
+          mission: "Change both prices and make Python add the complete order. Keep the prices as floats.",
+          starterCode: `drink_price = 2.5
+snack_price = 3.0
+
+total_price = drink_price + snack_price
+print(total_price)`,
+          hint: "Floats contain a decimal point. Add the two price variables with +.",
+          solution: `drink_price = 3.25
+snack_price = 2.75
+
+total_price = drink_price + snack_price
+print(total_price)`
+        }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        {
+          id: "recognise-integer",
+          question: "Which value is an integer?",
+          code: "",
+          options: [`"5"`, "5.0", "5", `"five"`],
+          correct: 2,
+          explanation: "Correct — 5 is a whole number with no decimal point, so it is an integer."
+        },
+        {
+          id: "recognise-float",
+          question: "Which value is a float?",
+          code: "",
+          options: ["12", "12.5", `"12.5"`, "twelve"],
+          correct: 1,
+          explanation: "Correct — 12.5 is a number containing a decimal point, so it is a float."
+        },
+        {
+          id: "addition-output",
+          question: "What will this program display?",
+          code: `apples = 4
+oranges = 3
+
+total = apples + oranges
+print(total)`,
+          options: ["43", "7", "apples + oranges", "total"],
+          correct: 1,
+          explanation: "Correct — Python adds 4 and 3, stores 7 in total, and displays it."
+        },
+        {
+          id: "multiplication-operator",
+          question: "Which operator does Python use for multiplication?",
+          code: "",
+          options: ["×", "x", "*", "+"],
+          correct: 2,
+          explanation: "Correct — Python uses * for multiplication."
+        },
+        {
+          id: "division-output",
+          question: "What will this program display?",
+          code: `total = 10 / 2
+print(total)`,
+          options: ["5", "5.0", "10 / 2", "2"],
+          correct: 1,
+          explanation: "Correct — normal division with / produces a float, so Python displays 5.0."
+        },
+        {
+          id: "updated-score",
+          question: "What will this program display?",
+          code: `score = 10
+bonus = 5
+
+score = score + bonus
+print(score)`,
+          options: ["5", "10", "15", "score"],
+          correct: 2,
+          explanation: "Correct — Python adds the bonus to the old score and stores the new value 15 in score."
+        }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `price = 2.5
+quantity = 4
+
+total = price * quantity
+print(total)`,
+      options: ["6.5", "8", "10.0", "2.54"],
+      correct: 2,
+      explanation: "Correct — 2.5 multiplied by 4 is 10.0. Because the calculation uses a float, Python displays a float result."
+    }
   }
 };
