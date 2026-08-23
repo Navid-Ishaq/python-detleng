@@ -101,6 +101,12 @@
     }
   };
   window.resetCode = function () { byId("code").value = lesson.starterCode; };
+  window.writeOwnCode = function () {
+    const editor = byId("code");
+    editor.focus();
+    editor.select();
+    byId("interactionNote").textContent = "Start typing your own Python code. The example stays here until you type.";
+  };
   window.copyCode = async function () {
     const editor = byId("code");
     const button = byId("copyBtn");
