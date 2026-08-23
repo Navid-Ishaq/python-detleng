@@ -292,6 +292,158 @@ print(place)`,
         }
       ]
     },
+    challengeGenerator: {
+      activities: [
+        {
+          id: "player-card-challenge",
+          title: "The Player Card",
+          mission: "Change the player and location, then make the player reach level 2. Change only the values—not the print instructions.",
+          starterCode: `player = "Alex"
+level = 1
+place = "Green Valley"
+
+print("PLAYER")
+print(player)
+print("LEVEL")
+print(level)
+print("LOCATION")
+print(place)`,
+          hint: "Look at the three lines containing = near the top. The level value needs to become 2.",
+          solution: `player = "Amina"
+level = 2
+place = "Crystal Forest"
+
+print("PLAYER")
+print(player)
+print("LEVEL")
+print(level)
+print("LOCATION")
+print(place)`
+        },
+        {
+          id: "explorer-badge-challenge",
+          title: "The Explorer Badge",
+          mission: "Create a new explorer by changing the explorer, badge, and destination values. Keep all three variable names and print instructions.",
+          starterCode: `explorer = "Noah"
+badge = "Beginner"
+destination = "Moon Base"
+
+print("EXPLORER")
+print(explorer)
+print("BADGE")
+print(badge)
+print("DESTINATION")
+print(destination)`,
+          hint: "Only change the text inside quotation marks on the three variable lines.",
+          solution: `explorer = "Sara"
+badge = "Brave Learner"
+destination = "Ocean Station"
+
+print("EXPLORER")
+print(explorer)
+print("BADGE")
+print(badge)
+print("DESTINATION")
+print(destination)`
+        },
+        {
+          id: "moving-day-challenge",
+          title: "Moving Day",
+          mission: "Make the person move from one city to another. Change the person, give city two different values, and keep both print(city) instructions.",
+          starterCode: `person = "Maya"
+city = "Galway"
+
+print(person)
+print(city)
+
+city = "Dublin"
+print(city)`,
+          hint: "The name city should stay the same, but its first and second values should be different.",
+          solution: `person = "Hamza"
+city = "Cork"
+
+print(person)
+print(city)
+
+city = "Longford"
+print(city)`
+        },
+        {
+          id: "robot-status-challenge",
+          title: "Robot Status",
+          mission: "Give the robot a new name. Then change status from one value to another so the output shows the robot's little journey.",
+          starterCode: `robot = "Pico"
+status = "sleeping"
+
+print(robot)
+print(status)
+
+status = "ready"
+print(status)`,
+          hint: "Change the robot value and both status values. Keep the variable names exactly as they are.",
+          solution: `robot = "Nova"
+status = "charging"
+
+print(robot)
+print(status)
+
+status = "exploring"
+print(status)`
+        },
+        {
+          id: "book-shelf-challenge",
+          title: "The Book Shelf",
+          mission: "Create a different book card by changing its title, shelf, and copy number. Let the existing print instructions display your choices.",
+          starterCode: `book_title = "Python Journey"
+shelf = "Green Shelf"
+copy_number = 1
+
+print("BOOK")
+print(book_title)
+print("SHELF")
+print(shelf)
+print("COPY")
+print(copy_number)`,
+          hint: "Change the three values after =. Keep quotation marks around text; the copy number can stay a small number.",
+          solution: `book_title = "My First Program"
+shelf = "Yellow Shelf"
+copy_number = 3
+
+print("BOOK")
+print(book_title)
+print("SHELF")
+print(shelf)
+print("COPY")
+print(copy_number)`
+        },
+        {
+          id: "team-card-challenge",
+          title: "The Team Card",
+          mission: "Change the member, role, and team number to build a new team card without rewriting the output instructions.",
+          starterCode: `member = "Leo"
+role = "Helper"
+team_number = 1
+
+print("MEMBER")
+print(member)
+print("ROLE")
+print(role)
+print("TEAM")
+print(team_number)`,
+          hint: "The information lives in the three variable lines at the top. Change those values and leave print() alone.",
+          solution: `member = "Zara"
+role = "Explorer"
+team_number = 4
+
+print("MEMBER")
+print(member)
+print("ROLE")
+print(role)
+print("TEAM")
+print(team_number)`
+        }
+      ]
+    },
     quiz: {
       question: "What will this program display?",
       code: `score = 5

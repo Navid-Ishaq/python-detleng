@@ -15,6 +15,8 @@
   let quizPassed = false;
   let activePractice = null;
   let activePracticeIndex = 0;
+  let activeChallenge = null;
+  let activeChallengeIndex = 0;
   let editorBaseCode = "";
   let lastRun = null;
 
@@ -57,6 +59,7 @@
     byId("quizCode").hidden = !lesson.quiz.code;
     byId("quizOptions").innerHTML = lesson.quiz.options.map((option, index) => `<label><input type="radio" name="quiz" value="${index}"> ${option}</label>`).join("");
     renderPracticeCoach();
+    renderChallengeGenerator();
     byId("lessonCount").textContent = `Lesson ${lessonId} of 100 · ${lessonId}%`;
     byId("progressBar").style.width = `${lessonId}%`;
     byId("completeTitle").textContent = `Ready to mark Lesson ${lessonId} complete?`;
@@ -107,8 +110,26 @@
     byId("practiceHint").textContent = activePractice.hint;
     byId("practiceHint").style.display = "none";
     byId("practiceFeedback").textContent = "";
-    byId("nextPracticeButton").style.display = "none";
     updatePracticeCount();
+  }
+
+  function renderChallengeGenerator() {
+    if (!lesson.challengeGenerator || !lesson.challengeGenerator.activities.length) return;
+    byId("generatedChallengeActions").style.display = "flex";
+    byId("challengeName").style.display = "block";
+    byId("challengeCode").style.display = "block";
+    showChallenge(0);
+  }
+
+  function showChallenge(index) {
+    activeChallenge = lesson.challengeGenerator.activities[index];
+    byId("challengeName").textContent = activeChallenge.title;
+    byId("challengeText").textContent = activeChallenge.mission;
+    byId("challengeCode").textContent = activeChallenge.starterCode;
+    byId("hint").textContent = activeChallenge.hint;
+    byId("solutionCode").textContent = activeChallenge.solution;
+    byId("hint").style.display = "none";
+    byId("solution").style.display = "none";
   }
 
   function assignmentValues(code, name) {
@@ -224,6 +245,7 @@
     byId("outputText").textContent = "Practice loaded. Change the code, then press Run Python.";
     byId("interactionNote").textContent = "This practice is now in the editor. Follow its mission, run it, then choose Check My Work.";
     editor.focus();
+    byId("pythonLab").scrollIntoView({ behavior: "smooth", block: "start" });
   };
   window.showPracticeHint = function () { byId("practiceHint").style.display = "block"; };
   window.checkPractice = function () {
@@ -242,7 +264,6 @@
     localStorage.setItem(storageKeys.practice, JSON.stringify(progress));
     feedback.textContent = `✓ ${activePractice.success}`;
     updatePracticeCount(completed.size);
-    byId("nextPracticeButton").style.display = "inline-block";
   };
   window.nextPractice = function () {
     const activities = lesson.practiceCoach.activities;
@@ -250,12 +271,31 @@
     showPractice(activePracticeIndex);
     byId("practiceCoach").scrollIntoView({ behavior: "smooth", block: "start" });
   };
+  window.nextChallenge = function () {
+    const activities = lesson.challengeGenerator.activities;
+    activeChallengeIndex = (activeChallengeIndex + 1) % activities.length;
+    showChallenge(activeChallengeIndex);
+  };
+  window.loadChallenge = function () {
+    if (!activeChallenge) return;
+    const editor = byId("code");
+    if (editor.value !== editorBaseCode && !window.confirm("Load this challenge and replace the code currently in the editor?")) return;
+    editorBaseCode = activeChallenge.starterCode;
+    editor.value = editorBaseCode;
+    lastRun = null;
+    byId("outputText").textContent = "Challenge loaded. Change the values, then press Run Python.";
+    byId("interactionNote").textContent = "This challenge is now in the editor. Make it yours, predict the output, and run it.";
+    editor.focus();
+    byId("pythonLab").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   window.toggle = function (id) {
     const element = byId(id);
     element.style.display = element.style.display === "block" ? "none" : "block";
   };
   window.useSolution = function () {
-    byId("code").value = lesson.solution;
+    const solution = activeChallenge ? activeChallenge.solution : lesson.solution;
+    byId("code").value = solution;
+    lastRun = null;
     byId("interactionNote").textContent = "Solution placed in the editor. Run it and explain the output to yourself.";
     byId("code").focus();
   };
