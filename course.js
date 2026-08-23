@@ -162,7 +162,14 @@
 
   function validatePractice(activity, code, output) {
     const outputLines = output.split("\n").map(line => line.trim());
-    for (const rule of activity.check.variables) {
+    if (activity.check.minimumPrints) {
+      const printCount = (code.match(/\bprint\s*\(/g) || []).length;
+      if (printCount < activity.check.minimumPrints) return `Add ${activity.check.minimumPrints - printCount} more print() ${activity.check.minimumPrints - printCount === 1 ? "instruction" : "instructions"}, then run the program again.`;
+    }
+    for (const text of activity.check.requiredOutput || []) {
+      if (!outputLines.includes(text)) return `Almost there—make sure the output includes: ${text}`;
+    }
+    for (const rule of activity.check.variables || []) {
       const values = assignmentValues(code, rule.name);
       if (values.length < (rule.minimumAssignments || 1)) return `Almost there—give ${rule.name} the value requested in the mission.`;
       const latest = values[values.length - 1];
@@ -274,6 +281,7 @@
     if (editorBaseCode !== activePractice.starterCode) { feedback.textContent = "Choose Try This Practice first so the coach knows which little mission you are working on."; return; }
     if (!lastRun || lastRun.code !== code) { feedback.textContent = "Run your latest code first, then come back and check your work."; return; }
     if (!lastRun.succeeded) { feedback.textContent = "Python found something we can fix. Read the last line of the error, make one small change, and run again."; return; }
+    if (activePractice.check.mustChange && code.trim() === activePractice.starterCode.trim()) { feedback.textContent = "Good first run. Now make the change in the mission, run it again, and check your work."; return; }
     const issue = validatePractice(activePractice, code, lastRun.output);
     if (issue) { feedback.textContent = issue; return; }
     const progress = practiceProgress();

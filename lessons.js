@@ -3,34 +3,226 @@ window.PYTHON_LESSONS = {
     title: "Welcome to Python",
     stage: "Foundations",
     level: "Beginner",
-    time: "10 minutes",
-    tags: ["Runnable lesson", "First program"],
-    intro: "Your first goal is deliberately small: understand what a Python instruction looks like, run it yourself, and change it.",
-    explanation: "Python is a programming language that lets us give a computer instructions in readable code. Your first instruction uses <strong>print()</strong>, a built-in Python tool that displays something as output.",
-    concept: "Code is an instruction. You write the instruction, Python runs it, and you observe the result.",
+    time: "12 minutes",
+    tags: ["First program", "Print text"],
+    intro: "Your first goal is small and important: read one Python instruction, run it yourself, change its message, and see the computer respond.",
+    explanation: "Python is a programming language we can use to give a computer instructions. Your first instruction uses <strong>print()</strong>. It asks Python to display the text written between the quotation marks. You do not need to memorise everything—run it, change it, and let the result teach you.",
+    concept: "Code is an instruction. With print(), you can ask Python to display a message you choose.",
     starterCode: `print("Hello, Python!")
-
-name = "Learner"
-print("Welcome", name)`,
+print("I am ready to learn.")`,
     expectedOutput: `Hello, Python!
-Welcome Learner`,
+I am ready to learn.`,
     lineByLine: [
-      '<code>print("Hello, Python!")</code> asks Python to display the text between the quotation marks.',
-      "The text inside quotation marks is a <strong>string</strong>. A string is how Python represents text.",
-      "When you press <strong>Run Python</strong>, Python follows the instructions from top to bottom and the result appears in the output panel."
+      '<code>print</code> tells Python that you want to display something in the output.',
+      "The parentheses <code>()</code> hold the message that <code>print()</code> should display.",
+      'Quotation marks keep the message together as text, such as <code>"Hello, Python!"</code>.',
+      "When you press <strong>Run Python</strong>, each message appears in the output panel. Nothing is sent anywhere; Python runs here in your browser."
     ],
-    outputExplanation: "Python displays two lines because the program contains two <code>print()</code> instructions. The second line combines the word <code>Welcome</code> with the value named <code>name</code>.",
-    changeIt: "Replace <strong>Learner</strong> with your own name. Then change the first greeting. Run the code again and watch the output change.",
-    challenge: "Add one more line that displays: <strong>I am learning Python.</strong>",
-    hint: "Use <code>print()</code> again and put the sentence inside quotation marks.",
+    outputExplanation: "Python displays two lines because the program contains two <code>print()</code> instructions. The quotation marks and parentheses do not appear in the output—only the messages inside them appear.",
+    changeIt: "Change <code>\"Hello, Python!\"</code> to a greeting of your choice. Then change the second message too. Keep the quotation marks and parentheses, run the program again, and notice that Python displays your words.",
+    challenge: "Add a third <code>print()</code> instruction that displays: <strong>I am learning Python.</strong>",
+    hint: "Copy the shape of an existing instruction: <code>print(\"Your message\")</code>. Give the new message its own line.",
     solution: `print("Hello, Python!")
-
-name = "Learner"
-print("Welcome", name)
+print("I am ready to learn.")
 print("I am learning Python.")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["print", "parentheses", "quoted text", "running code"],
+        previous: [],
+        prohibited: ["comments", "variables", "input", "number operations", "conditions", "loops", "collections", "user-defined functions", "imports"]
+      },
+      activities: [
+        {
+          id: "hello-your-way",
+          stage: "Easy Start · Make It Yours",
+          title: "Hello, Your Way",
+          mission: "Replace the greeting with words of your choice. Keep print(), the parentheses, and both quotation marks.",
+          starterCode: `print("Hello, Python!")`,
+          hint: "Change only the words between the quotation marks, then run the code again.",
+          success: "You changed a Python instruction and made the output use your own words.",
+          check: { minimumPrints: 1, mustChange: true }
+        },
+        {
+          id: "two-friendly-messages",
+          stage: "Easy Start · Make It Yours",
+          title: "Two Friendly Messages",
+          mission: "Change both messages, then run the program so Python displays your two new lines.",
+          starterCode: `print("Welcome!")
+print("You can do this.")`,
+          hint: "There are two pairs of quotation marks. Change the words inside each pair.",
+          success: "Python displayed two messages that you chose.",
+          check: { minimumPrints: 2, mustChange: true }
+        },
+        {
+          id: "add-one-more",
+          stage: "Growing · Build With What You Know",
+          title: "Add One More",
+          mission: "Add a third print() instruction that displays exactly: I did it!",
+          starterCode: `print("My first program")
+print("It is working")`,
+          hint: "Give the new message its own line: print(\"I did it!\")",
+          success: "You added a new instruction and made the program display one more line.",
+          check: { minimumPrints: 3, requiredOutput: ["I did it!"] }
+        },
+        {
+          id: "repair-the-quotes",
+          stage: "Growing · Fix and Learn",
+          title: "Repair the Quotation Mark",
+          mission: "Python will find a small error. Add the missing quotation mark, run again, and make both messages appear.",
+          starterCode: `print("Hello, Python!)
+print("I fixed it!")`,
+          hint: "The first message begins with a quotation mark but does not close with one before the parenthesis.",
+          success: "You read an error, repaired the quotation marks, and ran the program successfully.",
+          check: { minimumPrints: 2, mustChange: true, requiredOutput: ["Hello, Python!", "I fixed it!"] }
+        },
+        {
+          id: "cheer-yourself",
+          stage: "Growing · Make It Yours",
+          title: "A Message for You",
+          mission: "Replace both starter messages with two encouraging sentences you would like to see.",
+          starterCode: `print("Keep trying.")
+print("Small steps matter.")`,
+          hint: "Keep the shape print(\"message\") and change only the message inside.",
+          success: "You used Python to create an encouraging two-line message.",
+          check: { minimumPrints: 2, mustChange: true }
+        },
+        {
+          id: "tiny-poster",
+          stage: "Ready for a Challenge · Build With What You Know",
+          title: "A Tiny Python Poster",
+          mission: "Add one more print() instruction so the poster ends with exactly: Keep going!",
+          starterCode: `print("PYTHON LEARNER")
+print("One step at a time")`,
+          hint: "Add print(\"Keep going!\") on a new line.",
+          success: "You built a complete three-line poster using only your first Python tool.",
+          check: { minimumPrints: 3, requiredOutput: ["Keep going!"] }
+        }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        {
+          id: "third-message-challenge",
+          title: "The Third Message",
+          mission: "Add one print() instruction so the program also displays: I am learning Python.",
+          starterCode: `print("Hello, Python!")
+print("My first program works.")`,
+          hint: "Add a new line using print(\"I am learning Python.\")",
+          solution: `print("Hello, Python!")
+print("My first program works.")
+print("I am learning Python.")`
+        },
+        {
+          id: "welcome-sign-challenge",
+          title: "The Welcome Sign",
+          mission: "Change the two messages and add a third one to create your own three-line welcome sign.",
+          starterCode: `print("WELCOME")
+print("This is Python")`,
+          hint: "Change the quoted text, then add one more complete print() instruction.",
+          solution: `print("WELCOME")
+print("This is my first program")
+print("Come and learn with me")`
+        },
+        {
+          id: "missing-parenthesis-challenge",
+          title: "Close the Instruction",
+          mission: "The second instruction is missing its final parenthesis. Repair it so both messages run.",
+          starterCode: `print("First message")
+print("Second message"`,
+          hint: "A print instruction opens with ( and must also close with ).",
+          solution: `print("First message")
+print("Second message")`
+        },
+        {
+          id: "morning-card-challenge",
+          title: "A Morning Card",
+          mission: "Replace the messages to make a friendly two-line morning card, then add a third line.",
+          starterCode: `print("Good morning")
+print("Welcome")`,
+          hint: "Keep each message inside quotation marks and give every print() instruction its own line.",
+          solution: `print("Good morning")
+print("Today is a fresh start")
+print("Have a wonderful day")`
+        },
+        {
+          id: "punctuation-challenge",
+          title: "Keep the Excitement",
+          mission: "Make both messages exciting by changing their words and keeping punctuation inside the quotation marks.",
+          starterCode: `print("Python is working!")
+print("I wrote this!")`,
+          hint: "Change the text, but keep each ! inside the quotation marks.",
+          solution: `print("My program is working!")
+print("I can write Python!")`
+        },
+        {
+          id: "three-line-card-challenge",
+          title: "My First Code Card",
+          mission: "Turn the two starter messages into a three-line code card that says something about your learning.",
+          starterCode: `print("MY CODE CARD")
+print("I started Python")`,
+          hint: "Change a quoted message if you wish, then add a third print() line.",
+          solution: `print("MY CODE CARD")
+print("I started Python")
+print("I will keep practising")`
+        }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        {
+          id: "print-tool",
+          question: "Which Python tool displays a message as output?",
+          code: "",
+          options: ["input()", "print()", "message()", "show()"],
+          correct: 1,
+          explanation: "Correct — print() displays a message in the output."
+        },
+        {
+          id: "first-output",
+          question: "What will this instruction display?",
+          code: `print("Hello!")`,
+          options: [`print`, `"Hello!"`, `Hello!`, `Nothing`],
+          correct: 2,
+          explanation: "Correct — Python displays the message inside the quotation marks, without displaying the quotation marks."
+        },
+        {
+          id: "quotation-purpose",
+          question: "What do the quotation marks show in this instruction?",
+          code: `print("Welcome")`,
+          options: ["The text to display", "An error", "A button", "The program has ended"],
+          correct: 0,
+          explanation: "Correct — the quotation marks keep the message together as text for print() to display."
+        },
+        {
+          id: "two-instructions",
+          question: "How many output lines will this program display?",
+          code: `print("One")
+print("Two")`,
+          options: ["0", "1", "2", "3"],
+          correct: 2,
+          explanation: "Correct — each print() instruction displays its message on a line."
+        },
+        {
+          id: "complete-instruction",
+          question: "Which line is a complete Python instruction?",
+          code: "",
+          options: [`print("Hello")`, `print"Hello"`, `print("Hello"`, `print(Hello")`],
+          correct: 0,
+          explanation: "Correct — the complete instruction has print, opening and closing parentheses, and matching quotation marks."
+        },
+        {
+          id: "exact-message",
+          question: "Which instruction displays: I can learn Python!",
+          code: "",
+          options: [`print("I can learn Python!")`, `print(I can learn Python!)`, `"I can learn Python!"`, `show("I can learn Python!")`],
+          correct: 0,
+          explanation: "Correct — print() contains the complete message inside matching quotation marks."
+        }
+      ]
+    },
     quiz: {
       question: "Which Python function displays text as output?",
-      options: ["input()", "print()", "text()"],
+      options: ["input()", "print()", "text()", "show()"],
       correct: 1,
       explanation: "Correct — print() displays output."
     }
