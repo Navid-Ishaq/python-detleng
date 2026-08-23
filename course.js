@@ -7,11 +7,16 @@
     completed: "python.detleng.completed",
     current: "python.detleng.current",
     lastVisited: "python.detleng.lastVisited",
-    quiz: "python.detleng.quizSuccess"
+    quiz: "python.detleng.quizSuccess",
+    practice: "python.detleng.practiceProgress"
   };
   let pyodideReady = null;
   let hasRun = false;
   let quizPassed = false;
+  let activePractice = null;
+  let activePracticeIndex = 0;
+  let editorBaseCode = "";
+  let lastRun = null;
 
   function byId(id) { return document.getElementById(id); }
   function completedLessons() {
@@ -40,6 +45,7 @@
     setHtml("lessonConcept", `<strong>Core idea:</strong> ${lesson.concept}`);
     byId("lineByLine").innerHTML = lesson.lineByLine.map((line, index) => `<div class="line"><b>${index + 1}</b><span>${line}</span></div>`).join("");
     byId("code").value = lesson.starterCode;
+    editorBaseCode = lesson.starterCode;
     byId("expectedOutput").textContent = lesson.expectedOutput;
     setHtml("outputExplanation", lesson.outputExplanation);
     setHtml("changeIt", lesson.changeIt);
@@ -50,6 +56,7 @@
     byId("quizCode").textContent = lesson.quiz.code || "";
     byId("quizCode").hidden = !lesson.quiz.code;
     byId("quizOptions").innerHTML = lesson.quiz.options.map((option, index) => `<label><input type="radio" name="quiz" value="${index}"> ${option}</label>`).join("");
+    renderPracticeCoach();
     byId("lessonCount").textContent = `Lesson ${lessonId} of 100 · ${lessonId}%`;
     byId("progressBar").style.width = `${lessonId}%`;
     byId("completeTitle").textContent = `Ready to mark Lesson ${lessonId} complete?`;
@@ -62,6 +69,72 @@
     localStorage.setItem(storageKeys.lastVisited, String(lessonId));
     if (!localStorage.getItem(storageKeys.current)) localStorage.setItem(storageKeys.current, String(lessonId));
     return true;
+  }
+
+  function practiceProgress() {
+    try {
+      const value = JSON.parse(localStorage.getItem(storageKeys.practice) || "{}");
+      return value && typeof value === "object" ? value : {};
+    } catch (_) { return {}; }
+  }
+
+  function completedPracticeIds() {
+    const saved = practiceProgress()[lessonId];
+    return Array.isArray(saved) ? saved : [];
+  }
+
+  function updatePracticeCount(count = completedPracticeIds().length) {
+    byId("practiceCount").textContent = `${count} ${count === 1 ? "practice" : "practices"} complete`;
+  }
+
+  function renderPracticeCoach() {
+    if (!lesson.practiceCoach || !lesson.practiceCoach.activities.length) return;
+    byId("practiceCoach").style.display = "block";
+    byId("challengeNumber").textContent = "6";
+    byId("quizNumber").textContent = "7";
+    const completed = completedPracticeIds();
+    const firstUnseen = lesson.practiceCoach.activities.findIndex(activity => !completed.includes(activity.id));
+    activePracticeIndex = firstUnseen < 0 ? 0 : firstUnseen;
+    showPractice(activePracticeIndex);
+  }
+
+  function showPractice(index) {
+    activePractice = lesson.practiceCoach.activities[index];
+    byId("practiceStage").textContent = activePractice.stage;
+    byId("practiceTitle").textContent = activePractice.title;
+    byId("practiceMission").textContent = activePractice.mission;
+    byId("practiceCode").textContent = activePractice.starterCode;
+    byId("practiceHint").textContent = activePractice.hint;
+    byId("practiceHint").style.display = "none";
+    byId("practiceFeedback").textContent = "";
+    byId("nextPracticeButton").style.display = "none";
+    updatePracticeCount();
+  }
+
+  function assignmentValues(code, name) {
+    const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    const pattern = new RegExp(`^\\s*${escaped}\\s*=\\s*(?:\"([^\"]*)\"|'([^']*)'|(-?\\d+(?:\\.\\d+)?))\\s*(?:#.*)?$`, "gm");
+    const values = [];
+    let match;
+    while ((match = pattern.exec(code))) values.push(match[1] ?? match[2] ?? match[3]);
+    return values;
+  }
+
+  function validatePractice(activity, code, output) {
+    const outputLines = output.split("\n").map(line => line.trim());
+    for (const rule of activity.check.variables) {
+      const values = assignmentValues(code, rule.name);
+      if (values.length < (rule.minimumAssignments || 1)) return `Almost there—give ${rule.name} the value requested in the mission.`;
+      const latest = values[values.length - 1];
+      if (!latest.trim()) return `Give ${rule.name} a value of your choice, then run the program again.`;
+      if (rule.notValues && rule.notValues.includes(latest.trim().toLowerCase())) return `Good start. Now change the value stored in ${rule.name} to make this story yours.`;
+      if (rule.equals !== undefined && latest !== String(rule.equals)) return `Almost there—set ${rule.name} to ${rule.equals}.`;
+      if (rule.distinctValues && new Set(values).size < rule.distinctValues) return `Change ${rule.name} as the story moves forward, then run it again.`;
+      const printPattern = new RegExp(`print\\(\\s*${rule.name}\\s*\\)`, "g");
+      if (rule.minimumPrints && (code.match(printPattern) || []).length < rule.minimumPrints) return `Use print(${rule.name}) so Python can show the remembered value.`;
+      if (rule.minimumPrints && values.some(value => !outputLines.includes(value))) return `Run the program so each value stored in ${rule.name} appears in the output.`;
+    }
+    return "";
   }
 
   async function initPyodide() {
@@ -90,9 +163,11 @@
       await pyodideReady.runPythonAsync(byId("code").value);
       if (!outputBuffer) byId("outputText").textContent = "(No output)";
       hasRun = true;
+      lastRun = { code: byId("code").value, succeeded: true, output: outputBuffer.trimEnd() };
       byId("interactionNote").textContent = "Nice — you ran the code. Change it and run it again to see what changes.";
     } catch (error) {
       hasRun = true;
+      lastRun = { code: byId("code").value, succeeded: false, output: String(error) };
       byId("outputText").textContent = String(error);
       byId("interactionNote").textContent = "An error is useful feedback. Read its last line, check the code, and try again.";
     } finally {
@@ -100,7 +175,11 @@
       button.textContent = "▶ Run Python";
     }
   };
-  window.resetCode = function () { byId("code").value = lesson.starterCode; };
+  window.resetCode = function () {
+    byId("code").value = editorBaseCode;
+    lastRun = null;
+    byId("interactionNote").textContent = activePractice && editorBaseCode === activePractice.starterCode ? "Practice reset. Change the requested values, then run it again." : "Starter code restored. Make a change and run it again.";
+  };
   window.writeOwnCode = function () {
     const editor = byId("code");
     editor.focus();
@@ -136,6 +215,41 @@
     }
   };
   window.clearOutput = function () { byId("outputText").textContent = "Output cleared."; };
+  window.loadPractice = function () {
+    const editor = byId("code");
+    if (editor.value !== editorBaseCode && !window.confirm("Load this practice and replace the code currently in the editor?")) return;
+    editorBaseCode = activePractice.starterCode;
+    editor.value = editorBaseCode;
+    lastRun = null;
+    byId("outputText").textContent = "Practice loaded. Change the code, then press Run Python.";
+    byId("interactionNote").textContent = "This practice is now in the editor. Follow its mission, run it, then choose Check My Work.";
+    editor.focus();
+  };
+  window.showPracticeHint = function () { byId("practiceHint").style.display = "block"; };
+  window.checkPractice = function () {
+    if (!activePractice) return;
+    const code = byId("code").value;
+    const feedback = byId("practiceFeedback");
+    if (editorBaseCode !== activePractice.starterCode) { feedback.textContent = "Choose Try This Practice first so the coach knows which little mission you are working on."; return; }
+    if (!lastRun || lastRun.code !== code) { feedback.textContent = "Run your latest code first, then come back and check your work."; return; }
+    if (!lastRun.succeeded) { feedback.textContent = "Python found something we can fix. Read the last line of the error, make one small change, and run again."; return; }
+    const issue = validatePractice(activePractice, code, lastRun.output);
+    if (issue) { feedback.textContent = issue; return; }
+    const progress = practiceProgress();
+    const completed = new Set(Array.isArray(progress[lessonId]) ? progress[lessonId] : []);
+    completed.add(activePractice.id);
+    progress[lessonId] = Array.from(completed);
+    localStorage.setItem(storageKeys.practice, JSON.stringify(progress));
+    feedback.textContent = `✓ ${activePractice.success}`;
+    updatePracticeCount(completed.size);
+    byId("nextPracticeButton").style.display = "inline-block";
+  };
+  window.nextPractice = function () {
+    const activities = lesson.practiceCoach.activities;
+    activePracticeIndex = (activePracticeIndex + 1) % activities.length;
+    showPractice(activePracticeIndex);
+    byId("practiceCoach").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
   window.toggle = function (id) {
     const element = byId(id);
     element.style.display = element.style.display === "block" ? "none" : "block";

@@ -158,6 +158,140 @@ print(level)
 
 print("LOCATION")
 print(place)`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["variables", "assignment", "reassignment", "meaningful names"],
+        previous: ["print", "top-to-bottom execution", "comments", "quoted text"],
+        prohibited: ["input", "conditions", "loops", "collections", "functions", "f-strings", "imports"]
+      },
+      activities: [
+        {
+          id: "my-profile",
+          stage: "Easy Start · Make It Yours",
+          title: "My Profile",
+          mission: "Load the practice, replace both starter values with a name and city of your choice, then run it and check your work.",
+          starterCode: `name = "Your name"
+city = "Your city"
+
+print("NAME")
+print(name)
+
+print("CITY")
+print(city)`,
+          hint: "Look at the two lines containing =. Change only the text inside quotation marks.",
+          success: "You gave two values meaningful names, and Python used your choices.",
+          check: { variables: [
+            { name: "name", notValues: ["your name"], minimumPrints: 1 },
+            { name: "city", notValues: ["your city"], minimumPrints: 1 }
+          ] }
+        },
+        {
+          id: "favourite-things",
+          stage: "Easy Start · Make It Yours",
+          title: "Favourite Things",
+          mission: "Change the food and colour to two things you like. Leave the variable names in place, run the program, then check it.",
+          starterCode: `favourite_food = "pizza"
+favourite_colour = "yellow"
+
+print("FAVOURITE FOOD")
+print(favourite_food)
+
+print("FAVOURITE COLOUR")
+print(favourite_colour)`,
+          hint: "Change \"pizza\" and \"yellow\" after the = signs. Keep the quotation marks.",
+          success: "Your new values changed the whole little profile without changing its print instructions.",
+          check: { variables: [
+            { name: "favourite_food", notValues: ["pizza"], minimumPrints: 1 },
+            { name: "favourite_colour", notValues: ["yellow"], minimumPrints: 1 }
+          ] }
+        },
+        {
+          id: "weather-story",
+          stage: "Growing · Change the Story",
+          title: "Weather Changes",
+          mission: "Give weather three different values as the day moves forward. Run the program and watch the same variable tell three parts of the story.",
+          starterCode: `weather = "sunny"
+print(weather)
+
+weather = "rainy"
+print(weather)
+
+weather = "windy"
+print(weather)`,
+          hint: "Keep the name weather each time. Change the three values inside quotation marks so all three are different.",
+          success: "The variable name stayed the same while its value changed three times—exactly what reassignment does.",
+          check: { variables: [
+            { name: "weather", minimumAssignments: 3, distinctValues: 3, minimumPrints: 3 }
+          ] }
+        },
+        {
+          id: "pet-profile",
+          stage: "Growing · Build With What You Know",
+          title: "Pet Profile",
+          mission: "Create a pet by changing its name, kind, and age. Run the profile and check that Python remembers all three choices.",
+          starterCode: `pet_name = "Milo"
+pet_kind = "cat"
+pet_age = 2
+
+print("PET")
+print(pet_name)
+print(pet_kind)
+print(pet_age)`,
+          hint: "Change the three values after =. Text keeps quotation marks; the small age number does not need them.",
+          success: "Python remembered three different pieces of information for your pet profile.",
+          check: { variables: [
+            { name: "pet_name", notValues: ["milo"], minimumPrints: 1 },
+            { name: "pet_kind", notValues: ["cat"], minimumPrints: 1 },
+            { name: "pet_age", notValues: ["2"], minimumPrints: 1 }
+          ] }
+        },
+        {
+          id: "visitor-card",
+          stage: "Growing · Change the Story",
+          title: "Visitor Card",
+          mission: "Change the visitor and place. Then give place a second value before its final print so the visitor moves somewhere new.",
+          starterCode: `visitor = "Amina"
+place = "Python Lab"
+
+print(visitor)
+print(place)
+
+place = "Learning Garden"
+print(place)`,
+          hint: "There are two place = lines. Give them different values, and keep both print(place) instructions.",
+          success: "You changed personal data and reassigned place to move the visitor through the story.",
+          check: { variables: [
+            { name: "visitor", notValues: ["amina"], minimumPrints: 1 },
+            { name: "place", minimumAssignments: 2, distinctValues: 2, minimumPrints: 2 }
+          ] }
+        },
+        {
+          id: "player-card",
+          stage: "Ready for a Challenge · Build With What You Know",
+          title: "Player Card",
+          mission: "Change the player and location, and make the player reach level 2. Do not replace the meaningful variable names.",
+          starterCode: `player = "Alex"
+level = 1
+place = "Green Valley"
+
+print("PLAYER")
+print(player)
+
+print("LEVEL")
+print(level)
+
+print("LOCATION")
+print(place)`,
+          hint: "Only the three values near the top need attention. The level must become 2.",
+          success: "You changed the data—not the whole program—and created a new level 2 Player Card.",
+          check: { variables: [
+            { name: "player", notValues: ["alex"], minimumPrints: 1 },
+            { name: "level", equals: 2, minimumPrints: 1 },
+            { name: "place", notValues: ["green valley"], minimumPrints: 1 }
+          ] }
+        }
+      ]
+    },
     quiz: {
       question: "What will this program display?",
       code: `score = 5
