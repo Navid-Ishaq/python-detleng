@@ -417,6 +417,91 @@ print("Reach the Park")`,
         }
       ]
     },
+    freshPracticeGenerator: {
+      templates: [
+        {
+          id: "fresh-three-step-order",
+          skill: "Put It in Order",
+          title: "A Fresh Three-Step Story",
+          mission: "Rearrange the complete print() lines so Python displays this order: {{first}}, {{second}}, {{third}}.",
+          starterCode: `print("{{third}}")\nprint("{{first}}")\nprint("{{second}}")`,
+          hint: "Python starts at the top. Move the line containing '{{first}}' to the top and '{{third}}' to the bottom.",
+          solution: `print("{{first}}")\nprint("{{second}}")\nprint("{{third}}")`,
+          success: "You controlled the story by placing all three instructions in top-to-bottom order.",
+          check: { minimumPrints: 3, mustChange: true, expectedOutput: ["{{first}}", "{{second}}", "{{third}}"] },
+          values: {
+            first: ["Wake up", "Open the curtains", "Get out of bed", "Stretch your arms", "Turn off the alarm", "Put on your slippers"],
+            second: ["Drink some water", "Wash your face", "Get dressed", "Brush your teeth", "Pack your bag", "Eat breakfast"],
+            third: ["Begin the day", "Leave for school", "Walk to the door", "Start learning", "Step outside", "Say good morning"]
+          }
+        },
+        {
+          id: "fresh-missing-middle",
+          skill: "Add the Middle Step",
+          title: "A Fresh Missing Middle",
+          mission: "Add one print() instruction between the existing lines so the output becomes: {{start}}, {{middle}}, {{finish}}.",
+          starterCode: `print("{{start}}")\nprint("{{finish}}")`,
+          hint: "Keep the first and last lines where they are. Add print(\"{{middle}}\") between them.",
+          solution: `print("{{start}}")\nprint("{{middle}}")\nprint("{{finish}}")`,
+          success: "You added the missing instruction exactly where Python needed to run it.",
+          check: { minimumPrints: 3, mustChange: true, expectedOutput: ["{{start}}", "{{middle}}", "{{finish}}"] },
+          values: {
+            start: ["Choose a book", "Open the book", "Find a quiet seat", "Pick a short story", "Turn to page one", "Begin reading"],
+            middle: ["Read one page", "Follow the story", "Read the next part", "Look at the pictures", "Continue reading", "Reach the final page"],
+            finish: ["Close the book", "Return the book", "Finish the story", "Mark your place", "Put the book away", "Think about the story"]
+          }
+        },
+        {
+          id: "fresh-four-step-order",
+          skill: "Follow Four Steps",
+          title: "Four Fresh Instructions",
+          mission: "Put all four print() instructions into this order: {{one}}, {{two}}, {{three}}, {{four}}.",
+          starterCode: `print("{{four}}")\nprint("{{two}}")\nprint("{{one}}")\nprint("{{three}}")`,
+          hint: "Find '{{one}}' first. Python will then move downward through the remaining three lines.",
+          solution: `print("{{one}}")\nprint("{{two}}")\nprint("{{three}}")\nprint("{{four}}")`,
+          success: "Python followed your four instructions in exactly the order you predicted.",
+          check: { minimumPrints: 4, mustChange: true, expectedOutput: ["{{one}}", "{{two}}", "{{three}}", "{{four}}"] },
+          values: {
+            one: ["Take a clean cup", "Choose your cup", "Place a cup on the table", "Find an empty cup", "Pick up a cup", "Set out a cup"],
+            two: ["Pour in some water", "Add some juice", "Pour in some milk", "Fill it with water", "Add your drink", "Pour carefully"],
+            three: ["Take a small drink", "Taste the drink", "Enjoy your drink", "Take the first sip", "Drink slowly", "Finish the drink"],
+            four: ["Put the cup away", "Wash the cup", "Return the cup", "Leave the cup by the sink", "Place the cup down", "Clean the cup"]
+          }
+        },
+        {
+          id: "fresh-first-line",
+          skill: "Choose What Runs First",
+          title: "Move the First Message",
+          mission: "Move the complete print() lines so '{{first}}' appears first, followed by '{{second}}' and '{{third}}'.",
+          starterCode: `print("{{second}}")\nprint("{{third}}")\nprint("{{first}}")`,
+          hint: "Move the final complete line to the top. Do not change the words inside the quotation marks.",
+          solution: `print("{{first}}")\nprint("{{second}}")\nprint("{{third}}")`,
+          success: "You changed which message appeared first by moving one complete instruction.",
+          check: { minimumPrints: 3, mustChange: true, expectedOutput: ["{{first}}", "{{second}}", "{{third}}"] },
+          values: {
+            first: ["FIRST", "Step one", "Begin here", "Starting message", "First instruction", "The program begins"],
+            second: ["SECOND", "Step two", "Continue here", "Middle message", "Second instruction", "The program continues"],
+            third: ["THIRD", "Step three", "Finish here", "Final message", "Third instruction", "The program ends"]
+          }
+        },
+        {
+          id: "fresh-predict-order",
+          skill: "Predict and Arrange",
+          title: "A Fresh Output Prediction",
+          mission: "Before running, predict the output. Then rearrange the lines so Python displays: {{top}}, {{middle}}, {{bottom}}.",
+          starterCode: `print("{{middle}}")\nprint("{{bottom}}")\nprint("{{top}}")`,
+          hint: "The output follows the same top-to-bottom order as the print() lines in the editor.",
+          solution: `print("{{top}}")\nprint("{{middle}}")\nprint("{{bottom}}")`,
+          success: "Your prediction matched the top-to-bottom order you created.",
+          check: { minimumPrints: 3, mustChange: true, expectedOutput: ["{{top}}", "{{middle}}", "{{bottom}}"] },
+          values: {
+            top: ["Top shelf", "Top row", "Highest step", "Upper box", "Top position", "First level"],
+            middle: ["Middle shelf", "Middle row", "Centre step", "Middle box", "Centre position", "Second level"],
+            bottom: ["Bottom shelf", "Bottom row", "Lowest step", "Lower box", "Bottom position", "Third level"]
+          }
+        }
+      ]
+    },
     challengeGenerator: {
       activities: [
         {
