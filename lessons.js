@@ -522,6 +522,226 @@ print("Starting program")
 
 # Show that the program has finished
 print("Program finished")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["comments with #", "commenting out code", "inline comments", "readable formatting"],
+        previous: ["print()", "quoted text", "top-to-bottom execution", "predicting output"],
+        prohibited: ["variables", "input", "number operations", "conditions", "loops", "collections", "user-defined functions", "imports"]
+      },
+      activities: [
+        {
+          id: "change-the-note",
+          stage: "Easy Start · See What Python Ignores",
+          title: "Change the Note",
+          mission: "Replace the opening comment with your own useful note. Run the program and notice that its output stays exactly the same.",
+          starterCode: `# Display a friendly greeting
+print("Hello, learner!")`,
+          hint: "Change only the words after #. Keep the print() instruction unchanged.",
+          success: "You changed a note for humans without changing what Python displayed.",
+          check: { minimumComments: 1, mustChange: true, expectedOutput: ["Hello, learner!"] }
+        },
+        {
+          id: "quiet-middle-line",
+          stage: "Easy Start · Comment Out Code",
+          title: "Make One Line Quiet",
+          mission: "Temporarily stop the middle message by placing # at the beginning of its print() line. Do not delete it.",
+          starterCode: `print("First message")
+print("Pause this message")
+print("Final message")`,
+          hint: "Turn the middle line into: # print(\"Pause this message\")",
+          success: "You commented out one instruction, and Python skipped it without losing the code.",
+          check: { mustChange: true, minimumComments: 1, commentedCode: [`print("Pause this message")`], expectedOutput: ["First message", "Final message"] }
+        },
+        {
+          id: "two-helpful-signposts",
+          stage: "Growing · Explain the Story",
+          title: "Add Helpful Signposts",
+          mission: "Add one useful comment before the first message and another before the last message. Keep all three messages running in the same order.",
+          starterCode: `print("Open the book")
+print("Read one page")
+print("Close the book")`,
+          hint: "Add a # note on its own line above the first print() and another above the final print().",
+          success: "You added human-friendly signposts without changing the program's behaviour.",
+          check: { mustChange: true, minimumComments: 2, expectedOutput: ["Open the book", "Read one page", "Close the book"] }
+        },
+        {
+          id: "repair-the-comment",
+          stage: "Growing · Fix and Learn",
+          title: "Repair the Comment",
+          mission: "This human note is missing #, so Python sees an error. Add #, run again, and make the message appear.",
+          starterCode: `Display the welcome message
+print("Welcome!")`,
+          hint: "A Python comment must begin with #: # Display the welcome message",
+          success: "You turned plain words into a valid Python comment and repaired the program.",
+          check: { mustChange: true, minimumComments: 1, expectedOutput: ["Welcome!"] }
+        },
+        {
+          id: "clean-the-spacing",
+          stage: "Growing · Make It Readable",
+          title: "Clean the Little Program",
+          mission: "Remove the unnecessary spaces and improve the comment. Keep the three output messages unchanged and in order.",
+          starterCode: `#messages
+print(  "Ready"  )
+print( "Set" )
+print(   "Go!"   )`,
+          hint: "Use the clean shape print(\"message\") and make the # note explain the group of messages.",
+          success: "Your cleaner formatting is easier for a human to scan and still works the same way.",
+          check: { mustChange: true, minimumComments: 1, expectedOutput: ["Ready", "Set", "Go!"] }
+        },
+        {
+          id: "predict-the-silent-line",
+          stage: "Ready for a Challenge · Predict and Test",
+          title: "Choose the Silent Step",
+          mission: "Before running, predict the output. Then comment out only the line that displays Pack the bag and confirm the remaining steps stay in order.",
+          starterCode: `# Morning steps
+print("Wake up")
+print("Pack the bag")
+print("Leave home")`,
+          hint: "Put # immediately before the second print() instruction. Leave the opening comment as it is.",
+          success: "You predicted and tested how one commented instruction changes a top-to-bottom program.",
+          check: { mustChange: true, minimumComments: 2, commentedCode: [`print("Pack the bag")`], expectedOutput: ["Wake up", "Leave home"] }
+        }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        {
+          id: "program-status-challenge",
+          title: "Program Status",
+          mission: "Add a useful opening comment and a useful comment before the final message. Comment out the middle instruction without deleting it.",
+          starterCode: `print("Starting program")
+print("Checking information")
+print("Program finished")`,
+          hint: "Use three # symbols: two for notes and one before the middle print() instruction.",
+          solution: `# Start the program
+print("Starting program")
+
+# print("Checking information")
+
+# Show that the program has finished
+print("Program finished")`
+        },
+        {
+          id: "recipe-step-challenge",
+          title: "The Recipe Step",
+          mission: "Add a comment that explains this tiny recipe, then temporarily comment out Wash the cup. The other steps must keep their order.",
+          starterCode: `print("Choose a cup")
+print("Wash the cup")
+print("Pour the juice")`,
+          hint: "Add a # note above the steps, then add # before the second print() line.",
+          solution: `# Prepare a drink
+print("Choose a cup")
+# print("Wash the cup")
+print("Pour the juice")`
+        },
+        {
+          id: "repair-human-note-challenge",
+          title: "A Note Python Understands",
+          mission: "Repair the first line so Python treats it as a comment and the two messages run successfully.",
+          starterCode: `Show two travel messages
+print("Ticket ready")
+print("Time to go")`,
+          hint: "Place # and one space before the words on the first line.",
+          solution: `# Show two travel messages
+print("Ticket ready")
+print("Time to go")`
+        },
+        {
+          id: "clean-countdown-challenge",
+          title: "A Readable Countdown",
+          mission: "Clean the unnecessary spaces and replace the vague comment with a useful one. Do not change the output.",
+          starterCode: `#numbers
+print(  "Three" )
+print( "Two"   )
+print(   "One" )`,
+          hint: "Use print(\"message\") consistently and let the comment explain that this is a countdown.",
+          solution: `# Display a short countdown
+print("Three")
+print("Two")
+print("One")`
+        },
+        {
+          id: "inline-comment-challenge",
+          title: "One Helpful Inline Note",
+          mission: "Add a short inline comment after the first instruction to explain that it displays the heading. Keep both messages running.",
+          starterCode: `print("TODAY")
+print("Keep learning")`,
+          hint: "After the closing parenthesis on the first line, add two spaces, #, and your note.",
+          solution: `print("TODAY")  # Display the heading
+print("Keep learning")`
+        },
+        {
+          id: "weekend-plan-challenge",
+          title: "The Weekend Plan",
+          mission: "Add useful comments to separate the beginning and end. Temporarily comment out Buy snacks, but keep the other two messages running.",
+          starterCode: `print("Choose a film")
+print("Buy snacks")
+print("Enjoy the evening")`,
+          hint: "Use notes above the first and last instructions, and place # before the middle instruction.",
+          solution: `# Begin the evening plan
+print("Choose a film")
+
+# print("Buy snacks")
+
+# Finish the evening plan
+print("Enjoy the evening")`
+        }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        {
+          id: "comment-symbol",
+          question: "Which symbol begins a Python comment?",
+          code: "",
+          options: ["//", "#", "<!--", "*"],
+          correct: 1,
+          explanation: "Correct — # begins a Python comment that continues to the end of that line."
+        },
+        {
+          id: "ignored-first-line",
+          question: "What will this program display?",
+          code: `# print("First")
+print("Second")`,
+          options: ["First, then Second", "Second", "First", "Nothing"],
+          correct: 1,
+          explanation: "Correct — the first instruction is commented out, so Python displays only Second."
+        },
+        {
+          id: "changed-comment-output",
+          question: "If you change only the words in this comment, what happens to the output?",
+          code: `# Display a greeting
+print("Hello")`,
+          options: ["The output stays Hello", "Python displays the new comment", "The program always stops", "Hello disappears"],
+          correct: 0,
+          explanation: "Correct — changing a comment does not change the output because Python ignores the comment."
+        },
+        {
+          id: "inline-comment",
+          question: "What does Python display from this line?",
+          code: `print("Ready")  # Display the status`,
+          options: ["Ready", "Display the status", "Ready # Display the status", "Nothing"],
+          correct: 0,
+          explanation: "Correct — Python runs the instruction before # and ignores the inline comment after it."
+        },
+        {
+          id: "useful-comment",
+          question: "Which comment adds more useful context?",
+          code: `print("Hello")`,
+          options: ["# Print Hello", "# Show the welcome message when the program starts", "# Code", "# print"],
+          correct: 1,
+          explanation: "Correct — the better comment explains why the message exists instead of merely repeating the code."
+        },
+        {
+          id: "readable-version",
+          question: "Which version is easiest for a person to read?",
+          code: "",
+          options: [`# Display two messages\nprint("Hello")\nprint("Python")`, `#messages\nprint(  "Hello" )\nprint( "Python"    )`, `print("Hello");print("Python")`, `# Print Hello\nprint("Hello")# Print Python\nprint("Python")`],
+          correct: 0,
+          explanation: "Correct — consistent spacing and one useful comment make the first version clear without adding clutter."
+        }
+      ]
+    },
     quiz: {
       question: "What will this program display?",
       code: `# print("First")

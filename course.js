@@ -162,6 +162,16 @@
 
   function validatePractice(activity, code, output) {
     const outputLines = output.split("\n").map(line => line.trim());
+    const commentLines = code.split("\n").filter(line => /^\s*#/.test(line));
+    if (activity.check.minimumComments && commentLines.length < activity.check.minimumComments) {
+      return `Add ${activity.check.minimumComments - commentLines.length} more useful ${activity.check.minimumComments - commentLines.length === 1 ? "comment" : "comments"}, then run the program again.`;
+    }
+    for (const text of activity.check.commentedCode || []) {
+      const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      if (!new RegExp(`^\\s*#\\s*${escaped}\\s*$`, "m").test(code)) {
+        return `Place # before ${text} so Python temporarily ignores that instruction.`;
+      }
+    }
     if (activity.check.minimumPrints) {
       const printCount = (code.match(/\bprint\s*\(/g) || []).length;
       if (printCount < activity.check.minimumPrints) return `Add ${activity.check.minimumPrints - printCount} more print() ${activity.check.minimumPrints - printCount === 1 ? "instruction" : "instructions"}, then run the program again.`;
