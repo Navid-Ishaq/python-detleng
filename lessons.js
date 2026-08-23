@@ -70,5 +70,48 @@ print("B")`,
       correct: 0,
       explanation: "Correct — Python starts with the first instruction, so A appears before B."
     }
+  },
+  3: {
+    title: "Comments & Code Readability",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "12 minutes",
+    tags: ["Comments", "Readable code"],
+    intro: "Comments are notes for humans. You will see Python ignore a comment, then use a comment to temporarily stop one line of code.",
+    explanation: "A <strong>comment</strong> is a note inside your code that helps a person understand it. In Python, a comment begins with <code>#</code>. Python ignores everything after <code>#</code> on that line and runs only the instructions that are not comments.",
+    concept: "Comments begin with #. Python does not execute them, but they can make a program easier for humans to understand.",
+    starterCode: `# My first readable program
+print("Welcome to Python")
+
+# Another message
+print("I can read this code")`,
+    expectedOutput: `Welcome to Python
+I can read this code`,
+    lineByLine: [
+      '<code># My first readable program</code> is a note for the person reading the code. Python ignores it.',
+      '<code>print("Welcome to Python")</code> is an instruction, so Python displays its message.',
+      "The blank line separates two small ideas. It does not produce output.",
+      '<code># Another message</code> explains why the next instruction is there, and Python ignores this comment too.',
+      "Consistent spacing and useful comments make code easier to scan. Avoid comments that merely repeat an obvious instruction."
+    ],
+    outputExplanation: "Only the two <code>print()</code> instructions appear in the output. The comments are visible to you in the editor, but Python does not display or execute them. A comment may also appear after code, such as <code>print(\"Hello\")  # Display a greeting</code>.",
+    changeIt: "First, change the opening comment to <code># This program prints two messages</code> and run the code. The output stays the same because Python ignores comments.<br><br>Next, place <code>#</code> before <code>print(\"Welcome to Python\")</code> and run again. That instruction is now <strong>commented out</strong>, so only the second message appears.",
+    challenge: "Make the program below easier to understand without changing the words inside its messages. Add a useful comment before the first line and another before the final line. Then comment out the middle <code>print()</code> instruction so it does not run:<br><br><code>print(\"Starting program\")</code><br><code>print(\"Checking information\")</code><br><code>print(\"Program finished\")</code>",
+    hint: "A comment begins with <code>#</code>. To temporarily stop an instruction from running, place <code>#</code> at the beginning of that line.",
+    solution: `# Start the program
+print("Starting program")
+
+# print("Checking information")
+
+# Show that the program has finished
+print("Program finished")`,
+    quiz: {
+      question: "What will this program display?",
+      code: `# print("First")
+print("Second")`,
+      options: ["First, then Second", "Second", "First", "Nothing"],
+      correct: 1,
+      explanation: "Correct — the first line is a comment, so Python runs only the second line and displays Second."
+    }
   }
 };
