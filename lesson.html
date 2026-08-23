@@ -29,6 +29,9 @@
 .practice-intro,.practice-mission{font-size:16px;line-height:1.72}.practice-count{font-size:12px}.practice-stage{font-size:11px}.practice-card h3,.challenge-name{font-size:27px}.practice-code,.challenge-code{font-size:15px;line-height:1.7}.practice-actions button,.challenge-actions button,.quiz-actions button{min-height:44px;padding:10px 15px;font-size:13px}.practice-feedback,.practice-help{font-size:15px;line-height:1.65}.note{padding:16px 18px;font-size:14.5px;line-height:1.7}.expected{padding:16px 18px}.expected small{font-size:11px}.expected pre,.quiz pre{font-size:14.5px;line-height:1.7}
 @media(max-width:950px){.lesson-grid{grid-template-columns:1fr}.top-inner{grid-template-columns:1fr auto}.top small,.progress{display:none}}
 @media(max-width:520px){.hero{padding:46px 0 30px}.hero p{font-size:17px}.learn,.challenge,.quiz,.explain,.practice-coach{padding:21px}.learn h2,.challenge h2,.quiz h2,.explain h2,.practice-coach h2{font-size:32px}.subheading{font-size:26px!important}.practice-top{flex-direction:column}.practice-actions button,.challenge-actions button,.quiz-actions button{width:100%;font-size:14px}.practice-card{padding:15px}.practice-code,.challenge-code{font-size:14px;overflow-wrap:anywhere}.lab textarea{font-size:15px}.line span{font-size:15px}.complete{align-items:flex-start;flex-direction:column}.complete button{width:100%}}
+.fresh-practice{display:none;margin-top:16px;padding:18px;border:1px dashed rgba(17,43,42,.28);border-radius:18px;background:linear-gradient(135deg,#fff,#eefcff)}
+.fresh-practice strong{display:block;font-family:Georgia,serif;font-size:25px;font-weight:500;margin-bottom:5px}.fresh-practice p{margin:0 0 12px;font-size:15px;line-height:1.65;color:#5f716d}.fresh-practice button{min-height:44px;border:0;border-radius:999px;padding:10px 15px;background:var(--ink);color:white;font-size:13px;font-weight:950}.fresh-count{display:inline-block;margin-left:9px;font-size:12px;font-weight:850;color:#39786e}
+@media(max-width:520px){.fresh-practice button{width:100%}.fresh-count{display:block;margin:10px 0 0;text-align:center}}
 </style>
 </head>
 <body>
@@ -99,6 +102,12 @@
         </div>
         <div class="practice-help" id="practiceHint"></div>
         <div class="practice-feedback" id="practiceFeedback" aria-live="polite"></div>
+      </div>
+      <div class="fresh-practice" id="freshPractice">
+        <strong>Want to keep practising?</strong>
+        <p>Get a fresh activity made from only what you have learned so far.</p>
+        <button onclick="generateFreshPractice()">∞ Give Me Fresh Practice</button>
+        <span class="fresh-count" id="freshPracticeCount">0 fresh practices completed</span>
       </div>
     </section>
 

@@ -1287,6 +1287,19 @@ print(score)`,
         }
       ]
     },
+    freshPracticeGenerator: {
+      scenarios: [
+        { id: "fruit-total", skill: "Addition", title: "A Fresh Fruit Total", mission: "A basket contains apples and oranges. Use addition to find all the fruit.", leftName: "apples", rightName: "oranges", targetName: "total_fruit", operator: "+", numberType: "integer", minimum: 1, maximum: 40, hint: "Keep total_fruit = apples + oranges. Change only the two whole-number values first.", success: "You created and checked a fresh addition calculation." },
+        { id: "game-score", skill: "Addition", title: "A New Game Score", mission: "A player earns a bonus. Add it to the starting score.", leftName: "starting_score", rightName: "bonus", targetName: "final_score", operator: "+", numberType: "integer", minimum: 1, maximum: 100, hint: "Use + between starting_score and bonus.", success: "You calculated a new game score with values you chose." },
+        { id: "cafe-total", skill: "Float Addition", title: "A Fresh Café Order", mission: "Add the prices of a drink and a snack.", leftName: "drink_price", rightName: "snack_price", targetName: "total_price", operator: "+", numberType: "float", minimum: 1, maximum: 15, hint: "Keep the decimal points and use + to calculate total_price.", success: "You added two float prices and checked the café total." },
+        { id: "points-left", skill: "Subtraction", title: "Points Left", mission: "Some points were used. Subtract them from the starting amount.", leftName: "points", rightName: "used", targetName: "remaining", operator: "-", numberType: "integer", minimum: 1, maximum: 100, hint: "Use remaining = points - used. Keep the starting amount larger.", success: "You found a fresh remaining amount with subtraction." },
+        { id: "seats-left", skill: "Subtraction", title: "Seats Still Free", mission: "Subtract the occupied seats from all available seats.", leftName: "total_seats", rightName: "occupied_seats", targetName: "free_seats", operator: "-", numberType: "integer", minimum: 5, maximum: 120, hint: "Keep free_seats = total_seats - occupied_seats.", success: "You calculated how many seats are still free." },
+        { id: "pencil-boxes", skill: "Multiplication", title: "New Pencil Boxes", mission: "Every box contains the same number of pencils. Find the complete number of pencils.", leftName: "boxes", rightName: "pencils_each", targetName: "total_pencils", operator: "*", numberType: "integer", minimum: 2, maximum: 15, hint: "Python uses * for multiplication.", success: "You multiplied equal groups and checked the total." },
+        { id: "reading-plan", skill: "Multiplication", title: "A Fresh Reading Plan", mission: "Multiply the number of days by the pages read each day.", leftName: "days", rightName: "pages_each_day", targetName: "total_pages", operator: "*", numberType: "integer", minimum: 2, maximum: 20, hint: "Keep total_pages = days * pages_each_day.", success: "You built and checked a new reading calculation." },
+        { id: "share-coins", skill: "Division", title: "Share New Treasure", mission: "Share all the coins equally between the players.", leftName: "coins", rightName: "players", targetName: "coins_each", operator: "/", rightMinimum: 2, rightMaximum: 10, quotientMinimum: 2, quotientMaximum: 20, hint: "Use coins_each = coins / players. The starter values divide evenly.", success: "You divided a fresh treasure into equal shares." },
+        { id: "share-slices", skill: "Division", title: "Share Fresh Slices", mission: "Share the slices equally between the friends.", leftName: "slices", rightName: "friends", targetName: "slices_each", operator: "/", rightMinimum: 2, rightMaximum: 10, quotientMinimum: 2, quotientMaximum: 12, hint: "Keep slices_each = slices / friends. The starter values divide evenly.", success: "You used division to calculate a new equal share." }
+      ]
+    },
     challengeGenerator: {
       activities: [
         {

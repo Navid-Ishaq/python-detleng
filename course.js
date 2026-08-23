@@ -8,7 +8,8 @@
     current: "python.detleng.current",
     lastVisited: "python.detleng.lastVisited",
     quiz: "python.detleng.quizSuccess",
-    practice: "python.detleng.practiceProgress"
+    practice: "python.detleng.practiceProgress",
+    freshPractice: "python.detleng.freshPractice"
   };
   let pyodideReady = null;
   let hasRun = false;
@@ -93,6 +94,95 @@
     byId("practiceCount").textContent = `${count} ${count === 1 ? "practice" : "practices"} complete`;
   }
 
+  function freshPracticeProgress() {
+    try {
+      const value = JSON.parse(localStorage.getItem(storageKeys.freshPractice) || "{}");
+      return value && typeof value === "object" ? value : {};
+    } catch (_) { return {}; }
+  }
+
+  function freshLessonProgress() {
+    const saved = freshPracticeProgress()[lessonId];
+    return saved && typeof saved === "object" ? saved : { counter: 0, completed: 0, seen: [] };
+  }
+
+  function saveFreshLessonProgress(saved) {
+    const progress = freshPracticeProgress();
+    progress[lessonId] = { counter: saved.counter || 0, completed: saved.completed || 0, seen: (saved.seen || []).slice(-300) };
+    localStorage.setItem(storageKeys.freshPractice, JSON.stringify(progress));
+  }
+
+  function updateFreshPracticeCount() {
+    const count = freshLessonProgress().completed || 0;
+    byId("freshPracticeCount").textContent = `${count} fresh ${count === 1 ? "practice" : "practices"} completed`;
+  }
+
+  function randomInteger(minimum, maximum) {
+    const range = maximum - minimum + 1;
+    if (window.crypto && window.crypto.getRandomValues) {
+      const value = new Uint32Array(1);
+      window.crypto.getRandomValues(value);
+      return minimum + (value[0] % range);
+    }
+    return minimum + Math.floor(Math.random() * range);
+  }
+
+  function generatedNumber(specification) {
+    if (specification.numberType === "float") {
+      let quarters = randomInteger(specification.minimum * 4, specification.maximum * 4);
+      if (quarters % 4 === 0) quarters += quarters === specification.maximum * 4 ? -1 : 1;
+      return quarters / 4;
+    }
+    return randomInteger(specification.minimum, specification.maximum);
+  }
+
+  function createFreshPractice() {
+    const generator = lesson.freshPracticeGenerator;
+    const saved = freshLessonProgress();
+    const recent = new Set(saved.seen || []);
+    for (let attempt = 0; attempt < 80; attempt += 1) {
+      const scenario = generator.scenarios[randomInteger(0, generator.scenarios.length - 1)];
+      let left;
+      let right;
+      if (scenario.operator === "/") {
+        right = randomInteger(scenario.rightMinimum, scenario.rightMaximum);
+        left = right * randomInteger(scenario.quotientMinimum, scenario.quotientMaximum);
+      } else {
+        left = generatedNumber(scenario);
+        right = generatedNumber(scenario);
+        if (scenario.operator === "-" && right > left) [left, right] = [right, left];
+      }
+      const signature = `${scenario.id}:${left}:${right}`;
+      if (recent.has(signature)) continue;
+      const starterCode = `${scenario.leftName} = ${left}\n${scenario.rightName} = ${right}\n\n${scenario.targetName} = ${scenario.leftName} ${scenario.operator} ${scenario.rightName}\nprint(${scenario.targetName})`;
+      const generated = {
+        id: `fresh-${lessonId}-${saved.counter + 1}`,
+        generated: true,
+        freshCompleted: false,
+        signature,
+        stage: `Fresh Practice · ${scenario.skill}`,
+        title: scenario.title,
+        mission: `${scenario.mission} Change both starter numbers, predict the answer, then run and check your work.`,
+        starterCode,
+        hint: scenario.hint,
+        success: scenario.success,
+        check: {
+          mustChange: true,
+          variables: [
+            { name: scenario.leftName, notValues: [String(left)] },
+            { name: scenario.rightName, notValues: [String(right)] }
+          ],
+          calculation: { target: scenario.targetName, left: scenario.leftName, operator: scenario.operator, right: scenario.rightName }
+        }
+      };
+      saved.counter += 1;
+      saved.seen = [...(saved.seen || []), signature];
+      saveFreshLessonProgress(saved);
+      return generated;
+    }
+    return null;
+  }
+
   function renderPracticeCoach() {
     if (!lesson.practiceCoach || !lesson.practiceCoach.activities.length) return;
     byId("practiceCoach").style.display = "block";
@@ -102,6 +192,10 @@
     const firstUnseen = lesson.practiceCoach.activities.findIndex(activity => !completed.includes(activity.id));
     activePracticeIndex = firstUnseen < 0 ? 0 : firstUnseen;
     showPractice(activePracticeIndex);
+    if (lesson.freshPracticeGenerator && lesson.freshPracticeGenerator.scenarios.length) {
+      byId("freshPractice").style.display = "block";
+      updateFreshPracticeCount();
+    }
   }
 
   function showPractice(index) {
@@ -313,6 +407,17 @@
     if (activePractice.check.mustChange && code.trim() === activePractice.starterCode.trim()) { feedback.textContent = "Good first run. Now make the change in the mission, run it again, and check your work."; return; }
     const issue = validatePractice(activePractice, code, lastRun.output);
     if (issue) { feedback.textContent = issue; return; }
+    if (activePractice.generated) {
+      if (!activePractice.freshCompleted) {
+        const saved = freshLessonProgress();
+        saved.completed = (saved.completed || 0) + 1;
+        saveFreshLessonProgress(saved);
+        activePractice.freshCompleted = true;
+        updateFreshPracticeCount();
+      }
+      feedback.textContent = `✓ ${activePractice.success}`;
+      return;
+    }
     const progress = practiceProgress();
     const completed = new Set(Array.isArray(progress[lessonId]) ? progress[lessonId] : []);
     completed.add(activePractice.id);
@@ -325,6 +430,22 @@
     const activities = lesson.practiceCoach.activities;
     activePracticeIndex = (activePracticeIndex + 1) % activities.length;
     showPractice(activePracticeIndex);
+    byId("practiceCoach").scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+  window.generateFreshPractice = function () {
+    const generated = createFreshPractice();
+    if (!generated) {
+      byId("practiceFeedback").textContent = "You have explored many combinations. Try the button once more for a new set of values.";
+      return;
+    }
+    activePractice = generated;
+    byId("practiceStage").textContent = generated.stage;
+    byId("practiceTitle").textContent = generated.title;
+    byId("practiceMission").textContent = generated.mission;
+    byId("practiceCode").textContent = generated.starterCode;
+    byId("practiceHint").textContent = generated.hint;
+    byId("practiceHint").style.display = "none";
+    byId("practiceFeedback").textContent = "Fresh practice ready. Predict first, then choose Try This Practice.";
     byId("practiceCoach").scrollIntoView({ behavior: "smooth", block: "start" });
   };
   window.nextChallenge = function () {
