@@ -1,0 +1,286 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Learn Python by Running Python · DeTLeng</title>
+  <meta name="description" content="100 interactive Python lessons. Read less. Run more. Start with print('Hello') and finish by building a real application.">
+  <meta name="theme-color" content="#fffaf0">
+  <link rel="canonical" href="https://python.detleng.com/">
+  <meta property="og:title" content="Learn Python by Running Python · DeTLeng">
+  <meta property="og:description" content="100 lessons. One working lab. Learn Python interactively in your browser.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://python.detleng.com/">
+  <style>
+    :root{
+      --ink:#112b2a;
+      --ink2:#173a38;
+      --paper:#fffaf0;
+      --white:#fff;
+      --line:rgba(17,43,42,.12);
+      --muted:#677875;
+      --yellow:#ffd85e;
+      --yellow2:#fff0aa;
+      --cyan:#9fe9f0;
+      --mint:#bcefd0;
+      --coral:#ff7a62;
+      --violet:#d7c8ff;
+      --blue:#93b6ff;
+      --lime:#d6ff74;
+      --shadow:0 28px 90px rgba(30,61,58,.14);
+      --shadow2:0 15px 42px rgba(30,61,58,.10);
+      --shell:min(1320px,calc(100vw - 40px));
+      --ease:cubic-bezier(.2,.8,.2,1);
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:
+        radial-gradient(circle at 6% 0%,rgba(159,233,240,.36),transparent 24%),
+        radial-gradient(circle at 95% 4%,rgba(255,216,94,.35),transparent 24%),
+        var(--paper);
+      color:var(--ink);
+      font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+      -webkit-font-smoothing:antialiased;
+      overflow-x:hidden;
+    }
+    a{color:inherit}
+    button{font:inherit;cursor:pointer}
+    .shell{width:var(--shell);margin-inline:auto}
+    ::selection{background:var(--yellow);color:var(--ink)}
+    .skip{position:fixed;top:10px;left:10px;z-index:9999;background:white;border-radius:999px;padding:10px 14px;transform:translateY(-160%)}.skip:focus{transform:none}
+    .grain{position:fixed;inset:0;pointer-events:none;z-index:99;opacity:.025;background-image:url("data:image/svg+xml,%3Csvg viewBox='0 0 160 160' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='.7'/%3E%3C/svg%3E")}
+    h1,h2,h3,p{margin-top:0}
+    .eyebrow,.kicker{display:flex;align-items:center;gap:10px;font-size:9px;font-weight:950;letter-spacing:.18em;text-transform:uppercase;color:#33786e}
+    .eyebrow::before,.kicker::before{content:"";width:28px;height:1px;background:currentColor}
+    .section-title{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(52px,5.8vw,82px);line-height:.94;letter-spacing:-.058em;margin-bottom:18px}
+    .section-lede{max-width:760px;color:var(--muted);font-size:17px;line-height:1.7}
+    .btn{min-height:54px;padding:0 22px;border-radius:999px;border:1px solid transparent;text-decoration:none;display:inline-flex;align-items:center;justify-content:center;gap:10px;font-size:12px;font-weight:950;transition:.25s var(--ease)}
+    .btn-dark{background:var(--ink);color:white}.btn-dark:hover{background:#1b403e;transform:translateY(-2px)}
+    .btn-light{background:white;border-color:var(--line)}.btn-light:hover{transform:translateY(-2px);box-shadow:var(--shadow2)}
+    .arrow{transition:.2s}.btn:hover .arrow{transform:translateX(4px)}
+    .reveal{opacity:0;transform:translateY(18px);transition:opacity .7s var(--ease),transform .7s var(--ease)}
+    .reveal.visible{opacity:1;transform:none}
+
+    /* NAV */
+    .nav-wrap{position:fixed;top:15px;left:0;right:0;z-index:80;pointer-events:none}
+    .nav{pointer-events:auto;width:min(1220px,calc(100vw - 26px));height:68px;margin:auto;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px;padding:0 12px 0 16px;border-radius:999px;background:rgba(255,255,255,.88);border:1px solid rgba(17,43,42,.10);backdrop-filter:blur(24px);box-shadow:0 15px 45px rgba(38,65,62,.10)}
+    .brand{display:flex;align-items:center;gap:11px;text-decoration:none}
+    .brand-mark{width:44px;height:44px;border-radius:14px;background:var(--ink);display:grid;place-items:center;position:relative;overflow:hidden}
+    .brand-mark::before{content:"Py";color:var(--yellow);font-size:15px;font-weight:950;letter-spacing:-.04em}
+    .brand-mark::after{content:"";position:absolute;width:10px;height:10px;border-radius:4px;background:var(--cyan);right:5px;bottom:5px}
+    .brand-copy{display:flex;flex-direction:column;line-height:1}.brand-copy strong{font-size:13px}.brand-copy span{font-size:8px;letter-spacing:.17em;text-transform:uppercase;color:#74827f;font-weight:850;margin-top:5px}
+    .nav-links{justify-self:end;display:flex;align-items:center;gap:22px}.nav-links a{text-decoration:none;font-size:11px;color:#566965;font-weight:780}.nav-links a:hover{color:var(--ink)}
+    .nav-cta{padding:13px 17px;border-radius:999px;background:var(--ink);color:white;text-decoration:none;font-size:11px;font-weight:950}
+    .menu{display:none;border:0;background:none;padding:9px}.menu i{display:block;width:22px;height:1.5px;background:var(--ink);margin:5px}
+
+    /* HERO */
+    .hero{padding:132px 0 78px;min-height:850px;position:relative;overflow:hidden}
+    .hero::before{content:"";position:absolute;width:730px;height:730px;border-radius:50%;right:-320px;top:-320px;border:1px solid rgba(17,43,42,.07);box-shadow:0 0 0 80px rgba(255,216,94,.07),0 0 0 160px rgba(159,233,240,.04)}
+    .hero-grid{display:grid;grid-template-columns:.95fr 1.05fr;gap:58px;align-items:center;position:relative}
+    .hero h1{font-family:Georgia,"Times New Roman",serif;font-weight:500;font-size:clamp(66px,7.2vw,108px);line-height:.86;letter-spacing:-.068em;margin-bottom:29px}
+    .hero h1 em{font-weight:500;color:#b44f3f;position:relative}.hero h1 em::after{content:"";position:absolute;height:14px;left:0;right:0;bottom:5px;border-radius:999px;background:var(--yellow);z-index:-1}
+    .hero-lead{font-size:clamp(23px,2.2vw,32px);font-weight:790;letter-spacing:-.035em;line-height:1.12;max-width:710px;margin-bottom:16px}
+    .hero-copy{font-size:16px;line-height:1.72;color:var(--muted);max-width:700px}
+    .hero-actions{display:flex;gap:9px;flex-wrap:wrap;margin-top:28px}
+    .hero-badges{display:flex;flex-wrap:wrap;gap:8px;margin-top:24px}.badge{padding:9px 12px;border:1px solid var(--line);border-radius:999px;background:rgba(255,255,255,.7);font-size:10px;font-weight:850;color:#5c6b68}
+
+    /* HERO LAB */
+    .lab-card{min-height:635px;border-radius:39px;background:#0d2827;color:white;overflow:hidden;position:relative;box-shadow:0 38px 100px rgba(17,49,46,.24);border:1px solid rgba(255,255,255,.08)}
+    .lab-card::before{content:"";position:absolute;inset:0;background:radial-gradient(circle at 15% 15%,rgba(255,216,94,.16),transparent 23%),radial-gradient(circle at 88% 82%,rgba(159,233,240,.15),transparent 25%),linear-gradient(rgba(255,255,255,.038) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.038) 1px,transparent 1px);background-size:auto,auto,35px 35px,35px 35px}
+    .lab-top{height:62px;padding:0 22px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,.09);position:relative;z-index:2;font-size:9px;text-transform:uppercase;letter-spacing:.17em;color:rgba(255,255,255,.45)}
+    .live{display:flex;align-items:center;gap:8px}.live::before{content:"";width:7px;height:7px;border-radius:50%;background:var(--yellow);box-shadow:0 0 0 7px rgba(255,216,94,.08)}
+    .editor{position:absolute;left:28px;right:28px;top:95px;height:315px;border-radius:25px;background:#122f2e;border:1px solid rgba(255,255,255,.09);overflow:hidden;z-index:3}
+    .editor-head{height:45px;border-bottom:1px solid rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 14px;font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.42)}
+    .dots{display:flex;gap:5px}.dots i{width:7px;height:7px;border-radius:50%;background:rgba(255,255,255,.22)}.dots i:nth-child(1){background:var(--coral)}.dots i:nth-child(2){background:var(--yellow)}.dots i:nth-child(3){background:var(--mint)}
+    pre{margin:0}
+    .code{padding:24px;font:600 16px/1.75 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace;color:#eef8f4;white-space:pre-wrap}
+    .kw{color:#d7c8ff}.str{color:#ffe28a}.fn{color:#a8f3dc}.name{color:#9fe9f0}
+    .run-row{position:absolute;left:28px;right:28px;top:428px;display:grid;grid-template-columns:1fr 1fr;gap:12px;z-index:4}
+    .run-btn{min-height:72px;border-radius:20px;border:0;background:var(--yellow);color:var(--ink);font-size:12px;font-weight:950}.output{border-radius:20px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.10);padding:16px}.output small{display:block;font-size:7px;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.42);margin-bottom:8px}.output strong{font:700 14px/1.4 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c6f8e4}
+    .lab-caption{position:absolute;left:28px;right:28px;bottom:22px;border-top:1px solid rgba(255,255,255,.09);padding-top:15px;z-index:4;display:flex;justify-content:space-between;gap:20px}.lab-caption strong{font-family:Georgia,serif;font-size:20px;font-weight:500}.lab-caption span{font-size:9px;line-height:1.5;color:rgba(255,255,255,.42);text-align:right;max-width:250px}
+
+    /* PATH */
+    .path{padding:110px 0;background:#fff}
+    .stage-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-top:42px}
+    .stage{min-height:220px;border-radius:22px;border:1px solid var(--line);padding:20px;display:flex;flex-direction:column;justify-content:space-between;transition:.22s;position:relative;overflow:hidden}
+    .stage:hover{transform:translateY(-4px);box-shadow:var(--shadow2)}
+    .stage::after{content:"";position:absolute;width:75px;height:75px;border-radius:24px;border:1px solid rgba(17,43,42,.09);right:-22px;top:-22px;transform:rotate(18deg)}
+    .st1{background:#fff4ba}.st2{background:#e7fbff}.st3{background:#eaffc9}.st4{background:#f0eaff}.st5{background:#ffe6df}.st6{background:#dff6ea}.st7{background:#e5ebff}.st8{background:#fff0d9}.st9{background:#e7f7ff}.st10{background:#dfffdc}
+    .stage small{font-size:8px;text-transform:uppercase;letter-spacing:.14em;font-weight:950;opacity:.55}
+    .stage h3{font-family:Georgia,serif;font-size:26px;font-weight:500;line-height:1;margin:23px 0 10px}.stage p{font-size:10px;line-height:1.55;color:#5d6e69}.stage b{font-size:10px}
+
+    /* NAVIGATOR */
+    .navigator{padding:110px 0;background:#eef4ef}
+    .lesson-grid{display:grid;grid-template-columns:repeat(10,1fr);gap:7px;margin-top:34px}
+    .lesson-btn{aspect-ratio:1;border-radius:14px;border:1px solid var(--line);background:white;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:11px;font-weight:950;transition:.2s}.lesson-btn:hover{transform:translateY(-3px);background:var(--yellow);box-shadow:var(--shadow2)}.lesson-btn.current{background:var(--ink);color:white}.lesson-btn.demo{outline:2px solid var(--yellow);outline-offset:2px}
+    .nav-note{margin-top:17px;font-size:10px;color:var(--muted)}
+
+    /* EXPERIENCE */
+    .experience{padding:110px 0;background:#fff}
+    .experience-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:42px}
+    .exp{min-height:260px;border:1px solid var(--line);border-radius:23px;padding:22px;background:#fbfdfb}.exp b{width:38px;height:38px;border-radius:12px;background:var(--ink);color:var(--yellow);display:grid;place-items:center;font-size:10px}.exp h3{font-family:Georgia,serif;font-size:28px;font-weight:500;line-height:1;margin:44px 0 11px}.exp p{font-size:11px;line-height:1.6;color:var(--muted)}
+
+    /* ECOSYSTEM */
+    .eco{padding:110px 0;background:#eef4ef}.eco-head{display:flex;justify-content:space-between;gap:50px;align-items:end}.eco-head p{max-width:560px;color:var(--muted);font-size:14px;line-height:1.65;margin-bottom:0}.eco-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:42px}.eco-card{min-height:145px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.68);padding:18px;text-decoration:none;display:flex;flex-direction:column;justify-content:space-between;transition:.25s}.eco-card:hover{background:white;transform:translateY(-4px);box-shadow:var(--shadow2)}.eco-card.current{background:var(--yellow)}.eco-card small{font-size:8px;text-transform:uppercase;letter-spacing:.14em;color:#7a8982;font-weight:900}.eco-card strong{font-size:17px;letter-spacing:-.02em}.eco-card span{align-self:flex-end;color:#c45138}
+
+    /* CTA */
+    .closing{padding:105px 0;background:var(--ink);color:white;text-align:center}.closing p{font-size:9px;text-transform:uppercase;letter-spacing:.18em;font-weight:950;color:var(--yellow);margin-bottom:15px}.closing h2{font-family:Georgia,serif;font-size:clamp(54px,6.7vw,94px);font-weight:500;letter-spacing:-.06em;line-height:.9;margin:0 auto 23px;max-width:1040px}.closing h2 em{font-weight:500;color:var(--coral)}.closing-copy{max-width:760px;margin:0 auto 26px;color:rgba(255,255,255,.59);font-size:15px;line-height:1.68}.closing-actions{display:flex;gap:9px;justify-content:center;flex-wrap:wrap}.closing .btn-dark{background:var(--yellow);color:var(--ink)}.closing .btn-light{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:white}
+    footer{background:#071514;color:rgba(255,255,255,.6);padding:48px 0}.footer-grid{display:grid;grid-template-columns:1.1fr .8fr .8fr 1fr;gap:36px}.footer-brand{font-size:29px;color:white;font-weight:950;letter-spacing:-.045em}.footer-brand span{color:var(--yellow)}.footer-label{font-size:8px;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.36);font-weight:900;margin-bottom:10px}.footer-links{display:flex;flex-direction:column;gap:8px}.footer-links a{text-decoration:none;font-size:11px}.footer-links a:hover{color:var(--yellow)}.footer-end{font-size:10px;display:flex;flex-direction:column;gap:22px;justify-content:space-between}.footer-end strong{color:white}
+
+    @media(max-width:1100px){.hero-grid{grid-template-columns:1fr}.stage-grid{grid-template-columns:repeat(2,1fr)}.lesson-grid{grid-template-columns:repeat(5,1fr)}.experience-grid{grid-template-columns:repeat(2,1fr)}.eco-grid{grid-template-columns:repeat(3,1fr)}.nav-links{position:absolute;top:76px;left:12px;right:12px;background:#fff;border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow);padding:18px;display:none;flex-direction:column;align-items:flex-start}.nav.open .nav-links{display:flex}.nav-cta{display:none}.menu{display:block;justify-self:end}}
+    @media(max-width:760px){:root{--shell:min(100% - 26px,1320px)}.hero{padding:112px 0 58px}.hero h1{font-size:clamp(62px,19vw,90px)}.lab-card{min-height:590px;border-radius:28px}.run-row{grid-template-columns:1fr;top:425px}.lab-caption{display:none}.path,.navigator,.experience,.eco,.closing{padding:82px 0}.stage-grid,.experience-grid,.eco-grid{grid-template-columns:1fr 1fr}.lesson-grid{grid-template-columns:repeat(5,1fr)}.eco-head{flex-direction:column;align-items:flex-start}.footer-grid{grid-template-columns:1fr}}
+    @media(max-width:500px){.stage-grid,.experience-grid,.eco-grid{grid-template-columns:1fr}.lesson-grid{grid-template-columns:repeat(4,1fr)}.brand-copy span{display:none}}
+    @media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important}.reveal{opacity:1;transform:none;transition:none}}
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="grain"></div>
+
+<header class="nav-wrap">
+  <nav class="nav" id="nav">
+    <a class="brand" href="#home"><span class="brand-mark"></span><span class="brand-copy"><strong>Python · DeTLeng</strong><span>100 interactive lessons</span></span></a>
+    <div class="nav-links"><a href="#path">Learning Path</a><a href="#lessons">100 Lessons</a><a href="lesson.html?id=1">Start Learning</a><a href="#network">Network</a></div>
+    <a class="nav-cta" href="lesson.html?id=1">Start Lesson 1 →</a>
+    <button class="menu" id="menu" aria-label="Toggle navigation"><i></i><i></i></button>
+  </nav>
+</header>
+
+<main id="main">
+<section class="hero" id="home">
+  <div class="shell hero-grid">
+    <div class="reveal">
+      <p class="eyebrow">DeTLeng Learning Lab · Python</p>
+      <h1>Learn Python by<br><em>running Python.</em></h1>
+      <p class="hero-lead">100 lessons. One working lab. Read less. Run more.</p>
+      <p class="hero-copy">Start with <code>print("Hello")</code>. Finish by building a real application. Every lesson follows one simple rhythm: understand the idea, run the code, change it, solve a challenge, check yourself and move forward.</p>
+      <div class="hero-badges"><span class="badge">100 lessons</span><span class="badge">Runnable examples</span><span class="badge">Challenges</span><span class="badge">Mini quizzes</span><span class="badge">Progress tracking</span></div>
+      <div class="hero-actions"><a class="btn btn-dark" href="lesson.html?id=1">Start Lesson 1 <span class="arrow">→</span></a><a class="btn btn-light" href="#lessons">Explore 100 Lessons <span class="arrow">↓</span></a></div>
+    </div>
+
+    <div class="lab-card reveal">
+      <div class="lab-top"><span>Live Python Lab</span><span class="live">Interactive learning</span></div>
+      <div class="editor">
+        <div class="editor-head"><span>lesson_01.py</span><span class="dots"><i></i><i></i><i></i></span></div>
+        <pre class="code"><span class="name">name</span> = <span class="str">"Python"</span>
+
+<span class="fn">print</span>(<span class="str">"Hello"</span>, <span class="name">name</span>)
+
+<span class="kw">for</span> step <span class="kw">in</span> <span class="fn">range</span>(<span class="str">1</span>, <span class="str">4</span>):
+    <span class="fn">print</span>(<span class="str">"Run"</span>, step)</pre>
+      </div>
+      <div class="run-row">
+        <button class="run-btn" onclick="demoRun()">▶ Run Python</button>
+        <div class="output"><small>Output</small><strong id="demoOutput">Waiting for Run…</strong></div>
+      </div>
+      <div class="lab-caption"><strong>Read → Change → Run → Understand</strong><span>The lesson page turns the course into a lab, not just another tutorial.</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="path" id="path">
+  <div class="shell">
+    <div class="reveal"><p class="kicker">The 100-lesson path</p><h2 class="section-title">From first line<br>to real application.</h2><p class="section-lede">The curriculum is arranged as ten visual stages. Students can follow the path in order or jump directly to any lesson.</p></div>
+    <div class="stage-grid">
+      <div class="stage st1 reveal"><div><small>Lessons 01–10</small><h3>Foundations</h3><p>Python basics, variables, numbers, strings and the first working programs.</p></div><b>10%</b></div>
+      <div class="stage st2 reveal"><div><small>Lessons 11–20</small><h3>Input & Decisions</h3><p>Formatting, booleans, input, conversion and conditional thinking.</p></div><b>20%</b></div>
+      <div class="stage st3 reveal"><div><small>Lessons 21–30</small><h3>Loops</h3><p>While, for, range, break, continue and repetition challenges.</p></div><b>30%</b></div>
+      <div class="stage st4 reveal"><div><small>Lessons 31–43</small><h3>Data Structures</h3><p>Lists, tuples, sets, dictionaries and nested data.</p></div><b>43%</b></div>
+      <div class="stage st5 reveal"><div><small>Lessons 44–60</small><h3>Functions & Modules</h3><p>Reusable code, arguments, scope, lambdas, imports and standard library.</p></div><b>60%</b></div>
+      <div class="stage st6 reveal"><div><small>Lessons 61–70</small><h3>Files & Reliability</h3><p>Text files, CSV, JSON, errors, exceptions, debugging and assertions.</p></div><b>70%</b></div>
+      <div class="stage st7 reveal"><div><small>Lessons 71–85</small><h3>Object-Oriented Python</h3><p>Classes, inheritance, polymorphism, generators, decorators and context managers.</p></div><b>85%</b></div>
+      <div class="stage st8 reveal"><div><small>Lessons 86–94</small><h3>Professional Python</h3><p>Regex, collections, typing, dataclasses, testing, packages, APIs and SQLite.</p></div><b>94%</b></div>
+      <div class="stage st9 reveal"><div><small>Lessons 95–99</small><h3>Real Applications</h3><p>CRUD, concurrency, async, performance and application structure.</p></div><b>99%</b></div>
+      <div class="stage st10 reveal"><div><small>Lesson 100</small><h3>Final Programmer Project</h3><p>Plan, build, test and improve a complete Python application.</p></div><b>100%</b></div>
+    </div>
+  </div>
+</section>
+
+<section class="navigator" id="lessons">
+  <div class="shell">
+    <div class="reveal"><p class="kicker">100 lesson navigator</p><h2 class="section-title">Every lesson is one click away.</h2><p class="section-lede">Lesson 1 opens the master lesson engine. The same engine will eventually carry all 100 lessons without duplicating the website design 100 times.</p></div>
+    <div class="lesson-grid" id="lessonGrid"></div>
+    <p class="nav-note">Lesson 1 is connected to the working master lesson page in this design prototype. The remaining buttons are prepared for the same engine.</p>
+  </div>
+</section>
+
+<section class="experience">
+  <div class="shell">
+    <div class="reveal"><p class="kicker">How each lesson feels</p><h2 class="section-title">Understand. Run. Change. Check.</h2></div>
+    <div class="experience-grid">
+      <article class="exp reveal"><b>01</b><h3>Understand</h3><p>A short, readable explanation of one Python idea at a time.</p></article>
+      <article class="exp reveal"><b>02</b><h3>Run</h3><p>Editable code and a visible output panel turn reading into experimentation.</p></article>
+      <article class="exp reveal"><b>03</b><h3>Challenge</h3><p>Change the code, solve a focused task, use a hint only when needed.</p></article>
+      <article class="exp reveal"><b>04</b><h3>Complete</h3><p>Mini quiz, completion state, progress percentage and a clear next lesson.</p></article>
+    </div>
+  </div>
+</section>
+
+<section class="eco" id="network">
+  <div class="shell">
+    <div class="eco-head reveal"><div><p class="kicker">The wider ecosystem</p><h2 class="section-title">Learning is one part<br>of a bigger build.</h2></div><p>Python joins DeTLeng’s public tools, solutions, automation, AI, business and educational work. Every site remains useful on its own while linking back into the wider network.</p></div>
+    <div class="eco-grid">
+      <a class="eco-card reveal" href="https://www.detleng.com/" target="_blank"><small>Digital ecosystem</small><strong>DeTLeng</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://solutions.detleng.com/" target="_blank"><small>Problem → solution</small><strong>Solutions</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://automation.detleng.com/" target="_blank"><small>Repeated work</small><strong>Automation</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://platform.detleng.com/" target="_blank"><small>Working systems</small><strong>Platform</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://insights.detleng.com/" target="_blank"><small>Research & thinking</small><strong>Insights</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://casestudy.detleng.com/" target="_blank"><small>Evidence</small><strong>Case Studies</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://inteligencia.detleng.com/" target="_blank"><small>Applied intelligence</small><strong>Inteligencia</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://agents.detleng.com/" target="_blank"><small>AI capability</small><strong>Agents</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://mni.detleng.com/" target="_blank"><small>Solution provider</small><strong>MNI</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://lfds.detleng.com/" target="_blank"><small>Longford · Ireland</small><strong>LFDS</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://qr.detleng.com/" target="_blank"><small>Free utility</small><strong>QR Studio</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://csv.detleng.com/" target="_blank"><small>Free utility</small><strong>CSV Cleaner</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://mcq.detleng.com/" target="_blank"><small>Free utility</small><strong>MCQ Generator</strong><span>↗</span></a>
+      <a class="eco-card current reveal" href="https://python.detleng.com/"><small>You are here</small><strong>Python Learning Lab</strong><span>●</span></a>
+      <a class="eco-card reveal" href="https://naveed.aapkaustaad.com/" target="_blank"><small>Education</small><strong>Educational Solutions</strong><span>↗</span></a>
+      <a class="eco-card reveal" href="https://alnoor.aapkaustaad.com/" target="_blank"><small>Education initiative</small><strong>AL-NOOR</strong><span>↗</span></a>
+    </div>
+  </div>
+</section>
+
+<section class="closing">
+  <div class="shell reveal">
+    <p>100 lessons · one working lab</p>
+    <h2>Start with one line.<br>Finish by building <em>something real.</em></h2>
+    <div class="closing-copy">Python is learned by using it. The course is designed to keep explanation short, experimentation visible and progress practical.</div>
+    <div class="closing-actions"><a class="btn btn-dark" href="lesson.html?id=1">Start Lesson 1 →</a><a class="btn btn-light" href="https://naveed.aapkaustaad.com/" target="_blank">Educational Solutions →</a></div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="shell footer-grid">
+    <div><div class="footer-brand">Python <span>· DeTLeng</span></div><p style="font-size:11px;line-height:1.6">Learn Python by running Python.</p></div>
+    <div><div class="footer-label">Course</div><div class="footer-links"><a href="#path">Learning Path</a><a href="#lessons">100 Lessons</a><a href="lesson.html?id=1">Start Lesson 1</a></div></div>
+    <div><div class="footer-label">Network</div><div class="footer-links"><a href="https://solutions.detleng.com/">Solutions</a><a href="https://mcq.detleng.com/">MCQ Generator</a><a href="https://naveed.aapkaustaad.com/">Educational Solutions</a></div></div>
+    <div class="footer-end"><span><strong>python.detleng.com</strong><br>Interactive Python learning lab.</span><span>© <span id="year">2026</span> DeTLeng</span></div>
+  </div>
+</footer>
+
+<script>
+const nav=document.getElementById('nav'),menu=document.getElementById('menu');
+menu?.addEventListener('click',()=>nav.classList.toggle('open'));
+if('IntersectionObserver' in window){
+  const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('visible');io.unobserve(e.target)}}),{threshold:.08});
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+}else document.querySelectorAll('.reveal').forEach(el=>el.classList.add('visible'));
+document.getElementById('year').textContent=new Date().getFullYear();
+const grid=document.getElementById('lessonGrid');
+for(let i=1;i<=100;i++){
+  const a=document.createElement('a');
+  a.className='lesson-btn'+(i===1?' current demo':'');
+  a.textContent=String(i).padStart(2,'0');
+  a.href='lesson.html?id='+i;
+  grid.appendChild(a);
+}
+function demoRun(){
+  const out=document.getElementById('demoOutput');
+  out.innerHTML='Hello Python<br>Run 1<br>Run 2<br>Run 3';
+}
+</script>
+</body>
+</html>

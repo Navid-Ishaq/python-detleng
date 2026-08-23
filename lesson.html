@@ -1,0 +1,176 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Lesson 1 · Welcome to Python · DeTLeng</title>
+<meta name="theme-color" content="#fffaf0">
+<script src="https://cdn.jsdelivr.net/pyodide/v0.27.7/full/pyodide.js"></script>
+<style>
+:root{
+ --ink:#112b2a;--paper:#fffaf0;--white:#fff;--line:rgba(17,43,42,.12);--muted:#677875;
+ --yellow:#ffd85e;--cyan:#9fe9f0;--mint:#bcefd0;--coral:#ff7a62;--violet:#d7c8ff;
+ --shadow:0 24px 75px rgba(30,61,58,.12);--shell:min(1320px,calc(100vw - 34px));
+}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:linear-gradient(180deg,#fffaf0,#f7fbf7);color:var(--ink);font-family:Inter,ui-sans-serif,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;-webkit-font-smoothing:antialiased}a{color:inherit}button,textarea{font:inherit}.shell{width:var(--shell);margin:auto}.top{position:sticky;top:0;z-index:50;background:rgba(255,255,255,.88);backdrop-filter:blur(20px);border-bottom:1px solid var(--line)}.top-inner{height:72px;display:grid;grid-template-columns:auto 1fr auto;align-items:center;gap:18px}.brand{text-decoration:none;font-weight:950}.brand span{color:#ae4c3c}.progress{height:8px;background:#edf2ee;border-radius:999px;overflow:hidden}.progress i{display:block;height:100%;width:1%;background:linear-gradient(90deg,var(--yellow),var(--cyan));border-radius:999px}.top small{font-size:9px;color:var(--muted);font-weight:850}.home{padding:10px 14px;border:1px solid var(--line);border-radius:999px;text-decoration:none;font-size:10px;font-weight:900;background:white}
+.hero{padding:64px 0 38px}.crumb{font-size:9px;text-transform:uppercase;letter-spacing:.16em;color:#39786e;font-weight:950;margin-bottom:15px}.hero h1{font-family:Georgia,serif;font-weight:500;font-size:clamp(52px,6vw,82px);letter-spacing:-.06em;line-height:.95;margin:0 0 14px}.hero p{font-size:17px;color:var(--muted);line-height:1.68;max-width:760px}.meta{display:flex;gap:8px;flex-wrap:wrap;margin-top:19px}.meta span{font-size:9px;font-weight:850;padding:8px 11px;border-radius:999px;background:white;border:1px solid var(--line)}
+.lesson-grid{display:grid;grid-template-columns:minmax(0,.86fr) minmax(0,1.14fr);gap:18px;padding-bottom:70px}
+.learn,.lab,.challenge,.quiz,.explain{background:white;border:1px solid var(--line);border-radius:26px;box-shadow:var(--shadow)}
+.learn{padding:28px}.learn h2,.challenge h2,.quiz h2,.explain h2{font-family:Georgia,serif;font-weight:500;font-size:33px;letter-spacing:-.04em;margin:0 0 12px}.learn p,.challenge p,.quiz p,.explain p{font-size:13px;line-height:1.72;color:#5f716d}.concept{padding:15px 16px;border-radius:16px;background:#fff5c5;margin:18px 0;font-size:12px;line-height:1.6}.line{display:grid;grid-template-columns:30px 1fr;gap:10px;padding:10px 0;border-bottom:1px solid #edf1ef}.line:last-child{border:0}.line b{width:28px;height:28px;border-radius:9px;background:var(--ink);color:var(--yellow);display:grid;place-items:center;font-size:9px}.line span{font-size:11px;line-height:1.55;color:#5d706b}
+.lab{overflow:hidden;background:#0d2827;color:white}.lab-head{height:54px;border-bottom:1px solid rgba(255,255,255,.09);display:flex;justify-content:space-between;align-items:center;padding:0 17px;font-size:9px;text-transform:uppercase;letter-spacing:.14em;color:rgba(255,255,255,.45)}textarea{width:100%;min-height:330px;border:0;outline:none;resize:vertical;background:#12312f;color:#f4fff9;padding:22px;font:600 15px/1.75 ui-monospace,SFMono-Regular,Menlo,Monaco,Consolas,monospace}.lab-actions{display:flex;gap:8px;flex-wrap:wrap;padding:13px;background:#102b29;border-top:1px solid rgba(255,255,255,.08)}.lab-actions button{min-height:44px;border:1px solid rgba(255,255,255,.10);border-radius:12px;padding:0 13px;font-size:10px;font-weight:950;background:rgba(255,255,255,.06);color:white}.lab-actions .run{background:var(--yellow);color:var(--ink);border-color:var(--yellow)}.output{min-height:170px;background:#091d1c;padding:18px 20px;font:600 13px/1.6 ui-monospace,SFMono-Regular,Menlo,monospace;color:#c6f8e4;white-space:pre-wrap}.output small{display:block;font:800 8px/1 sans-serif;text-transform:uppercase;letter-spacing:.16em;color:rgba(255,255,255,.38);margin-bottom:10px}
+.stack{display:grid;gap:18px}.challenge,.quiz,.explain{padding:25px}.challenge{background:#fff0ea}.quiz{background:#f4f0ff}.explain{background:#eefcff}.hint,.solution{display:none;margin-top:12px;padding:13px;border-radius:13px;background:white;border:1px solid var(--line);font-size:11px;line-height:1.55}.mini-btn{border:1px solid var(--line);background:white;border-radius:999px;padding:9px 12px;font-size:9px;font-weight:900;margin-right:6px}.quiz label{display:block;padding:10px 12px;border:1px solid var(--line);border-radius:12px;background:white;margin:7px 0;font-size:11px}.quiz-result{margin-top:10px;font-size:10px;font-weight:850}.complete{margin-top:18px;padding:24px;border-radius:22px;background:var(--ink);color:white;display:flex;justify-content:space-between;align-items:center;gap:20px}.complete strong{font-family:Georgia,serif;font-size:24px;font-weight:500}.complete button{border:0;border-radius:999px;background:var(--yellow);color:var(--ink);padding:12px 16px;font-size:10px;font-weight:950}.lesson-nav{display:flex;justify-content:space-between;gap:12px;margin:20px 0 70px}.lesson-nav a{padding:12px 15px;border-radius:999px;border:1px solid var(--line);background:white;text-decoration:none;font-size:10px;font-weight:900}
+.note{padding:14px 16px;border-radius:15px;border:1px solid #dbe4df;background:#f8fbf9;font-size:10px;line-height:1.6;color:#687773;margin-top:16px}
+@media(max-width:950px){.lesson-grid{grid-template-columns:1fr}.top-inner{grid-template-columns:1fr auto}.top small,.progress{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="shell top-inner">
+    <a class="brand" href="index.html">Python <span>· DeTLeng</span></a>
+    <div><div class="progress"><i></i></div><small>Lesson 1 of 100 · 1%</small></div>
+    <a class="home" href="index.html">Course Home</a>
+  </div>
+</header>
+
+<main class="shell">
+<section class="hero">
+  <div class="crumb">Lesson 01 / 100 · Foundations</div>
+  <h1>Welcome to Python</h1>
+  <p>Your first goal is deliberately small: understand what a Python statement looks like, run it yourself and change it.</p>
+  <div class="meta"><span>Beginner</span><span>~10 minutes</span><span>Runnable lesson</span><span>First program</span></div>
+</section>
+
+<section class="lesson-grid">
+  <article class="learn">
+    <h2>1 · Understand</h2>
+    <p>Python is a programming language designed to let you express instructions in readable code. Your first instruction will use <strong>print()</strong>, a built-in Python function that displays something as output.</p>
+    <div class="concept"><strong>Core idea:</strong> code is an instruction. You write the instruction, Python runs it, and you observe the result.</div>
+    <h2 style="font-size:25px;margin-top:26px">What happens line by line?</h2>
+    <div class="line"><b>1</b><span><code>print("Hello, Python!")</code> asks Python to display the text between the quotation marks.</span></div>
+    <div class="line"><b>2</b><span>The text inside quotation marks is a <strong>string</strong>. Strings are how Python represents text.</span></div>
+    <div class="line"><b>3</b><span>When you press <strong>Run Python</strong>, the output appears in the panel on the right.</span></div>
+    <div class="note">This page loads Python in the browser using Pyodide. The first run may take a few seconds because the Python runtime has to load.</div>
+  </article>
+
+  <div class="stack">
+    <section class="lab">
+      <div class="lab-head"><span>2 · Run Python</span><span id="engineState">Engine loading…</span></div>
+      <textarea id="code">print("Hello, Python!")
+
+name = "Learner"
+print("Welcome", name)</textarea>
+      <div class="lab-actions">
+        <button class="run" id="runBtn" onclick="runPython()" disabled>▶ Run Python</button>
+        <button onclick="resetCode()">Reset Code</button>
+        <button onclick="copyCode()">Copy Code</button>
+        <button onclick="clearOutput()">Clear Output</button>
+      </div>
+      <div class="output" id="output"><small>Output</small>Waiting for Python…</div>
+    </section>
+
+    <section class="explain">
+      <h2>3 · Change it</h2>
+      <p>Replace <strong>Learner</strong> with your own name. Then change the first line to print a different greeting. Run the code again and watch the output change.</p>
+    </section>
+
+    <section class="challenge">
+      <h2>4 · Challenge</h2>
+      <p>Write one more line that prints:</p>
+      <p><strong>I am learning Python.</strong></p>
+      <button class="mini-btn" onclick="toggle('hint')">Show Hint</button>
+      <button class="mini-btn" onclick="toggle('solution')">Show Solution</button>
+      <div class="hint" id="hint">Use <code>print()</code> again and put the sentence inside quotation marks.</div>
+      <div class="solution" id="solution"><code>print("I am learning Python.")</code></div>
+    </section>
+
+    <section class="quiz">
+      <h2>5 · Mini Quiz</h2>
+      <p>Which Python function displays text as output?</p>
+      <label><input type="radio" name="q1" value="input"> input()</label>
+      <label><input type="radio" name="q1" value="print"> print()</label>
+      <label><input type="radio" name="q1" value="text"> text()</label>
+      <button class="mini-btn" onclick="checkQuiz()">Check Answer</button>
+      <div class="quiz-result" id="quizResult"></div>
+    </section>
+
+    <section class="complete">
+      <strong>Ready to mark Lesson 1 complete?</strong>
+      <button onclick="completeLesson()">✓ Complete Lesson</button>
+    </section>
+  </div>
+</section>
+
+<div class="lesson-nav">
+  <a href="index.html">← Course Home</a>
+  <a href="lesson.html?id=2">Lesson 2 →</a>
+</div>
+</main>
+
+<script>
+const starter=`print("Hello, Python!")
+
+name = "Learner"
+print("Welcome", name)`;
+let pyodideReady=null;
+
+async function initPyodide(){
+  const state=document.getElementById('engineState');
+  try{
+    pyodideReady=await loadPyodide();
+    state.textContent='Python ready';
+    document.getElementById('runBtn').disabled=false;
+    document.getElementById('output').innerHTML='<small>Output</small>Python is ready. Press Run Python.';
+  }catch(e){
+    state.textContent='Engine unavailable';
+    document.getElementById('output').innerHTML='<small>Output</small>Python could not load. Check your internet connection and refresh.';
+  }
+}
+initPyodide();
+
+async function runPython(){
+  if(!pyodideReady)return;
+  const btn=document.getElementById('runBtn');
+  const out=document.getElementById('output');
+  btn.disabled=true;btn.textContent='Running…';
+  const code=document.getElementById('code').value;
+  try{
+    await pyodideReady.runPythonAsync(`
+import sys, io
+_buf = io.StringIO()
+_old = sys.stdout
+sys.stdout = _buf
+`);
+    await pyodideReady.runPythonAsync(code);
+    const result=await pyodideReady.runPythonAsync(`
+sys.stdout = _old
+_buf.getvalue()
+`);
+    out.innerHTML='<small>Output</small>'+escapeHtml(result||'(No output)');
+  }catch(err){
+    try{ await pyodideReady.runPythonAsync(`sys.stdout = _old`) }catch(e){}
+    out.innerHTML='<small>Output</small>'+escapeHtml(String(err));
+  }finally{
+    btn.disabled=false;btn.textContent='▶ Run Python';
+    const runs=Number(sessionStorage.getItem('pyRuns1')||0)+1;
+    sessionStorage.setItem('pyRuns1',runs);
+  }
+}
+function escapeHtml(v){return String(v).replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]))}
+function resetCode(){document.getElementById('code').value=starter}
+async function copyCode(){try{await navigator.clipboard.writeText(document.getElementById('code').value)}catch(e){}}
+function clearOutput(){document.getElementById('output').innerHTML='<small>Output</small>Output cleared.'}
+function toggle(id){const el=document.getElementById(id);el.style.display=el.style.display==='block'?'none':'block'}
+function checkQuiz(){
+  const selected=document.querySelector('input[name="q1"]:checked');
+  const r=document.getElementById('quizResult');
+  if(!selected){r.textContent='Choose an answer first.';return}
+  r.textContent=selected.value==='print'?'✓ Correct — print() displays output.':'Not quite. Try again.';
+}
+function completeLesson(){
+  localStorage.setItem('python.detleng.lesson.1','complete');
+  localStorage.setItem('python.detleng.current','2');
+  alert('Lesson 1 completed. Progress saved in this browser.');
+}
+</script>
+</body>
+</html>
