@@ -169,6 +169,9 @@
     for (const text of activity.check.requiredOutput || []) {
       if (!outputLines.includes(text)) return `Almost there—make sure the output includes: ${text}`;
     }
+    if (activity.check.expectedOutput && JSON.stringify(outputLines) !== JSON.stringify(activity.check.expectedOutput)) {
+      return "The messages are all useful—now check their order and run the program again.";
+    }
     for (const rule of activity.check.variables || []) {
       const values = assignmentValues(code, rule.name);
       if (values.length < (rule.minimumAssignments || 1)) return `Almost there—give ${rule.name} the value requested in the mission.`;

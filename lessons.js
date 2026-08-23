@@ -231,7 +231,7 @@ print("Two")`,
     title: "How Python Code Runs",
     stage: "Foundations",
     level: "Beginner",
-    time: "12 minutes",
+    time: "14 minutes",
     tags: ["Code order", "Reading output"],
     intro: "Python follows your instructions in order. In this lesson, you will prove that by changing the order and running the program again.",
     explanation: "A Python program is a sequence of instructions. Python normally starts at the first line, runs it, then moves to the next line. This order matters: changing the order of the instructions can change the output.",
@@ -254,6 +254,231 @@ Third: close the book`,
     solution: `print("First: wake up")
 print("Second: drink water")
 print("Third: eat breakfast")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["top-to-bottom execution", "instruction order", "predicting output"],
+        previous: ["print", "parentheses", "quoted text", "running code"],
+        prohibited: ["comments", "variables", "input", "number operations", "conditions", "loops", "collections", "user-defined functions", "imports"]
+      },
+      activities: [
+        {
+          id: "reverse-the-messages",
+          stage: "Easy Start · Change the Order",
+          title: "Turn It Around",
+          mission: "Move the three complete print() lines so the output becomes Third, Second, First.",
+          starterCode: `print("First")
+print("Second")
+print("Third")`,
+          hint: "Move the last complete line to the top and the first complete line to the bottom.",
+          success: "You changed the output by changing only the order of the instructions.",
+          check: { minimumPrints: 3, expectedOutput: ["Third", "Second", "First"] }
+        },
+        {
+          id: "morning-order",
+          stage: "Easy Start · Put It in Order",
+          title: "A Morning in Order",
+          mission: "Rearrange the lines so the routine displays Wake up, Drink water, Eat breakfast.",
+          starterCode: `print("Eat breakfast")
+print("Wake up")
+print("Drink water")`,
+          hint: "Python starts with the top line. Put Wake up at the top, then Drink water.",
+          success: "Your code now tells the morning story in a sensible order.",
+          check: { minimumPrints: 3, expectedOutput: ["Wake up", "Drink water", "Eat breakfast"] }
+        },
+        {
+          id: "missing-middle",
+          stage: "Growing · Add the Next Step",
+          title: "The Missing Middle",
+          mission: "Add one instruction between the two lines so the output reads Start, Keep going, Finish.",
+          starterCode: `print("Start")
+print("Finish")`,
+          hint: "Add print(\"Keep going\") between the existing lines.",
+          success: "You placed a new instruction exactly where Python needed to run it.",
+          check: { minimumPrints: 3, expectedOutput: ["Start", "Keep going", "Finish"] }
+        },
+        {
+          id: "book-journey",
+          stage: "Growing · Read the Story",
+          title: "The Book Journey",
+          mission: "Put the instructions in this order: Take the book, Read one page, Return the book.",
+          starterCode: `print("Return the book")
+print("Read one page")
+print("Take the book")`,
+          hint: "The first action belongs on the first line and the final action belongs on the last line.",
+          success: "Python followed your reordered instructions and told the complete story.",
+          check: { minimumPrints: 3, expectedOutput: ["Take the book", "Read one page", "Return the book"] }
+        },
+        {
+          id: "launch-countdown",
+          stage: "Growing · Predict and Arrange",
+          title: "Launch Countdown",
+          mission: "Rearrange the lines so the output counts down: 3, 2, 1, Launch!",
+          starterCode: `print("Launch!")
+print("1")
+print("3")
+print("2")`,
+          hint: "Put 3 at the top. Launch! must be the final instruction.",
+          success: "Your four instructions now run in countdown order.",
+          check: { minimumPrints: 4, expectedOutput: ["3", "2", "1", "Launch!"] }
+        },
+        {
+          id: "little-journey",
+          stage: "Ready for a Challenge · Build With What You Know",
+          title: "A Little Journey",
+          mission: "Rearrange the four lines so the journey starts at Home, reaches the Park, visits the Lake, and returns Home.",
+          starterCode: `print("Return Home")
+print("Visit the Lake")
+print("Start at Home")
+print("Reach the Park")`,
+          hint: "Find the starting instruction first, then follow the journey one step at a time.",
+          success: "You controlled a four-step program by reading and arranging its instructions.",
+          check: { minimumPrints: 4, expectedOutput: ["Start at Home", "Reach the Park", "Visit the Lake", "Return Home"] }
+        }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        {
+          id: "morning-routine-challenge",
+          title: "Morning Routine",
+          mission: "Rearrange the instructions so the morning begins with waking up and ends with leaving home.",
+          starterCode: `print("Leave home")
+print("Eat breakfast")
+print("Wake up")
+print("Get dressed")`,
+          hint: "Wake up belongs first. Leave home belongs last.",
+          solution: `print("Wake up")
+print("Get dressed")
+print("Eat breakfast")
+print("Leave home")`
+        },
+        {
+          id: "sandwich-challenge",
+          title: "Make a Sandwich",
+          mission: "Put the four sandwich instructions into a sensible top-to-bottom order.",
+          starterCode: `print("Eat the sandwich")
+print("Add the filling")
+print("Take two slices of bread")
+print("Close the sandwich")`,
+          hint: "Begin with the bread. Eating must be the final step.",
+          solution: `print("Take two slices of bread")
+print("Add the filling")
+print("Close the sandwich")
+print("Eat the sandwich")`
+        },
+        {
+          id: "missing-scene-challenge",
+          title: "Add the Missing Scene",
+          mission: "Add a middle instruction so the story displays Open the door, Walk inside, Close the door.",
+          starterCode: `print("Open the door")
+print("Close the door")`,
+          hint: "Add print(\"Walk inside\") between the two existing lines.",
+          solution: `print("Open the door")
+print("Walk inside")
+print("Close the door")`
+        },
+        {
+          id: "plant-seed-challenge",
+          title: "Plant a Seed",
+          mission: "Arrange the instructions so they describe planting and caring for a seed.",
+          starterCode: `print("Water the soil")
+print("Cover the seed")
+print("Make a small hole")
+print("Place the seed inside")`,
+          hint: "A hole is needed before the seed can go inside. Water comes after covering it.",
+          solution: `print("Make a small hole")
+print("Place the seed inside")
+print("Cover the seed")
+print("Water the soil")`
+        },
+        {
+          id: "three-two-one-challenge",
+          title: "Ready, Set, Go",
+          mission: "Reorder the messages so the program builds up to Go!",
+          starterCode: `print("Go!")
+print("Set")
+print("Ready")`,
+          hint: "Ready is the beginning and Go! is the ending.",
+          solution: `print("Ready")
+print("Set")
+print("Go!")`
+        },
+        {
+          id: "school-bag-challenge",
+          title: "Pack the School Bag",
+          mission: "Put the packing steps in order, then add a final instruction that displays: Bag ready!",
+          starterCode: `print("Close the bag")
+print("Put in the notebook")
+print("Open the bag")`,
+          hint: "Open comes first, Close comes after putting in the notebook, and Bag ready! comes last.",
+          solution: `print("Open the bag")
+print("Put in the notebook")
+print("Close the bag")
+print("Bag ready!")`
+        }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        {
+          id: "first-instruction",
+          question: "What will Python normally display first?",
+          code: `print("A")
+print("B")`,
+          options: ["A", "B", "A and B at exactly the same time", "Nothing"],
+          correct: 0,
+          explanation: "Correct — Python starts with the top instruction, so A appears first."
+        },
+        {
+          id: "changed-order",
+          question: "Which message appears first in this program?",
+          code: `print("Third")
+print("First")
+print("Second")`,
+          options: ["First", "Second", "Third", "Python chooses"],
+          correct: 2,
+          explanation: "Correct — the word Third is on the top line, so Python displays it first."
+        },
+        {
+          id: "complete-output-order",
+          question: "Which option shows the complete output in order?",
+          code: `print("Red")
+print("Green")
+print("Blue")`,
+          options: ["Blue, Green, Red", "Red, Green, Blue", "Green, Blue, Red", "Red only"],
+          correct: 1,
+          explanation: "Correct — the output follows the same top-to-bottom order as the instructions."
+        },
+        {
+          id: "move-line-effect",
+          question: "If print(\"Tea\") moves above print(\"Water\"), what appears first?",
+          code: `print("Tea")
+print("Water")`,
+          options: ["Water", "Tea", "Both disappear", "An error"],
+          correct: 1,
+          explanation: "Correct — Tea is now the first instruction, so it becomes the first output line."
+        },
+        {
+          id: "last-output",
+          question: "What will be the final output line?",
+          code: `print("Start")
+print("Middle")
+print("Finish")`,
+          options: ["Start", "Middle", "Finish", "All on one line"],
+          correct: 2,
+          explanation: "Correct — Finish comes from the last instruction."
+        },
+        {
+          id: "add-between",
+          question: "Where should print(\"Two\") go to create the output One, Two, Three?",
+          code: `print("One")
+print("Three")`,
+          options: ["Before print(\"One\")", "Between the two lines", "After print(\"Three\")", "It cannot be added"],
+          correct: 1,
+          explanation: "Correct — placing the instruction between One and Three creates the required output order."
+        }
+      ]
+    },
     quiz: {
       question: "What will Python normally do first when this program runs?",
       code: `print("A")
