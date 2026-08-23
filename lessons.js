@@ -1177,6 +1177,103 @@ print(place)`,
         }
       ]
     },
+    freshPracticeGenerator: {
+      templates: [
+        {
+          id: "fresh-profile-values",
+          skill: "Give Values Useful Names",
+          title: "A Fresh Profile",
+          mission: "Change the two values so name remembers '{{targetName}}' and city remembers '{{targetCity}}'. Keep both variable names and print() instructions unchanged.",
+          starterCode: `name = "{{starterName}}"\ncity = "{{starterCity}}"\n\nprint(name)\nprint(city)`,
+          hint: "Change only the text after each = sign. Keep the quotation marks around both text values.",
+          solution: `name = "{{targetName}}"\ncity = "{{targetCity}}"\n\nprint(name)\nprint(city)`,
+          success: "Python remembered and displayed both fresh profile values.",
+          check: { mustChange: true, variables: [
+            { name: "name", equals: "{{targetName}}", minimumPrints: 1 },
+            { name: "city", equals: "{{targetCity}}", minimumPrints: 1 }
+          ] },
+          values: {
+            starterName: ["Learner", "Alex", "Sam", "Noor", "Mina", "Taylor"],
+            starterCity: ["Your city", "River Town", "Green City", "Hill View", "Sunny Bay", "Old Town"],
+            targetName: ["Amina", "Sara", "Naveed", "Omar", "Maya", "Lina"],
+            targetCity: ["Longford", "Dublin", "Cork", "Galway", "Limerick", "Waterford"]
+          }
+        },
+        {
+          id: "fresh-reassignment",
+          skill: "Reassign a Variable",
+          title: "A Fresh Changing Story",
+          mission: "The variable weather changes as the program runs. Replace its final value with '{{target}}', then predict and check all three output lines.",
+          starterCode: `weather = "{{first}}"\nprint(weather)\n\nweather = "{{second}}"\nprint(weather)\n\nweather = "{{third}}"\nprint(weather)`,
+          hint: "Change only the value in the final weather = line. The same variable name is used throughout the story.",
+          solution: `weather = "{{first}}"\nprint(weather)\n\nweather = "{{second}}"\nprint(weather)\n\nweather = "{{target}}"\nprint(weather)`,
+          success: "You reassigned one variable and watched its latest value appear at the end.",
+          check: { mustChange: true, variables: [
+            { name: "weather", minimumAssignments: 3, distinctValues: 3, minimumPrints: 3, equals: "{{target}}" }
+          ] },
+          values: {
+            first: ["sunny", "clear", "bright", "cool", "calm", "dry"],
+            second: ["cloudy", "rainy", "windy", "misty", "warm", "breezy"],
+            third: ["stormy", "cold", "foggy", "wet", "hot", "still"],
+            target: ["snowy", "fresh", "chilly", "showery", "humid", "peaceful"]
+          }
+        },
+        {
+          id: "fresh-player-card",
+          skill: "Change Data, Keep the Program",
+          title: "A Fresh Player Card",
+          mission: "Change only the three stored values. Set player to '{{playerValue}}', level to {{levelValue}}, and place to '{{placeValue}}'.",
+          starterCode: `player = "Alex"\nlevel = 1\nplace = "Green Valley"\n\nprint(player)\nprint(level)\nprint(place)`,
+          hint: "Edit the values after the three = signs. Text needs quotation marks; the level number does not.",
+          solution: `player = "{{playerValue}}"\nlevel = {{levelValue}}\nplace = "{{placeValue}}"\n\nprint(player)\nprint(level)\nprint(place)`,
+          success: "You changed the data while every print() instruction stayed reusable.",
+          check: { mustChange: true, variables: [
+            { name: "player", equals: "{{playerValue}}", minimumPrints: 1 },
+            { name: "level", equals: "{{levelValue}}", minimumPrints: 1 },
+            { name: "place", equals: "{{placeValue}}", minimumPrints: 1 }
+          ] },
+          values: {
+            playerValue: ["Amina", "Zara", "Omar", "Maya", "Noah", "Lina"],
+            levelValue: [2, 3, 4, 5, 6, 7],
+            placeValue: ["Crystal Forest", "Moon Harbour", "Blue Mountain", "Quiet Island", "Golden Cave", "Python Garden"]
+          }
+        },
+        {
+          id: "fresh-repair-name",
+          skill: "Repair a Variable Name",
+          title: "Repair a Fresh Variable",
+          mission: "The variable name contains a space, so Python cannot run it. Replace the space with _ to create favourite_food, then run the program.",
+          starterCode: `favourite food = "{{value}}"\n\nprint(favourite food)`,
+          hint: "Variable names cannot contain spaces. Use an underscore in both the assignment and print() lines.",
+          solution: `favourite_food = "{{value}}"\n\nprint(favourite_food)`,
+          success: "You repaired the variable name and Python displayed its remembered value.",
+          check: { mustChange: true, variables: [
+            { name: "favourite_food", equals: "{{value}}", minimumPrints: 1 }
+          ] },
+          values: {
+            value: ["pizza", "pasta", "rice", "soup", "apples", "sandwiches"]
+          }
+        },
+        {
+          id: "fresh-case-matters",
+          skill: "Notice Capital Letters",
+          title: "A Fresh Case-Sensitive Pair",
+          mission: "Python treats name and Name as different variables. Set name to '{{lowerValue}}' and Name to '{{upperValue}}', then predict both output lines.",
+          starterCode: `name = "Learner"\nName = "Visitor"\n\nprint(name)\nprint(Name)`,
+          hint: "Change the two text values, but keep the first variable lowercase and the second one capitalised.",
+          solution: `name = "{{lowerValue}}"\nName = "{{upperValue}}"\n\nprint(name)\nprint(Name)`,
+          success: "You used two case-sensitive variable names and Python kept their values separate.",
+          check: { mustChange: true, variables: [
+            { name: "name", equals: "{{lowerValue}}", minimumPrints: 1 },
+            { name: "Name", equals: "{{upperValue}}", minimumPrints: 1 }
+          ] },
+          values: {
+            lowerValue: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"],
+            upperValue: ["Teacher", "Guide", "Visitor", "Helper", "Friend", "Coach"]
+          }
+        }
+      ]
+    },
     challengeGenerator: {
       activities: [
         {
