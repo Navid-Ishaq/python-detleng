@@ -769,6 +769,88 @@ print("Leave home")`,
         }
       ]
     },
+    freshPracticeGenerator: {
+      templates: [
+        {
+          id: "fresh-change-comment",
+          skill: "Change a Human Note",
+          title: "A Fresh Comment",
+          mission: "Replace the opening comment with your own useful note. Run the program and confirm that the output stays the same.",
+          starterCode: `# Display a message\nprint("{{message}}")`,
+          hint: "Change only the words after #. Python ignores the comment but still runs the print() instruction.",
+          solution: `# Explain the message\nprint("{{message}}")`,
+          success: "You changed a note for humans without changing Python's output.",
+          check: { minimumComments: 1, mustChange: true, expectedOutput: ["{{message}}"] },
+          values: {
+            message: ["Welcome, learner!", "My program is ready", "Python is listening", "One small step", "I can read this code", "Practice makes progress"]
+          }
+        },
+        {
+          id: "fresh-comment-middle",
+          skill: "Comment Out Code",
+          title: "Make a Fresh Line Quiet",
+          mission: "Comment out only the middle print() instruction. Keep it in the editor, then run the program and predict what remains.",
+          starterCode: `print("{{first}}")\nprint("{{silent}}")\nprint("{{last}}")`,
+          hint: "Place # at the beginning of the line that displays '{{silent}}'. Do not delete the line.",
+          solution: `print("{{first}}")\n# print("{{silent}}")\nprint("{{last}}")`,
+          success: "Python skipped the commented instruction and kept the other messages in order.",
+          check: { mustChange: true, minimumComments: 1, commentedCode: [`print("{{silent}}")`], expectedOutput: ["{{first}}", "{{last}}"] },
+          values: {
+            first: ["Start the program", "Begin here", "First message", "Step one", "The program begins", "Show this first"],
+            silent: ["Pause this message", "Skip this step", "Make this quiet", "Hide this message", "Do not show this", "Comment out this line"],
+            last: ["Finish the program", "End here", "Final message", "Step three", "The program ends", "Show this last"]
+          }
+        },
+        {
+          id: "fresh-add-signposts",
+          skill: "Add Helpful Signposts",
+          title: "Fresh Readable Signposts",
+          mission: "Add one useful # comment before the first message and another before the final message. Keep all three messages running in order.",
+          starterCode: `print("{{first}}")\nprint("{{middle}}")\nprint("{{last}}")`,
+          hint: "Add a comment on its own line above the first print(), then another above the final print().",
+          solution: `# Begin the three-step story\nprint("{{first}}")\nprint("{{middle}}")\n\n# Show the final step\nprint("{{last}}")`,
+          success: "You added two useful signposts without changing the program's behaviour.",
+          check: { mustChange: true, minimumComments: 2, expectedOutput: ["{{first}}", "{{middle}}", "{{last}}"] },
+          values: {
+            first: ["Begin the activity", "Start the program", "Show the first step", "The story begins", "Open the task", "First message"],
+            middle: ["Continue the activity", "Run the next instruction", "Show the middle step", "The story continues", "Try the task", "Middle message"],
+            last: ["Finish the activity", "End the program", "Show the final step", "The story ends", "Close the task", "Final message"]
+          }
+        },
+        {
+          id: "fresh-repair-note",
+          skill: "Repair a Comment",
+          title: "Repair a Fresh Human Note",
+          mission: "The first line is meant for humans, but it is missing #. Repair that line so Python can run both messages.",
+          starterCode: `{{note}}\nprint("{{first}}")\nprint("{{second}}")`,
+          hint: "Place # and one space before the words on the first line.",
+          solution: `# {{note}}\nprint("{{first}}")\nprint("{{second}}")`,
+          success: "You turned the human note into a valid Python comment and repaired the program.",
+          check: { mustChange: true, minimumComments: 1, expectedOutput: ["{{first}}", "{{second}}"] },
+          values: {
+            note: ["Show two friendly messages", "Display the beginning and ending", "Explain the two output lines", "Show the program status", "Display two readable lines", "Introduce this tiny program"],
+            first: ["Welcome!", "The program begins", "First line ready", "Program started", "Hello, learner!", "The story begins"],
+            second: ["Keep learning!", "The program ends", "Second line ready", "Program finished", "You can do this!", "The story ends"]
+          }
+        },
+        {
+          id: "fresh-restore-line",
+          skill: "Restore a Commented Line",
+          title: "Wake a Quiet Line",
+          mission: "The middle print() instruction is commented out. Remove only the # before that instruction so all three messages run in order.",
+          starterCode: `# Display three ordered messages\nprint("{{first}}")\n# print("{{middle}}")\nprint("{{last}}")`,
+          hint: "Keep the helpful opening comment. Remove # only from the line that displays '{{middle}}'.",
+          solution: `# Display three ordered messages\nprint("{{first}}")\nprint("{{middle}}")\nprint("{{last}}")`,
+          success: "You restored a commented instruction and made all three messages run again.",
+          check: { mustChange: true, minimumComments: 1, expectedOutput: ["{{first}}", "{{middle}}", "{{last}}"] },
+          values: {
+            first: ["Ready", "First", "Step one", "Start", "Begin", "Message one"],
+            middle: ["Set", "Second", "Step two", "Continue", "Keep going", "Message two"],
+            last: ["Go!", "Third", "Step three", "Finish", "Done", "Message three"]
+          }
+        }
+      ]
+    },
     challengeGenerator: {
       activities: [
         {
