@@ -17,6 +17,8 @@
   let activePracticeIndex = 0;
   let activeChallenge = null;
   let activeChallengeIndex = 0;
+  let activeQuiz = null;
+  let activeQuizIndex = 0;
   let editorBaseCode = "";
   let lastRun = null;
 
@@ -60,6 +62,7 @@
     byId("quizOptions").innerHTML = lesson.quiz.options.map((option, index) => `<label><input type="radio" name="quiz" value="${index}"> ${option}</label>`).join("");
     renderPracticeCoach();
     renderChallengeGenerator();
+    renderQuizGenerator();
     byId("lessonCount").textContent = `Lesson ${lessonId} of 100 · ${lessonId}%`;
     byId("progressBar").style.width = `${lessonId}%`;
     byId("completeTitle").textContent = `Ready to mark Lesson ${lessonId} complete?`;
@@ -130,6 +133,22 @@
     byId("solutionCode").textContent = activeChallenge.solution;
     byId("hint").style.display = "none";
     byId("solution").style.display = "none";
+  }
+
+  function renderQuizGenerator() {
+    if (!lesson.quizGenerator || !lesson.quizGenerator.activities.length) return;
+    byId("quizGeneratorButton").style.display = "inline-block";
+    showQuiz(0);
+  }
+
+  function showQuiz(index) {
+    activeQuiz = lesson.quizGenerator.activities[index];
+    byId("quizQuestion").textContent = activeQuiz.question;
+    byId("quizCode").textContent = activeQuiz.code || "";
+    byId("quizCode").hidden = !activeQuiz.code;
+    byId("quizOptions").innerHTML = activeQuiz.options.map((option, optionIndex) => `<label><input type="radio" name="quiz" value="${optionIndex}"> ${option}</label>`).join("");
+    byId("quizResult").textContent = "";
+    quizPassed = false;
   }
 
   function assignmentValues(code, name) {
@@ -276,6 +295,11 @@
     activeChallengeIndex = (activeChallengeIndex + 1) % activities.length;
     showChallenge(activeChallengeIndex);
   };
+  window.nextQuiz = function () {
+    const activities = lesson.quizGenerator.activities;
+    activeQuizIndex = (activeQuizIndex + 1) % activities.length;
+    showQuiz(activeQuizIndex);
+  };
   window.loadChallenge = function () {
     if (!activeChallenge) return;
     const editor = byId("code");
@@ -300,10 +324,11 @@
     byId("code").focus();
   };
   window.checkQuiz = function () {
+    const currentQuiz = activeQuiz || lesson.quiz;
     const selected = document.querySelector('input[name="quiz"]:checked');
     if (!selected) { byId("quizResult").textContent = "Choose an answer first."; return; }
-    quizPassed = Number(selected.value) === lesson.quiz.correct;
-    byId("quizResult").textContent = quizPassed ? `✓ ${lesson.quiz.explanation}` : "Not quite. Look at the example, then try again.";
+    quizPassed = Number(selected.value) === currentQuiz.correct;
+    byId("quizResult").textContent = quizPassed ? `✓ ${currentQuiz.explanation}` : "Not quite. Look at the example, then try again.";
   };
   window.completeLesson = function () {
     if (!hasRun || !quizPassed) {

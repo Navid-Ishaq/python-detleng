@@ -444,6 +444,72 @@ print(team_number)`
         }
       ]
     },
+    quizGenerator: {
+      activities: [
+        {
+          id: "latest-score",
+          question: "What will this program display?",
+          code: `score = 5
+score = 10
+
+print(score)`,
+          options: ["5", "10", "5 10", "score"],
+          correct: 1,
+          explanation: "Correct — score received a newer value before print(score), so Python displays 10."
+        },
+        {
+          id: "variable-or-text",
+          question: "What will the second print instruction display?",
+          code: `city = "Cork"
+
+print("city")
+print(city)`,
+          options: ["city", "Cork", "city Cork", "Nothing"],
+          correct: 1,
+          explanation: "Correct — city without quotation marks means: use the value remembered by the variable."
+        },
+        {
+          id: "changing-message",
+          question: "Which two lines will appear in the output?",
+          code: `message = "Hello"
+print(message)
+
+message = "Goodbye"
+print(message)`,
+          options: ["Hello, then Goodbye", "Goodbye, then Hello", "Hello twice", "Goodbye twice"],
+          correct: 0,
+          explanation: "Correct — Python prints the first value, then the reassigned value as it runs from top to bottom."
+        },
+        {
+          id: "case-matters",
+          question: "What will this program display?",
+          code: `name = "Amina"
+Name = "Sara"
+
+print(name)
+print(Name)`,
+          options: ["Amina, then Sara", "Sara, then Amina", "Sara twice", "Amina twice"],
+          correct: 0,
+          explanation: "Correct — Python treats name and Name as two different variable names because capital letters matter."
+        },
+        {
+          id: "meaningful-name",
+          question: "Which variable name most clearly explains the value it stores?",
+          code: `# Each line could store the same city name.`,
+          options: [`x = "Dublin"`, `a = "Dublin"`, `city = "Dublin"`, `thing = "Dublin"`],
+          correct: 2,
+          explanation: "Correct — city tells a human reader what the value represents."
+        },
+        {
+          id: "valid-variable-name",
+          question: "Which line uses a valid, readable Python variable name?",
+          code: `# Choose one line.`,
+          options: [`first name = "Amina"`, `2name = "Amina"`, `first_name = "Amina"`, `first-name = "Amina"`],
+          correct: 2,
+          explanation: "Correct — first_name contains no spaces, does not begin with a number, and clearly describes its value."
+        }
+      ]
+    },
     quiz: {
       question: "What will this program display?",
       code: `score = 5
