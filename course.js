@@ -102,8 +102,32 @@
   };
   window.resetCode = function () { byId("code").value = lesson.starterCode; };
   window.copyCode = async function () {
-    try { await navigator.clipboard.writeText(byId("code").value); byId("interactionNote").textContent = "Code copied."; }
-    catch (_) { byId("interactionNote").textContent = "Your browser could not copy the code automatically."; }
+    const editor = byId("code");
+    const button = byId("copyBtn");
+    let copied = false;
+    if (window.isSecureContext && navigator.clipboard) {
+      try {
+        await navigator.clipboard.writeText(editor.value);
+        copied = true;
+      } catch (_) {}
+    }
+    if (!copied) {
+      const selectionStart = editor.selectionStart;
+      const selectionEnd = editor.selectionEnd;
+      editor.focus();
+      editor.select();
+      try { copied = document.execCommand("copy"); } catch (_) {}
+      editor.setSelectionRange(selectionStart, selectionEnd);
+    }
+    if (copied) {
+      button.textContent = "✓ Copied";
+      byId("interactionNote").textContent = "Code copied. You can paste it wherever you need it.";
+      window.setTimeout(() => { button.textContent = "Copy Code"; }, 1600);
+    } else {
+      byId("interactionNote").textContent = "Copy was blocked by the browser. Select the code and press Ctrl+C.";
+      editor.focus();
+      editor.select();
+    }
   };
   window.clearOutput = function () { byId("outputText").textContent = "Output cleared."; };
   window.toggle = function (id) {
