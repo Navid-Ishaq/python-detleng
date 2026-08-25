@@ -1817,5 +1817,206 @@ print(total)`,
       correct: 2,
       explanation: "Correct — 2.5 multiplied by 4 is 10.0. Because the calculation uses a float, Python displays a float result."
     }
+  },
+  6: {
+    title: "Arithmetic Operators",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Seven operators", "Useful calculations"],
+    intro: "Python already knows your numbers. Today, you will choose what it does with them—from adding a total to finding complete groups, leftovers, and powers.",
+    explanation: "An <strong>arithmetic operator</strong> is a symbol that tells Python which calculation to perform. You already met <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code>. Now you will use all seven arithmetic operators and learn why <code>//</code>, <code>%</code>, and <code>**</code> are especially useful.",
+    concept: "Operators tell Python how to calculate: add, subtract, multiply, divide, count complete groups, find a remainder, or raise a number to a power.",
+    starterCode: `items = 17
+group_size = 4
+
+print(items + group_size)
+print(items - group_size)
+print(items * group_size)
+print(items / group_size)
+print(items // group_size)
+print(items % group_size)
+print(2 ** 3)`,
+    expectedOutput: `21
+13
+68
+4.25
+4
+1
+8`,
+    lineByLine: [
+      '<code>items + group_size</code> uses <code>+</code> to add <code>17</code> and <code>4</code>, producing <code>21</code>.',
+      '<code>items - group_size</code> uses <code>-</code> to subtract <code>4</code> from <code>17</code>, producing <code>13</code>.',
+      '<code>items * group_size</code> uses <code>*</code> to multiply the two values, producing <code>68</code>.',
+      '<code>items / group_size</code> uses ordinary division. The full answer is the float <code>4.25</code>.',
+      '<code>items // group_size</code> asks how many complete groups of four fit inside seventeen. The answer is <code>4</code>.',
+      '<code>items % group_size</code> asks what remains after making those complete groups. One item remains, so the answer is <code>1</code>.',
+      '<code>2 ** 3</code> means two raised to the power of three: <code>2 * 2 * 2</code>, which is <code>8</code>.'
+    ],
+    outputExplanation: "The first four lines use familiar calculations. The next two describe the same sharing story in a more useful way: <code>//</code> gives the number of complete groups, while <code>%</code> gives what is left over. The final line uses <code>**</code> for a power.",
+    changeIt: "First, change <code>items</code> to <code>18</code>. Before running, predict the results of <code>/</code>, <code>//</code>, and <code>%</code>.<br><br>Next, change <code>group_size</code> to <code>5</code> and predict again. Finally, change <code>2 ** 3</code> to <code>3 ** 2</code>. Use parentheses when you want to make a calculation order clear, such as <code>(2 + 3) * 4</code>.",
+    challenge: "Build a party-group calculator. Store <code>guests = 17</code> and <code>group_size = 4</code>. Use <code>//</code> to calculate complete groups and <code>%</code> to calculate people left over. Display both answers.",
+    hint: "Use <code>full_groups = guests // group_size</code> and <code>people_left = guests % group_size</code>.",
+    solution: `guests = 17
+group_size = 4
+
+full_groups = guests // group_size
+people_left = guests % group_size
+
+print(full_groups)
+print(people_left)`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["addition", "subtraction", "multiplication", "ordinary division", "floor division", "remainder", "powers", "parentheses"],
+        previous: ["print()", "comments", "variables", "integers", "floats", "calculated variables", "top-to-bottom execution"],
+        prohibited: ["input", "f-strings", "comparisons", "conditions", "loops", "collections", "user-defined functions", "imports"]
+      },
+      activities: [
+        { id: "operator-add", stage: "Easy Start · Add", title: "Add the Tickets", mission: "Change both ticket amounts and calculate their total with +.", starterCode: `adult_tickets = 5
+child_tickets = 3
+
+total_tickets = adult_tickets + child_tickets
+print(total_tickets)`, hint: "Keep + between the two ticket variables.", success: "You used + to combine two amounts.", check: { mustChange: true, variables: [{ name: "adult_tickets", notValues: ["5"] }, { name: "child_tickets", notValues: ["3"] }], calculation: { target: "total_tickets", left: "adult_tickets", operator: "+", right: "child_tickets" } } },
+        { id: "operator-subtract", stage: "Easy Start · Subtract", title: "Seats Remaining", mission: "Change both values and use - to calculate how many seats remain.", starterCode: `total_seats = 30
+occupied_seats = 18
+
+free_seats = total_seats - occupied_seats
+print(free_seats)`, hint: "Subtract occupied_seats from total_seats.", success: "You used - to find what remains.", check: { mustChange: true, variables: [{ name: "total_seats", notValues: ["30"] }, { name: "occupied_seats", notValues: ["18"] }], calculation: { target: "free_seats", left: "total_seats", operator: "-", right: "occupied_seats" } } },
+        { id: "operator-multiply", stage: "Growing · Multiply", title: "Pages in a Reading Plan", mission: "Change the days and pages per day, then calculate all pages with *.", starterCode: `days = 6
+pages_each_day = 8
+
+total_pages = days * pages_each_day
+print(total_pages)`, hint: "Use * because the same number of pages is read each day.", success: "You used * to calculate equal groups.", check: { mustChange: true, variables: [{ name: "days", notValues: ["6"] }, { name: "pages_each_day", notValues: ["8"] }], calculation: { target: "total_pages", left: "days", operator: "*", right: "pages_each_day" } } },
+        { id: "operator-divide", stage: "Growing · Divide", title: "Share the Juice", mission: "Change both values so the juice shares evenly, then calculate each share with /.", starterCode: `litres = 12
+friends = 3
+
+litres_each = litres / friends
+print(litres_each)`, hint: "Use / for the full division answer. Do not set friends to zero.", success: "You used / and saw an ordinary division result.", check: { mustChange: true, variables: [{ name: "litres", notValues: ["12"] }, { name: "friends", notValues: ["3"] }], calculation: { target: "litres_each", left: "litres", operator: "/", right: "friends" } } },
+        { id: "operator-floor", stage: "Growing · Complete Groups", title: "Build Complete Teams", mission: "Change the players and team size, then use // to find the number of complete teams.", starterCode: `players = 19
+team_size = 4
+
+full_teams = players // team_size
+print(full_teams)`, hint: "Use // when you need the number of complete whole groups.", success: "You used // to count complete teams.", check: { mustChange: true, variables: [{ name: "players", notValues: ["19"] }, { name: "team_size", notValues: ["4"] }], calculation: { target: "full_teams", left: "players", operator: "//", right: "team_size" } } },
+        { id: "operator-remainder", stage: "Growing · Find What Is Left", title: "Cakes Left Over", mission: "Change the cakes and tray size, then use % to calculate how many cakes remain outside complete trays.", starterCode: `cakes = 22
+tray_size = 5
+
+left_over = cakes % tray_size
+print(left_over)`, hint: "% gives the remainder after making complete groups.", success: "You used % to find the leftover amount.", check: { mustChange: true, variables: [{ name: "cakes", notValues: ["22"] }, { name: "tray_size", notValues: ["5"] }], calculation: { target: "left_over", left: "cakes", operator: "%", right: "tray_size" } } },
+        { id: "operator-power", stage: "Ready for a Challenge · Powers", title: "A Small Power", mission: "Change the base and exponent to small positive numbers, then calculate the power with **.", starterCode: `base = 3
+exponent = 2
+
+answer = base ** exponent
+print(answer)`, hint: "Python uses ** for powers. Keep the numbers small while experimenting.", success: "You used ** to calculate a power.", check: { mustChange: true, variables: [{ name: "base", notValues: ["3"] }, { name: "exponent", notValues: ["2"] }], calculation: { target: "answer", left: "base", operator: "**", right: "exponent" } } }
+      ]
+    },
+    freshPracticeGenerator: {
+      scenarios: [
+        { id: "fresh-ticket-total", skill: "Addition", title: "A Fresh Ticket Total", mission: "Add the adult and child tickets.", leftName: "adult_tickets", rightName: "child_tickets", targetName: "total_tickets", operator: "+", numberType: "integer", minimum: 1, maximum: 60, hint: "Use + to combine both ticket amounts.", success: "You checked a fresh addition calculation." },
+        { id: "fresh-seats-left", skill: "Subtraction", title: "Fresh Seats Remaining", mission: "Subtract the occupied seats from all seats.", leftName: "total_seats", rightName: "occupied_seats", targetName: "free_seats", operator: "-", numberType: "integer", minimum: 5, maximum: 120, hint: "Use total_seats - occupied_seats.", success: "You checked a fresh subtraction calculation." },
+        { id: "fresh-reading-total", skill: "Multiplication", title: "A Fresh Reading Total", mission: "Multiply the days by the pages read each day.", leftName: "days", rightName: "pages_each_day", targetName: "total_pages", operator: "*", numberType: "integer", minimum: 2, maximum: 20, hint: "Use * for equal groups.", success: "You checked a fresh multiplication calculation." },
+        { id: "fresh-share", skill: "Ordinary Division", title: "A Fresh Equal Share", mission: "Share the slices equally between friends.", leftName: "slices", rightName: "friends", targetName: "slices_each", operator: "/", rightMinimum: 2, rightMaximum: 10, quotientMinimum: 2, quotientMaximum: 15, hint: "Use / for ordinary division.", success: "You checked a fresh ordinary-division calculation." },
+        { id: "fresh-teams", skill: "Complete Groups", title: "Fresh Complete Teams", mission: "Find how many complete teams can be made.", leftName: "players", rightName: "team_size", targetName: "full_teams", operator: "//", rightMinimum: 2, rightMaximum: 9, quotientMinimum: 2, quotientMaximum: 15, remainderMinimum: 0, remainderMaximum: 8, hint: "Use // to count complete whole teams.", success: "You checked a fresh complete-groups calculation." },
+        { id: "fresh-leftovers", skill: "Remainder", title: "Fresh Leftovers", mission: "Find how many items remain after complete boxes are filled.", leftName: "items", rightName: "box_size", targetName: "left_over", operator: "%", rightMinimum: 2, rightMaximum: 10, quotientMinimum: 2, quotientMaximum: 15, remainderMinimum: 1, remainderMaximum: 9, hint: "Use % to find the remainder.", success: "You checked a fresh remainder calculation." },
+        { id: "fresh-power", skill: "Powers", title: "A Fresh Small Power", mission: "Raise the base to the exponent.", leftName: "base", rightName: "exponent", targetName: "answer", operator: "**", baseMinimum: 2, baseMaximum: 8, exponentMinimum: 2, exponentMaximum: 4, hint: "Use ** between the base and exponent.", success: "You checked a fresh power calculation." }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "party-groups", title: "The Party Groups", mission: "Change the guests and group size. Calculate complete groups with // and people left over with %.", starterCode: `guests = 17
+group_size = 4
+
+full_groups = guests // group_size
+people_left = guests % group_size
+
+print(full_groups)
+print(people_left)`, hint: "The same two values can be used in both calculations.", solution: `guests = 23
+group_size = 5
+
+full_groups = guests // group_size
+people_left = guests % group_size
+
+print(full_groups)
+print(people_left)` },
+        { id: "school-buses", title: "School Buses", mission: "Find the number of full buses and pupils waiting for another bus.", starterCode: `pupils = 94
+bus_size = 30
+
+full_buses = pupils // bus_size
+waiting = pupils % bus_size
+
+print(full_buses)
+print(waiting)`, hint: "Use // for full buses and % for the remainder.", solution: `pupils = 107
+bus_size = 32
+
+full_buses = pupils // bus_size
+waiting = pupils % bus_size
+
+print(full_buses)
+print(waiting)` },
+        { id: "score-power", title: "Power Up the Score", mission: "Change the small base and exponent, then predict the powered score.", starterCode: `base_score = 4
+power = 3
+
+powered_score = base_score ** power
+print(powered_score)`, hint: "Use ** between base_score and power.", solution: `base_score = 5
+power = 2
+
+powered_score = base_score ** power
+print(powered_score)` },
+        { id: "calculation-order", title: "Choose the Order", mission: "Run both calculations and explain why their answers differ.", starterCode: `first_answer = 2 + 3 * 4
+second_answer = (2 + 3) * 4
+
+print(first_answer)
+print(second_answer)`, hint: "Multiplication happens before addition unless parentheses choose another order.", solution: `first_answer = 2 + 3 * 4
+second_answer = (2 + 3) * 4
+
+print(first_answer)
+print(second_answer)` },
+        { id: "bakery-trays", title: "Bakery Trays", mission: "Use // and % to describe complete trays and leftover cakes.", starterCode: `cakes = 38
+tray_size = 6
+
+full_trays = cakes // tray_size
+left_over = cakes % tray_size
+
+print(full_trays)
+print(left_over)`, hint: "Both calculations use cakes and tray_size.", solution: `cakes = 50
+tray_size = 8
+
+full_trays = cakes // tray_size
+left_over = cakes % tray_size
+
+print(full_trays)
+print(left_over)` },
+        { id: "operator-repair", title: "Repair the Operator", mission: "Replace the incorrect + operator so the program finds the remainder.", starterCode: `coins = 23
+players = 5
+
+coins_left = coins + players
+print(coins_left)`, hint: "The remainder operator is %.", solution: `coins = 23
+players = 5
+
+coins_left = coins % players
+print(coins_left)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-add", question: "Which operator adds two values?", code: "", options: ["+", "-", "//", "**"], correct: 0, explanation: "Correct — + adds one value to another." },
+        { id: "quiz-division", question: "What will this program display?", code: `print(9 / 2)`, options: ["4", "4.0", "4.5", "1"], correct: 2, explanation: "Correct — / gives the full division result, so 9 / 2 is 4.5." },
+        { id: "quiz-floor", question: "What will this program display?", code: `print(17 // 4)`, options: ["4", "4.25", "1", "68"], correct: 0, explanation: "Correct — four complete groups of four fit inside seventeen." },
+        { id: "quiz-remainder", question: "What will this program display?", code: `print(17 % 4)`, options: ["4", "4.25", "1", "0"], correct: 2, explanation: "Correct — after four complete groups of four, one remains." },
+        { id: "quiz-power", question: "What will this program display?", code: `print(2 ** 4)`, options: ["6", "8", "16", "24"], correct: 2, explanation: "Correct — 2 ** 4 means 2 * 2 * 2 * 2, which is 16." },
+        { id: "quiz-order", question: "What will this program display?", code: `print(2 + 3 * 4)`, options: ["20", "14", "24", "9"], correct: 1, explanation: "Correct — Python multiplies 3 * 4 first, then adds 2, producing 14." },
+        { id: "quiz-parentheses", question: "What will this program display?", code: `print((2 + 3) * 4)`, options: ["14", "20", "24", "9"], correct: 1, explanation: "Correct — parentheses make Python add 2 + 3 first, then multiply 5 by 4." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `items = 17
+box_size = 4
+
+print(items // box_size)
+print(items % box_size)`,
+      options: ["4 then 1", "4.25 then 1", "1 then 4", "4 then 0"],
+      correct: 0,
+      explanation: "Correct — // finds four complete boxes, and % finds the one item left over."
+    }
   }
 };

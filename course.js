@@ -184,9 +184,16 @@
       const scenario = generator.scenarios[randomInteger(0, generator.scenarios.length - 1)];
       let left;
       let right;
-      if (scenario.operator === "/") {
+      if (["/", "//", "%"].includes(scenario.operator)) {
         right = randomInteger(scenario.rightMinimum, scenario.rightMaximum);
-        left = right * randomInteger(scenario.quotientMinimum, scenario.quotientMaximum);
+        const quotient = randomInteger(scenario.quotientMinimum, scenario.quotientMaximum);
+        const remainderMinimum = scenario.remainderMinimum ?? 0;
+        const remainderMaximum = Math.min(scenario.remainderMaximum ?? 0, right - 1);
+        const remainder = randomInteger(remainderMinimum, remainderMaximum);
+        left = right * quotient + remainder;
+      } else if (scenario.operator === "**") {
+        left = randomInteger(scenario.baseMinimum, scenario.baseMaximum);
+        right = randomInteger(scenario.exponentMinimum, scenario.exponentMaximum);
       } else {
         left = generatedNumber(scenario);
         right = generatedNumber(scenario);
@@ -331,14 +338,23 @@
     if (activity.check.calculation) {
       const rule = activity.check.calculation;
       const escaped = value => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-      const expression = new RegExp(`^\\s*${escaped(rule.target)}\\s*=\\s*${escaped(rule.left)}\\s*\\${rule.operator}\\s*${escaped(rule.right)}\\s*(?:#.*)?$`, "m");
+      const expression = new RegExp(`^\\s*${escaped(rule.target)}\\s*=\\s*${escaped(rule.left)}\\s*${escaped(rule.operator)}\\s*${escaped(rule.right)}\\s*(?:#.*)?$`, "m");
       if (!expression.test(code)) return `Use ${rule.target} = ${rule.left} ${rule.operator} ${rule.right} to make the requested calculation.`;
       const leftValues = assignmentValues(code, rule.left);
       const rightValues = assignmentValues(code, rule.right);
       if (!leftValues.length || !rightValues.length) return "Give both number variables values, then run the calculation again.";
       const left = Number(leftValues[leftValues.length - 1]);
       const right = Number(rightValues[rightValues.length - 1]);
-      const operations = { "+": (a, b) => a + b, "-": (a, b) => a - b, "*": (a, b) => a * b, "/": (a, b) => a / b };
+      const operations = {
+        "+": (a, b) => a + b,
+        "-": (a, b) => a - b,
+        "*": (a, b) => a * b,
+        "/": (a, b) => a / b,
+        "//": (a, b) => Math.floor(a / b),
+        "%": (a, b) => a - Math.floor(a / b) * b,
+        "**": (a, b) => a ** b
+      };
+      if (!operations[rule.operator]) return "This practice uses an operator the checker does not recognise yet.";
       const expected = operations[rule.operator](left, right);
       if (!Number.isFinite(expected) || !outputLines.some(line => line !== "" && Number(line) === expected)) {
         return `Run the program and make sure print(${rule.target}) displays the calculated answer.`;
