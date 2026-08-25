@@ -2018,5 +2018,244 @@ print(items % box_size)`,
       correct: 0,
       explanation: "Correct — // finds four complete boxes, and % finds the one item left over."
     }
+  },
+  7: {
+    title: "Strings — Creating and Using Text",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Text values", "Quotation marks"],
+    intro: "Python has remembered numbers and calculated with them. Today, it will remember names, places, messages, and other text chosen by you.",
+    explanation: "A <strong>string</strong> is text stored inside quotation marks. In <code>name = \"Amina\"</code>, the quotation marks tell Python where the text begins and ends. The variable <code>name</code> lets us use that text later.",
+    concept: "A string is text inside matching quotation marks. Store it in a meaningful variable, then use print() to display it.",
+    starterCode: `name = "Amina"
+city = "Longford"
+message = "Python can remember text."
+
+print(name)
+print(city)
+print(message)`,
+    expectedOutput: `Amina
+Longford
+Python can remember text.`,
+    lineByLine: [
+      '<code>name = "Amina"</code> stores the string <code>"Amina"</code> under the useful variable name <code>name</code>.',
+      '<code>city = "Longford"</code> stores another string. The matching quotation marks show where its text starts and ends.',
+      '<code>message = "Python can remember text."</code> shows that a string can contain spaces and punctuation—not only one word.',
+      '<code>print(name)</code> looks up the value stored in <code>name</code> and displays <code>Amina</code>.',
+      '<code>print(city)</code> and <code>print(message)</code> display the other remembered strings in top-to-bottom order.',
+      'The quotation marks help Python recognise each string, but they do not normally appear in the output.'
+    ],
+    outputExplanation: "Python displays the text stored in each variable without displaying the surrounding quotation marks. There is an important difference between <code>print(name)</code> and <code>print(\"name\")</code>: the first displays the variable's value, while the second displays the exact word <code>name</code>.",
+    changeIt: "Replace <code>\"Amina\"</code>, <code>\"Longford\"</code>, and the message with text of your choice. Predict all three output lines, then run the program.<br><br>Next, add <code>print(\"name\")</code> below <code>print(name)</code>. Run again and explain why one line displays your chosen name while the other displays the word <code>name</code>.",
+    challenge: "Create a welcome card using three string variables: <code>visitor</code>, <code>place</code>, and <code>message</code>. Change only their text values, then display all three.",
+    hint: "Put every text value inside matching quotation marks. Use <code>print(visitor)</code>, not <code>print(\"visitor\")</code>, to display the stored visitor name.",
+    solution: `visitor = "Amina"
+place = "Python Lab"
+message = "You are ready to learn."
+
+print(visitor)
+print(place)
+print(message)`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["strings", "single quotes", "double quotes", "empty strings", "literal text", "string variables", "repairing quotation errors"],
+        previous: ["print()", "comments", "variables", "numbers", "arithmetic", "top-to-bottom execution"],
+        prohibited: ["string concatenation", "string repetition", "membership", "indexing", "slicing", "string methods", "f-strings", "input", "conditions", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "string-profile", stage: "Easy Start · Make It Yours", title: "My Short Profile", mission: "Replace all three starter strings with a name, city, and message of your choice, then run the program.", starterCode: `name = "Your name"
+city = "Your city"
+message = "Your message"
+
+print(name)
+print(city)
+print(message)`, hint: "Change only the text inside the quotation marks first.", success: "You stored and displayed three strings chosen by you.", check: { mustChange: true, variables: [{ name: "name", notValues: ["your name"], minimumPrints: 1 }, { name: "city", notValues: ["your city"], minimumPrints: 1 }, { name: "message", notValues: ["your message"], minimumPrints: 1 }] } },
+        { id: "variable-or-text", stage: "Easy Start · Notice the Quotes", title: "Variable or Exact Text?", mission: "Change the second print() instruction so the program displays the stored name first and the exact word name second.", starterCode: `name = "Amina"
+
+print(name)
+print(name)`, hint: "Put quotation marks around name only in the second print() instruction.", success: "You saw how quotation marks change a variable name into exact text.", check: { mustChange: true, expectedOutput: ["Amina", "name"] } },
+        { id: "apostrophe-string", stage: "Growing · Choose Helpful Quotes", title: "Keep the Apostrophe", mission: "Change the sentence while keeping an apostrophe inside it. Use double quotes around the complete string.", starterCode: `message = "I'm learning Python."
+
+print(message)`, hint: "Double quotes around the complete string allow the apostrophe in I'm to remain ordinary text.", success: "You chose quotation marks that kept the apostrophe readable.", check: { mustChange: true, variables: [{ name: "message", notValues: ["i'm learning python."], minimumPrints: 1 }] } },
+        { id: "repair-missing-quote", stage: "Growing · Read an Error", title: "Close the String", mission: "Python cannot find the end of the message. Add the missing double quote, then run the repaired program.", starterCode: `message = "Hello, Python!
+
+print(message)`, hint: "Add a double quote immediately after the exclamation mark.", success: "You repaired an unclosed string and ran it successfully.", check: { mustChange: true, variables: [{ name: "message", equals: "Hello, Python!", minimumPrints: 1 }] } },
+        { id: "repair-bare-word", stage: "Growing · Mark Text Clearly", title: "Turn the City into Text", mission: "Python is treating Longford like a variable. Add quotation marks so it becomes a string.", starterCode: `city = Longford
+
+print(city)`, hint: "Write city = \"Longford\".", success: "You used quotation marks to tell Python that Longford is text.", check: { mustChange: true, variables: [{ name: "city", equals: "Longford", minimumPrints: 1 }] } },
+        { id: "empty-string", stage: "Growing · Text Can Be Empty", title: "Make an Empty Message", mission: "Replace the current message with an empty string, keep print(message), and run the program.", starterCode: `message = "This is not empty"
+
+print(message)`, hint: "An empty string is two matching quotation marks with nothing between them: \"\".", success: "You created a valid string containing no characters.", check: { mustChange: true, variables: [{ name: "message", equals: "", allowEmpty: true, minimumPrints: 1 }] } },
+        { id: "meaningful-string-name", stage: "Ready for a Challenge · Readable Code", title: "Give the Message a Useful Name", mission: "Replace the variable x with welcome_message in both lines. Keep its string value unchanged.", starterCode: `x = "Welcome to Python"
+
+print(x)`, hint: "Use welcome_message on the left of = and inside print().", success: "You gave a string a meaningful, readable variable name.", check: { mustChange: true, variables: [{ name: "welcome_message", equals: "Welcome to Python", minimumPrints: 1 }] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-string-profile", skill: "Store Personal Text", title: "A Fresh Text Profile", mission: "Change name to '{{targetName}}' and city to '{{targetCity}}'. Keep both variable names and print() instructions.", starterCode: `name = "{{starterName}}"
+city = "{{starterCity}}"
+
+print(name)
+print(city)`, hint: "Change only the text inside both pairs of quotation marks.", solution: `name = "{{targetName}}"
+city = "{{targetCity}}"
+
+print(name)
+print(city)`, success: "You stored and displayed both fresh strings.", check: { mustChange: true, variables: [{ name: "name", equals: "{{targetName}}", minimumPrints: 1 }, { name: "city", equals: "{{targetCity}}", minimumPrints: 1 }] }, values: { starterName: ["Learner", "Visitor", "Student", "Reader", "Explorer", "Coder"], starterCity: ["Your city", "Old Town", "River City", "Sunny Bay", "Hill View", "Green Town"], targetName: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"], targetCity: ["Longford", "Dublin", "Cork", "Galway", "Limerick", "Waterford"] } },
+        { id: "fresh-welcome-message", skill: "Create a Message", title: "A Fresh Welcome Message", mission: "Replace the starter text with the exact message '{{targetMessage}}', then display it.", starterCode: `message = "{{starterMessage}}"
+
+print(message)`, hint: "Keep message as the variable name and place the requested sentence inside matching quotes.", solution: `message = "{{targetMessage}}"
+
+print(message)`, success: "You created and displayed a fresh message string.", check: { mustChange: true, variables: [{ name: "message", equals: "{{targetMessage}}", minimumPrints: 1 }] }, values: { starterMessage: ["Starter message", "Change this text", "A message goes here", "Hello for now", "This is the starter", "Ready to change"], targetMessage: ["Welcome to Python!", "One step at a time.", "I can work with text.", "Practice makes progress.", "Python remembers my words.", "I am ready to learn."] } },
+        { id: "fresh-apostrophe", skill: "Choose Helpful Quotes", title: "A Fresh Apostrophe Sentence", mission: "Store the exact sentence '{{sentence}}'. Use double quotes around it so its apostrophe remains part of the text.", starterCode: `message = "Change me"
+
+print(message)`, hint: "Place the complete sentence inside double quotes.", solution: `message = "{{sentence}}"
+
+print(message)`, success: "You used double quotes to preserve an apostrophe inside a string.", check: { mustChange: true, variables: [{ name: "message", equals: "{{sentence}}", minimumPrints: 1 }] }, values: { sentence: ["I'm learning Python.", "It's a good day to practise.", "Python's messages are text.", "I'm ready for another try.", "It's okay to make mistakes.", "I'm building confidence."] } },
+        { id: "fresh-quoted-word", skill: "Put Quotes Inside Text", title: "A Fresh Quoted Word", mission: "Store the exact sentence '{{sentence}}'. Use single quotes around the complete string so its double quotes stay visible.", starterCode: `message = 'Change me'
+
+print(message)`, hint: "Use single quotes around the complete sentence.", solution: `message = '{{sentence}}'
+
+print(message)`, success: "You kept double quotes visible inside a single-quoted string.", check: { mustChange: true, variables: [{ name: "message", equals: "{{sentence}}", minimumPrints: 1 }] }, values: { sentence: ['Python says "Hello".', 'The sign says "Welcome".', 'She said "Try again".', 'The button says "Run".', 'My note says "Keep going".', 'The screen shows "Ready".'] } },
+        { id: "fresh-literal", skill: "Variable or Exact Text", title: "A Fresh Variable-or-Text Test", mission: "Change only the second print() instruction so the output is '{{value}}' followed by the exact word label.", starterCode: `label = "{{value}}"
+
+print(label)
+print(label)`, hint: "The second instruction needs print(\"label\").", solution: `label = "{{value}}"
+
+print(label)
+print("label")`, success: "You distinguished a stored string from literal text.", check: { mustChange: true, expectedOutput: ["{{value}}", "label"] }, values: { value: ["Welcome", "Ready", "Python", "Begin", "Learning", "Success"] } },
+        { id: "fresh-close-string", skill: "Repair a String", title: "Close a Fresh String", mission: "Add the missing closing quote so Python can store and display '{{value}}'.", starterCode: `message = "{{value}}
+
+print(message)`, hint: "Add a double quote at the end of the first line.", solution: `message = "{{value}}"
+
+print(message)`, success: "You repaired and ran a fresh unclosed string.", check: { mustChange: true, variables: [{ name: "message", equals: "{{value}}", minimumPrints: 1 }] }, values: { value: ["Hello, Python!", "Keep going!", "Text is useful.", "I fixed the string.", "Practice is working.", "Ready to run."] } },
+        { id: "fresh-bare-text", skill: "Mark Text Clearly", title: "Repair Fresh Bare Text", mission: "Add quotation marks so {{value}} becomes text instead of an unknown variable.", starterCode: `word = {{value}}
+
+print(word)`, hint: "Put matching quotation marks around the word after =.", solution: `word = "{{value}}"
+
+print(word)`, success: "You turned fresh bare text into a valid string.", check: { mustChange: true, variables: [{ name: "word", equals: "{{value}}", minimumPrints: 1 }] }, values: { value: ["Python", "Welcome", "Learning", "Practice", "Progress", "Confidence"] } },
+        { id: "fresh-empty-string", skill: "Create Empty Text", title: "A Fresh Empty String", mission: "Replace '{{starter}}' with an empty string and run the program.", starterCode: `message = "{{starter}}"
+
+print(message)`, hint: "Use message = \"\".", solution: `message = ""
+
+print(message)`, success: "You created and ran a fresh empty-string activity.", check: { mustChange: true, variables: [{ name: "message", equals: "", allowEmpty: true, minimumPrints: 1 }] }, values: { starter: ["Busy", "Not empty", "Some text", "A message", "Filled", "Change this"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "welcome-card", title: "The Welcome Card", mission: "Change only the visitor, place, and message strings so the card tells your story.", starterCode: `visitor = "Amina"
+place = "Python Lab"
+message = "You are ready to learn."
+
+print("VISITOR")
+print(visitor)
+print("PLACE")
+print(place)
+print("MESSAGE")
+print(message)`, hint: "Edit only the three text values near the top. Keep all print() instructions.", solution: `visitor = "Naveed"
+place = "DeTLeng Studio"
+message = "One step at a time."
+
+print("VISITOR")
+print(visitor)
+print("PLACE")
+print(place)
+print("MESSAGE")
+print(message)` },
+        { id: "book-label", title: "The Book Label", mission: "Create fresh title, author, and shelf strings without changing the print() instructions.", starterCode: `title = "Python Steps"
+author = "Amina"
+shelf = "Beginner Books"
+
+print(title)
+print(author)
+print(shelf)`, hint: "Every value is text, so keep matching quotation marks around it.", solution: `title = "My First Python Book"
+author = "Sara"
+shelf = "Learning Corner"
+
+print(title)
+print(author)
+print(shelf)` },
+        { id: "travel-card", title: "The Travel Card", mission: "Change the traveller, destination, and travel message strings.", starterCode: `traveller = "Omar"
+destination = "Galway"
+message = "The journey begins today."
+
+print(traveller)
+print(destination)
+print(message)`, hint: "Change the values after = while keeping the variable names.", solution: `traveller = "Maya"
+destination = "Cork"
+message = "The journey begins tomorrow."
+
+print(traveller)
+print(destination)
+print(message)` },
+        { id: "character-card", title: "A Tiny Character Card", mission: "Give the character a new name, role, and motto using strings.", starterCode: `character = "Nova"
+role = "Explorer"
+motto = "Keep moving forward."
+
+print(character)
+print(role)
+print(motto)`, hint: "A role and a complete motto can both be strings.", solution: `character = "Luna"
+role = "Guide"
+motto = "Every step teaches me."
+
+print(character)
+print(role)
+print(motto)` },
+        { id: "shop-sign", title: "The Shop Sign", mission: "Change the shop name, status, and short notice strings.", starterCode: `shop_name = "Green Market"
+status = "Open"
+notice = "Welcome inside."
+
+print(shop_name)
+print(status)
+print(notice)`, hint: "Use meaningful string values and keep the existing variables.", solution: `shop_name = "Python Corner"
+status = "Open today"
+notice = "Learners are welcome."
+
+print(shop_name)
+print(status)
+print(notice)` },
+        { id: "quote-repair", title: "Repair the Announcement", mission: "Repair the missing quotation mark, then run the announcement.", starterCode: `announcement = "Class begins now.
+
+print(announcement)`, hint: "Close the string after the full stop.", solution: `announcement = "Class begins now."
+
+print(announcement)` },
+        { id: "literal-challenge", title: "Stored Value or Written Word?", mission: "Make the program display Ready on the first line and status on the second.", starterCode: `status = "Ready"
+
+print(status)
+print(status)`, hint: "The second print() instruction should contain the quoted word \"status\".", solution: `status = "Ready"
+
+print(status)
+print("status")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-string", question: "Which value is a string?", code: "", options: ["Python", "10", "\"Python\"", "3.5"], correct: 2, explanation: "Correct — quotation marks tell Python that \"Python\" is text." },
+        { id: "quiz-variable-output", question: "What will this program display?", code: `name = "Sara"
+print(name)`, options: ["name", "Sara", "\"Sara\"", "error"], correct: 1, explanation: "Correct — print(name) displays the string stored in the variable name." },
+        { id: "quiz-literal-output", question: "What will this program display?", code: `name = "Sara"
+print("name")`, options: ["Sara", "name", "\"name\"", "error"], correct: 1, explanation: "Correct — quotation marks make name exact text rather than a variable lookup." },
+        { id: "quiz-matching-quotes", question: "Which line contains a valid string?", code: "", options: [`message = "Hello'`, `message = 'Hello"`, `message = "Hello"`, `message = Hello`], correct: 2, explanation: "Correct — the string begins and ends with matching double quotes." },
+        { id: "quiz-apostrophe", question: "Which line stores the sentence without breaking its apostrophe?", code: "", options: [`message = 'I'm ready.'`, `message = "I'm ready."`, `message = I'm ready.`, `message = "I'm ready.'`], correct: 1, explanation: "Correct — double quotes surround the complete sentence while the apostrophe remains inside it." },
+        { id: "quiz-text-number", question: "Which value is text rather than a number?", code: "", options: ["10", "10.0", `"10"`, "-10"], correct: 2, explanation: "Correct — \"10\" is inside quotation marks, so Python treats it as text." },
+        { id: "quiz-empty", question: "What does this string contain?", code: `message = ""`, options: ["A space", "The word message", "No characters", "An error"], correct: 2, explanation: "Correct — matching quotes with nothing between them create a valid empty string." },
+        { id: "quiz-readable-name", question: "Which variable name most clearly describes a welcome message?", code: "", options: ["x", "a", "welcome_message", "m1"], correct: 2, explanation: "Correct — welcome_message clearly explains what its string value represents." },
+        { id: "quiz-two-outputs", question: "What will this program display?", code: `name = "Amina"
+
+print(name)
+print("name")`, options: ["Amina then Amina", "name then name", "Amina then name", "error"], correct: 2, explanation: "Correct — name looks up the variable, while \"name\" is literal text." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `name = "Amina"
+
+print(name)
+print("name")`,
+      options: ["Amina then Amina", "name then name", "Amina then name", "An error"],
+      correct: 2,
+      explanation: "Correct — the variable displays Amina, while the quoted word displays name."
+    }
   }
 };

@@ -327,7 +327,7 @@
       const values = assignmentValues(code, rule.name);
       if (values.length < (rule.minimumAssignments || 1)) return `Almost there—give ${rule.name} the value requested in the mission.`;
       const latest = values[values.length - 1];
-      if (!latest.trim()) return `Give ${rule.name} a value of your choice, then run the program again.`;
+      if (!rule.allowEmpty && !latest.trim()) return `Give ${rule.name} a value of your choice, then run the program again.`;
       if (rule.notValues && rule.notValues.includes(latest.trim().toLowerCase())) return `Good start. Now change the value stored in ${rule.name} to make this story yours.`;
       if (rule.equals !== undefined && latest !== String(rule.equals)) return `Almost there—set ${rule.name} to ${rule.equals}.`;
       if (rule.distinctValues && new Set(values).size < rule.distinctValues) return `Change ${rule.name} as the story moves forward, then run it again.`;
