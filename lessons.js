@@ -3134,5 +3134,242 @@ print(clean_message.replace("red", "green"))`,
       correct: 2,
       explanation: "Correct — strip() cleans the outside, then replace() returns green door."
     }
+  },
+  12: {
+    title: "String Formatting — Building Messages with f-Strings",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["f-strings", "Readable messages"],
+    intro: "Your programs already remember names, places, and numbers. Now those values will become part of natural, readable sentences.",
+    explanation: "An <strong>f-string</strong> places stored values inside text. Put <code>f</code> before the opening quote and a variable inside braces: <code>f\"Hello, {name}!\"</code>.",
+    concept: "The leading f activates formatting. Python evaluates each value or simple expression inside braces and places its result in the message.",
+    starterCode: `name = "Amina"
+city = "Longford"
+lessons = 12
+
+message = f"{name} is learning Python in {city}."
+progress = f"{name} has reached Lesson {lessons}."
+
+print(message)
+print(progress)`,
+    expectedOutput: `Amina is learning Python in Longford.
+Amina has reached Lesson 12.`,
+    lineByLine: [
+      '<code>name</code>, <code>city</code>, and <code>lessons</code> store two strings and one number.',
+      'The <code>f</code> before the quote tells Python that this string contains values to insert.',
+      '<code>{name}</code> and <code>{city}</code> are replaced by the text stored in those variables.',
+      '<code>{lessons}</code> places the number 12 into text without manual conversion.',
+      'The ordinary words and punctuation around the braces remain exactly where they were written.',
+      'The complete formatted strings are stored under meaningful names before being displayed.',
+      'Without the leading <code>f</code>, Python would display braces and the word inside them as literal text.'
+    ],
+    outputExplanation: "Python evaluates each pair of braces and builds two complete messages. The variable values change while the sentence structure remains easy to read in the code.",
+    changeIt: "Replace the name and city with your own choices, then run again.<br><br>Change <code>lessons</code> to another number.<br><br>Add <code>score = 10</code> and display <code>f\"{name} scored {score} points.\"</code>.<br><br>Finally, remove the leading <code>f</code>, observe the literal braces, then restore it.",
+    challenge: "Build a Player Card using f-strings. Display the player, level, location, and score without changing the print labels.",
+    hint: "Use one formatted string per line, such as <code>f\"PLAYER: {player}\"</code>.",
+    solution: `player = "Nova"
+level = 3
+place = "Green Valley"
+score = 40
+
+print(f"PLAYER: {player}")
+print(f"LEVEL: {level}")
+print(f"LOCATION: {place}")
+print(f"SCORE: {score}")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["f-strings", "leading f", "braces", "multiple values", "numbers in messages", "simple expressions in braces", ".1f and .2f precision", "repairing f-string syntax"],
+        previous: ["print()", "variables", "strings", "numbers", "arithmetic", "string methods"],
+        prohibited: ["input()", "type conversion", "formal booleans", "comparisons", "conditions", "loops", "collections", "functions", "advanced alignment"]
+      },
+      activities: [
+        { id: "personal-greeting", stage: "Easy Start · Insert One Value", title: "Write a Personal Greeting", mission: "Use an f-string to display Hello, Amina!", starterCode: `name = "Amina"
+
+print("Hello, name!")`, hint: "Write print(f\"Hello, {name}!\").", success: "You placed a stored name inside a natural greeting.", check: { mustChange: true, expectedOutput: ["Hello, Amina!"] } },
+        { id: "add-city", stage: "Easy Start · Insert Two Values", title: "Add a City", mission: "Display Sara is learning in Cork.", starterCode: `name = "Sara"
+city = "Cork"
+
+print(name)
+print(city)`, hint: "Use both {name} and {city} in one f-string.", success: "You inserted two string values into one message.", check: { mustChange: true, expectedOutput: ["Sara is learning in Cork."] } },
+        { id: "include-number", stage: "Growing · Mix Text and a Number", title: "Include a Number", mission: "Display Omar has 12 points.", starterCode: `name = "Omar"
+score = 12
+
+print(name)
+print(score)`, hint: "An f-string can place {score} directly into text.", success: "You placed a number into text without manual conversion.", check: { mustChange: true, expectedOutput: ["Omar has 12 points."] } },
+        { id: "player-status", stage: "Growing · Tell a Small Story", title: "Build a Player Status", mission: "Display Nova reached level 3 in Green Valley.", starterCode: `player = "Nova"
+level = 3
+place = "Green Valley"
+
+print(player)`, hint: "Use all three variables inside one f-string.", success: "You built a readable status from three values.", check: { mustChange: true, expectedOutput: ["Nova reached level 3 in Green Valley."] } },
+        { id: "expression-message", stage: "Growing · Calculate Inside Braces", title: "Calculate Inside the Message", mission: "Use the two variables inside braces so the output is Total fruit: 7.", starterCode: `apples = 4
+oranges = 3
+
+print("Total fruit: {apples + oranges}")`, hint: "Add f before the quote; Python will calculate the expression.", success: "You evaluated earlier arithmetic inside an f-string.", check: { mustChange: true, expectedOutput: ["Total fruit: 7"] } },
+        { id: "missing-f", stage: "Growing · Activate Formatting", title: "Repair the Missing f", mission: "Make the program display Hello, Amina! instead of literal braces.", starterCode: `name = "Amina"
+
+print("Hello, {name}!")`, hint: "Add f immediately before the opening quote.", success: "You activated formatting with the leading f.", check: { mustChange: true, expectedOutput: ["Hello, Amina!"] } },
+        { id: "close-brace", stage: "Ready for a Challenge · Repair Syntax", title: "Close the Brace", mission: "Repair the unmatched brace so Python displays Score: 10.", starterCode: `score = 10
+
+print(f"Score: {score")`, hint: "Add } after score.", success: "You repaired a genuine f-string syntax error.", check: { mustChange: true, expectedOutput: ["Score: 10"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-greeting", skill: "Personal Greeting", title: "A Fresh Personal Greeting", mission: "Use an f-string to greet {{name}}.", starterCode: `name = "{{name}}"
+
+print("Hello, name!")`, hint: "Use f\"Hello, {name}!\".", solution: `name = "{{name}}"
+
+print(f"Hello, {name}!")`, success: "You created a fresh formatted greeting.", check: { mustChange: true, expectedOutput: ["Hello, {{name}}!"] }, values: { name: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina", "Naveed", "Alex", "Rosa", "Sam"] } },
+        { id: "fresh-city", skill: "Name and City", title: "A Fresh City Message", mission: "Display {{name}} is learning in {{city}}.", starterCode: `name = "{{name}}"
+city = "{{city}}"
+
+print(name)`, hint: "Use {name} and {city} in one f-string.", solution: `name = "{{name}}"
+city = "{{city}}"
+
+print(f"{name} is learning in {city}.")`, success: "You combined two fresh text values.", check: { mustChange: true, expectedOutput: ["{{name}} is learning in {{city}}."] }, values: { name: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"], city: ["Cork", "Dublin", "Galway", "Longford", "Limerick", "Waterford"] } },
+        { id: "fresh-score", skill: "Score Report", title: "A Fresh Score Report", mission: "Display {{name}} scored {{score}} points.", starterCode: `name = "{{name}}"
+score = {{score}}
+
+print(name)
+print(score)`, hint: "Place both variables inside one f-string.", solution: `name = "{{name}}"
+score = {{score}}
+
+print(f"{name} scored {score} points.")`, success: "You formatted fresh text and a number.", check: { mustChange: true, expectedOutput: ["{{name}} scored {{score}} points."] }, values: { name: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"], score: [5, 10, 15, 20, 25, 30] } },
+        { id: "fresh-player", skill: "Player Status", title: "A Fresh Player Status", mission: "Build one status message using all three stored values.", starterCode: `player = "{{player}}"
+level = {{level}}
+place = "{{place}}"
+
+print(player)`, hint: "Use f\"{player} reached level {level} in {place}.\".", solution: `player = "{{player}}"
+level = {{level}}
+place = "{{place}}"
+
+print(f"{player} reached level {level} in {place}.")`, success: "You built a fresh player story.", check: { mustChange: true, expectedOutput: ["{{player}} reached level {{level}} in {{place}}."] }, values: { player: ["Nova", "Luna", "Atlas", "Maya"], level: [2, 3, 4, 5], place: ["Green Valley", "Crystal Forest", "Python Lab", "River Town"] } },
+        { id: "fresh-total", skill: "Expression in Braces", title: "A Fresh Total Message", mission: "Calculate the total inside braces and display Total: {{total}}.", starterCode: `first = {{first}}
+second = {{second}}
+
+print("Total: {first + second}")`, hint: "Add f before the quote.", solution: `first = {{first}}
+second = {{second}}
+
+print(f"Total: {first + second}")`, success: "You calculated a fresh result inside braces.", check: { mustChange: true, expectedOutput: ["Total: {{total}}"] }, values: { first: [2], second: [3], total: [5] } },
+        { id: "fresh-price", skill: "Decimal Precision", title: "A Fresh Decimal Price", mission: "Display the price with exactly two decimal places.", starterCode: `price = {{price}}
+
+print(price)`, hint: "Use f\"Price: €{price:.2f}\".", solution: `price = {{price}}
+
+print(f"Price: €{price:.2f}")`, success: "You formatted a fresh decimal price.", check: { mustChange: true, expectedOutput: ["Price: €{{formatted}}"] }, values: { price: [3.5], formatted: ["3.50"] } },
+        { id: "fresh-missing-f", skill: "Repair Formatting", title: "Repair a Fresh Missing f", mission: "Activate the braces so the message displays {{name}}.", starterCode: `name = "{{name}}"
+
+print("Welcome, {name}!")`, hint: "Add f before the opening quote.", solution: `name = "{{name}}"
+
+print(f"Welcome, {name}!")`, success: "You repaired fresh inactive formatting.", check: { mustChange: true, expectedOutput: ["Welcome, {{name}}!"] }, values: { name: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"] } },
+        { id: "fresh-brace", skill: "Repair Braces", title: "Repair Fresh Braces", mission: "Add the missing closing brace so the score displays correctly.", starterCode: `score = {{score}}
+
+print(f"Score: {score")`, hint: "Close {score} with }.", solution: `score = {{score}}
+
+print(f"Score: {score}")`, success: "You repaired fresh f-string braces.", check: { mustChange: true, expectedOutput: ["Score: {{score}}"] }, values: { score: [5, 10, 15, 20, 25, 30] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "learner-card", title: "The Learner Card", mission: "Display the learner, city, and lesson in three formatted lines.", starterCode: `name = "Amina"
+city = "Longford"
+lesson = 12
+
+print(name)
+print(city)
+print(lesson)`, hint: "Use one labelled f-string per line.", solution: `name = "Amina"
+city = "Longford"
+lesson = 12
+
+print(f"LEARNER: {name}")
+print(f"CITY: {city}")
+print(f"LESSON: {lesson}")` },
+        { id: "player-card", title: "Player Status", mission: "Build a four-line formatted Player Card.", starterCode: `player = "Nova"
+level = 3
+place = "Green Valley"
+score = 40
+
+print(player)`, hint: "Place each value after a readable label.", solution: `player = "Nova"
+level = 3
+place = "Green Valley"
+score = 40
+
+print(f"PLAYER: {player}")
+print(f"LEVEL: {level}")
+print(f"LOCATION: {place}")
+print(f"SCORE: {score}")` },
+        { id: "shopping-total", title: "Shopping Total", mission: "Calculate and display the total cost inside one f-string.", starterCode: `price = 3
+quantity = 4
+
+print(price)
+print(quantity)`, hint: "Use {price * quantity} inside the message.", solution: `price = 3
+quantity = 4
+
+print(f"Total cost: €{price * quantity}")` },
+        { id: "weather", title: "Weather Report", mission: "Display a natural report using the city and temperature.", starterCode: `city = "Cork"
+temperature = 18.756
+
+print(city)
+print(temperature)`, hint: "Use {temperature:.1f} for one decimal place.", solution: `city = "Cork"
+temperature = 18.756
+
+print(f"{city}: {temperature:.1f}°C")` },
+        { id: "progress", title: "Lesson Progress Message", mission: "Display the learner's current lesson and next lesson.", starterCode: `name = "Amina"
+lesson = 12
+
+print(name)
+print(lesson)`, hint: "Use {lesson} and {lesson + 1}.", solution: `name = "Amina"
+lesson = 12
+
+print(f"{name} is on Lesson {lesson}.")
+print(f"Next: Lesson {lesson + 1}.")` },
+        { id: "broken-greeting", title: "Repair the Broken Greeting", mission: "Repair the missing f and closing brace.", starterCode: `name = "Sara"
+
+print("Hello, {name!")`, hint: "Add f before the quote and } after name.", solution: `name = "Sara"
+
+print(f"Hello, {name}!")` },
+        { id: "formatted-story", title: "The Formatted Story", mission: "Use all four values in a readable two-line story.", starterCode: `player = "Nova"
+place = "Crystal Forest"
+coins = 7
+bonus = 3
+
+print(player)
+print(place)`, hint: "Use values directly and calculate coins + bonus inside braces.", solution: `player = "Nova"
+place = "Crystal Forest"
+coins = 7
+bonus = 3
+
+print(f"{player} explored {place}.")
+print(f"Total coins: {coins + bonus}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-f", question: "What does the f before a string enable?", code: "", options: ["File access", "Formatted values in braces", "A loop", "A comment"], correct: 1, explanation: "Correct — f activates formatted values inside braces." },
+        { id: "quiz-greeting", question: "What will this program display?", code: `name = "Sara"
+print(f"Hello, {name}!")`, options: ["Hello, name!", "Hello, Sara!", "{Sara}", "An error"], correct: 1, explanation: "Correct — {name} is replaced by Sara." },
+        { id: "quiz-missing-f", question: "What will this ordinary string display?", code: `name = "Sara"
+print("Hello, {name}!")`, options: ["Hello, Sara!", "Hello, {name}!", "Sara", "An error"], correct: 1, explanation: "Correct — without f, the braces remain literal text." },
+        { id: "quiz-number", question: "What will this program display?", code: `score = 10
+print(f"Score: {score}")`, options: ["Score: score", "Score: 10", "10 score", "An error"], correct: 1, explanation: "Correct — an f-string places the number into the message." },
+        { id: "quiz-expression", question: "What will this program display?", code: `score = 5
+print(f"Score: {score + 2}")`, options: ["Score: 5 + 2", "Score: 5", "Score: 7", "An error"], correct: 2, explanation: "Correct — Python evaluates the expression inside braces first." },
+        { id: "quiz-multiple", question: "Which f-string uses both name and city?", code: "", options: ["f\"name city\"", "f\"{name} lives in {city}.\"", "\"{name} {city}\"", "f\"name lives in city\""], correct: 1, explanation: "Correct — both variable names appear inside braces." },
+        { id: "quiz-quoted", question: "What does {'name'} insert inside an f-string?", code: "", options: ["The variable's value", "The literal word name", "A number", "An error"], correct: 1, explanation: "Correct — quotation marks make name literal text." },
+        { id: "quiz-decimal", question: "What will this program display?", code: `price = 3.5
+print(f"€{price:.2f}")`, options: ["€3.5", "€3.50", "€price", "An error"], correct: 1, explanation: "Correct — .2f displays two digits after the decimal point." },
+        { id: "quiz-brace", question: "What is missing from f\"Hello, {name!\"?", code: "", options: ["A colon", "A closing brace", "A number", "A second f"], correct: 1, explanation: "Correct — every opening formatting brace needs its closing }." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `name = "Amina"
+lesson = 12
+
+print(f"{name} has reached Lesson {lesson}.")`,
+      options: ["{name} has reached Lesson {lesson}.", "Amina has reached Lesson 12.", "Amina lesson", "An error"],
+      correct: 1,
+      explanation: "Correct — both stored values are inserted into the readable message."
+    }
   }
 };
