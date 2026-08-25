@@ -13,6 +13,7 @@
   };
   let pyodideReady = null;
   let hasRun = false;
+  let hasPersonalInputRun = false;
   let quizPassed = false;
   let activePractice = null;
   let activePracticeIndex = 0;
@@ -21,6 +22,7 @@
   let activeQuiz = null;
   let activeQuizIndex = 0;
   let editorBaseCode = "";
+  let editorBaseInput = "";
   let lastRun = null;
 
   function byId(id) { return document.getElementById(id); }
@@ -51,6 +53,9 @@
     byId("lineByLine").innerHTML = lesson.lineByLine.map((line, index) => `<div class="line"><b>${index + 1}</b><span>${line}</span></div>`).join("");
     byId("code").value = lesson.starterCode;
     editorBaseCode = lesson.starterCode;
+    editorBaseInput = lesson.starterInput || "";
+    byId("programInput").value = editorBaseInput;
+    byId("programInputPanel").style.display = lesson.usesInput ? "block" : "none";
     byId("expectedOutput").textContent = lesson.expectedOutput;
     setHtml("outputExplanation", lesson.outputExplanation);
     setHtml("changeIt", lesson.changeIt);
@@ -251,6 +256,7 @@
     byId("practiceTitle").textContent = activePractice.title;
     byId("practiceMission").textContent = activePractice.mission;
     byId("practiceCode").textContent = activePractice.starterCode;
+    if (activePractice.starterInput) byId("practiceCode").textContent += `\n\nProgram Input:\n${activePractice.starterInput}`;
     byId("practiceHint").textContent = activePractice.hint;
     byId("practiceHint").style.display = "none";
     byId("practiceFeedback").textContent = "";
@@ -270,6 +276,7 @@
     byId("challengeName").textContent = activeChallenge.title;
     byId("challengeText").textContent = activeChallenge.mission;
     byId("challengeCode").textContent = activeChallenge.starterCode;
+    if (activeChallenge.starterInput) byId("challengeCode").textContent += `\n\nProgram Input:\n${activeChallenge.starterInput}`;
     byId("hint").textContent = activeChallenge.hint;
     byId("solutionCode").textContent = activeChallenge.solution;
     byId("hint").style.display = "none";
@@ -301,9 +308,16 @@
     return values;
   }
 
-  function validatePractice(activity, code, output) {
+  function validatePractice(activity, code, output, programInput) {
     const outputLines = output.split("\n").map(line => line.trim());
     const commentLines = code.split("\n").filter(line => /^\s*#/.test(line));
+    const inputLines = programInput.replace(/\r/g, "").split("\n");
+    if (activity.check.minimumInputLines && inputLines.filter(line => line.trim()).length < activity.check.minimumInputLines) {
+      return `Add ${activity.check.minimumInputLines} answers in Program Input, one answer per line.`;
+    }
+    for (const value of activity.check.inputNotValues || []) {
+      if (inputLines.some(line => line.trim().toLowerCase() === value.toLowerCase())) return "Change the starter answer in Program Input to make this conversation yours.";
+    }
     if (activity.check.minimumComments && commentLines.length < activity.check.minimumComments) {
       return `Add ${activity.check.minimumComments - commentLines.length} more useful ${activity.check.minimumComments - commentLines.length === 1 ? "comment" : "comments"}, then run the program again.`;
     }
@@ -383,19 +397,30 @@
     button.textContent = "Running…";
     try {
       let outputBuffer = "";
-      pyodideReady.setStdout({ batched: text => { outputBuffer += `${text}\n`; byId("outputText").textContent = outputBuffer.trimEnd() || "(No output)"; } });
+      const suppliedInput = byId("programInput").value.replace(/\r/g, "").split("\n");
+      let inputIndex = 0;
+      pyodideReady.setStdout({ raw: character => { outputBuffer += String.fromCharCode(character); byId("outputText").textContent = outputBuffer || "(No output)"; } });
       pyodideReady.setStderr({ batched: text => { outputBuffer += `${text}\n`; byId("outputText").textContent = outputBuffer.trimEnd(); } });
+      pyodideReady.setStdin({ stdin: () => {
+        if (inputIndex >= suppliedInput.length || (suppliedInput.length === 1 && suppliedInput[0] === "")) return undefined;
+        const answer = suppliedInput[inputIndex++];
+        outputBuffer += `${answer}\n`;
+        byId("outputText").textContent = outputBuffer.trimEnd();
+        return answer;
+      } });
       byId("outputText").textContent = "";
       await pyodideReady.runPythonAsync(byId("code").value);
       if (!outputBuffer) byId("outputText").textContent = "(No output)";
       hasRun = true;
-      lastRun = { code: byId("code").value, succeeded: true, output: outputBuffer.trimEnd() };
+      if (lesson.usesInput && byId("programInput").value.trim() !== (lesson.starterInput || "").trim()) hasPersonalInputRun = true;
+      lastRun = { code: byId("code").value, input: byId("programInput").value, succeeded: true, output: outputBuffer.trimEnd() };
       byId("interactionNote").textContent = "Nice — you ran the code. Change it and run it again to see what changes.";
     } catch (error) {
       hasRun = true;
-      lastRun = { code: byId("code").value, succeeded: false, output: String(error) };
-      byId("outputText").textContent = String(error);
-      byId("interactionNote").textContent = "An error is useful feedback. Read its last line, check the code, and try again.";
+      lastRun = { code: byId("code").value, input: byId("programInput").value, succeeded: false, output: String(error) };
+      const missingInput = lesson.usesInput && /EOFError/.test(String(error));
+      byId("outputText").textContent = missingInput ? "Python needs another answer. Add one more line in Program Input, then run again." : String(error);
+      byId("interactionNote").textContent = missingInput ? "Each input() needs one answer. Add the missing answer on a new line." : "An error is useful feedback. Read its last line, check the code, and try again.";
     } finally {
       button.disabled = false;
       button.textContent = "▶ Run Python";
@@ -403,6 +428,7 @@
   };
   window.resetCode = function () {
     byId("code").value = editorBaseCode;
+    byId("programInput").value = editorBaseInput;
     lastRun = null;
     byId("interactionNote").textContent = activePractice && editorBaseCode === activePractice.starterCode ? "Practice reset. Change the requested values, then run it again." : "Starter code restored. Make a change and run it again.";
   };
@@ -445,7 +471,9 @@
     const editor = byId("code");
     if (editor.value !== editorBaseCode && !window.confirm("Load this practice and replace the code currently in the editor?")) return;
     editorBaseCode = activePractice.starterCode;
+    editorBaseInput = activePractice.starterInput || "";
     editor.value = editorBaseCode;
+    byId("programInput").value = editorBaseInput;
     lastRun = null;
     byId("outputText").textContent = "Practice loaded. Change the code, then press Run Python.";
     byId("interactionNote").textContent = "This practice is now in the editor. Follow its mission, run it, then choose Check My Work.";
@@ -458,10 +486,11 @@
     const code = byId("code").value;
     const feedback = byId("practiceFeedback");
     if (editorBaseCode !== activePractice.starterCode) { feedback.textContent = "Choose Try This Practice first so the coach knows which little mission you are working on."; return; }
-    if (!lastRun || lastRun.code !== code) { feedback.textContent = "Run your latest code first, then come back and check your work."; return; }
+    if (!lastRun || lastRun.code !== code || lastRun.input !== byId("programInput").value) { feedback.textContent = "Run your latest code and Program Input first, then come back and check your work."; return; }
     if (!lastRun.succeeded) { feedback.textContent = "Python found something we can fix. Read the last line of the error, make one small change, and run again."; return; }
-    if (activePractice.check.mustChange && code.trim() === activePractice.starterCode.trim()) { feedback.textContent = "Good first run. Now make the change in the mission, run it again, and check your work."; return; }
-    const issue = validatePractice(activePractice, code, lastRun.output);
+    const input = byId("programInput").value;
+    if (activePractice.check.mustChange && code.trim() === activePractice.starterCode.trim() && input.trim() === (activePractice.starterInput || "").trim()) { feedback.textContent = "Good first run. Now make the change in the mission, run it again, and check your work."; return; }
+    const issue = validatePractice(activePractice, code, lastRun.output, input);
     if (issue) { feedback.textContent = issue; return; }
     if (activePractice.generated) {
       if (!activePractice.freshCompleted) {
@@ -499,6 +528,7 @@
     byId("practiceTitle").textContent = generated.title;
     byId("practiceMission").textContent = generated.mission;
     byId("practiceCode").textContent = generated.starterCode;
+    if (generated.starterInput) byId("practiceCode").textContent += `\n\nProgram Input:\n${generated.starterInput}`;
     byId("practiceHint").textContent = generated.hint;
     byId("practiceHint").style.display = "none";
     byId("practiceFeedback").textContent = "Fresh practice ready. Predict first, then choose Try This Practice.";
@@ -519,7 +549,9 @@
     const editor = byId("code");
     if (editor.value !== editorBaseCode && !window.confirm("Load this challenge and replace the code currently in the editor?")) return;
     editorBaseCode = activeChallenge.starterCode;
+    editorBaseInput = activeChallenge.starterInput || "";
     editor.value = editorBaseCode;
+    byId("programInput").value = editorBaseInput;
     lastRun = null;
     byId("outputText").textContent = "Challenge loaded. Change the values, then press Run Python.";
     byId("interactionNote").textContent = "This challenge is now in the editor. Make it yours, predict the output, and run it.";
@@ -533,6 +565,7 @@
   window.useSolution = function () {
     const solution = activeChallenge ? activeChallenge.solution : lesson.solution;
     byId("code").value = solution;
+    byId("programInput").value = (activeChallenge && activeChallenge.solutionInput) || editorBaseInput;
     lastRun = null;
     byId("interactionNote").textContent = "Solution placed in the editor. Run it and explain the output to yourself.";
     byId("code").focus();
@@ -545,8 +578,8 @@
     byId("quizResult").textContent = quizPassed ? `✓ ${currentQuiz.explanation}` : "Not quite. Look at the example, then try again.";
   };
   window.completeLesson = function () {
-    if (!hasRun || !quizPassed) {
-      byId("completionMessage").textContent = "Run the Python example and answer the mini quiz correctly before completing this lesson.";
+    if (!hasRun || !quizPassed || (lesson.usesInput && !hasPersonalInputRun)) {
+      byId("completionMessage").textContent = lesson.usesInput && !hasPersonalInputRun ? "Run the program once with your own answers in Program Input, then answer the mini quiz correctly." : "Run the Python example and answer the mini quiz correctly before completing this lesson.";
       return;
     }
     const completed = completedLessons();
