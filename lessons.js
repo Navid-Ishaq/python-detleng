@@ -2519,5 +2519,209 @@ print("Go!" in message)`,
       correct: 0,
       explanation: "Correct — the first line repeats the string three times, and the second confirms that Go! appears inside message."
     }
+  },
+  9: {
+    title: "String Indexing — Accessing Individual Characters",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Character positions", "Positive and negative indexes"],
+    intro: "A string may look like one piece of text, but Python also sees an ordered row of characters. Today you will reach one character at a time.",
+    explanation: "An <strong>index</strong> is a character's position inside a string. Write the position inside square brackets: <code>word[0]</code>. Python starts counting at <code>0</code>, so index <code>0</code> gives the first character.",
+    concept: "Use square brackets to request one character. Counting begins at 0 from the left, while -1 begins at the end.",
+    starterCode: `word = "Python"
+
+print(word)
+print(word[0])
+print(word[2])
+print(word[5])
+print(word[-1])`,
+    expectedOutput: `Python
+P
+t
+n
+n`,
+    lineByLine: [
+      '<code>word = "Python"</code> stores a six-character string. Its positions are <code>0</code> through <code>5</code>.',
+      '<code>print(word)</code> displays the complete string, just as it did in earlier lessons.',
+      '<code>word[0]</code> requests the character at the first position. Python starts at zero, so the answer is <code>P</code>.',
+      '<code>word[2]</code> requests the third character, <code>t</code>. Position zero is first, one is second, and two is third.',
+      '<code>word[5]</code> reaches the sixth and final character from the left, <code>n</code>.',
+      '<code>word[-1]</code> reaches the first character from the end—the last character—so it also produces <code>n</code>.',
+      'Letters, digits, spaces, and punctuation all occupy character positions inside a string.'
+    ],
+    outputExplanation: "The complete word appears first. Each later line contains one character selected by its index. Both <code>word[5]</code> and <code>word[-1]</code> reach the final <code>n</code>, but they count from different directions.",
+    changeIt: "First, change <code>word[0]</code> to <code>word[3]</code>. Predict the character, then run.<br><br>Next, change <code>word[-1]</code> to <code>word[-2]</code> and predict again.<br><br>Finally, replace <code>\"Python\"</code> with your own name. Keep only <code>print(word[0])</code> and <code>print(word[-1])</code> to discover its first and last characters.",
+    challenge: "Store a player name and a place. Display the first and last characters of both strings using indexes.",
+    hint: "Use <code>[0]</code> for a first character and <code>[-1]</code> for a last character.",
+    solution: `player = "Amina"
+place = "Python Lab"
+
+print(player[0])
+print(player[-1])
+print(place[0])
+print(place[-1])`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["string indexing", "zero-based positions", "positive indexes", "negative indexes", "spaces and punctuation as characters", "IndexError from out-of-range positions"],
+        previous: ["print()", "variables", "numbers", "strings", "joining strings", "repeating strings", "membership checks", "top-to-bottom execution"],
+        prohibited: ["len()", "slicing", "string methods", "f-strings", "input", "comparisons", "logical operators", "conditions", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "first-character", stage: "Easy Start · Begin at Zero", title: "Find the First Character", mission: "Change the index so the program displays the first character P.", starterCode: `word = "Python"
+
+print(word[2])`, hint: "Python's first position is 0.", success: "You used index 0 to reach the first character.", check: { mustChange: true, expectedOutput: ["P"] } },
+        { id: "third-character", stage: "Easy Start · Count Carefully", title: "Find the Third Character", mission: "Change the index so the program displays the third character d.", starterCode: `word = "Code"
+
+print(word[0])`, hint: "First is 0, second is 1, and third is 2.", success: "You translated a human position into Python's zero-based index.", check: { mustChange: true, expectedOutput: ["d"] } },
+        { id: "last-character", stage: "Growing · Count from the End", title: "Find the Last Character", mission: "Use a negative index to display the final character g.", starterCode: `word = "Learning"
+
+print(word[0])`, hint: "The last character is at index -1.", success: "You reached the last character without counting the whole word.", check: { mustChange: true, expectedOutput: ["g"] } },
+        { id: "second-last", stage: "Growing · One Step Back", title: "Find the Second-Last Character", mission: "Use a negative index to display the second-last character o.", starterCode: `word = "Python"
+
+print(word[-1])`, hint: "If -1 is last, -2 is second-last.", success: "You counted two positions from the end.", check: { mustChange: true, expectedOutput: ["o"] } },
+        { id: "find-space", stage: "Growing · Spaces Count Too", title: "Find the Space", mission: "Change the index so Python selects the space between Hi and Sam. The output line will look blank.", starterCode: `message = "Hi Sam"
+
+print(message[0])`, hint: "H is 0, i is 1, and the space is 2.", success: "You discovered that a space occupies a real string position.", check: { mustChange: true, expectedOutput: [""] } },
+        { id: "repair-index-error", stage: "Growing · Read an Error", title: "Repair the Missing Position", mission: "This program asks for a position that does not exist. Change only the index so it displays t.", starterCode: `word = "Cat"
+
+print(word[5])`, hint: "Cat has indexes 0, 1, and 2. The t is at index 2.", success: "You repaired an out-of-range index after understanding the error.", check: { mustChange: true, expectedOutput: ["t"] } },
+        { id: "inspect-name", stage: "Ready for a Challenge · Inspect Both Ends", title: "Inspect a Name", mission: "Replace Learner with Amina, then display A from the beginning and a from the end.", starterCode: `name = "Learner"
+
+print(name)
+print(name)`, hint: "Store Amina, then use name[0] and name[-1].", success: "You inspected both ends of a name.", check: { mustChange: true, expectedOutput: ["A", "a"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-first", skill: "First Character", title: "A Fresh First Character", mission: "Change the index so the program displays '{{letter}}', the first character.", starterCode: `word = "{{letter}}arden"
+
+print(word[2])`, hint: "Use index 0.", solution: `word = "{{letter}}arden"
+
+print(word[0])`, success: "You found a fresh first character.", check: { mustChange: true, expectedOutput: ["{{letter}}"] }, values: { letter: ["G", "H", "P", "B", "C", "M"] } },
+        { id: "fresh-middle", skill: "Positive Position", title: "A Fresh Middle Position", mission: "Change the index so Python displays the middle character '{{letter}}'.", starterCode: `code = "A{{letter}}B"
+
+print(code[0])`, hint: "The middle character in this three-character string is at index 1.", solution: `code = "A{{letter}}B"
+
+print(code[1])`, success: "You selected a fresh middle position.", check: { mustChange: true, expectedOutput: ["{{letter}}"] }, values: { letter: ["x", "y", "z", "7", "!", "?"] } },
+        { id: "fresh-last", skill: "Last Character", title: "A Fresh Last Character", mission: "Use a negative index to display the final character '{{letter}}'.", starterCode: `word = "ready{{letter}}"
+
+print(word[0])`, hint: "Use index -1.", solution: `word = "ready{{letter}}"
+
+print(word[-1])`, success: "You reached a fresh last character from the end.", check: { mustChange: true, expectedOutput: ["{{letter}}"] }, values: { letter: ["!", "?", "7", "X", "Z", "."] } },
+        { id: "fresh-second-last", skill: "Second-Last Character", title: "A Fresh Second-Last Character", mission: "Use a negative index to display '{{letter}}', the second-last character.", starterCode: `code = "ABC{{letter}}Z"
+
+print(code[-1])`, hint: "Use index -2.", solution: `code = "ABC{{letter}}Z"
+
+print(code[-2])`, success: "You reached a fresh second-last character.", check: { mustChange: true, expectedOutput: ["{{letter}}"] }, values: { letter: ["M", "N", "Q", "4", "#", "@"] } },
+        { id: "fresh-space", skill: "Find a Space", title: "A Fresh Space Hunt", mission: "Change the index so Python selects the one space between Go and Now.", starterCode: `message = "Go Now"
+
+print(message[0])`, hint: "G is 0, o is 1, and the space is 2.", solution: `message = "Go Now"
+
+print(message[2])`, success: "You found a fresh space character.", check: { mustChange: true, expectedOutput: [""] } },
+        { id: "fresh-punctuation", skill: "Find Punctuation", title: "A Fresh Punctuation Hunt", mission: "Use a negative index to display the final punctuation mark '{{mark}}'.", starterCode: `message = "Ready{{mark}}"
+
+print(message[0])`, hint: "The final character is at index -1.", solution: `message = "Ready{{mark}}"
+
+print(message[-1])`, success: "You selected fresh punctuation as an ordinary character.", check: { mustChange: true, expectedOutput: ["{{mark}}"] }, values: { mark: ["!", "?", ".", ":", ";"] } },
+        { id: "fresh-error", skill: "Repair an IndexError", title: "Repair a Fresh Index", mission: "Replace the impossible index with the position that displays '{{letter}}'.", starterCode: `word = "A{{letter}}Z"
+
+print(word[8])`, hint: "The middle character is at index 1.", solution: `word = "A{{letter}}Z"
+
+print(word[1])`, success: "You repaired a fresh out-of-range index.", check: { mustChange: true, expectedOutput: ["{{letter}}"] }, values: { letter: ["B", "C", "D", "5", "*", "+"] } },
+        { id: "fresh-both-ends", skill: "Inspect Both Ends", title: "A Fresh Two-End Inspector", mission: "Display '{{first}}' from the beginning and '{{last}}' from the end using two indexes.", starterCode: `name = "{{first}}mina{{last}}"
+
+print(name)
+print(name)`, hint: "Use name[0] and name[-1].", solution: `name = "{{first}}mina{{last}}"
+
+print(name[0])
+print(name[-1])`, success: "You inspected both ends of a fresh string.", check: { mustChange: true, expectedOutput: ["{{first}}", "{{last}}"] }, values: { first: ["A", "S", "L", "M", "R"], last: ["a", "h", "n", "r", "y"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "secret-initials", title: "The Secret Initials", mission: "Display the first character of each stored name.", starterCode: `first_name = "Amina"
+second_name = "Naveed"
+
+print(first_name)
+print(second_name)`, hint: "Use [0] after each variable.", solution: `first_name = "Amina"
+second_name = "Naveed"
+
+print(first_name[0])
+print(second_name[0])` },
+        { id: "first-last", title: "First and Last", mission: "Display the first and last characters of the word Python.", starterCode: `word = "Python"
+
+print(word)
+print(word)`, hint: "Use word[0] and word[-1].", solution: `word = "Python"
+
+print(word[0])
+print(word[-1])` },
+        { id: "unlock-word", title: "Unlock the Word", mission: "Use the requested positions to display C, d, and e on separate lines.", starterCode: `word = "Code"
+
+print(word)
+print(word)
+print(word)`, hint: "C is index 0, d is index 2, and e is index -1.", solution: `word = "Code"
+
+print(word[0])
+print(word[2])
+print(word[-1])` },
+        { id: "find-punctuation", title: "Find the Punctuation", mission: "Display only the exclamation mark at the end of the message.", starterCode: `message = "You did it!"
+
+print(message)`, hint: "The last character is at index -1.", solution: `message = "You did it!"
+
+print(message[-1])` },
+        { id: "hidden-space", title: "The Hidden Space", mission: "Select the space between Red and Door. The output should be one blank-looking line.", starterCode: `label = "Red Door"
+
+print(label[0])`, hint: "R is 0, e is 1, d is 2, and the space is 3.", solution: `label = "Red Door"
+
+print(label[3])` },
+        { id: "broken-index", title: "Repair the Broken Index", mission: "Repair the impossible index so the program displays the final t.", starterCode: `animal = "Cat"
+
+print(animal[9])`, hint: "Use index 2 or index -1.", solution: `animal = "Cat"
+
+print(animal[-1])` },
+        { id: "character-detective", title: "Character Detective", mission: "Display the first and last characters of both the player and place.", starterCode: `player = "Amina"
+place = "Python Lab"
+
+print(player)
+print(player)
+print(place)
+print(place)`, hint: "Use [0] and [-1] with each variable.", solution: `player = "Amina"
+place = "Python Lab"
+
+print(player[0])
+print(player[-1])
+print(place[0])
+print(place[-1])` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-first-index", question: "Which index selects the first character of a string?", code: "", options: ["1", "0", "-2", "first"], correct: 1, explanation: "Correct — Python begins string positions at index 0." },
+        { id: "quiz-second", question: "What will this program display?", code: `word = "Code"
+print(word[1])`, options: ["C", "o", "d", "e"], correct: 1, explanation: "Correct — index 1 is the second character, o." },
+        { id: "quiz-third", question: "What will this program display?", code: `word = "Code"
+print(word[2])`, options: ["C", "o", "d", "e"], correct: 2, explanation: "Correct — counting 0, 1, 2 reaches d." },
+        { id: "quiz-last", question: "Which expression selects the final character of word?", code: "", options: ["word[0]", "word[1]", "word[-1]", "word[last]"], correct: 2, explanation: "Correct — index -1 selects the final character." },
+        { id: "quiz-second-last", question: "What will this program display?", code: `word = "Python"
+print(word[-2])`, options: ["P", "y", "o", "n"], correct: 2, explanation: "Correct — -1 is n, so -2 is the second-last character o." },
+        { id: "quiz-space", question: "What kind of character is at index 2?", code: `message = "Hi Sam"`, options: ["H", "i", "A space", "S"], correct: 2, explanation: "Correct — spaces occupy positions inside strings too." },
+        { id: "quiz-punctuation", question: "What will this program display?", code: `message = "Ready!"
+print(message[-1])`, options: ["R", "y", "!", "Ready"], correct: 2, explanation: "Correct — punctuation is a character, and -1 reaches the final exclamation mark." },
+        { id: "quiz-error", question: "What happens when this program runs?", code: `word = "Cat"
+print(word[3])`, options: ["It displays t", "It displays Cat", "It produces IndexError", "It displays nothing"], correct: 2, explanation: "Correct — Cat has only indexes 0, 1, and 2, so index 3 is out of range." },
+        { id: "quiz-whole-or-one", question: "Which line displays only the first character stored in word?", code: "", options: ["print(word)", "print(\"word\")", "print(word[0])", "print(word[-1])"], correct: 2, explanation: "Correct — word[0] selects one character from the beginning." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `word = "Python"
+
+print(word[0])
+print(word[-1])`,
+      options: ["P then n", "y then o", "Python twice", "An error"],
+      correct: 0,
+      explanation: "Correct — index 0 selects P from the beginning, and -1 selects n from the end."
+    }
   }
 };
