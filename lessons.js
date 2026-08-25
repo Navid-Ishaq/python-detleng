@@ -2723,5 +2723,204 @@ print(word[-1])`,
       correct: 0,
       explanation: "Correct — index 0 selects P from the beginning, and -1 selects n from the end."
     }
+  },
+  10: {
+    title: "String Slicing — Taking Portions of Text",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Start and stop", "Useful text portions"],
+    intro: "You can already select one character from a string. Now you will place two boundaries around several characters and take a useful portion of the text.",
+    explanation: "A <strong>slice</strong> is a portion of a string. Write a start and stop position inside square brackets: <code>word[0:3]</code>. Python includes the start position and stops before the stop position.",
+    concept: "A slice uses [start:stop]. Start is included, stop is not included, and an empty side means continue to that end of the string.",
+    starterCode: `word = "Python"
+
+print(word[0:3])
+print(word[2:6])
+print(word[:4])
+print(word[3:])
+print(word[-3:])`,
+    expectedOutput: `Pyt
+thon
+Pyth
+hon
+hon`,
+    lineByLine: [
+      '<code>word[0:3]</code> begins at index 0 and stops before index 3, producing <code>Pyt</code>.',
+      'The start position belongs to the slice. The stop position acts like a boundary and is not included.',
+      '<code>word[2:6]</code> begins at <code>t</code> and takes the available characters before position 6, producing <code>thon</code>.',
+      '<code>word[:4]</code> has no written start, so Python begins at the start of the string and produces <code>Pyth</code>.',
+      '<code>word[3:]</code> has no written stop, so Python continues from index 3 to the end and produces <code>hon</code>.',
+      '<code>word[-3:]</code> reuses negative positions from Lesson 09. It begins three characters from the end and produces <code>hon</code>.',
+      'Unlike one impossible index, a slice may safely reach beyond the end. Python simply returns the available portion.'
+    ],
+    outputExplanation: "Each output line is a portion of the same string. The colon marks a range rather than one exact position. The two <code>hon</code> results reach the same portion using a positive start and a negative start.",
+    changeIt: "First, change <code>word[0:3]</code> to <code>word[0:4]</code> and predict the extra character.<br><br>Next, try <code>word[:2]</code> and <code>word[2:]</code>. Notice how the two slices divide the word.<br><br>Finally, add <code>print(word[::2])</code>. It takes one character, skips one, and continues.",
+    challenge: "Separate the text PYTHON10 into the word PYTHON and the final two characters. Then take the final two characters again with a negative slice.",
+    hint: "Use <code>code[:6]</code>, <code>code[6:]</code>, and <code>code[-2:]</code>.",
+    solution: `code = "PYTHON10"
+
+print(code[:6])
+print(code[6:])
+print(code[-2:])`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["string slicing", "included start", "excluded stop", "omitted boundaries", "negative slices", "simple slice steps", "safe out-of-range slices", "indexing versus slicing"],
+        previous: ["print()", "variables", "strings", "string operations", "positive indexes", "negative indexes", "IndexError"],
+        prohibited: ["len()", "string methods", "f-strings", "input", "comparisons", "logical operators", "conditions", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "first-three", stage: "Easy Start · Set Two Boundaries", title: "Take the First Three", mission: "Change the stop boundary so the program displays Pyt.", starterCode: `word = "Python"
+
+print(word[0:1])`, hint: "Begin at 0 and stop before 3.", success: "You used two boundaries to take the first three characters.", check: { mustChange: true, expectedOutput: ["Pyt"] } },
+        { id: "middle-slice", stage: "Easy Start · Take the Middle", title: "Take the Middle", mission: "Change the slice so the output is tho.", starterCode: `word = "Python"
+
+print(word[0:2])`, hint: "Start at index 2 and stop before index 5.", success: "You selected a middle portion without taking either end.", check: { mustChange: true, expectedOutput: ["tho"] } },
+        { id: "omit-start", stage: "Growing · Begin Automatically", title: "Start from the Beginning", mission: "Use an omitted start to display Welc.", starterCode: `message = "Welcome"
+
+print(message[2:4])`, hint: "Leave the left side of the colon empty and stop before 4.", success: "You let Python begin the slice automatically.", check: { mustChange: true, expectedOutput: ["Welc"] } },
+        { id: "omit-stop", stage: "Growing · Continue Automatically", title: "Continue to the End", mission: "Use an omitted stop to display come.", starterCode: `message = "Welcome"
+
+print(message[3:5])`, hint: "Begin at 3 and leave the right side of the colon empty.", success: "You let Python continue the slice to the end.", check: { mustChange: true, expectedOutput: ["come"] } },
+        { id: "last-three-slice", stage: "Growing · Reuse Negative Positions", title: "Take the Last Three", mission: "Use a negative start to display hon.", starterCode: `word = "Python"
+
+print(word[0:3])`, hint: "Begin three characters from the end and omit the stop: word[-3:].", success: "You combined negative indexing knowledge with slicing.", check: { mustChange: true, expectedOutput: ["hon"] } },
+        { id: "split-two", stage: "Growing · Make Two Parts", title: "Split a Word into Two Parts", mission: "Use two slices to display Sun and shine on separate lines.", starterCode: `word = "Sunshine"
+
+print(word)
+print(word)`, hint: "Use word[:3] first, then word[3:].", success: "You split one string into two matching portions.", check: { mustChange: true, expectedOutput: ["Sun", "shine"] } },
+        { id: "repair-boundary", stage: "Ready for a Challenge · Check the Stop", title: "Repair the Slice Boundary", mission: "Repair only the stop boundary so the output is Code.", starterCode: `message = "Code Ready"
+
+print(message[0:3])`, hint: "The stop position is excluded, so stop before index 4.", success: "You repaired an off-by-one slice boundary.", check: { mustChange: true, expectedOutput: ["Code"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-beginning", skill: "Beginning Slice", title: "A Fresh Beginning Slice", mission: "Change the slice to display the first three characters '{{part}}'.", starterCode: `text = "{{part}}XYZ"
+
+print(text[0:1])`, hint: "Use text[:3] or text[0:3].", solution: `text = "{{part}}XYZ"
+
+print(text[:3])`, success: "You took a fresh three-character beginning.", check: { mustChange: true, expectedOutput: ["{{part}}"] }, values: { part: ["Sun", "Car", "Map", "Sky", "Pen", "Run"] } },
+        { id: "fresh-ending", skill: "Ending Slice", title: "A Fresh Ending Slice", mission: "Use an omitted stop to display the ending '{{part}}'.", starterCode: `text = "ABC{{part}}"
+
+print(text[0:3])`, hint: "The ending begins at index 3. Use text[3:].", solution: `text = "ABC{{part}}"
+
+print(text[3:])`, success: "You continued a fresh slice to the end.", check: { mustChange: true, expectedOutput: ["{{part}}"] }, values: { part: ["sun", "car", "map", "sky", "pen", "run"] } },
+        { id: "fresh-middle", skill: "Middle Slice", title: "A Fresh Middle Slice", mission: "Select only the middle three characters '{{part}}'.", starterCode: `text = "A{{part}}Z"
+
+print(text[0:2])`, hint: "Start at 1 and stop before 4.", solution: `text = "A{{part}}Z"
+
+print(text[1:4])`, success: "You took a fresh middle portion.", check: { mustChange: true, expectedOutput: ["{{part}}"] }, values: { part: ["cat", "run", "sky", "map", "box", "joy"] } },
+        { id: "fresh-last-two", skill: "Negative Slice", title: "A Fresh Last-Two Slice", mission: "Use a negative slice to display the final two characters '{{part}}'.", starterCode: `text = "ABCDE{{part}}"
+
+print(text[:2])`, hint: "Begin two characters from the end: text[-2:].", solution: `text = "ABCDE{{part}}"
+
+print(text[-2:])`, success: "You took a fresh ending with a negative boundary.", check: { mustChange: true, expectedOutput: ["{{part}}"] }, values: { part: ["10", "OK", "go", "42", "!?", "XY"] } },
+        { id: "fresh-split", skill: "Split into Two Portions", title: "A Fresh Two-Part Split", mission: "Display '{{left}}' and '{{right}}' on separate lines using two slices.", starterCode: `text = "{{left}}{{right}}"
+
+print(text)
+print(text)`, hint: "Both parts contain three characters. Use text[:3] and text[3:].", solution: `text = "{{left}}{{right}}"
+
+print(text[:3])
+print(text[3:])`, success: "You split a fresh string into two complete portions.", check: { mustChange: true, expectedOutput: ["{{left}}", "{{right}}"] }, values: { left: ["Sun", "Car", "Map", "Sky", "Red", "Day"], right: ["day", "pet", "box", "way", "fox", "one"] } },
+        { id: "fresh-repair", skill: "Repair a Boundary", title: "Repair a Fresh Boundary", mission: "Repair the stop boundary so the output is '{{part}}'.", starterCode: `text = "{{part}}XYZ"
+
+print(text[:2])`, hint: "The requested portion has three characters, so stop before 3.", solution: `text = "{{part}}XYZ"
+
+print(text[:3])`, success: "You repaired a fresh excluded-stop boundary.", check: { mustChange: true, expectedOutput: ["{{part}}"] }, values: { part: ["One", "Two", "Six", "Ten", "Top", "Win"] } },
+        { id: "fresh-step", skill: "Every Other Character", title: "A Fresh Step Slice", mission: "Use a step of 2 to display ACE.", starterCode: `letters = "ABCDEF"
+
+print(letters[:3])`, hint: "Leave both boundaries empty and add a second colon: letters[::2].", solution: `letters = "ABCDEF"
+
+print(letters[::2])`, success: "You used a simple step to take every other character.", check: { mustChange: true, expectedOutput: ["ACE"] } },
+        { id: "fresh-safe-long", skill: "Safe Long Slice", title: "A Fresh Safe Long Slice", mission: "Change the expression to a slice that begins at 0 and safely stops at 20, displaying the complete word '{{word}}'.", starterCode: `word = "{{word}}"
+
+print(word[0])`, hint: "Use word[0:20]. A slice may safely extend beyond the end.", solution: `word = "{{word}}"
+
+print(word[0:20])`, success: "You used a fresh out-of-range stop safely.", check: { mustChange: true, expectedOutput: ["{{word}}"] }, values: { word: ["Cat", "Python", "Ready", "Sun", "Practice", "Code"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "username", title: "The Username Extractor", mission: "Extract user from the beginning and 2026 from the end.", starterCode: `username = "user2026"
+
+print(username)
+print(username)`, hint: "Use username[:4] and username[4:].", solution: `username = "user2026"
+
+print(username[:4])
+print(username[4:])` },
+        { id: "secret-code", title: "Split the Secret Code", mission: "Display PYTHON and 10 as two portions, then display the final two characters again.", starterCode: `code = "PYTHON10"
+
+print(code)
+print(code)
+print(code)`, hint: "Use [:6], [6:], and [-2:].", solution: `code = "PYTHON10"
+
+print(code[:6])
+print(code[6:])
+print(code[-2:])` },
+        { id: "two-halves", title: "First Half, Second Half", mission: "Split Sunshine into Sun and shine.", starterCode: `word = "Sunshine"
+
+print(word)
+print(word)`, hint: "The first part ends before index 3.", solution: `word = "Sunshine"
+
+print(word[:3])
+print(word[3:])` },
+        { id: "remove-beginning", title: "Remove the Beginning", mission: "Use a slice to remove Start- and display Learning.", starterCode: `message = "Start-Learning"
+
+print(message)`, hint: "Learning begins at index 6.", solution: `message = "Start-Learning"
+
+print(message[6:])` },
+        { id: "keep-ending", title: "Keep the Ending", mission: "Use a negative slice to display only Lab from PythonLab.", starterCode: `place = "PythonLab"
+
+print(place)`, hint: "Lab is the final three characters.", solution: `place = "PythonLab"
+
+print(place[-3:])` },
+        { id: "every-other", title: "Every Other Character", mission: "Use one step slice to display 135 from 123456.", starterCode: `numbers = "123456"
+
+print(numbers)`, hint: "Use numbers[::2].", solution: `numbers = "123456"
+
+print(numbers[::2])` },
+        { id: "slice-toolbox", title: "The Slice Toolbox", mission: "Display Code, Ready, and every other character of ABCDEF.", starterCode: `message = "CodeReady"
+letters = "ABCDEF"
+
+print(message)
+print(message)
+print(letters)`, hint: "Use message[:4], message[4:], and letters[::2].", solution: `message = "CodeReady"
+letters = "ABCDEF"
+
+print(message[:4])
+print(message[4:])
+print(letters[::2])` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-basic", question: "What will this program display?", code: `word = "Python"
+print(word[1:4])`, options: ["Pyt", "yth", "ytho", "thon"], correct: 1, explanation: "Correct — the slice includes index 1 and stops before index 4." },
+        { id: "quiz-stop", question: "In text[2:5], which stop position is not included?", code: "", options: ["2", "3", "4", "5"], correct: 3, explanation: "Correct — a slice stops before its stop boundary, so index 5 is not included." },
+        { id: "quiz-omit-start", question: "What will this program display?", code: `word = "Python"
+print(word[:2])`, options: ["Py", "Pyt", "yt", "thon"], correct: 0, explanation: "Correct — an empty start begins at the beginning and stops before index 2." },
+        { id: "quiz-omit-stop", question: "What will this program display?", code: `word = "Python"
+print(word[3:])`, options: ["Pyt", "yth", "hon", "thon"], correct: 2, explanation: "Correct — the slice begins at index 3 and continues to the end." },
+        { id: "quiz-negative", question: "What will this program display?", code: `word = "Python"
+print(word[-3:])`, options: ["Pyt", "tho", "hon", "on"], correct: 2, explanation: "Correct — -3 begins three characters from the end." },
+        { id: "quiz-step", question: "What will this program display?", code: `text = "123456"
+print(text[::2])`, options: ["123", "246", "135", "654321"], correct: 2, explanation: "Correct — step 2 takes 1, skips 2, takes 3, and continues." },
+        { id: "quiz-index-slice", question: "Which expression requests a portion rather than one exact character?", code: "", options: ["word[2]", "word[-1]", "word[1:4]", "word[0]"], correct: 2, explanation: "Correct — the colon marks a slice containing a range of characters." },
+        { id: "quiz-safe", question: "What will this program display?", code: `word = "Cat"
+print(word[:20])`, options: ["Cat", "IndexError", "C", "Nothing"], correct: 0, explanation: "Correct — a slice safely returns the available characters before its distant boundary." },
+        { id: "quiz-whole", question: "Which slice returns the complete string stored in word?", code: "", options: ["word[0]", "word[-1]", "word[:]", "word[1:]"], correct: 2, explanation: "Correct — with both boundaries omitted, the slice covers the complete string." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `word = "Python"
+
+print(word[:3])
+print(word[3:])`,
+      options: ["Pyt then hon", "Python twice", "Py then thon", "An error"],
+      correct: 0,
+      explanation: "Correct — the first slice stops before index 3, and the second begins at index 3."
+    }
   }
 };
