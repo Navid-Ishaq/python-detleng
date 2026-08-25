@@ -2922,5 +2922,217 @@ print(word[3:])`,
       correct: 0,
       explanation: "Correct — the first slice stops before index 3, and the second begins at index 3."
     }
+  },
+  11: {
+    title: "Useful String Methods — Cleaning, Changing, Dividing and Searching",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["Ready-made text tools", "Returned results"],
+    intro: "You have created, joined, indexed, and sliced strings. Now Python will do four common text jobs for you with ready-made methods.",
+    explanation: "A <strong>string method</strong> is a ready-made action for text. The dot connects a string to an action: <code>message.strip()</code>. Today you will clean outer spaces, replace text, split text into portions, and find where text begins.",
+    concept: "Use strip() to clean the outside, replace() to make a changed version, split() to divide text, and find() to locate text.",
+    starterCode: `message = "  Python is friendly  "
+
+clean_message = message.strip()
+new_message = clean_message.replace("friendly", "powerful")
+words = clean_message.split()
+position = clean_message.find("Python")
+
+print(">" + clean_message + "<")
+print(new_message)
+print(words)
+print(position)`,
+    expectedOutput: `>Python is friendly<
+Python is powerful
+['Python', 'is', 'friendly']
+0`,
+    lineByLine: [
+      '<code>message</code> begins and ends with extra spaces. The visible markers later help us see whether those spaces remain.',
+      '<code>message.strip()</code> returns a cleaned string without whitespace at its beginning or end.',
+      '<code>clean_message.replace("friendly", "powerful")</code> returns a new version containing the requested replacement.',
+      '<code>clean_message.split()</code> divides the string at ordinary spaces. Python displays the resulting portions inside square brackets.',
+      'That grouped result is called a <strong>list</strong>. Lists receive their own lessons later; today, simply notice the separated text portions.',
+      '<code>clean_message.find("Python")</code> returns <code>0</code> because the requested text begins at index 0.',
+      'Each method gives back a result. We store each result in a variable so we can print it and use it later.'
+    ],
+    outputExplanation: "The markers touch the cleaned message because <code>strip()</code> removed only its outer spaces. <code>replace()</code> produced a changed sentence, <code>split()</code> produced three visible portions, and <code>find()</code> reported the starting position 0.",
+    changeIt: "First, add more outer spaces to <code>message</code> and confirm that the markers still touch the cleaned result.<br><br>Next, replace <code>\"powerful\"</code> with <code>\"helpful\"</code>.<br><br>Then try <code>items = \"tea,bread,milk\"</code> and <code>print(items.split(\",\"))</code>.<br><br>Finally, search for <code>\"Java\"</code> and observe the not-found result <code>-1</code>.",
+    challenge: "Clean the outer spaces from a sentence, replace one word, and find where Python begins. Store every returned result before printing it.",
+    hint: "Use <code>strip()</code> first, then call <code>replace()</code> and <code>find()</code> on the cleaned variable.",
+    solution: `message = "  Python is difficult  "
+
+clean_message = message.strip()
+new_message = clean_message.replace("difficult", "learnable")
+position = new_message.find("Python")
+
+print(">" + clean_message + "<")
+print(new_message)
+print(position)`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["string methods", "dot syntax", "strip()", "replace()", "split()", "find()", "returned strings", "split list preview", "find -1 as not found"],
+        previous: ["print()", "variables", "strings", "concatenation", "indexing", "slicing", "character positions"],
+        prohibited: ["list indexing", "list methods", "loops over split results", "advanced method chaining", "f-strings", "input", "comparisons", "conditions", "loops", "functions"]
+      },
+      activities: [
+        { id: "clean-name", stage: "Easy Start · Clean the Outside", title: "Clean a Name", mission: "Use strip() so the markers touch Amina with no outer spaces.", starterCode: `name = "   Amina   "
+
+print(">" + name + "<")`, hint: "Store name.strip() or use it inside the joined output.", success: "You removed outer whitespace while keeping the text.", check: { mustChange: true, expectedOutput: [">Amina<"] } },
+        { id: "middle-space", stage: "Easy Start · Keep Useful Spaces", title: "Keep the Middle Space", mission: "Clean only the outside so the output remains Python Lab with its middle space.", starterCode: `place = "  Python Lab  "
+
+print(place)`, hint: "Use place.strip(). strip() keeps the space between words.", success: "You cleaned the ends without harming the useful middle space.", check: { mustChange: true, expectedOutput: ["Python Lab"] } },
+        { id: "replace-colour", stage: "Growing · Make a New Version", title: "Replace the Colour", mission: "Use replace() so the program displays green door.", starterCode: `message = "red door"
+
+print(message)`, hint: "Use message.replace(\"red\", \"green\").", success: "You created a changed version of the string.", check: { mustChange: true, expectedOutput: ["green door"] } },
+        { id: "replace-all", stage: "Growing · Change Every Match", title: "Replace Every Match", mission: "Replace every go with learn so all three words change.", starterCode: `message = "go go go"
+
+print(message)`, hint: "replace() changes every matching occurrence by default.", success: "You replaced every matching piece of text.", check: { mustChange: true, expectedOutput: ["learn learn learn"] } },
+        { id: "split-note", stage: "Growing · Divide at a Separator", title: "Split the Shopping Note", mission: "Use the comma as a separator so Python displays three separate portions.", starterCode: `items = "tea,bread,milk"
+
+print(items)`, hint: "Use items.split(\",\").", success: "You divided comma-separated text into three portions.", check: { mustChange: true, expectedOutput: ["['tea', 'bread', 'milk']"] } },
+        { id: "find-position", stage: "Growing · Locate Text", title: "Find the Starting Position", mission: "Use find() to display the position where Python begins.", starterCode: `message = "Learning Python"
+
+print(message)`, hint: "Use message.find(\"Python\").", success: "You found the exact starting index of requested text.", check: { mustChange: true, expectedOutput: ["9"] } },
+        { id: "not-found", stage: "Ready for a Challenge · Read the Result", title: "Understand Not Found", mission: "Search for Java and display find()'s honest not-found result.", starterCode: `message = "Learning Python"
+
+print(message)`, hint: "Use message.find(\"Java\").", success: "You recognised -1 as find()'s not-found result.", check: { mustChange: true, expectedOutput: ["-1"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-clean", skill: "Clean Outer Spaces", title: "A Fresh Cleaning Task", mission: "Use strip() so the markers touch '{{value}}'.", starterCode: `text = "   {{value}}   "
+
+print(">" + text + "<")`, hint: "Join the markers with text.strip().", solution: `text = "   {{value}}   "
+
+print(">" + text.strip() + "<")`, success: "You cleaned fresh outer whitespace.", check: { mustChange: true, expectedOutput: [">{{value}}<"] }, values: { value: ["Amina", "Python Lab", "Ready", "Keep going", "Practice", "Welcome", "One step", "Learning", "Naveed", "New message", "Good work", "Try again"] } },
+        { id: "fresh-replace", skill: "Replace One Piece", title: "A Fresh Replacement", mission: "Replace red with green while keeping '{{thing}}'.", starterCode: `message = "red {{thing}}"
+
+print(message)`, hint: "Use message.replace(\"red\", \"green\").", solution: `message = "red {{thing}}"
+
+print(message.replace("red", "green"))`, success: "You made a fresh changed string.", check: { mustChange: true, expectedOutput: ["green {{thing}}"] }, values: { thing: ["door", "car", "box", "bag", "kite", "book", "hat", "cup", "chair", "sign", "card", "ball"] } },
+        { id: "fresh-replace-all", skill: "Replace Every Match", title: "Replace Every Fresh Match", mission: "Replace every go with '{{target}}'.", starterCode: `message = "go go go"
+
+print(message)`, hint: "Use message.replace(\"go\", \"{{target}}\").", solution: `message = "go go go"
+
+print(message.replace("go", "{{target}}"))`, success: "You replaced all fresh matches.", check: { mustChange: true, expectedOutput: ["{{target}} {{target}} {{target}}"] }, values: { target: ["learn", "run", "try", "grow", "win", "code", "read", "build", "move", "start", "practise", "continue"] } },
+        { id: "fresh-word-split", skill: "Split at Spaces", title: "A Fresh Word Split", mission: "Use split() to divide the two words into separate portions.", starterCode: `message = "{{first}} {{second}}"
+
+print(message)`, hint: "Use message.split() with empty parentheses.", solution: `message = "{{first}} {{second}}"
+
+print(message.split())`, success: "You split a fresh two-word message.", check: { mustChange: true, expectedOutput: ["['{{first}}', '{{second}}']"] }, values: { first: ["Keep", "Python", "Learn", "Small", "Bright", "Try", "Build", "Read", "Move", "Start", "Practise", "Continue"], second: ["going", "practice", "daily", "steps", "future", "again", "slowly", "today", "forward", "carefully", "together", "confidently"] } },
+        { id: "fresh-separator-split", skill: "Split at a Separator", title: "A Fresh Separator Split", mission: "Use the | character to divide all three values.", starterCode: `items = "{{one}}|{{two}}|{{three}}"
+
+print(items)`, hint: "Use items.split(\"|\").", solution: `items = "{{one}}|{{two}}|{{three}}"
+
+print(items.split("|"))`, success: "You used a fresh custom separator.", check: { mustChange: true, expectedOutput: ["['{{one}}', '{{two}}', '{{three}}']"] }, values: { one: ["red", "tea", "one", "cat"], two: ["green", "bread", "two", "dog"], three: ["blue", "milk", "three", "bird"] } },
+        { id: "fresh-find", skill: "Find Present Text", title: "A Fresh Text Search", mission: "Use find() to locate '{{word}}'. It begins at index 3.", starterCode: `message = "Go {{word}}"
+
+print(message)`, hint: "Use message.find(\"{{word}}\").", solution: `message = "Go {{word}}"
+
+print(message.find("{{word}}"))`, success: "You located fresh text at its starting index.", check: { mustChange: true, expectedOutput: ["3"] }, values: { word: ["Python", "learn", "again", "slowly", "forward", "today", "practice", "build", "continue", "ready", "explore", "create"] } },
+        { id: "fresh-missing", skill: "Find Missing Text", title: "A Fresh Not-Found Search", mission: "Search for '{{missing}}' and display find()'s result.", starterCode: `message = "{{message}}"
+
+print(message)`, hint: "Use message.find(\"{{missing}}\"). The requested text is absent.", solution: `message = "{{message}}"
+
+print(message.find("{{missing}}"))`, success: "You correctly read a fresh not-found result.", check: { mustChange: true, expectedOutput: ["-1"] }, values: { message: ["Python is ready", "The door is open", "Tea is warm", "Today is sunny", "The cat is sleeping", "Practice feels good"], missing: ["Java", "closed", "coffee", "rain", "dog", "difficult"] } },
+        { id: "fresh-toolbox", skill: "Clean and Replace", title: "A Fresh Method Toolbox", mission: "Clean the outer spaces, then replace red with '{{colour}}'. Display both returned results.", starterCode: `message = "  red {{thing}}  "
+
+print(message)
+print(message)`, hint: "Store message.strip(), then use replace() on the clean result.", solution: `message = "  red {{thing}}  "
+
+clean_message = message.strip()
+new_message = clean_message.replace("red", "{{colour}}")
+
+print(clean_message)
+print(new_message)`, success: "You combined two fresh method results clearly.", check: { mustChange: true, expectedOutput: ["red {{thing}}", "{{colour}} {{thing}}"] }, values: { thing: ["door", "car", "box", "bag"], colour: ["green", "blue", "yellow", "white"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "clean-visitor", title: "Clean the Visitor Name", mission: "Clean the visitor name and display it between markers.", starterCode: `visitor = "   Amina   "
+
+print(">" + visitor + "<")`, hint: "Use visitor.strip() inside the joined output.", solution: `visitor = "   Amina   "
+
+clean_visitor = visitor.strip()
+print(">" + clean_visitor + "<")` },
+        { id: "welcome-repair", title: "Repair the Welcome Message", mission: "Replace difficult with learnable without changing the original variable.", starterCode: `message = "Python is difficult"
+
+print(message)`, hint: "Store message.replace() in a new variable.", solution: `message = "Python is difficult"
+new_message = message.replace("difficult", "learnable")
+
+print(message)
+print(new_message)` },
+        { id: "colour-list", title: "Split the Colour List", mission: "Split the comma-separated colours into visible portions.", starterCode: `colours = "red,green,blue"
+
+print(colours)`, hint: "Use colours.split(\",\").", solution: `colours = "red,green,blue"
+
+print(colours.split(","))` },
+        { id: "secret-word", title: "Find the Secret Word", mission: "Find where treasure begins in the clue.", starterCode: `clue = "Find the treasure nearby"
+
+print(clue)`, hint: "Use clue.find(\"treasure\").", solution: `clue = "Find the treasure nearby"
+
+print(clue.find("treasure"))` },
+        { id: "missing-search", title: "Search for Missing Text", mission: "Search for rain and display the honest result.", starterCode: `weather = "Today is sunny"
+
+print(weather)`, hint: "Use weather.find(\"rain\").", solution: `weather = "Today is sunny"
+
+print(weather.find("rain"))` },
+        { id: "clean-replace", title: "Clean and Replace", mission: "Clean the sentence, replace slow with steady, and display both results.", starterCode: `message = "  Progress is slow  "
+
+print(message)
+print(message)`, hint: "Store strip() first, then call replace() on the clean variable.", solution: `message = "  Progress is slow  "
+
+clean_message = message.strip()
+new_message = clean_message.replace("slow", "steady")
+
+print(clean_message)
+print(new_message)` },
+        { id: "text-workshop", title: "The Text Workshop", mission: "Clean the message, replace difficult, split the result, and find Python.", starterCode: `message = "  Python is difficult  "
+
+print(message)
+print(message)
+print(message)
+print(message)`, hint: "Store each returned result in its own meaningful variable.", solution: `message = "  Python is difficult  "
+
+clean_message = message.strip()
+new_message = clean_message.replace("difficult", "learnable")
+words = new_message.split()
+position = new_message.find("Python")
+
+print(clean_message)
+print(new_message)
+print(words)
+print(position)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-strip", question: "What does strip() remove by default?", code: "", options: ["Every space", "Outer whitespace", "Every letter", "The complete string"], correct: 1, explanation: "Correct — strip() removes whitespace from the beginning and end." },
+        { id: "quiz-middle-space", question: "What will this program display?", code: `message = "  Python Lab  "
+print(message.strip())`, options: ["PythonLab", "Python Lab", "  Python Lab", "An error"], correct: 1, explanation: "Correct — strip() keeps the useful space between the words." },
+        { id: "quiz-replace", question: "What will this program display?", code: `message = "red door"
+print(message.replace("red", "green"))`, options: ["red door", "green door", "green red", "An error"], correct: 1, explanation: "Correct — replace() returns a version with red changed to green." },
+        { id: "quiz-replace-all", question: "What will this program display?", code: `text = "go go"
+print(text.replace("go", "run"))`, options: ["run go", "go run", "run run", "go go"], correct: 2, explanation: "Correct — replace() changes every matching occurrence by default." },
+        { id: "quiz-split-space", question: "What will this program display?", code: `text = "one two"
+print(text.split())`, options: ["one two", "['one', 'two']", "onetwo", "An error"], correct: 1, explanation: "Correct — split() divides the text at whitespace into two portions." },
+        { id: "quiz-split-comma", question: "Which expression divides items at each comma?", code: "", options: ["items.strip()", "items.replace(",")", "items.split(",")", "items.find(",")"], correct: 2, explanation: "Correct — the comma argument tells split() where to divide." },
+        { id: "quiz-find", question: "What will this program display?", code: `text = "Go Python"
+print(text.find("Python"))`, options: ["0", "2", "3", "9"], correct: 2, explanation: "Correct — Python begins at index 3 after Go and one space." },
+        { id: "quiz-not-found", question: "What will find() return when requested text is absent?", code: "", options: ["0", "False", "-1", "Nothing"], correct: 2, explanation: "Correct — find() uses -1 to report that text was not found." },
+        { id: "quiz-returned-result", question: "Which code stores the cleaned result for later use?", code: "", options: ["message.strip()", "print(message)", "clean_message = message.strip()", "message.find()"], correct: 2, explanation: "Correct — assigning the returned result gives the cleaned string a useful name." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `message = "  red door  "
+
+clean_message = message.strip()
+print(clean_message.replace("red", "green"))`,
+      options: ["  red door  ", "red door", "green door", "An error"],
+      correct: 2,
+      explanation: "Correct — strip() cleans the outside, then replace() returns green door."
+    }
   }
 };
