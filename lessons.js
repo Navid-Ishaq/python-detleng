@@ -2257,5 +2257,267 @@ print("name")`,
       correct: 2,
       explanation: "Correct — the variable displays Amina, while the quoted word displays name."
     }
+  },
+  8: {
+    title: "String Operations — Joining, Repeating and Checking Text",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Join text", "Repeat and check"],
+    intro: "You can already create and store text. Now you will make those strings work together: join them, repeat them, and ask whether they contain particular text.",
+    explanation: "Strings can be combined with simple <strong>operations</strong>. The <code>+</code> operator joins strings, <code>*</code> repeats a string, and <code>in</code> or <code>not in</code> checks whether some text appears inside another string.",
+    concept: "Use + to join strings, * to repeat a string, and in or not in to receive a simple True-or-False answer about contained text.",
+    starterCode: `first_word = "Python"
+second_word = "Learner"
+
+message = first_word + " " + second_word
+
+print(message)
+print("Go! " * 3)
+print("Python" in message)`,
+    expectedOutput: `Python Learner
+Go! Go! Go!
+True`,
+    lineByLine: [
+      '<code>first_word</code> and <code>second_word</code> store two strings, using the skills from Lesson 07.',
+      '<code>first_word + " " + second_word</code> joins three strings. The middle string contains one space, so the words do not run together.',
+      'Joining strings with <code>+</code> is called <strong>concatenation</strong>. The name is less important than understanding the action: pieces of text become one string.',
+      '<code>print(message)</code> displays the newly joined string <code>Python Learner</code>.',
+      '<code>"Go! " * 3</code> repeats the complete string three times. The space inside the string keeps the repeated words readable.',
+      '<code>"Python" in message</code> asks whether that exact text appears inside <code>message</code>. Python answers <code>True</code>, meaning yes.',
+      'Python pays attention to capital and lowercase letters when checking text. <code>"python" in message</code> would produce <code>False</code> here.'
+    ],
+    outputExplanation: "The first output line comes from joining three strings, including a one-space string. The second comes from repeating <code>\"Go! \"</code> three times. The final <code>True</code> is Python's yes answer because <code>\"Python\"</code> appears inside <code>message</code>. Booleans receive their full lesson later; for now, read <code>True</code> as yes and <code>False</code> as no.",
+    changeIt: "First, replace <code>\"Learner\"</code> with your name and run the program.<br><br>Next, change <code>* 3</code> to <code>* 5</code>. Predict how many times <code>Go!</code> will appear before you run it.<br><br>Finally, replace <code>\"Python\"</code> in the final line with <code>\"Java\"</code>. Predict whether Python will answer <code>True</code> or <code>False</code>, then test your prediction.",
+    challenge: "Build a small welcome banner. Join a greeting and a name with a readable space, repeat a cheer three times, and check whether the name appears in the finished message.",
+    hint: "The space must be a string too: <code>greeting + \" \" + name</code>. Repeat with <code>cheer * 3</code>, then check with <code>name in message</code>.",
+    solution: `greeting = "Welcome"
+name = "Amina"
+cheer = "Go! "
+
+message = greeting + " " + name
+
+print(message)
+print(cheer * 3)
+print(name in message)`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["string concatenation with +", "spaces while joining", "string repetition with *", "membership with in", "absence checks with not in", "True and False as simple yes/no results"],
+        previous: ["print()", "comments", "variables", "numbers", "arithmetic", "strings", "quotation marks", "top-to-bottom execution"],
+        prohibited: ["indexing", "slicing", "string methods", "f-strings", "input", "comparisons", "logical operators", "conditions", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "join-full-name", stage: "Easy Start · Join Two Values", title: "Build a Full Name", mission: "Change the two starter values, then join them with one space so the program displays your chosen full name.", starterCode: `first_name = "Amina"
+last_name = "Khan"
+
+full_name = first_name + last_name
+print(full_name)`, hint: "Put the string \" \" between first_name and last_name.", success: "You joined two stored strings without losing the space between them.", check: { mustChange: true, expectedOutput: ["Amina Khan"] } },
+        { id: "welcome-message", stage: "Easy Start · Build a Message", title: "Make a Welcome Message", mission: "Use + to display the exact message Welcome Sara without changing the two stored values.", starterCode: `greeting = "Welcome"
+name = "Sara"
+
+message = greeting
+print(message)`, hint: "Join greeting, a one-space string, and name.", success: "You built a readable welcome message from three string pieces.", check: { mustChange: true, expectedOutput: ["Welcome Sara"] } },
+        { id: "repair-space", stage: "Growing · Notice the Gap", title: "Remember the Space", mission: "The words currently run together. Change only the joined expression so the output becomes Good Morning.", starterCode: `first = "Good"
+second = "Morning"
+
+message = first + second
+print(message)`, hint: "A space is text too. Add + \" \" + between the variables.", success: "You deliberately placed a space inside joined text.", check: { mustChange: true, expectedOutput: ["Good Morning"] } },
+        { id: "repeat-cheer", stage: "Growing · Repeat Text", title: "Repeat the Cheer", mission: "Change the program so Go! appears exactly four times on one output line.", starterCode: `cheer = "Go! "
+
+print(cheer * 2)`, hint: "Change the repeat number after * from 2 to 4.", success: "You repeated one complete string four times.", check: { mustChange: true, expectedOutput: ["Go! Go! Go! Go!"] } },
+        { id: "find-secret", stage: "Growing · Ask a Text Question", title: "Check a Secret Word", mission: "Change only the final line so Python checks whether the word treasure appears in the message.", starterCode: `message = "The treasure is nearby."
+
+print("map" in message)`, hint: "Replace \"map\" with the exact string \"treasure\".", success: "Python answered True because it found the requested text.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "check-missing", stage: "Growing · Check What Is Absent", title: "Check What Is Missing", mission: "Use not in to ask whether rain is absent from the weather message. The program should display True.", starterCode: `weather = "Today is sunny."
+
+print("rain" in weather)`, hint: "Place not before in: \"rain\" not in weather.", success: "You used not in to ask whether text was absent.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "join-three-pieces", stage: "Ready for a Challenge · Tell a Story", title: "Join Three Pieces", mission: "Join all three values with suitable spaces so the output is Learning Python today.", starterCode: `first = "Learning"
+second = "Python"
+third = "today"
+
+sentence = first + second + third
+print(sentence)`, hint: "Place + \" \" + between each pair of variables.", success: "You combined three stored values into one readable sentence.", check: { mustChange: true, expectedOutput: ["Learning Python today"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-join-names", skill: "Join Names", title: "A Fresh Full Name", mission: "Join {{firstName}} and {{lastName}} with exactly one space, then display the complete name.", starterCode: `first_name = "{{firstName}}"
+last_name = "{{lastName}}"
+
+full_name = first_name + last_name
+print(full_name)`, hint: "Join first_name + \" \" + last_name.", solution: `first_name = "{{firstName}}"
+last_name = "{{lastName}}"
+
+full_name = first_name + " " + last_name
+print(full_name)`, success: "You joined a fresh first and last name with a readable space.", check: { mustChange: true, expectedOutput: ["{{firstName}} {{lastName}}"] }, values: { firstName: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"], lastName: ["Khan", "Ali", "Murphy", "Smith", "Ahmed", "Brown"] } },
+        { id: "fresh-welcome", skill: "Join a Greeting", title: "A Fresh Welcome", mission: "Build and display the exact message '{{greeting}} {{name}}'.", starterCode: `greeting = "{{greeting}}"
+name = "{{name}}"
+
+message = greeting
+print(message)`, hint: "Join greeting, \" \", and name.", solution: `greeting = "{{greeting}}"
+name = "{{name}}"
+
+message = greeting + " " + name
+print(message)`, success: "You built a fresh greeting from stored strings.", check: { mustChange: true, expectedOutput: ["{{greeting}} {{name}}"] }, values: { greeting: ["Welcome", "Hello", "Greetings", "Well done", "Keep going", "Good morning"], name: ["Amina", "Sara", "Omar", "Maya", "Noah", "Lina"] } },
+        { id: "fresh-repeat", skill: "Repeat Text", title: "A Fresh Cheer", mission: "Make the cheer appear exactly {{count}} times on one line.", starterCode: `cheer = "{{cheer}} "
+
+print(cheer * 1)`, hint: "Replace 1 with {{count}} after the * operator.", solution: `cheer = "{{cheer}} "
+
+print(cheer * {{count}})`, success: "You repeated a fresh string the requested number of times.", check: { mustChange: true, expectedOutput: ["{{repeated}}"] }, values: { cheer: ["Go!"], count: [4], repeated: ["Go! Go! Go! Go!"] } },
+        { id: "fresh-find-present", skill: "Find Present Text", title: "Find a Fresh Word", mission: "Change the search text so Python checks whether '{{word}}' appears in the message and displays True.", starterCode: `message = "The hidden word is {{word}}."
+
+print("missing" in message)`, hint: "Replace \"missing\" with \"{{word}}\".", solution: `message = "The hidden word is {{word}}."
+
+print("{{word}}" in message)`, success: "You found the requested text inside a fresh message.", check: { mustChange: true, expectedOutput: ["True"] }, values: { word: ["Python", "practice", "green", "star", "learner", "sunny"] } },
+        { id: "fresh-find-absent", skill: "Check Missing Text", title: "A Fresh Absence Check", mission: "Use not in to confirm that '{{missing}}' does not appear in the message.", starterCode: `message = "{{message}}"
+
+print("{{missing}}" in message)`, hint: "Change in to not in.", solution: `message = "{{message}}"
+
+print("{{missing}}" not in message)`, success: "You confirmed that fresh text was absent.", check: { mustChange: true, expectedOutput: ["True"] }, values: { message: ["The sky is blue.", "Python is ready.", "The shop is open.", "A cat is sleeping.", "The train arrived.", "Tea is warm."], missing: ["rain", "Java", "closed", "dog", "bus", "coffee"] } },
+        { id: "fresh-repair-space", skill: "Repair Joined Text", title: "Repair a Fresh Space", mission: "Repair the joined expression so it displays '{{left}} {{right}}'.", starterCode: `left = "{{left}}"
+right = "{{right}}"
+
+result = left + right
+print(result)`, hint: "Add the string \" \" between left and right.", solution: `left = "{{left}}"
+right = "{{right}}"
+
+result = left + " " + right
+print(result)`, success: "You repaired a fresh missing space.", check: { mustChange: true, expectedOutput: ["{{left}} {{right}}"] }, values: { left: ["Good", "Happy", "Green", "Python", "Keep", "One"], right: ["morning", "learning", "valley", "practice", "going", "step"] } },
+        { id: "fresh-three-part", skill: "Join Three Pieces", title: "A Fresh Three-Part Message", mission: "Join all three stored strings with one space between them.", starterCode: `one = "{{one}}"
+two = "{{two}}"
+three = "{{three}}"
+
+message = one + two + three
+print(message)`, hint: "Use one + \" \" + two + \" \" + three.", solution: `one = "{{one}}"
+two = "{{two}}"
+three = "{{three}}"
+
+message = one + " " + two + " " + three
+print(message)`, success: "You joined three fresh text values into one message.", check: { mustChange: true, expectedOutput: ["{{one}} {{two}} {{three}}"] }, values: { one: ["I", "We", "Python", "Practice", "Learning", "Today"], two: ["can", "keep", "makes", "builds", "takes", "feels"], three: ["learn", "going", "progress", "confidence", "patience", "good"] } },
+        { id: "fresh-case-check", skill: "Notice Letter Case", title: "A Fresh Case Check", mission: "Change only the search text so Python finds the exact capitalised word '{{word}}' and displays True.", starterCode: `message = "{{message}}"
+
+print("{{lower}}" in message)`, hint: "Python distinguishes capital and lowercase letters. Search for \"{{word}}\" exactly.", solution: `message = "{{message}}"
+
+print("{{word}}" in message)`, success: "You matched the exact letter case in a fresh membership check.", check: { mustChange: true, expectedOutput: ["True"] }, values: { message: ["Python is friendly."], word: ["Python"], lower: ["python"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "welcome-banner", title: "The Welcome Banner", mission: "Join the greeting and name with one space, repeat the cheer three times, and check whether the name appears in the message.", starterCode: `greeting = "Welcome"
+name = "Amina"
+cheer = "Go! "
+
+message = greeting + name
+
+print(message)
+print(cheer)
+print("Sara" in message)`, hint: "Add \" \" while joining, multiply cheer by 3, and search using the name variable.", solution: `greeting = "Welcome"
+name = "Amina"
+cheer = "Go! "
+
+message = greeting + " " + name
+
+print(message)
+print(cheer * 3)
+print(name in message)` },
+        { id: "player-name", title: "Build a Player Name", mission: "Join the player's first and last names, display the full name twice, then check whether the first name appears in it.", starterCode: `first = "Nova"
+last = "Stone"
+
+player = first + last
+
+print(player)
+print(player)
+print("Alex" in player)`, hint: "Add a space while joining and use first in player for the final check.", solution: `first = "Nova"
+last = "Stone"
+
+player = first + " " + last
+
+print(player)
+print(player)
+print(first in player)` },
+        { id: "celebration", title: "Repeat a Celebration", mission: "Join the event and result into a readable message, then repeat the celebration four times.", starterCode: `event = "Lesson"
+result = "complete"
+celebration = "Hooray! "
+
+message = event + result
+
+print(message)
+print(celebration)`, hint: "Join with \" \" and use celebration * 4.", solution: `event = "Lesson"
+result = "complete"
+celebration = "Hooray! "
+
+message = event + " " + result
+
+print(message)
+print(celebration * 4)` },
+        { id: "hidden-word", title: "Find the Hidden Word", mission: "Make the program display True by checking for the hidden word river.", starterCode: `clue = "Walk beside the river at sunrise."
+
+print("road" in clue)`, hint: "Search for the exact string \"river\".", solution: `clue = "Walk beside the river at sunrise."
+
+print("river" in clue)` },
+        { id: "missing-item", title: "Check the Missing Item", mission: "Use not in to confirm that bread is missing from the shopping note.", starterCode: `note = "milk, apples, tea"
+
+print("bread" in note)`, hint: "Change in to not in.", solution: `note = "milk, apples, tea"
+
+print("bread" not in note)` },
+        { id: "missing-space", title: "Repair the Missing Space", mission: "Repair all missing spaces so the three values form the sentence Keep learning Python.", starterCode: `one = "Keep"
+two = "learning"
+three = "Python"
+
+message = one + two + three
+print(message)`, hint: "Join a one-space string between one and two, and again between two and three.", solution: `one = "Keep"
+two = "learning"
+three = "Python"
+
+message = one + " " + two + " " + three
+print(message)` },
+        { id: "text-toolbox", title: "The Text Toolbox", mission: "Complete all three operations: join the label and value, repeat the marker twice, and check that Python appears in the joined text.", starterCode: `label = "Skill"
+value = "Python"
+marker = "* "
+
+text = label
+
+print(text)
+print(marker)
+print("Python" not in text)`, hint: "Join with a space, multiply marker by 2, and use in for the final question.", solution: `label = "Skill"
+value = "Python"
+marker = "* "
+
+text = label + " " + value
+
+print(text)
+print(marker * 2)
+print("Python" in text)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-join", question: "What will this program display?", code: `print("Hello" + "Python")`, options: ["Hello Python", "HelloPython", "Hello+Python", "An error"], correct: 1, explanation: "Correct — + joins the strings exactly as written. No space was included." },
+        { id: "quiz-space", question: "Which expression produces Hello Amina with one space?", code: "", options: [`"Hello" + "Amina"`, `"Hello " + "Amina"`, `"Hello" * "Amina"`, `"Hello" in "Amina"`], correct: 1, explanation: "Correct — the space at the end of \"Hello \" remains in the joined result." },
+        { id: "quiz-repeat", question: "What will this program display?", code: `print("Hi! " * 3)`, options: ["Hi! 3", "Hi! Hi! Hi! ", "3 Hi!", "An error"], correct: 1, explanation: "Correct — * 3 repeats the complete string three times." },
+        { id: "quiz-in-true", question: "What will this program display?", code: `message = "Learning Python"
+print("Python" in message)`, options: ["Python", "True", "False", "message"], correct: 1, explanation: "Correct — Python appears inside the message, so the answer is True." },
+        { id: "quiz-in-false", question: "What will this program display?", code: `message = "Learning Python"
+print("Java" in message)`, options: ["Java", "True", "False", "An error"], correct: 2, explanation: "Correct — Java does not appear inside the message, so the answer is False." },
+        { id: "quiz-not-in", question: "What will this program display?", code: `weather = "sunny"
+print("rain" not in weather)`, options: ["rain", "True", "False", "sunny"], correct: 1, explanation: "Correct — rain is absent from sunny, so not in produces True." },
+        { id: "quiz-text-v-number", question: "Which line joins text rather than adding numbers?", code: "", options: [`print(2 + 3)`, `print("2" + "3")`, `print(2 * 3)`, `print(2 ** 3)`], correct: 1, explanation: "Correct — quotation marks make both values strings, so + joins them to produce 23." },
+        { id: "quiz-case", question: "What will this program display?", code: `word = "Python"
+print("python" in word)`, options: ["Python", "python", "True", "False"], correct: 3, explanation: "Correct — membership checks pay attention to capital and lowercase letters." },
+        { id: "quiz-variable-membership", question: "Which line checks whether the stored name appears in message?", code: `name = "Amina"
+message = "Welcome Amina"`, options: [`print("name" in message)`, `print(name in message)`, `print(name + message)`, `print(message * name)`], correct: 1, explanation: "Correct — name without quotation marks uses the stored string Amina for the membership check." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `word = "Go! "
+message = "Go! Go! Go! "
+
+print(word * 3)
+print("Go!" in message)`,
+      options: ["Go! Go! Go! then True", "Go! 3 then False", "Go! Go! Go! then False", "An error"],
+      correct: 0,
+      explanation: "Correct — the first line repeats the string three times, and the second confirms that Go! appears inside message."
+    }
   }
 };
