@@ -3371,5 +3371,240 @@ print(f"{name} has reached Lesson {lesson}.")`,
       correct: 1,
       explanation: "Correct — both stored values are inserted into the readable message."
     }
+  },
+  13: {
+    title: "Booleans — True and False",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["True and False", "Program state"],
+    intro: "Some information has only two honest answers: yes or no, on or off, ready or not ready. Python gives us two special values for exactly that kind of fact.",
+    explanation: "A <strong>Boolean</strong> is a value that is either <code>True</code> or <code>False</code>. These are Python values, not quoted pieces of text.",
+    concept: "Use a Boolean when a program needs to remember whether something is true or false. Python requires a capital T in True and a capital F in False.",
+    starterCode: `lesson_ready = True
+quiz_complete = False
+
+print(lesson_ready)
+print(quiz_complete)
+
+print(f"Lesson ready: {lesson_ready}")
+print(f"Quiz complete: {quiz_complete}")`,
+    expectedOutput: `True
+False
+Lesson ready: True
+Quiz complete: False`,
+    lineByLine: [
+      '<code>lesson_ready = True</code> stores a yes-like fact: the lesson is ready.',
+      '<code>quiz_complete = False</code> stores a no-like fact: the quiz is not complete yet.',
+      '<code>True</code> and <code>False</code> begin with capital letters and have no quotation marks.',
+      '<code>print(lesson_ready)</code> displays the Boolean value currently stored under that name.',
+      'The f-strings place Boolean values inside clear, human-readable messages.',
+      'A Boolean variable can receive a new value later, just like the other variables you already know.'
+    ],
+    outputExplanation: "The first two lines show the Boolean values themselves. The next two lines use f-strings from Lesson 12 to explain what each fact represents.",
+    changeIt: "Change <code>quiz_complete</code> from <code>False</code> to <code>True</code>, predict which output line will change, then run again.<br><br>Next, add <code>sound_on = True</code> and display it in an f-string.<br><br>Finally, put quotation marks around one <code>True</code>. The output may look similar, but remember: <code>\"True\"</code> is text, while <code>True</code> is a Boolean.",
+    challenge: "Create a small Learning Status panel using three clearly named Boolean variables and display each fact with an f-string.",
+    hint: "Store each fact first, such as <code>lesson_open = True</code>, then display it with <code>print(f\"Lesson open: {lesson_open}\")</code>.",
+    solution: `lesson_open = True
+practice_complete = True
+quiz_complete = False
+
+print(f"Lesson open: {lesson_open}")
+print(f"Practice complete: {practice_complete}")
+print(f"Quiz complete: {quiz_complete}")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["Boolean values", "True", "False", "capitalisation", "Booleans in variables", "changing program state", "displaying Booleans", "Booleans versus quoted text"],
+        previous: ["print()", "variables", "strings", "numbers", "f-strings"],
+        prohibited: ["comparisons", "logical operators", "if statements", "input()", "type conversion", "truthiness", "conditions", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "make-ready", stage: "Easy Start · Store One Fact", title: "Make the Lesson Ready", mission: "Change the stored value so the output is True.", starterCode: `lesson_ready = False
+
+print(lesson_ready)`, hint: "Replace False with True. Keep the capital T.", success: "You changed a Boolean fact from False to True.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "mark-incomplete", stage: "Easy Start · Store a No Fact", title: "Mark the Quiz Incomplete", mission: "Use the correct Boolean so the output is Quiz complete: False.", starterCode: `quiz_complete = True
+
+print(f"Quiz complete: {quiz_complete}")`, hint: "Give quiz_complete the Boolean value False.", success: "You used False to represent an unfinished task.", check: { mustChange: true, expectedOutput: ["Quiz complete: False"] } },
+        { id: "remove-quotes", stage: "Growing · Boolean or Text", title: "Remove the Quotation Marks", mission: "Turn the text into a real Boolean while keeping the output True.", starterCode: `door_open = "True"
+
+print(door_open)`, hint: "Remove both quotation marks around True.", success: "You changed quoted text into a genuine Boolean value.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "repair-capital", stage: "Growing · Write Python's Spelling", title: "Repair the Capital Letter", mission: "Fix the value so Python displays False without an error.", starterCode: `lights_on = false
+
+print(lights_on)`, hint: "Python writes this Boolean with a capital F: False.", success: "You repaired Python's exact Boolean spelling.", check: { mustChange: true, expectedOutput: ["False"] } },
+        { id: "two-facts", stage: "Growing · Describe Two Facts", title: "Show Two Settings", mission: "Make the output exactly Sound on: True and Music on: False.", starterCode: `sound_on = False
+music_on = True
+
+print(f"Sound on: {sound_on}")
+print(f"Music on: {music_on}")`, hint: "Swap the two Boolean values near the top.", success: "You represented two independent settings clearly.", check: { mustChange: true, expectedOutput: ["Sound on: True", "Music on: False"] } },
+        { id: "state-change", stage: "Growing · Watch State Change", title: "Complete the Download", mission: "Display Download complete: False first, then Download complete: True.", starterCode: `download_complete = False
+
+print(f"Download complete: {download_complete}")`, hint: "After the first print, assign True to download_complete and print the same message again.", success: "You watched one Boolean variable change as the story moved forward.", check: { mustChange: true, expectedOutput: ["Download complete: False", "Download complete: True"] } },
+        { id: "status-card", stage: "Ready for a Challenge · Build a Status", title: "Build a Tiny Status Card", mission: "Display Account active: True, Email verified: True, and Premium member: False.", starterCode: `account_active = True
+email_verified = False
+premium_member = True
+
+print(account_active)`, hint: "Correct the stored facts, then use three labelled f-strings.", success: "You built a readable status card from three Boolean facts.", check: { mustChange: true, expectedOutput: ["Account active: True", "Email verified: True", "Premium member: False"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-ready", skill: "Store a True Fact", title: "A Fresh Ready State", mission: "Make the stored fact true and display {{label}}: True.", starterCode: `status = False
+
+print(f"{{label}}: {status}")`, hint: "Change the Boolean value to True.", solution: `status = True
+
+print(f"{{label}}: {status}")`, success: "You made a fresh item ready.", check: { mustChange: true, expectedOutput: ["{{label}}: True"] }, values: { label: ["Lesson ready", "Game ready", "Report ready", "Room ready", "Camera ready", "Message ready"] } },
+        { id: "fresh-off", skill: "Store a False Fact", title: "A Fresh Off State", mission: "Turn the setting off so the message ends with False.", starterCode: `setting_on = True
+
+print(f"{{label}}: {setting_on}")`, hint: "Replace True with False.", solution: `setting_on = False
+
+print(f"{{label}}: {setting_on}")`, success: "You represented a fresh off state.", check: { mustChange: true, expectedOutput: ["{{label}}: False"] }, values: { label: ["Sound on", "Music on", "Camera on", "Lights on", "Alerts on", "Wi-Fi on"] } },
+        { id: "fresh-unquote", skill: "Boolean Not Text", title: "Unquote a Fresh Boolean", mission: "Make the stored value a real Boolean while preserving the displayed word.", starterCode: `status = "{{value}}"
+
+print(status)`, hint: "Remove the quotation marks around {{value}}.", solution: `status = {{value}}
+
+print(status)`, success: "You distinguished a fresh Boolean from text.", check: { mustChange: true, expectedOutput: ["{{value}}"] }, values: { value: ["True", "False"] } },
+        { id: "fresh-capital", skill: "Repair Boolean Spelling", title: "Repair Fresh Boolean Spelling", mission: "Correct Python's spelling in this {{context}} status so the program displays True.", starterCode: `# {{context}} status
+status = true
+
+print(status)`, hint: "Boolean values begin with a capital letter.", solution: `status = True
+
+print(status)`, success: "You repaired fresh Boolean capitalisation.", check: { mustChange: true, expectedOutput: ["True"] }, values: { context: ["door", "task", "sound", "file", "lesson", "message"] } },
+        { id: "fresh-message", skill: "Boolean in an f-String", title: "A Fresh Status Message", mission: "Use the stored Boolean to display {{label}}: {{value}}.", starterCode: `status = {{value}}
+
+print(status)`, hint: "Place the variable inside a labelled f-string.", solution: `status = {{value}}
+
+print(f"{{label}}: {status}")`, success: "You placed a fresh Boolean inside a clear message.", check: { mustChange: true, expectedOutput: ["{{label}}: {{value}}"] }, values: { label: ["File saved", "Email sent", "Door locked", "Profile public"], value: ["True", "False"] } },
+        { id: "fresh-pair", skill: "Two Boolean Facts", title: "A Fresh Pair of Facts", mission: "Correct both facts and display the two requested status lines.", starterCode: `first_status = False
+second_status = True
+
+print(f"{{firstLabel}}: {first_status}")
+print(f"{{secondLabel}}: {second_status}")`, hint: "The first fact should be True and the second should be False.", solution: `first_status = True
+second_status = False
+
+print(f"{{firstLabel}}: {first_status}")
+print(f"{{secondLabel}}: {second_status}")`, success: "You managed two fresh Boolean facts.", check: { mustChange: true, expectedOutput: ["{{firstLabel}}: True", "{{secondLabel}}: False"] }, values: { firstLabel: ["Account active", "Lesson open", "Ticket valid"], secondLabel: ["Premium member", "Quiz complete", "Seat empty"] } },
+        { id: "fresh-change", skill: "Change Program State", title: "A Fresh State Change", mission: "Show {{label}}: False followed by {{label}}: True.", starterCode: `status = False
+
+print(f"{{label}}: {status}")`, hint: "After the first print, assign True and print the same f-string again.", solution: `status = False
+
+print(f"{{label}}: {status}")
+
+status = True
+print(f"{{label}}: {status}")`, success: "You changed a fresh Boolean state over time.", check: { mustChange: true, expectedOutput: ["{{label}}: False", "{{label}}: True"] }, values: { label: ["Download complete", "Task complete", "File saved", "Message sent"] } },
+        { id: "fresh-card", skill: "Boolean Status Card", title: "A Fresh Boolean Card", mission: "Build a readable three-line status card from the stored facts.", starterCode: `first_status = True
+second_status = False
+third_status = True
+
+print(first_status)`, hint: "Use three f-strings with the supplied labels.", solution: `first_status = True
+second_status = False
+third_status = True
+
+print(f"{{firstLabel}}: {first_status}")
+print(f"{{secondLabel}}: {second_status}")
+print(f"{{thirdLabel}}: {third_status}")`, success: "You built a fresh multi-fact status card.", check: { mustChange: true, expectedOutput: ["{{firstLabel}}: True", "{{secondLabel}}: False", "{{thirdLabel}}: True"] }, values: { firstLabel: ["Account active", "Lesson open"], secondLabel: ["Quiz complete", "Premium member"], thirdLabel: ["Practice ready", "Sound on"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "learning-status", title: "Learning Status", mission: "Build a three-line learning status using the stored Boolean facts.", starterCode: `lesson_open = True
+practice_complete = True
+quiz_complete = False
+
+print(lesson_open)`, hint: "Use one labelled f-string for each variable.", solution: `lesson_open = True
+practice_complete = True
+quiz_complete = False
+
+print(f"Lesson open: {lesson_open}")
+print(f"Practice complete: {practice_complete}")
+print(f"Quiz complete: {quiz_complete}")` },
+        { id: "game-settings", title: "Game Settings", mission: "Display sound, music, and hints as clear Boolean settings.", starterCode: `sound_on = True
+music_on = False
+hints_on = True
+
+print(sound_on)`, hint: "Let each f-string explain the fact it displays.", solution: `sound_on = True
+music_on = False
+hints_on = True
+
+print(f"Sound on: {sound_on}")
+print(f"Music on: {music_on}")
+print(f"Hints on: {hints_on}")` },
+        { id: "repair-values", title: "Repair the Boolean Values", mission: "Repair the spelling and remove the quotation marks so both values are real Booleans.", starterCode: `door_open = true
+lights_on = "False"
+
+print(door_open)
+print(lights_on)`, hint: "Use True and False with capital first letters and no quotes.", solution: `door_open = True
+lights_on = False
+
+print(door_open)
+print(lights_on)` },
+        { id: "order-status", title: "Order Status", mission: "Display three clear facts about a small order.", starterCode: `paid = True
+packed = True
+delivered = False
+
+print(paid)`, hint: "Use the labels Paid, Packed, and Delivered.", solution: `paid = True
+packed = True
+delivered = False
+
+print(f"Paid: {paid}")
+print(f"Packed: {packed}")
+print(f"Delivered: {delivered}")` },
+        { id: "state-story", title: "Watch the Task Change", mission: "Show Task complete: False, change the stored fact, then show Task complete: True.", starterCode: `task_complete = False
+
+print(task_complete)`, hint: "Print a labelled f-string, assign True, then print the same line again.", solution: `task_complete = False
+
+print(f"Task complete: {task_complete}")
+
+task_complete = True
+print(f"Task complete: {task_complete}")` },
+        { id: "account-card", title: "Account Card", mission: "Create a readable account card from four Boolean facts.", starterCode: `account_active = True
+email_verified = True
+premium_member = False
+profile_public = False
+
+print(account_active)`, hint: "Display each variable beside a plain-language label.", solution: `account_active = True
+email_verified = True
+premium_member = False
+profile_public = False
+
+print(f"Account active: {account_active}")
+print(f"Email verified: {email_verified}")
+print(f"Premium member: {premium_member}")
+print(f"Profile public: {profile_public}")` },
+        { id: "boolean-story", title: "The Boolean Story", mission: "Tell a two-step door story by changing one Boolean variable.", starterCode: `door_locked = True
+
+print(door_locked)`, hint: "Display the first state, set door_locked to False, and display it again.", solution: `door_locked = True
+
+print(f"Door locked: {door_locked}")
+
+door_locked = False
+print(f"Door locked: {door_locked}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-values", question: "Which two values are Python Booleans?", code: "", options: ["Yes and No", "1 and 0", "True and False", "On and Off"], correct: 2, explanation: "Correct — Python's two Boolean values are True and False." },
+        { id: "quiz-capital", question: "Which line uses the correct Python Boolean spelling?", code: "", options: ["ready = true", "ready = TRUE", "ready = True", "ready = yes"], correct: 2, explanation: "Correct — True begins with a capital T and the remaining letters are lowercase." },
+        { id: "quiz-output", question: "What will this program display?", code: `is_ready = True
+print(is_ready)`, options: ["is_ready", "True", "\"True\"", "An error"], correct: 1, explanation: "Correct — print() displays the Boolean value stored in is_ready." },
+        { id: "quiz-false", question: "Which value best represents an unfinished task?", code: "", options: ["False", "Finished", "0.0", "\"No\""], correct: 0, explanation: "Correct — False clearly represents a fact that is not true." },
+        { id: "quiz-quotes", question: "Which line stores a real Boolean rather than text?", code: "", options: ["saved = \"True\"", "saved = 'False'", "saved = True", "saved = \"yes\""], correct: 2, explanation: "Correct — a Boolean has no quotation marks." },
+        { id: "quiz-change", question: "What will the final line display?", code: `door_open = False
+door_open = True
+print(door_open)`, options: ["False", "True", "door_open", "False True"], correct: 1, explanation: "Correct — the later assignment changes the stored Boolean to True." },
+        { id: "quiz-fstring", question: "What will this program display?", code: `music_on = False
+print(f"Music on: {music_on}")`, options: ["Music on: music_on", "False", "Music on: False", "An error"], correct: 2, explanation: "Correct — the f-string places False after the readable label." },
+        { id: "quiz-error", question: "Why does ready = false cause an error?", code: "", options: ["Booleans need quotation marks", "Python requires a capital F in False", "Variables cannot store Booleans", "False must be a number"], correct: 1, explanation: "Correct — Python is case-sensitive, so its Boolean value is spelled False." },
+        { id: "quiz-purpose", question: "When is a Boolean a useful choice?", code: "", options: ["When storing a yes-or-no fact", "When writing a long paragraph", "When storing five names", "When drawing a picture"], correct: 0, explanation: "Correct — Booleans are ideal for facts with two states." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `lesson_complete = False
+
+print(f"Lesson complete: {lesson_complete}")`,
+      options: ["Lesson complete: lesson_complete", "Lesson complete: False", "False lesson", "An error"],
+      correct: 1,
+      explanation: "Correct — the f-string places the Boolean value False inside the message."
+    }
   }
 };
