@@ -3834,5 +3834,319 @@ print(score != 10)`,
       correct: 0,
       explanation: "Correct — score equals 10, so == is True and != is False."
     }
+  },
+  15: {
+    title: "Logical Operators — Combining True and False",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["and or not", "Combined facts"],
+    intro: "A program often knows more than one fact. Logical operators let those True and False answers work together in one clear result.",
+    explanation: "The logical operators <code>and</code>, <code>or</code>, and <code>not</code> combine or reverse Boolean values. Python writes them as simple lowercase words.",
+    concept: "<code>and</code> needs both sides to be True, <code>or</code> needs at least one True side, and <code>not</code> reverses a Boolean answer.",
+    starterCode: `age = 20
+has_ticket = True
+is_member = False
+door_locked = False
+
+old_enough = age >= 18
+
+print(old_enough and has_ticket)
+print(has_ticket or is_member)
+print(not door_locked)`,
+    expectedOutput: `True
+True
+True`,
+    lineByLine: [
+      '<code>age &gt;= 18</code> creates the Boolean answer True and stores it as <code>old_enough</code>.',
+      '<code>old_enough and has_ticket</code> is True because both facts are True.',
+      '<code>has_ticket or is_member</code> is True because at least one of the two facts is True.',
+      '<code>not door_locked</code> reverses False, producing True.',
+      '<code>not</code> does not overwrite the stored variable; it reverses the answer in that expression.',
+      'Python logical operators are the lowercase words <code>and</code>, <code>or</code>, and <code>not</code>.'
+    ],
+    outputExplanation: "Each line reaches True for a different reason: both facts pass, one fact passes, and one False fact is reversed.",
+    changeIt: "Change <code>has_ticket</code> to <code>False</code> and predict the first two outputs.<br><br>Then change <code>is_member</code> to <code>True</code>. Notice that <code>or</code> now succeeds even without a ticket.<br><br>Finally, change <code>door_locked</code> to <code>True</code> and watch <code>not door_locked</code> become False.",
+    challenge: "Build a Learning Gate report using all three logical operators. Combine completion facts, accept either a quiz or bonus pass, and reverse the locked state.",
+    hint: "Create three readable result variables: one with <code>and</code>, one with <code>or</code>, and one with <code>not</code>.",
+    solution: `lesson_complete = True
+practice_complete = True
+quiz_complete = False
+bonus_pass = True
+door_locked = False
+
+core_work_complete = lesson_complete and practice_complete
+can_finish_today = quiz_complete or bonus_pass
+door_open = not door_locked
+
+print(f"Core work complete: {core_work_complete}")
+print(f"Can finish today: {can_finish_today}")
+print(f"Door open: {door_open}")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["and", "or", "not", "combining Boolean values", "combining comparisons", "reversing a Boolean", "storing combined results", "readable logical expressions"],
+        previous: ["print()", "variables", "strings", "numbers", "f-strings", "Booleans", "comparison operators"],
+        prohibited: ["if statements", "input()", "type conversion", "truthiness", "short-circuit evaluation", "bitwise operators", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "both-complete", stage: "Easy Start · Both Must Pass", title: "Both Tasks Complete", mission: "Use and so the program displays True only when both tasks are complete.", starterCode: `lesson_complete = True
+quiz_complete = True
+
+print(lesson_complete)`, hint: "Use print(lesson_complete and quiz_complete).", success: "You used and to require both facts.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "either-entry", stage: "Easy Start · One Is Enough", title: "One Entry Method Is Enough", mission: "Use or to show that entry is possible with either a ticket or membership.", starterCode: `has_ticket = False
+is_member = True
+
+print(has_ticket)`, hint: "Use print(has_ticket or is_member).", success: "You used or when either fact was enough.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "reverse-lock", stage: "Growing · Reverse a Fact", title: "Reverse the Lock", mission: "Display True to show that the unlocked door is open.", starterCode: `door_locked = False
+
+print(door_locked)`, hint: "Use print(not door_locked).", success: "You reversed False with not.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "two-targets", stage: "Growing · Combine Comparisons", title: "Meet Two Targets", mission: "Display whether age is at least 18 and score is at least 60.", starterCode: `age = 20
+score = 75
+
+print(age >= 18)`, hint: "Join age >= 18 and score >= 60 with and.", success: "You combined two comparison results with and.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "either-score", stage: "Growing · Accept Either Result", title: "Accept Either Score", mission: "Display True when the main score or bonus score reaches 10.", starterCode: `main_score = 7
+bonus_score = 12
+
+print(main_score >= 10)`, hint: "Join the two >= comparisons with or.", success: "You combined two comparisons with or.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "store-result", stage: "Growing · Name the Answer", title: "Store the Combined Answer", mission: "Create can_enter from both facts, then display it.", starterCode: `old_enough = True
+has_ticket = True
+
+print(old_enough and has_ticket)`, hint: "Write can_enter = old_enough and has_ticket, then print(can_enter).", success: "You gave a useful name to a combined Boolean answer.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "repair-logic", stage: "Ready for a Challenge · Repair Python Words", title: "Repair the Logical Expression", mission: "Repair the final line so Python displays True.", starterCode: `lesson_ready = True
+quiz_ready = True
+
+print(lesson_ready && quiz_ready)`, hint: "Python uses the lowercase word and, not &&.", success: "You repaired the logical expression using Python's readable word.", check: { mustChange: true, expectedOutput: ["True"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-and", skill: "Both Facts", title: "A Fresh Both-Facts Check", mission: "Use and to combine the two completed {{context}} facts.", starterCode: `# {{context}} facts
+first_complete = True
+second_complete = True
+
+print(first_complete)`, hint: "Use first_complete and second_complete.", solution: `# {{context}} facts
+first_complete = True
+second_complete = True
+
+print(first_complete and second_complete)`, success: "You required both fresh facts to be True.", check: { mustChange: true, expectedOutput: ["True"] }, values: { context: ["lesson", "game", "account", "order", "project", "profile", "journey", "practice"] } },
+        { id: "fresh-or", skill: "Either Fact", title: "A Fresh Either-Fact Check", mission: "Use or because either {{context}} method is enough.", starterCode: `# {{context}} options
+first_option = False
+second_option = True
+
+print(first_option)`, hint: "Use first_option or second_option.", solution: `# {{context}} options
+first_option = False
+second_option = True
+
+print(first_option or second_option)`, success: "You accepted either fresh True fact.", check: { mustChange: true, expectedOutput: ["True"] }, values: { context: ["entry", "payment", "login", "travel", "delivery", "access", "contact", "verification"] } },
+        { id: "fresh-not", skill: "Reverse a Fact", title: "A Fresh Reversal", mission: "Reverse the stored {{labelLower}} state so the output is True.", starterCode: `# {{labelLower}} state
+status = False
+
+print(status)`, hint: "Use print(not status).", solution: `# {{labelLower}} state
+status = False
+
+print(not status)`, success: "You reversed a fresh False fact.", check: { mustChange: true, expectedOutput: ["True"] }, values: { labelLower: ["locked", "blocked", "closed", "hidden", "paused", "muted", "empty", "missing"] } },
+        { id: "fresh-comparison-and", skill: "Two Comparison Targets", title: "A Fresh Double Target", mission: "Use and to check that the value reaches both positive targets.", starterCode: `value = {{value}}
+
+print(value >= 5)`, hint: "Combine value >= 5 and value >= 10 with and.", solution: `value = {{value}}
+
+print(value >= 5 and value >= 10)`, success: "You combined two fresh comparison answers.", check: { mustChange: true, expectedOutput: ["True"] }, values: { value: [10, 11, 12, 15, 18, 20, 25, 50] } },
+        { id: "fresh-comparison-or", skill: "Either Comparison", title: "A Fresh Outside Check", mission: "Use or to ask whether the value is below 10 or above 30.", starterCode: `value = {{value}}
+
+print(value < 10)`, hint: "Join value < 10 and value > 30 with or.", solution: `value = {{value}}
+
+print(value < 10 or value > 30)`, success: "You allowed either fresh comparison to succeed.", check: { mustChange: true, expectedOutput: ["True"] }, values: { value: [1, 3, 5, 8, 31, 35, 40, 50] } },
+        { id: "fresh-store", skill: "Store Combined Logic", title: "Store a Fresh Logical Answer", mission: "Store both ready facts as can_start, then display the named answer.", starterCode: `# {{context}} setup
+first_ready = True
+second_ready = True
+
+print(first_ready and second_ready)`, hint: "Create can_start = first_ready and second_ready.", solution: `# {{context}} setup
+first_ready = True
+second_ready = True
+
+can_start = first_ready and second_ready
+print(can_start)`, success: "You stored a fresh logical result clearly.", check: { mustChange: true, expectedOutput: ["True"] }, values: { context: ["lesson", "game", "account", "order", "travel", "profile", "security", "practice"] } },
+        { id: "fresh-report", skill: "Logical Status Message", title: "A Fresh Logic Report", mission: "Use and inside the f-string to complete the {{label}} report.", starterCode: `first_ready = True
+second_ready = True
+
+print(f"{{label}}: {first_ready}")`, hint: "Place first_ready and second_ready inside the braces.", solution: `first_ready = True
+second_ready = True
+
+print(f"{{label}}: {first_ready and second_ready}")`, success: "You placed a fresh logical answer inside a readable message.", check: { mustChange: true, expectedOutput: ["{{label}}: True"] }, values: { label: ["Ready to begin", "Work complete", "Access granted", "Checks passed", "Setup ready", "Order ready", "Profile ready", "Journey ready"] } },
+        { id: "fresh-repair", skill: "Repair Logical Syntax", title: "Repair Fresh Logical Code", mission: "Replace the non-Python symbol in this {{context}} check.", starterCode: `first_fact = True
+second_fact = True
+
+# {{context}} check
+print(first_fact && second_fact)`, hint: "Python uses and instead of &&.", solution: `first_fact = True
+second_fact = True
+
+# {{context}} check
+print(first_fact and second_fact)`, success: "You repaired fresh logical syntax.", check: { mustChange: true, expectedOutput: ["True"] }, values: { context: ["lesson", "game", "account", "order", "travel", "profile", "security", "practice"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "learning-gate", title: "The Learning Gate", mission: "Use and, or, and not to build a three-line learning report.", starterCode: `lesson_complete = True
+practice_complete = True
+quiz_complete = False
+bonus_pass = True
+door_locked = False
+
+print(lesson_complete)`, hint: "Build three named results before printing the report.", solution: `lesson_complete = True
+practice_complete = True
+quiz_complete = False
+bonus_pass = True
+door_locked = False
+
+core_work_complete = lesson_complete and practice_complete
+can_finish_today = quiz_complete or bonus_pass
+door_open = not door_locked
+
+print(f"Core work complete: {core_work_complete}")
+print(f"Can finish today: {can_finish_today}")
+print(f"Door open: {door_open}")` },
+        { id: "game-access", title: "Game Access", mission: "Combine player facts to report entry, bonus access, and whether the gate is open.", starterCode: `old_enough = True
+has_ticket = True
+is_member = False
+has_bonus_pass = True
+gate_locked = False
+
+print(old_enough)`, hint: "Use and for entry, or for bonus access, and not for the gate.", solution: `old_enough = True
+has_ticket = True
+is_member = False
+has_bonus_pass = True
+gate_locked = False
+
+can_enter = old_enough and has_ticket
+bonus_access = is_member or has_bonus_pass
+gate_open = not gate_locked
+
+print(f"Can enter: {can_enter}")
+print(f"Bonus access: {bonus_access}")
+print(f"Gate open: {gate_open}")` },
+        { id: "account-security", title: "Account Security", mission: "Build a readable report for login checks and account blocking.", starterCode: `email_verified = True
+password_correct = True
+recovery_code = False
+trusted_device = True
+account_blocked = False
+
+print(email_verified)`, hint: "Combine verification with and, alternatives with or, and reverse blocked with not.", solution: `email_verified = True
+password_correct = True
+recovery_code = False
+trusted_device = True
+account_blocked = False
+
+login_checks_pass = email_verified and password_correct
+backup_access = recovery_code or trusted_device
+account_available = not account_blocked
+
+print(f"Login checks pass: {login_checks_pass}")
+print(f"Backup access: {backup_access}")
+print(f"Account available: {account_available}")` },
+        { id: "discount", title: "Shop Discount Eligibility", mission: "Use comparisons and logical operators to calculate three discount facts.", starterCode: `total = 60
+minimum_total = 50
+is_member = False
+has_coupon = True
+coupon_expired = False
+
+print(total)`, hint: "Use total >= minimum_total, then and, or, and not in readable result variables.", solution: `total = 60
+minimum_total = 50
+is_member = False
+has_coupon = True
+coupon_expired = False
+
+minimum_reached = total >= minimum_total
+member_discount = minimum_reached and is_member
+some_discount = is_member or has_coupon
+coupon_valid = not coupon_expired
+
+print(f"Member discount: {member_discount}")
+print(f"Some discount available: {some_discount}")
+print(f"Coupon valid: {coupon_valid}")` },
+        { id: "weather", title: "Weather Warning", mission: "Report uncomfortable weather, safe equipment, and whether the road is open.", starterCode: `temperature = 35
+very_cold = temperature < 5
+very_hot = temperature > 30
+has_hat = True
+has_water = True
+road_closed = False
+
+print(temperature)`, hint: "Join temperature facts with or, equipment with and, and reverse road_closed.", solution: `temperature = 35
+very_cold = temperature < 5
+very_hot = temperature > 30
+has_hat = True
+has_water = True
+road_closed = False
+
+weather_warning = very_cold or very_hot
+equipment_ready = has_hat and has_water
+road_open = not road_closed
+
+print(f"Weather warning: {weather_warning}")
+print(f"Equipment ready: {equipment_ready}")
+print(f"Road open: {road_open}")` },
+        { id: "event-entry", title: "Event Entry", mission: "Build an event entry report from age, ticket, guest-list, and closure facts.", starterCode: `age = 20
+has_ticket = False
+on_guest_list = True
+id_ready = True
+event_closed = False
+
+print(age)`, hint: "First create old_enough, then combine the remaining Boolean facts.", solution: `age = 20
+has_ticket = False
+on_guest_list = True
+id_ready = True
+event_closed = False
+
+old_enough = age >= 18
+entry_method = has_ticket or on_guest_list
+checks_pass = old_enough and id_ready
+event_open = not event_closed
+
+print(f"Entry method: {entry_method}")
+print(f"Checks pass: {checks_pass}")
+print(f"Event open: {event_open}")` },
+        { id: "repair-report", title: "Repair the Logic Report", mission: "Replace three non-Python operators so the report runs correctly.", starterCode: `lesson_ready = True
+quiz_ready = True
+bonus_pass = False
+door_locked = False
+
+print(lesson_ready && quiz_ready)
+print(quiz_ready || bonus_pass)
+print(!door_locked)`, hint: "Python uses the lowercase words and, or, and not.", solution: `lesson_ready = True
+quiz_ready = True
+bonus_pass = False
+door_locked = False
+
+print(lesson_ready and quiz_ready)
+print(quiz_ready or bonus_pass)
+print(not door_locked)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-and-true", question: "What is the result of True and True?", code: "", options: ["True", "False", "An error", "None"], correct: 0, explanation: "Correct — and is True only when both sides are True." },
+        { id: "quiz-and-false", question: "What is the result of True and False?", code: "", options: ["True", "False", "True False", "An error"], correct: 1, explanation: "Correct — one False side makes the and result False." },
+        { id: "quiz-or-true", question: "What is the result of False or True?", code: "", options: ["True", "False", "None", "An error"], correct: 0, explanation: "Correct — or needs only one True side." },
+        { id: "quiz-or-false", question: "What is the result of False or False?", code: "", options: ["True", "False", "0", "An error"], correct: 1, explanation: "Correct — neither side is True." },
+        { id: "quiz-not-true", question: "What is the result of not True?", code: "", options: ["True", "False", "not", "An error"], correct: 1, explanation: "Correct — not reverses True into False." },
+        { id: "quiz-not-false", question: "What is the result of not False?", code: "", options: ["True", "False", "None", "An error"], correct: 0, explanation: "Correct — not reverses False into True." },
+        { id: "quiz-comparison-and", question: "What will this program display?", code: `age = 20
+has_ticket = False
+print(age >= 18 and has_ticket)`, options: ["True", "False", "20", "An error"], correct: 1, explanation: "Correct — the age comparison is True, but and also needs has_ticket to be True." },
+        { id: "quiz-comparison-or", question: "What will this program display?", code: `score = 7
+bonus = 12
+print(score >= 10 or bonus >= 10)`, options: ["True", "False", "19", "An error"], correct: 0, explanation: "Correct — the bonus comparison is True, which is enough for or." },
+        { id: "quiz-python-words", question: "Which line uses Python's logical syntax?", code: "", options: ["ready && complete", "ready AND complete", "ready and complete", "ready & complete"], correct: 2, explanation: "Correct — Python uses the lowercase word and." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `old_enough = True
+has_ticket = False
+
+print(old_enough and has_ticket)
+print(old_enough or has_ticket)`,
+      options: ["False then True", "True then False", "True then True", "False then False"],
+      correct: 0,
+      explanation: "Correct — and needs both facts, while or needs only one True fact."
+    }
   }
 };
