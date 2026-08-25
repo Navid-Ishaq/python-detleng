@@ -3606,5 +3606,233 @@ print(f"Lesson complete: {lesson_complete}")`,
       correct: 1,
       explanation: "Correct — the f-string places the Boolean value False inside the message."
     }
+  },
+  14: {
+    title: "Comparison Operators — Asking Python Questions",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["Comparisons", "Boolean answers"],
+    intro: "You already know True and False. Now you will ask Python small questions about values—and watch Python create those Boolean answers for you.",
+    explanation: "A <strong>comparison</strong> asks how two values relate. Python answers every comparison with <code>True</code> or <code>False</code>.",
+    concept: "Use <code>==</code>, <code>!=</code>, <code>&gt;</code>, <code>&lt;</code>, <code>&gt;=</code>, and <code>&lt;=</code> to ask whether values are equal, different, larger, smaller, or on a boundary.",
+    starterCode: `score = 10
+target = 12
+
+print(score == target)
+print(score != target)
+print(score > 7)
+print(score < 5)
+print(score >= 10)
+print(score <= 9)`,
+    expectedOutput: `False
+True
+True
+False
+True
+False`,
+    lineByLine: [
+      '<code>score == target</code> asks whether 10 and 12 are equal. They are not, so the answer is False.',
+      '<code>score != target</code> asks whether the values are different. They are, so the answer is True.',
+      '<code>score &gt; 7</code> asks whether 10 is greater than 7.',
+      '<code>score &lt; 5</code> asks whether 10 is less than 5.',
+      '<code>score &gt;= 10</code> accepts a value that is greater than or equal to 10.',
+      '<code>score &lt;= 9</code> asks whether 10 is smaller than or equal to 9.',
+      '<code>=</code> gives a variable a value; <code>==</code> asks whether two values are equal.'
+    ],
+    outputExplanation: "Each line is the answer to a different question about score. The answers change because each operator asks something different.",
+    changeIt: "Change <code>score</code> from 10 to 12 and predict all six answers before running again.<br><br>Next, try <code>temperature = 20</code>, then compare <code>temperature &gt; 20</code> and <code>temperature &gt;= 20</code>.<br><br>Finally, compare <code>\"Amina\" == \"amina\"</code>. Python notices the capital letter, so the answer is False.",
+    challenge: "Build a Game Checkpoint report. Use comparisons inside f-strings to show whether the score target was reached, whether the score is perfect, whether lives remain, and whether lives are at their maximum.",
+    hint: "Place a comparison inside each pair of f-string braces, such as <code>{score &gt;= required_score}</code>.",
+    solution: `score = 18
+required_score = 15
+lives = 2
+maximum_lives = 3
+
+print(f"Reached score: {score >= required_score}")
+print(f"Perfect score: {score == 20}")
+print(f"Lives remaining: {lives > 0}")
+print(f"Maximum lives: {lives == maximum_lives}")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["==", "!=", ">", "<", ">=", "<=", "comparison results", "= versus ==", "number comparisons", "string equality", "storing comparison results"],
+        previous: ["print()", "variables", "strings", "numbers", "f-strings", "True", "False"],
+        prohibited: ["and", "or", "not", "if statements", "input()", "type conversion", "chained comparisons", "conditions", "loops", "collections", "functions"]
+      },
+      activities: [
+        { id: "equal-score", stage: "Easy Start · Ask About Equality", title: "Check the Score", mission: "Change the final line so Python answers whether score equals 10.", starterCode: `score = 10
+
+print(score)`, hint: "Use print(score == 10). Two equals signs ask a question.", success: "You asked an equality question and received True.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "different-city", stage: "Easy Start · Ask About Difference", title: "Find What Is Different", mission: "Display whether Cork is different from Dublin.", starterCode: `city = "Cork"
+
+print(city)`, hint: "Use city != \"Dublin\".", success: "You used != to ask whether two strings differ.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "higher-target", stage: "Growing · Compare Size", title: "Higher Than the Target", mission: "Display whether 14 points are greater than the target of 10.", starterCode: `points = 14
+target = 10
+
+print(points)`, hint: "Use print(points > target).", success: "You correctly compared two number variables.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "below-limit", stage: "Growing · Stay Below a Limit", title: "Below the Limit", mission: "Display whether temperature is less than the limit.", starterCode: `temperature = 18
+limit = 20
+
+print(temperature)`, hint: "Use temperature < limit.", success: "You used < to check a lower value.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "equality-counts", stage: "Growing · Include the Boundary", title: "Equality Counts Too", mission: "Make Python answer whether age is at least 18.", starterCode: `age = 18
+
+print(age > 18)`, hint: "At least means greater than or equal to: >=.", success: "You included equality at the exact boundary.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "maximum", stage: "Growing · Check a Maximum", title: "Stay Within the Maximum", mission: "Display whether 5 items are no more than the maximum of 5.", starterCode: `items = 5
+maximum = 5
+
+print(items < maximum)`, hint: "No more than means less than or equal to: <=.", success: "You used <= to include the maximum itself.", check: { mustChange: true, expectedOutput: ["True"] } },
+        { id: "repair-equals", stage: "Ready for a Challenge · Repair the Question", title: "Repair = and ==", mission: "Repair the final line so it asks whether level equals 3 and displays True.", starterCode: `level = 3
+
+print(level = 3)`, hint: "One equals sign assigns. Use two equals signs to compare.", success: "You repaired the important difference between assignment and comparison.", check: { mustChange: true, expectedOutput: ["True"] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-equal", skill: "Equality", title: "A Fresh Equality Question", mission: "Ask whether the stored {{label}} equals itself.", starterCode: `value = {{value}}
+
+print(value)`, hint: "Use print(value == value).", solution: `value = {{value}}
+
+print(value == value)`, success: "You completed a fresh equality comparison.", check: { mustChange: true, expectedOutput: ["True"] }, values: { label: ["score", "level", "price", "age", "temperature", "total"], value: [3, 5, 8, 10, 12, 20, 25, 50] } },
+        { id: "fresh-different", skill: "Difference", title: "A Fresh Difference Question", mission: "Ask whether the stored number is different from zero.", starterCode: `number = {{value}}
+
+print(number)`, hint: "Use number != 0.", solution: `number = {{value}}
+
+print(number != 0)`, success: "You completed a fresh not-equal comparison.", check: { mustChange: true, expectedOutput: ["True"] }, values: { value: [1, 2, 4, 7, 10, 15, 30, 100] } },
+        { id: "fresh-greater", skill: "Greater Than", title: "A Fresh Greater-Than Check", mission: "Ask whether {{label}} is greater than zero.", starterCode: `number = {{value}}
+
+print(number)`, hint: "Use number > 0.", solution: `number = {{value}}
+
+print(number > 0)`, success: "You proved a fresh positive number is greater than zero.", check: { mustChange: true, expectedOutput: ["True"] }, values: { label: ["the score", "the quantity", "the level", "the total", "the distance"], value: [1, 3, 6, 9, 12, 18, 25] } },
+        { id: "fresh-less", skill: "Less Than", title: "A Fresh Less-Than Check", mission: "Ask whether the stored value is less than 100.", starterCode: `value = {{value}}
+
+print(value)`, hint: "Use value < 100.", solution: `value = {{value}}
+
+print(value < 100)`, success: "You completed a fresh less-than comparison.", check: { mustChange: true, expectedOutput: ["True"] }, values: { value: [2, 8, 15, 24, 37, 50, 75, 99] } },
+        { id: "fresh-at-least", skill: "Greater Than or Equal", title: "A Fresh At-Least Check", mission: "Ask whether the value is at least {{boundary}}.", starterCode: `value = {{boundary}}
+
+print(value > {{boundary}})`, hint: "At least includes equality. Use >=.", solution: `value = {{boundary}}
+
+print(value >= {{boundary}})`, success: "You included a fresh equality boundary.", check: { mustChange: true, expectedOutput: ["True"] }, values: { boundary: [5, 10, 12, 18, 20, 25, 50] } },
+        { id: "fresh-at-most", skill: "Less Than or Equal", title: "A Fresh At-Most Check", mission: "Ask whether the value is at most {{boundary}}.", starterCode: `value = {{boundary}}
+
+print(value < {{boundary}})`, hint: "At most includes equality. Use <=.", solution: `value = {{boundary}}
+
+print(value <= {{boundary}})`, success: "You included a fresh maximum boundary.", check: { mustChange: true, expectedOutput: ["True"] }, values: { boundary: [3, 5, 8, 10, 15, 20, 40] } },
+        { id: "fresh-text", skill: "String Equality", title: "A Fresh Text Match", mission: "Ask whether the two pieces of text match exactly.", starterCode: `first = "{{word}}"
+second = "{{word}}"
+
+print(first)`, hint: "Use print(first == second).", solution: `first = "{{word}}"
+second = "{{word}}"
+
+print(first == second)`, success: "You compared fresh text exactly.", check: { mustChange: true, expectedOutput: ["True"] }, values: { word: ["Python", "Amina", "Dublin", "Ready", "Level 3", "Green Valley", "Practice", "Complete"] } },
+        { id: "fresh-store", skill: "Store a Comparison", title: "Store a Fresh Answer", mission: "Store whether the value is at least 10, then display the Boolean answer.", starterCode: `value = {{value}}
+
+print(value >= 10)`, hint: "Create reached_target = value >= 10, then print reached_target.", solution: `value = {{value}}
+
+reached_target = value >= 10
+print(reached_target)`, success: "You stored a fresh comparison result in a Boolean variable.", check: { mustChange: true, expectedOutput: ["True"] }, values: { value: [10, 11, 12, 15, 20, 25, 50] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "checkpoint", title: "The Game Checkpoint", mission: "Display four labelled comparison answers about score and lives.", starterCode: `score = 18
+required_score = 15
+lives = 2
+maximum_lives = 3
+
+print(score)
+print(lives)`, hint: "Use >= for the target and > 0 for remaining lives.", solution: `score = 18
+required_score = 15
+lives = 2
+maximum_lives = 3
+
+print(f"Reached score: {score >= required_score}")
+print(f"Perfect score: {score == 20}")
+print(f"Lives remaining: {lives > 0}")
+print(f"Maximum lives: {lives == maximum_lives}")` },
+        { id: "budget", title: "Shop Budget Check", mission: "Compare a price with a budget and display three useful Boolean answers.", starterCode: `price = 18
+budget = 20
+
+print(price)
+print(budget)`, hint: "Ask whether price <= budget, price == budget, and price > budget.", solution: `price = 18
+budget = 20
+
+print(f"Within budget: {price <= budget}")
+print(f"Uses full budget: {price == budget}")
+print(f"Over budget: {price > budget}")` },
+        { id: "height", title: "Theme Park Height Check", mission: "Show whether the rider meets, exceeds, or exactly matches the minimum height.", starterCode: `height = 130
+minimum_height = 120
+
+print(height)`, hint: "Use >=, >, and == in three labelled f-strings.", solution: `height = 130
+minimum_height = 120
+
+print(f"Can ride: {height >= minimum_height}")
+print(f"Above minimum: {height > minimum_height}")
+print(f"Exactly minimum: {height == minimum_height}")` },
+        { id: "temperature", title: "Temperature Monitor", mission: "Compare the current temperature with the target and display three answers.", starterCode: `temperature = 18
+target = 20
+
+print(temperature)`, hint: "Ask whether it is below, equal to, or above the target.", solution: `temperature = 18
+target = 20
+
+print(f"Below target: {temperature < target}")
+print(f"At target: {temperature == target}")
+print(f"Above target: {temperature > target}")` },
+        { id: "names", title: "Match Two Names", mission: "Show whether two names match exactly and whether they are different.", starterCode: `first_name = "Amina"
+second_name = "amina"
+
+print(first_name)
+print(second_name)`, hint: "Use == for an exact match and != for difference.", solution: `first_name = "Amina"
+second_name = "amina"
+
+print(f"Exact match: {first_name == second_name}")
+print(f"Different: {first_name != second_name}")` },
+        { id: "capacity", title: "Classroom Capacity", mission: "Show whether the class is within, exactly at, or over its capacity.", starterCode: `students = 24
+capacity = 25
+
+print(students)`, hint: "Use <=, ==, and > with the capacity.", solution: `students = 24
+capacity = 25
+
+print(f"Within capacity: {students <= capacity}")
+print(f"Class full: {students == capacity}")
+print(f"Over capacity: {students > capacity}")` },
+        { id: "repair-report", title: "Repair the Comparison Report", mission: "Repair all three comparison lines so the report runs and answers correctly.", starterCode: `level = 5
+target = 5
+
+print(f"Target reached: {level = target}")
+print(f"Above target: {level => target}")
+print(f"Not target: {level ! target}")`, hint: "Use ==, >=, and !=. Comparison symbols must stay in their correct order.", solution: `level = 5
+target = 5
+
+print(f"Target reached: {level == target}")
+print(f"At least target: {level >= target}")
+print(f"Not target: {level != target}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-equal", question: "Which operator asks whether two values are equal?", code: "", options: ["=", "==", "!=", ">="], correct: 1, explanation: "Correct — == compares two values for equality." },
+        { id: "quiz-assignment", question: "What is the difference between = and ==?", code: "", options: ["There is no difference", "= assigns; == compares", "== assigns; = compares", "Both mean not equal"], correct: 1, explanation: "Correct — one equals sign assigns a value; two ask an equality question." },
+        { id: "quiz-different", question: "What is the result of 8 != 5?", code: "", options: ["True", "False", "8", "An error"], correct: 0, explanation: "Correct — 8 and 5 are different." },
+        { id: "quiz-greater", question: "What is the result of 10 > 10?", code: "", options: ["True", "False", "10", "An error"], correct: 1, explanation: "Correct — a number is equal to itself, not greater than itself." },
+        { id: "quiz-boundary", question: "What is the result of 10 >= 10?", code: "", options: ["True", "False", "20", "An error"], correct: 0, explanation: "Correct — >= includes equality." },
+        { id: "quiz-less", question: "What is the result of 3 <= 2?", code: "", options: ["True", "False", "1", "An error"], correct: 1, explanation: "Correct — 3 is neither less than nor equal to 2." },
+        { id: "quiz-case", question: "What will this comparison display?", code: `print("Amina" == "amina")`, options: ["True", "False", "Amina", "An error"], correct: 1, explanation: "Correct — Python notices the different capitalisation." },
+        { id: "quiz-result", question: "What kind of value does a comparison produce?", code: "", options: ["Only a string", "A Boolean", "Only a float", "A comment"], correct: 1, explanation: "Correct — every comparison produces True or False." },
+        { id: "quiz-two-lines", question: "What will these two comparisons display?", code: `age = 18
+print(age > 18)
+print(age >= 18)`, options: ["True then True", "False then True", "False then False", "True then False"], correct: 1, explanation: "Correct — 18 is not greater than 18, but it is equal to 18." }
+      ]
+    },
+    quiz: {
+      question: "What will these two comparisons display?",
+      code: `score = 10
+
+print(score == 10)
+print(score != 10)`,
+      options: ["True then False", "False then True", "True then True", "An error"],
+      correct: 0,
+      explanation: "Correct — score equals 10, so == is True and != is False."
+    }
   }
 };
