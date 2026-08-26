@@ -5009,5 +5009,237 @@ print("Done")`, options: ["Large then Done", "Done only", "Large only", "Nothing
       correct: 0,
       explanation: "Correct — the condition has a colon, and the controlled instruction is indented."
     }
+  },
+  20: {
+    title: "If / Else",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "~18 minutes",
+    tags: ["Two-way decisions", "if / else", "Exactly one path"],
+    usesInput: true,
+    intro: "An if statement can open one path. Adding else gives the program a second path, so it can respond whether the condition is True or False.",
+    explanation: `An <strong>if / else</strong> decision has two connected branches. Python checks the <code>if</code> condition once. When it is <code>True</code>, Python runs the indented <code>if</code> block and skips the <code>else</code> block. When it is <code>False</code>, Python skips the first block and runs the indented <code>else</code> block.<br><br>The word <code>else</code> means “otherwise”. It needs no new condition. Its colon lines up with <code>if</code>, and both possible responses are indented. Exactly one of these two branches runs—not both.`,
+    concept: "if handles the True path; else handles the False path. Together they guarantee one clear response.",
+    starterCode: `score = float(input("Enter your score: "))
+
+print(f"Score: {score}")
+
+if score >= 50:
+    print("You reached the target.")
+else:
+    print("Keep practising. You are still learning.")
+
+print("Score check complete.")`,
+    starterInput: "75",
+    expectedOutput: `Enter your score: 75
+Score: 75.0
+You reached the target.
+Score check complete.`,
+    lineByLine: [
+      "input() asks the learner for a score, and float() converts the typed text into a number.",
+      "score >= 50 produces either True or False. The value 50 is included because the operator is >=.",
+      "When the condition is True, Python runs the indented message directly below if.",
+      "When the condition is False, Python skips the first message and runs the indented else message instead.",
+      "The final print() is outside both branches, so it runs after either path finishes."
+    ],
+    outputExplanation: "With 75, the condition score >= 50 is True, so the target message appears. Try 40 to see the else path. Try exactly 50 to confirm that the boundary belongs to the True path.",
+    changeIt: `Run the starter with <code>75</code>, then replace the Program Input with <code>40</code> and run again. Notice that only one decision message appears each time.<br><br>Now try exactly <code>50</code>. Predict the path before running. Finally, change <code>&gt;=</code> to <code>&gt;</code> and test 50 again. That tiny edit moves the boundary from one path to the other.`,
+    challenge: {
+      title: "Simple Ticket Adviser",
+      mission: "Ask for an age. Display Adult ticket when the age is 18 or more; otherwise display Junior ticket. Keep the final recommendation print outside the decision.",
+      starterCode: `age = float(input("How old are you? "))
+
+# Create a two-way decision here
+
+print(f"Recommendation: {ticket}")`,
+      starterInput: "20"
+    },
+    hint: "Use if age >= 18: for the first path. Give ticket one text value in that block and a different text value under else:.",
+    solution: `age = float(input("How old are you? "))
+
+if age >= 18:
+    ticket = "Adult ticket"
+else:
+    ticket = "Junior ticket"
+
+print(f"Recommendation: {ticket}")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only input(), float(), variables, strings, f-strings, comparisons, Boolean knowledge, if, else and print(). Do not use elif, nested decisions, loops or functions.",
+      activities: [
+        { id: "target", eyebrow: "EASY START · TEST BOTH PATHS", title: "Target Checker", mission: "Load the code, enter one score above 50 and one below 50 on separate runs, and observe the two possible messages.", starterCode: `score = float(input("Score: "))
+if score >= 50:
+    print("Target reached")
+else:
+    print("Keep practising")`, starterInput: "72", hint: "Try 72 first, then replace Program Input with 31.", checks: { mustRun: true, minimumInputLines: 1 } },
+        { id: "weather", eyebrow: "TEXT DECISION · MAKE A CHOICE", title: "Coat Reminder", mission: "Change the weather answer and make both branches run on different attempts.", starterCode: `weather = input("Weather: ")
+if weather == "cold":
+    print("Take a warm coat")
+else:
+    print("A light jacket may be enough")`, starterInput: "cold", hint: "Python compares text exactly. Try cold, then sunny.", checks: { mustRun: true, minimumInputLines: 1 } },
+        { id: "ticket", eyebrow: "BOUNDARY · AGE 18", title: "Ticket Type", mission: "Test an age below 18, exactly 18 and above 18.", starterCode: `age = float(input("Age: "))
+if age >= 18:
+    print("Adult ticket")
+else:
+    print("Junior ticket")`, starterInput: "18", hint: "The >= operator includes 18.", checks: { mustRun: true, minimumInputLines: 1 } },
+        { id: "balance", eyebrow: "REAL-LIFE CHOICE · COMPARE NUMBERS", title: "Balance Check", mission: "Change the balance so the purchase is possible, then make it too small.", starterCode: `balance = float(input("Balance: "))
+price = 12
+if balance >= price:
+    print("Purchase available")
+else:
+    print("Not enough balance")`, starterInput: "20", hint: "Try a value above 12 and another below 12.", checks: { mustRun: true, minimumInputLines: 1 } },
+        { id: "answer", eyebrow: "IMPORTANT IDEA · OTHERWISE", title: "Yes or Something Else", mission: "Run with yes, then with a different answer. Notice that else means every result where the condition is False.", starterCode: `answer = input("Type yes to continue: ")
+if answer == "yes":
+    print("Continuing")
+else:
+    print("Different answer received")`, starterInput: "yes", hint: "Try no, maybe or YES. Each makes answer == \"yes\" False.", checks: { mustRun: true, minimumInputLines: 1 } },
+        { id: "sharing", eyebrow: "REUSE ARITHMETIC · TWO PATHS", title: "Even Sharing", mission: "Test whether some items can be shared evenly between a non-zero number of people.", starterCode: `items = float(input("Items: "))
+people = float(input("People: "))
+if people != 0 and items % people == 0:
+    print("Shares evenly")
+else:
+    print("Does not share evenly")`, starterInput: `12
+3`, hint: "Try 12 and 3, then 10 and 3. The first condition also protects against division by zero.", checks: { mustRun: true, minimumInputLines: 2 } },
+        { id: "repair", eyebrow: "FIX IT · READ THE ERROR", title: "Repair the Else", mission: "Fix the missing colon and indentation, then run both paths.", starterCode: `temperature = float(input("Temperature: "))
+if temperature >= 20:
+print("Warm")
+else
+    print("Cool")`, starterInput: "24", hint: "Indent the first message and add : after else.", checks: { mustChange: true, mustRun: true, minimumInputLines: 1 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-score", eyebrow: "FRESH PRACTICE · SCORE PATH", title: "Fresh Score Decision", mission: "Predict which score message will appear, then run it.", code: `score = float(input("Score: "))
+if score >= {{target}}:
+    print("Target reached")
+else:
+    print("Keep learning")`, input: "{{score}}", hint: "Compare the entered score with the target.", solution: "Run once on each side of the target.", values: { target: [40, 50, 60, 70], score: [25, 39, 40, 49, 50, 61, 75, 88] } },
+        { id: "fresh-temp", eyebrow: "FRESH PRACTICE · TEMPERATURE PATH", title: "Fresh Temperature Choice", mission: "Use the temperature to choose one of two clothing messages.", code: `temperature = float(input("Temperature: "))
+if temperature >= {{limit}}:
+    print("Light clothing")
+else:
+    print("Warm clothing")`, input: "{{temperature}}", hint: "Exactly the limit follows the first path.", solution: "Test one value above and one below the limit.", values: { limit: [15, 18, 20, 22], temperature: [8, 14, 15, 17, 20, 23, 28] } },
+        { id: "fresh-balance", eyebrow: "FRESH PRACTICE · PURCHASE PATH", title: "Fresh Purchase Check", mission: "Decide whether the available money is enough.", code: `money = float(input("Money: "))
+price = {{price}}
+if money >= price:
+    print("Enough money")
+else:
+    print("Save a little more")`, input: "{{money}}", hint: "Compare money with price.", solution: "The first path includes an exact match.", values: { price: [5, 8, 12, 15, 20], money: [3, 5, 7, 10, 12, 18, 25] } },
+        { id: "fresh-word", eyebrow: "FRESH PRACTICE · TEXT PATH", title: "Fresh Word Check", mission: "Type the requested word exactly, then try a different answer.", code: `answer = input("Type {{word}}: ")
+if answer == "{{word}}":
+    print("Exact match")
+else:
+    print("Different answer")`, input: "{{word}}", hint: "Text comparison pays attention to spelling and capital letters.", solution: "An exact match uses the first path; every other answer uses else.", values: { word: ["ready", "python", "start", "learn", "yes"] } },
+        { id: "fresh-access", eyebrow: "FRESH PRACTICE · ACCESS PATH", title: "Fresh Access Gate", mission: "Check whether the entered level unlocks access.", code: `level = float(input("Level: "))
+if level >= {{required}}:
+    print("Access unlocked")
+else:
+    print("Access locked")`, input: "{{level}}", hint: "The required level itself is accepted.", solution: "Test the boundary and one lower value.", values: { required: [2, 3, 4, 5, 6], level: [1, 2, 3, 4, 5, 7] } },
+        { id: "fresh-sign", eyebrow: "FRESH PRACTICE · NUMBER PATH", title: "Fresh Number Sign", mission: "Choose the correct path for a number that is zero or greater versus one below zero.", code: `number = float(input("Number: "))
+if number >= 0:
+    print("Zero or positive")
+else:
+    print("Negative")`, input: "{{number}}", hint: "Zero belongs to the first branch.", solution: "Try zero, a positive number and a negative number.", values: { number: [-12, -3, -1, 0, 2, 7, 15] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "ticket-adviser", title: "Ticket Adviser", mission: "Set ticket to Adult ticket for ages 18 or more, otherwise Junior ticket, then print the recommendation.", starterCode: `age = float(input("Age: "))
+
+# Build the two paths
+
+print(f"Recommendation: {ticket}")`, starterInput: "21", hint: "Assign ticket inside both branches.", solution: `age = float(input("Age: "))
+if age >= 18:
+    ticket = "Adult ticket"
+else:
+    ticket = "Junior ticket"
+print(f"Recommendation: {ticket}")` },
+        { id: "clothing", title: "Clothing Suggestion", mission: "Suggest a light jacket at 18 or above and a warm coat otherwise.", starterCode: `temperature = float(input("Temperature: "))
+
+# Add one if / else decision`, starterInput: "14", hint: "Compare temperature >= 18.", solution: `temperature = float(input("Temperature: "))
+if temperature >= 18:
+    print("Choose a light jacket")
+else:
+    print("Choose a warm coat")` },
+        { id: "delivery", title: "Delivery Decision", mission: "Give free delivery for totals of 50 or more; otherwise show the delivery charge message.", starterCode: `total = float(input("Order total: "))
+
+# Add the two delivery paths`, starterInput: "55", hint: "Use total >= 50.", solution: `total = float(input("Order total: "))
+if total >= 50:
+    print("Free delivery")
+else:
+    print("Delivery charge applies")` },
+        { id: "game", title: "Game Access", mission: "Unlock the next world at level 5 or above; otherwise ask the player to keep playing.", starterCode: `level = float(input("Player level: "))
+
+# Add the decision`, starterInput: "4", hint: "Use level >= 5.", solution: `level = float(input("Player level: "))
+if level >= 5:
+    print("Next world unlocked")
+else:
+    print("Keep playing to unlock it")` },
+        { id: "budget", title: "Budget Result", mission: "Compare a budget and cost, then report whether the plan is affordable.", starterCode: `budget = float(input("Budget: "))
+cost = float(input("Cost: "))
+
+# Add the decision`, starterInput: `30
+25`, hint: "The plan is affordable when budget >= cost.", solution: `budget = float(input("Budget: "))
+cost = float(input("Cost: "))
+if budget >= cost:
+    print("Plan is affordable")
+else:
+    print("Plan costs too much")` },
+        { id: "sign", title: "Number Sign Reporter", mission: "Report Zero or positive for numbers at least zero and Negative otherwise.", starterCode: `number = float(input("Number: "))
+
+# Add both paths`, starterInput: "-4", hint: "Use number >= 0 so zero has a clear home.", solution: `number = float(input("Number: "))
+if number >= 0:
+    print("Zero or positive")
+else:
+    print("Negative")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "purpose", question: "What does else provide?", code: "", options: ["The path used when the if condition is False", "A second condition", "A loop", "A comment"], correct: 0, explanation: "Correct — else means otherwise and handles the False path." },
+        { id: "count", question: "How many branches run in one if / else decision?", code: "", options: ["Exactly one", "Always both", "Neither", "Any number"], correct: 0, explanation: "Correct — the branches are connected, so exactly one runs." },
+        { id: "condition", question: "Does else need its own condition?", code: "", options: ["No", "Yes", "Only for text", "Only for numbers"], correct: 0, explanation: "Correct — else automatically handles every case where the if condition is False." },
+        { id: "colon", question: "Which line is written correctly?", code: "", options: ["else:", "else", "else condition:", "else ="], correct: 0, explanation: "Correct — else is followed directly by a colon." },
+        { id: "true", question: "What prints when score is 70?", code: `if score >= 50:
+    print("Reached")
+else:
+    print("Keep going")`, options: ["Reached", "Keep going", "Both", "Nothing"], correct: 0, explanation: "Correct — 70 >= 50 is True." },
+        { id: "false", question: "What prints when score is 40?", code: `if score >= 50:
+    print("Reached")
+else:
+    print("Keep going")`, options: ["Reached", "Keep going", "Both", "An error"], correct: 1, explanation: "Correct — the False result sends Python to else." },
+        { id: "boundary", question: "What prints when score is exactly 50?", code: `if score >= 50:
+    print("Reached")
+else:
+    print("Keep going")`, options: ["Reached", "Keep going", "Both", "Nothing"], correct: 0, explanation: "Correct — >= includes equality." },
+        { id: "outside", question: "Which message always prints?", code: `if age >= 18:
+    print("Adult")
+else:
+    print("Junior")
+print("Done")`, options: ["Adult", "Junior", "Done", "All three"], correct: 2, explanation: "Correct — Done is outside both indented branches." },
+        { id: "alignment", question: "Where should else line up?", code: "", options: ["With its if", "Inside the if message", "At the end of print()", "Alignment never matters"], correct: 0, explanation: "Correct — if and else align, while their controlled instructions are indented." },
+        { id: "meaning", question: "If answer is \"maybe\", which path runs?", code: `if answer == "yes":
+    print("Continuing")
+else:
+    print("Different answer")`, options: ["Continuing", "Different answer", "Both", "Python guesses"], correct: 1, explanation: "Correct — else means any result that makes the condition False, not only the word no." },
+        { id: "difference", question: "How is if / else different from two independent if statements?", code: "", options: ["Its branches are connected and only one runs", "It cannot use comparisons", "It always runs both blocks", "There is no difference"], correct: 0, explanation: "Correct — separate if statements are checked independently; if / else chooses one connected path." },
+        { id: "variable", question: "After this code, what is ticket when age is 12?", code: `if age >= 18:
+    ticket = "Adult"
+else:
+    ticket = "Junior"`, options: ["Adult", "Junior", "12", "Undefined"], correct: 1, explanation: "Correct — the False branch assigns Junior." }
+      ]
+    },
+    quiz: {
+      question: "Which structure gives a message for both possible results of a condition?",
+      code: "",
+      options: [`if ready:
+    print("Go")
+else:
+    print("Wait")`, `if ready
+print("Go")`, `else ready:
+    print("Wait")`, `if ready:
+else print("Wait")`],
+      correct: 0,
+      explanation: "Correct — if and else align, each has a colon, and each controlled instruction is indented."
+    }
   }
 };
