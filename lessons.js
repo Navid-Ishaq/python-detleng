@@ -4174,12 +4174,12 @@ You are learning Python from Longford.`,
       '<code>input("What is your name? ")</code> displays a helpful prompt and waits for the first answer.',
       'The first answer is stored in the variable <code>name</code>. Python can now reuse that text.',
       'The second <code>input()</code> waits for another answer and stores it in <code>city</code>.',
-      'The Program Input box supplies one answer per line, in the same order as the <code>input()</code> instructions.',
+      'The interactive console asks each question in order. Type an answer and press Enter before Python moves to the next <code>input()</code> instruction.',
       'The two f-strings place the remembered answers inside friendly output messages.',
       '<code>input()</code> gives Python text. Lesson 17 will teach how to convert number-shaped text before calculating with it.'
     ],
-    outputExplanation: "The prompts and supplied answers make a short conversation. Python uses the first Program Input line for name and the second for city, then the f-strings reuse both remembered answers.",
-    changeIt: "First run the starter conversation.<br><br>Now replace both lines in <strong>Program Input</strong> with your own name and city. Keep one answer on each line, predict the two final messages, and run again.<br><br>Finally, improve one prompt—for example, change <code>What is your name?</code> to <code>What should I call you?</code>—and notice that the prompt changes while the stored answer still works.",
+    outputExplanation: "The interactive prompts and your answers make a short conversation. Python remembers the first answer as name and the second as city, then the f-strings reuse both values.",
+    changeIt: "First run the starter conversation. Answer the name prompt, press Enter, then answer the city prompt.<br><br>Run it again with different answers and predict the two final messages before they appear.<br><br>Finally, improve one prompt—for example, change <code>What is your name?</code> to <code>What should I call you?</code>—and notice that your new question appears in the console.",
     challenge: "Build a Tiny Introduction Card. Ask for a name, a favourite activity, and a city. Store all three answers, then display a friendly three-line introduction.",
     hint: "Write three <code>input()</code> lines first. Give every answer a clear variable name, then reuse those variables in f-strings.",
     solution: `name = input("What is your name? ")
@@ -4196,48 +4196,48 @@ print(f"{name} lives in {city}.")`,
         prohibited: ["type conversion", "calculating with input", "if statements", "loops", "collections", "functions", "validation", "passwords or private information"]
       },
       activities: [
-        { id: "ask-name", stage: "Easy Start · One Answer", title: "Ask for a Name", mission: "Load the practice, replace the starter name in Program Input, then run the greeting.", starterCode: `name = input("What is your name? ")
-print(f"Hello, {name}!")`, starterInput: "Learner", hint: "Change Learner in Program Input—not the variable name.", success: "You supplied and reused your own answer.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["Learner"] } },
-        { id: "ask-city", stage: "Easy Start · Clear Prompt", title: "Ask for a City", mission: "Change the Program Input city and run the travel message.", starterCode: `city = input("Which city would you visit? ")
-print(f"Next stop: {city}")`, starterInput: "Dublin", hint: "Replace Dublin with another city in Program Input.", success: "Your program used a fresh city answer.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["Dublin"] } },
+        { id: "ask-name", stage: "Easy Start · One Answer", title: "Ask for a Name", mission: "Run the practice, answer the name prompt yourself, then check the greeting.", starterCode: `name = input("What is your name? ")
+print(f"Hello, {name}!")`, starterInput: "Learner", hint: "Press Run Python, type a name in the console, and press Enter.", success: "You supplied and reused your own answer.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["Learner"] } },
+        { id: "ask-city", stage: "Easy Start · Clear Prompt", title: "Ask for a City", mission: "Run the practice and answer its travel question with a city of your choice.", starterCode: `city = input("Which city would you visit? ")
+print(f"Next stop: {city}")`, starterInput: "Dublin", hint: "Type your answer when the console asks the question.", success: "Your program used a fresh city answer.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["Dublin"] } },
         { id: "two-answers", stage: "Growing · Input Order", title: "Two Answers, One Message", mission: "Replace both answers, keeping the name first and the colour second.", starterCode: `name = input("Your name: ")
 colour = input("Favourite colour: ")
 print(f"{name} likes {colour}.")`, starterInput: `Amina
-green`, hint: "Program Input order must match the input() order.", success: "You matched two answers to two prompts.", check: { mustChange: true, minimumInputLines: 2, inputNotValues: ["Amina", "green"] } },
-        { id: "reuse-answer", stage: "Growing · Reuse Text", title: "Reuse One Answer", mission: "Change the starter word and watch one answer appear twice.", starterCode: `word = input("Choose a word: ")
+green`, hint: "Answer each console prompt in the order Python asks it.", success: "You matched two answers to two prompts.", check: { mustChange: true, minimumInputLines: 2, inputNotValues: ["Amina", "green"] } },
+        { id: "reuse-answer", stage: "Growing · Reuse Text", title: "Reuse One Answer", mission: "Give the console a word and watch Python reuse your answer twice.", starterCode: `word = input("Choose a word: ")
 print(f"You chose {word}.")
-print(f"I remembered {word}.")`, starterInput: "Python", hint: "Change only the Program Input answer first.", success: "You saw one input value reused safely.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["Python"] } },
+print(f"I remembered {word}.")`, starterInput: "Python", hint: "Run the code and type one word when the prompt appears.", success: "You saw one input value reused safely.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["Python"] } },
         { id: "better-prompt", stage: "Growing · Help the User", title: "Make the Prompt Clear", mission: "Change the vague prompt into a clear question, then use your own answer.", starterCode: `food = input("Answer: ")
 print(f"You chose {food}.")`, starterInput: "pizza", hint: "Inside input(), ask what favourite food the person has.", success: "You made the conversation easier to understand.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["pizza"] } },
         { id: "profile", stage: "Growing · Tiny Profile", title: "Build a Two-Line Profile", mission: "Supply a new name and hobby, then run the profile.", starterCode: `name = input("Name: ")
 hobby = input("Hobby: ")
 print(f"NAME: {name}")
 print(f"HOBBY: {hobby}")`, starterInput: `Sara
-reading`, hint: "Put the new name on line 1 and hobby on line 2.", success: "You built a personal profile from two answers.", check: { mustChange: true, minimumInputLines: 2, inputNotValues: ["Sara", "reading"] } },
+reading`, hint: "Answer the name prompt first and the hobby prompt second.", success: "You built a personal profile from two answers.", check: { mustChange: true, minimumInputLines: 2, inputNotValues: ["Sara", "reading"] } },
         { id: "repair-variable", stage: "Ready for a Challenge · Repair", title: "Remember the Answer", mission: "Store the answer as animal so the final f-string can use it, then choose a new animal.", starterCode: `input("Favourite animal: ")
 print(f"You chose {animal}.")`, starterInput: "cat", hint: "Begin the first line with animal =", success: "You repaired the missing variable and remembered the answer.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["cat"] } }
       ]
     },
     freshPracticeGenerator: {
       templates: [
-        { id: "fresh-one", skill: "One Answer", title: "A Fresh Question", mission: "Replace the starter answer with a {{thing}} of your choice, then run the message.", starterCode: `answer = input("Choose a {{thing}}: ")
-print(f"Your {{thing}} is {answer}.")`, starterInput: "{{starter}}", hint: "Change {{starter}} in Program Input.", solution: `answer = input("Choose a {{thing}}: ")
+        { id: "fresh-one", skill: "One Answer", title: "A Fresh Question", mission: "Run the code and answer with a {{thing}} of your choice.", starterCode: `answer = input("Choose a {{thing}}: ")
+print(f"Your {{thing}} is {answer}.")`, starterInput: "{{starter}}", hint: "Type your choice when the console prompt appears.", solution: `answer = input("Choose a {{thing}}: ")
 print(f"Your {{thing}} is {answer}.")`, success: "You completed a fresh one-answer conversation.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["{{starter}}"] }, values: { thing: ["colour", "food", "animal", "city", "book", "game", "song", "place"], starter: ["Your answer"] } },
-        { id: "fresh-pair", skill: "Two Answers", title: "A Fresh Pair", mission: "Replace both starter answers and keep them in the requested order.", starterCode: `first = input("First {{label}}: ")
+        { id: "fresh-pair", skill: "Two Answers", title: "A Fresh Pair", mission: "Answer both fresh prompts in the order Python asks them.", starterCode: `first = input("First {{label}}: ")
 second = input("Second {{label}}: ")
 print(f"You chose {first} and {second}.")`, starterInput: `{{first}}
-{{second}}`, hint: "Program Input line 1 belongs to the first prompt and line 2 to the second.", solution: `first = input("First {{label}}: ")
+{{second}}`, hint: "Finish the first prompt before the second prompt appears.", solution: `first = input("First {{label}}: ")
 second = input("Second {{label}}: ")
 print(f"You chose {first} and {second}.")`, success: "You supplied a fresh pair in the correct order.", check: { mustChange: true, minimumInputLines: 2, inputNotValues: ["{{first}}", "{{second}}"] }, values: { label: ["city", "food", "colour", "animal", "activity", "place"], first: ["First answer"], second: ["Second answer"] } },
         { id: "fresh-greeting", skill: "Personal Message", title: "A Fresh Welcome", mission: "Give a new name and place so Python creates a personal welcome.", starterCode: `name = input("Name: ")
 place = input("Place: ")
 print(f"Welcome {name} to {place}!")`, starterInput: `{{name}}
-{{place}}`, hint: "Change both Program Input lines.", solution: `name = input("Name: ")
+{{place}}`, hint: "Answer the name prompt first, then the place prompt.", solution: `name = input("Name: ")
 place = input("Place: ")
 print(f"Welcome {name} to {place}!")`, success: "You created a fresh personal welcome.", check: { mustChange: true, minimumInputLines: 2, inputNotValues: ["{{name}}", "{{place}}"] }, values: { name: ["Amina", "Sara", "Ali", "Omar", "Noor", "Zara"], place: ["Python Lab", "Code Garden", "Learning Room", "Idea Studio", "Practice Park", "Story Space"] } },
         { id: "fresh-reuse", skill: "Reuse an Answer", title: "Remember a Fresh Word", mission: "Replace the word and see Python reuse it in two messages.", starterCode: `word = input("Give me a word: ")
 print(f"You said {word}.")
-print(f"Python remembered {word}.")`, starterInput: "{{word}}", hint: "Only one Program Input line is needed.", solution: `word = input("Give me a word: ")
+print(f"Python remembered {word}.")`, starterInput: "{{word}}", hint: "Only one console answer is needed.", solution: `word = input("Give me a word: ")
 print(f"You said {word}.")
 print(f"Python remembered {word}.")`, success: "You reused one fresh answer twice.", check: { mustChange: true, minimumInputLines: 1, inputNotValues: ["{{word}}"] }, values: { word: ["sunshine", "learning", "kindness", "journey", "courage", "practice", "curiosity", "progress"] } }
       ]
@@ -4295,7 +4295,7 @@ violet`, hint: "Add name = and colour = before the matching input() calls.", sol
 colour = input("Favourite colour: ")
 
 print(f"{name} chose {colour}.")` },
-        { id: "order-card", title: "Input Order Detective", mission: "Repair the Program Input order so the final message makes sense.", starterCode: `name = input("Name: ")
+        { id: "order-card", title: "Input Order Detective", mission: "Answer the name prompt first and the city prompt second so the final message makes sense.", starterCode: `name = input("Name: ")
 city = input("City: ")
 
 print(f"{name} lives in {city}.")`, starterInput: `Dublin
@@ -4321,12 +4321,12 @@ print(f"{name} wants to learn {goal} in {place}.")` }
       activities: [
         { id: "quiz-purpose", question: "What does input() do?", code: "", options: ["Repeats a loop", "Waits for an answer", "Deletes a variable", "Adds two numbers"], correct: 1, explanation: "Correct — input() pauses and waits for text from the person running the program." },
         { id: "quiz-store", question: "Which line stores the person's answer?", code: "", options: [`input("Name: ")`, `name = input("Name: ")`, `print("Name: ")`, `name == input`], correct: 1, explanation: "Correct — = gives the returned answer the useful name name." },
-        { id: "quiz-order", question: "Which Program Input line answers the second input() call?", code: "", options: ["The first line", "The second line", "Every line", "No line"], correct: 1, explanation: "Correct — Python consumes supplied answers from top to bottom." },
+        { id: "quiz-order", question: "When does Python ask the second input() question?", code: "", options: ["Before the first question", "After the first answer is submitted", "After the program ends", "It never asks"], correct: 1, explanation: "Correct — Python follows the input() instructions in order." },
         { id: "quiz-prompt", question: "Which prompt is clearest for a beginner?", code: "", options: ["Answer:", "Type:", "What is your favourite colour? ", "Go:"], correct: 2, explanation: "Correct — a specific question tells the person exactly what to provide." },
         { id: "quiz-output", question: "If the supplied answer is Amina, what final line appears?", code: `name = input("Name: ")
 print(f"Hello, {name}!")`, options: ["Hello, name!", "Hello, Amina!", "Name: name", "An error"], correct: 1, explanation: "Correct — the f-string uses the text stored in name." },
         { id: "quiz-return", question: "What kind of value does input() give us in this lesson?", code: "", options: ["Text", "Always an integer", "Always a float", "A comment"], correct: 0, explanation: "Correct — input() returns text. Lesson 17 will teach conversion." },
-        { id: "quiz-two-inputs", question: "How many Program Input lines does this code need?", code: `name = input("Name: ")
+        { id: "quiz-two-inputs", question: "How many answers will this program ask for?", code: `name = input("Name: ")
 city = input("City: ")`, options: ["0", "1", "2", "3"], correct: 2, explanation: "Correct — each input() call needs one answer." },
         { id: "quiz-reuse", question: "Which line displays the answer stored in food?", code: "", options: [`print("food")`, `print(food)`, `input(food)`, `food == print`], correct: 1, explanation: "Correct — without quotation marks, Python looks up the value stored in food." },
         { id: "quiz-boundary", question: "Why should we not calculate with age = input(...) yet?", code: "", options: ["input() gives text and conversion comes next", "Python cannot use numbers", "Variables cannot store answers", "Prompts stop print()"], correct: 0, explanation: "Correct — input() gives text; Lesson 17 teaches how to convert number-shaped text." }
