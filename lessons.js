@@ -4339,5 +4339,194 @@ city = input("City: ")`, options: ["0", "1", "2", "3"], correct: 2, explanation:
       correct: 1,
       explanation: "Correct — input() asks the question, and name = stores the returned text."
     }
+  },
+  17: {
+    title: "Type Conversion — Giving Input the Right Type",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["int() · float()", "str() · bool()"],
+    usesInput: true,
+    intro: "A person can type digits into a program, but input() still gives Python text. Today you will turn that text into the kind of value your program needs.",
+    explanation: "A value's <strong>type</strong> tells Python what kind of value it is. The text <code>\"25\"</code> and the number <code>25</code> look similar to us, but Python uses them differently. Type conversion creates a value of another type when that conversion makes sense.",
+    concept: "<code>input()</code> gives us text. Use <code>int()</code> for whole-number text, <code>float()</code> for decimal-number text, and <code>str()</code> when you need a text version of a value.",
+    starterCode: `age_text = input("How old are you? ")
+age = int(age_text)
+
+years_to_add = 5
+future_age = age + years_to_add
+
+print(f"In 5 years, you will be {future_age}.")`,
+    starterInput: "20",
+    expectedOutput: `How old are you? 20
+In 5 years, you will be 25.`,
+    lineByLine: [
+      '<code>input()</code> asks the question and gives its answer to Python as text—even when the answer contains only digits.',
+      '<code>age_text</code> reminds us that the first remembered value is still text.',
+      '<code>int(age_text)</code> converts whole-number text such as <code>"20"</code> into the integer <code>20</code>.',
+      '<code>years_to_add = 5</code> stores another integer, using the variable knowledge you already have.',
+      '<code>age + years_to_add</code> now performs numerical addition because both values are numbers.',
+      'The f-string places the calculated result inside a friendly sentence.'
+    ],
+    outputExplanation: "The prompt and your answer appear first. Python converts that answer from text to an integer, adds 5, and then displays the future age. Without <code>int()</code>, Python would not treat the answer as a number for this calculation.",
+    changeIt: "Run the starter program and enter your own whole-number age.<br><br>Change <code>years_to_add = 5</code> to <code>years_to_add = 10</code>. Predict your future age before you run it again.<br><br>Then try entering a word such as <code>hello</code>. Read the final <code>ValueError</code> line: Python is honestly explaining that the text cannot become a whole number. Restore a valid age and run once more.",
+    challenge: "Build a Pocket Money Planner. Ask how much money the learner has and how much one item costs. Convert both answers to decimal numbers, subtract the cost, and display the money remaining.",
+    hint: "Keep the input answers in clearly named variables, use <code>float()</code> on both values, then subtract <code>cost</code> from <code>money</code>.",
+    solution: `money_text = input("How much money do you have? ")
+cost_text = input("How much does one item cost? ")
+
+money = float(money_text)
+cost = float(cost_text)
+remaining = money - cost
+
+print(f"Money remaining: {remaining}")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["value types", "int()", "float()", "str()", "basic bool() behaviour", "converting input before arithmetic", "conversion errors"],
+        previous: ["print()", "comments", "variables", "numbers", "arithmetic", "strings", "f-strings", "Booleans", "input()"],
+        prohibited: ["if statements", "loops", "collections", "functions", "try and except", "validation", "rounding rules", "passwords or private information"]
+      },
+      activities: [
+        { id: "next-age", stage: "Easy Start · int()", title: "Age Next Year", mission: "Run the program, enter a whole-number age, and check the calculated age for next year.", starterCode: `age = int(input("Age: "))
+next_age = age + 1
+print(next_age)`, starterInput: "20", hint: "Type digits such as 20 when the console asks. int() will turn that text into a whole number.", success: "You converted text to an integer before adding.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "notebook-total", stage: "Easy Start · Calculate", title: "Notebook Total", mission: "Enter a whole-number quantity and let Python calculate the total price.", starterCode: `quantity = int(input("How many notebooks? "))
+price = 3
+total = quantity * price
+print(total)`, starterInput: "4", hint: "Enter a whole number. The conversion must happen before multiplication.", success: "You converted a quantity and used it in a calculation.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "decimal-distance", stage: "Growing · float()", title: "Double the Distance", mission: "Enter a decimal distance and let Python calculate twice that distance.", starterCode: `distance = float(input("Distance in kilometres: "))
+double_distance = distance * 2
+print(double_distance)`, starterInput: "2.5", hint: "A decimal answer such as 2.5 needs float(), not int().", success: "You converted decimal text with float().", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "price-pair", stage: "Growing · Two Conversions", title: "Two Items Together", mission: "Enter two decimal prices in order and let Python add them.", starterCode: `first_price = float(input("First price: "))
+second_price = float(input("Second price: "))
+total = first_price + second_price
+print(total)`, starterInput: `2.5
+1.25`, hint: "Answer both prompts with number-shaped text. Each answer needs its own float() conversion.", success: "You converted two answers before adding them.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "score-text", stage: "Growing · str()", title: "Make Score Text", mission: "Run the program and see str() create text that can be joined to another string.", starterCode: `score = int(input("Score: "))
+score_text = str(score)
+print("Your score is " + score_text)`, starterInput: "10", hint: "int() first creates a number; str() then creates its text version for joining.", success: "You used both int() and str() for clear purposes.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "truthy-values", stage: "Growing · bool()", title: "Empty or Not?", mission: "Enter some text and watch bool() report whether that text is non-empty. Run again and submit an empty answer.", starterCode: `answer = input("Type something, or press Enter: ")
+has_text = bool(answer)
+print(has_text)`, starterInput: "Python", hint: "Non-empty text becomes True. Empty text becomes False.", success: "You observed bool() with text without treating it as a yes/no converter.", check: { mustChange: false } },
+        { id: "repair-conversion", stage: "Ready for a Challenge · Repair", title: "Repair the Addition", mission: "Fix the program so a whole-number answer can have 5 added to it.", starterCode: `number = input("Whole number: ")
+answer = number + 5
+print(answer)`, starterInput: "7", hint: "Wrap the input() result in int(), or convert number on a separate line before adding.", success: "You repaired a real text-and-number TypeError.", check: { mustChange: true, minimumInputLines: 1 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-int-add", skill: "int() Addition", title: "A Fresh Whole-Number Step", mission: "Enter a whole number, predict the result after {{amount}} is added, then run and check.", starterCode: `number = int(input("Whole number: "))
+result = number + {{amount}}
+print(result)`, starterInput: "{{starter}}", hint: "int() converts the answer before + {{amount}} runs.", solution: `number = int(input("Whole number: "))
+result = number + {{amount}}
+print(result)`, success: "You completed a fresh integer conversion.", check: { mustChange: true, minimumInputLines: 1 }, values: { amount: [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12, 15], starter: ["4", "6", "8", "10", "12", "15", "20"] } },
+        { id: "fresh-int-multiply", skill: "int() Multiplication", title: "A Fresh Quantity", mission: "Enter the number of {{item}}, then calculate the total at {{price}} each.", starterCode: `quantity = int(input("How many {{item}}? "))
+price = {{price}}
+total = quantity * price
+print(total)`, starterInput: "{{quantity}}", hint: "Convert the quantity with int() before multiplying.", solution: `quantity = int(input("How many {{item}}? "))
+price = {{price}}
+total = quantity * price
+print(total)`, success: "You converted and multiplied a fresh quantity.", check: { mustChange: true, minimumInputLines: 1 }, values: { item: ["books", "tickets", "pencils", "apples", "notebooks", "stickers"], price: [2, 3, 4, 5, 6, 8, 10], quantity: ["2", "3", "4", "5", "6"] } },
+        { id: "fresh-float", skill: "float()", title: "A Fresh Decimal", mission: "Enter a decimal {{measurement}} and multiply it by {{factor}}.", starterCode: `value = float(input("{{measurement}}: "))
+result = value * {{factor}}
+print(result)`, starterInput: "{{starter}}", hint: "float() accepts whole-number or decimal-number text.", solution: `value = float(input("{{measurement}}: "))
+result = value * {{factor}}
+print(result)`, success: "You completed a fresh decimal conversion.", check: { mustChange: true, minimumInputLines: 1 }, values: { measurement: ["Distance", "Price", "Weight", "Temperature change", "Journey length"], factor: [2, 3, 4, 5], starter: ["1.5", "2.25", "3.5", "4.75", "6.5"] } },
+        { id: "fresh-two-values", skill: "Two Conversions", title: "A Fresh Pair of Numbers", mission: "Answer both {{kind}} prompts and add the converted values.", starterCode: `first = {{converter}}(input("First {{kind}}: "))
+second = {{converter}}(input("Second {{kind}}: "))
+total = first + second
+print(total)`, starterInput: `{{first}}
+{{second}}`, hint: "Both input() answers are text, so convert each one before adding.", solution: `first = {{converter}}(input("First {{kind}}: "))
+second = {{converter}}(input("Second {{kind}}: "))
+total = first + second
+print(total)`, success: "You converted and added a fresh pair.", check: { mustChange: true, minimumInputLines: 2 }, values: { converter: ["int", "float"], kind: ["number", "score", "distance", "price"], first: ["2", "3.5", "5", "7.25"], second: ["1", "2.5", "4", "6.75"] } },
+        { id: "fresh-string", skill: "str()", title: "A Fresh Number Label", mission: "Enter a whole number and let str() create text for the final label.", starterCode: `value = int(input("Number: "))
+value_text = str(value)
+print("{{label}}: " + value_text)`, starterInput: "{{starter}}", hint: "The number is converted back to text only when the message needs it.", solution: `value = int(input("Number: "))
+value_text = str(value)
+print("{{label}}: " + value_text)`, success: "You used str() in a fresh labelled message.", check: { mustChange: true, minimumInputLines: 1 }, values: { label: ["Score", "Level", "Tickets", "Points", "Items", "Steps"], starter: ["3", "5", "8", "10", "12", "20"] } },
+        { id: "fresh-bool", skill: "bool()", title: "A Fresh Truth Test", mission: "Answer the prompt, then run again with an empty answer and compare True with False.", starterCode: `text = input("{{prompt}} ")
+has_text = bool(text)
+print(has_text)`, starterInput: "{{answer}}", hint: "Any non-empty text is True; empty text is False—even the text \"False\" is non-empty.", solution: `text = input("{{prompt}} ")
+has_text = bool(text)
+print(has_text)`, success: "You tested a fresh bool() conversion honestly.", check: { mustChange: true, minimumInputLines: 1 }, values: { prompt: ["Type a word:", "Write a city:", "Enter a message:", "Name an animal:", "Type something:"], answer: ["Python", "Dublin", "hello", "cat", "learning"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "pocket-money", title: "Pocket Money Planner", mission: "Ask for available money and one item cost, convert both decimal answers, and display the amount remaining.", starterCode: `money_text = input("Money available: ")
+cost_text = input("Item cost: ")
+
+print(money_text)`, starterInput: `20
+6.5`, hint: "Use float() twice, subtract cost from money, then place remaining in an f-string.", solution: `money_text = input("Money available: ")
+cost_text = input("Item cost: ")
+
+money = float(money_text)
+cost = float(cost_text)
+remaining = money - cost
+
+print(f"Money remaining: {remaining}")` },
+        { id: "cafe-total", title: "Café Total", mission: "Ask for a drink price and snack price, convert both answers, and display their total.", starterCode: `drink = input("Drink price: ")
+snack = input("Snack price: ")
+
+print(drink + snack)`, starterInput: `2.5
+3.25`, hint: "Convert both answers with float() before adding them.", solution: `drink = float(input("Drink price: "))
+snack = float(input("Snack price: "))
+total = drink + snack
+
+print(f"Total: {total}")` },
+        { id: "game-score", title: "Game Score Boost", mission: "Ask for a whole-number score, add a 50-point bonus, and display the new score.", starterCode: `score = input("Current score: ")
+bonus = 50
+
+print(score)`, starterInput: "120", hint: "Convert score with int() before adding bonus.", solution: `score = int(input("Current score: "))
+bonus = 50
+new_score = score + bonus
+
+print(f"New score: {new_score}")` },
+        { id: "journey-total", title: "Two-Part Journey", mission: "Ask for two decimal distances and calculate the complete journey distance.", starterCode: `first = input("First distance: ")
+second = input("Second distance: ")
+
+print(first + second)`, starterInput: `3.5
+2.25`, hint: "Use float() on both input() results before + runs.", solution: `first = float(input("First distance: "))
+second = float(input("Second distance: "))
+total = first + second
+
+print(f"Total distance: {total}")` },
+        { id: "ticket-cost", title: "Ticket Cost", mission: "Ask how many tickets are needed, multiply the converted quantity by the fixed price, and display the total.", starterCode: `tickets = input("How many tickets? ")
+price = 8
+
+print(tickets)`, starterInput: "3", hint: "Ticket quantity is a whole number, so int() is the suitable conversion.", solution: `tickets = int(input("How many tickets? "))
+price = 8
+total = tickets * price
+
+print(f"Ticket total: {total}")` },
+        { id: "truth-check", title: "The bool() Surprise", mission: "Predict bool() for empty text, the text False, zero, and five; then repair the starter code to display all four results.", starterCode: `print(bool(""))
+print(bool("False"))`, starterInput: "", hint: "Add bool(0) and bool(5). Remember: non-empty text is True.", solution: `print(bool(""))
+print(bool("False"))
+print(bool(0))
+print(bool(5))` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-input-type", question: "What type of value does input() normally give Python?", code: "", options: ["Text (str)", "Always int", "Always float", "Always bool"], correct: 0, explanation: "Correct — input() returns text, even when that text contains digits." },
+        { id: "quiz-int", question: "What does int(\"12\") create?", code: "", options: ["The text 12", "The whole number 12", "The decimal 1.2", "True"], correct: 1, explanation: "Correct — int() converts suitable whole-number text into an integer." },
+        { id: "quiz-float", question: "Which conversion is suitable for the text \"2.5\"?", code: "", options: ["int(\"2.5\")", "float(\"2.5\")", "bool(\"2.5\")", "No conversion can work"], correct: 1, explanation: "Correct — float() converts decimal-number text such as \"2.5\"." },
+        { id: "quiz-add", question: "If the learner enters 4, what is displayed?", code: `number = int(input("Number: "))
+print(number + 3)`, options: ["43", "7", "number + 3", "An error"], correct: 1, explanation: "Correct — int() creates 4 as a number, so Python calculates 4 + 3." },
+        { id: "quiz-str", question: "What does str(25) create?", code: "", options: ["The text \"25\"", "The integer 25", "The decimal 2.5", "False"], correct: 0, explanation: "Correct — str() creates a text representation of the value." },
+        { id: "quiz-bool-empty", question: "What does bool(\"\") return?", code: "", options: ["True", "False", "Empty text", "An error"], correct: 1, explanation: "Correct — empty text is false when converted with bool()." },
+        { id: "quiz-bool-text", question: "What does bool(\"False\") return?", code: "", options: ["False", "True", "The text False", "An error"], correct: 1, explanation: "Correct — \"False\" is non-empty text, so bool() returns True." },
+        { id: "quiz-error", question: "Why does int(\"hello\") raise ValueError?", code: "", options: ["hello is not whole-number text", "int() only works in loops", "Python cannot store text", "The quotation marks are comments"], correct: 0, explanation: "Correct — the text does not describe a valid whole number." },
+        { id: "quiz-two-step", question: "Which version most clearly shows input text becoming a number?", code: "", options: [`age_text = input("Age: ")\nage = int(age_text)`, `age = input + int`, `age == "20"`, `print(int)`], correct: 0, explanation: "Correct — the first line receives text and the second line explicitly converts it." }
+      ]
+    },
+    quiz: {
+      question: "Which line lets a learner enter a whole number that Python can calculate with?",
+      code: "",
+      options: [`number = input("Number: ")`, `number = int(input("Number: "))`, `number = "input"`, `int = number`],
+      correct: 1,
+      explanation: "Correct — input() receives text and int() converts suitable whole-number text into an integer."
+    }
   }
 };
