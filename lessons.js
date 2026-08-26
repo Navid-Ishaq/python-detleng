@@ -4770,5 +4770,244 @@ print(answer)`, options: ["10.0", "24.0", "64", "2.0"], correct: 1, explanation:
       correct: 1,
       explanation: "Correct — both text answers are converted before numerical addition."
     }
+  },
+  19: {
+    title: "If Statements — Letting Python Make a Decision",
+    stage: "Decisions",
+    level: "Beginner",
+    time: "30 minutes",
+    tags: ["if statements", "True → action"],
+    usesInput: true,
+    intro: "Until now, your programs followed every instruction in order. Today Python will check a condition and decide whether one instruction should run.",
+    explanation: "An <code>if</code> statement means: run this indented instruction only when the condition is <code>True</code>. When the condition is <code>False</code>, Python quietly skips that block and continues with the program.",
+    concept: "<code>if condition:</code> begins a one-way decision. The indented block belongs to that decision and runs only when the condition is True.",
+    starterCode: `temperature = float(input("What is the temperature? "))
+
+print(f"Temperature: {temperature}")
+
+if temperature > 25:
+    print("It is a warm day.")
+
+print("Weather check complete.")`,
+    starterInput: "30",
+    expectedOutput: `What is the temperature? 30
+Temperature: 30.0
+It is a warm day.
+Weather check complete.`,
+    lineByLine: [
+      '<code>input()</code> asks for the temperature and <code>float()</code> converts the answer into a number.',
+      '<code>temperature > 25</code> is a comparison that becomes either <code>True</code> or <code>False</code>.',
+      '<code>if</code> tells Python to use that Boolean result to make a one-way decision.',
+      'The colon <code>:</code> finishes the decision line and announces that an indented block follows.',
+      'The four spaces before <code>print("It is a warm day.")</code> show that this instruction belongs to the <code>if</code>.',
+      '<code>Weather check complete.</code> is not indented, so it runs whether the condition is True or False.'
+    ],
+    outputExplanation: "With an input above 25, the condition is True and the warm-day message appears. With an input such as 18, that message is skipped—but the final completion line still appears. A False condition is a normal decision, not an error.",
+    changeIt: "Run the program with <code>30</code>, then run it with <code>18</code>. Compare the two outputs and identify the one conditional line.<br><br>Change the threshold from <code>25</code> to <code>20</code>, predict the result for exactly 20, and test it. Then replace <code>></code> with <code>>=</code> and test 20 again.<br><br>Finally, remove the four spaces before the warm-day <code>print()</code>, run the code to see the genuine <code>IndentationError</code>, then restore the indentation and run successfully.",
+    challenge: "Build a Launch Readiness Check. Ask for a fuel level and whether systems are ready. Use two independent if statements to display each passed check, then always display a final completion message.",
+    hint: "Use <code>if fuel >= 80:</code> for the number check and <code>if systems_ready == \"yes\":</code> for the exact text check. Indent only the messages controlled by each condition.",
+    solution: `fuel = float(input("Fuel level: "))
+systems_ready = input("Are systems ready? ")
+
+print(f"Fuel: {fuel}")
+print(f"Systems ready: {systems_ready}")
+
+if fuel >= 80:
+    print("Fuel check passed.")
+
+if systems_ready == "yes":
+    print("Systems check passed.")
+
+print("Readiness check complete.")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["if statements", "True and False paths", "colon", "indentation", "one-way decisions", "independent if statements"],
+        previous: ["variables", "strings", "numbers", "Booleans", "comparisons", "logical operators", "input()", "type conversion", "arithmetic"],
+        prohibited: ["else", "elif", "nested conditions", "conditional expressions", "loops", "collections", "functions", "try and except", "validation"]
+      },
+      activities: [
+        { id: "warm-day", stage: "Easy Start · True or False", title: "Warm Day Check", mission: "Enter a temperature above 25 to trigger the message, then run again with a cooler value and compare.", starterCode: `temperature = float(input("Temperature: "))
+if temperature > 25:
+    print("Warm day")
+print("Check complete")`, starterInput: "30", hint: "The indented message appears only when temperature > 25 is True.", success: "You tested both sides of a one-way temperature decision.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "target-reached", stage: "Easy Start · Threshold", title: "Target Reached", mission: "Enter a score of at least 50 and let the if statement recognise the achievement.", starterCode: `score = float(input("Score: "))
+if score >= 50:
+    print("Target reached")
+print("Score check complete")`, starterInput: "75", hint: ">= includes the target value itself.", success: "You used a comparison result to control an instruction.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "secret-word", stage: "Growing · Text Equality", title: "Secret Word", mission: "Enter the exact lowercase word python to reveal the message, then test a different spelling.", starterCode: `word = input("Secret word: ")
+if word == "python":
+    print("Secret found")
+print("Word check complete")`, starterInput: "python", hint: "== asks whether the two text values are exactly equal.", success: "You made a text-based one-way decision.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "free-delivery", stage: "Growing · Practical Threshold", title: "Free Delivery", mission: "Enter an order total of 50 or more to trigger free delivery.", starterCode: `total = float(input("Order total: "))
+if total >= 50:
+    print("Free delivery unlocked")
+print("Order check complete")`, starterInput: "65", hint: "The threshold comparison belongs after if and before the colon.", success: "You built a practical threshold decision.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "positive-number", stage: "Growing · Number Check", title: "Positive Number", mission: "Enter a positive number, zero, and a negative number in separate runs. Notice when the message appears.", starterCode: `number = float(input("Number: "))
+if number > 0:
+    print("The number is positive")
+print("Number check complete")`, starterInput: "8", hint: "Only values greater than zero make the condition True.", success: "You explored a numerical condition across several inputs.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "case-sensitive", stage: "Growing · Exact Match", title: "Lowercase Yes", mission: "Enter yes, then Yes, and observe Python's case-sensitive text comparison.", starterCode: `answer = input("Type yes: ")
+if answer == "yes":
+    print("Thank you")
+print("Answer check complete")`, starterInput: "yes", hint: "The text yes and Yes are not equal in Python.", success: "You observed an exact case-sensitive decision.", check: { mustChange: true, minimumInputLines: 1 } },
+        { id: "repair-indent", stage: "Ready for a Challenge · Repair", title: "Repair the Indentation", mission: "Fix the indentation so the success message belongs to the if statement.", starterCode: `score = float(input("Score: "))
+if score >= 50:
+print("Target reached")
+print("Check complete")`, starterInput: "70", hint: "Place four spaces before the conditional print().", success: "You repaired a genuine IndentationError.", check: { mustChange: true, minimumInputLines: 1 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-number-above", skill: "Number Threshold", title: "A Fresh Threshold", mission: "Enter a {{value}} above {{threshold}} to reveal the message, then test a value below it.", starterCode: `value = float(input("{{prompt}} "))
+if value > {{threshold}}:
+    print("{{message}}")
+print("Check complete")`, starterInput: "{{trueValue}}", hint: "The indented message needs value > {{threshold}} to be True.", solution: `value = float(input("{{prompt}} "))
+if value > {{threshold}}:
+    print("{{message}}")
+print("Check complete")`, success: "You completed a fresh number-threshold decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { prompt: ["Temperature:", "Score:", "Speed:", "Distance:", "Points:", "Savings:"], threshold: [10, 20, 25, 50, 60, 80, 100], trueValue: ["30", "55", "75", "90", "120"], message: ["Threshold passed", "Milestone reached", "Alert active", "Goal achieved", "Check passed"] } },
+        { id: "fresh-at-least", skill: "Inclusive Threshold", title: "A Fresh At-Least Check", mission: "Enter a {{thing}} value equal to or above {{threshold}} and test what >= does at equality.", starterCode: `value = float(input("{{thing}}: "))
+if value >= {{threshold}}:
+    print("{{message}}")
+print("Check complete")`, starterInput: "{{threshold}}", hint: ">= means greater than or equal to, so {{threshold}} itself passes.", solution: `value = float(input("{{thing}}: "))
+if value >= {{threshold}}:
+    print("{{message}}")
+print("Check complete")`, success: "You completed a fresh inclusive-threshold decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { thing: ["Order total", "Score", "Fuel", "Attendance", "Tickets", "Pages"], threshold: [5, 10, 20, 50, 80, 100], message: ["Target reached", "Requirement met", "Reward unlocked", "Check passed", "Milestone achieved"] } },
+        { id: "fresh-text", skill: "Text Equality", title: "A Fresh Exact Word", mission: "Enter the exact lowercase {{label}} {{word}} to trigger the message, then change one letter and compare.", starterCode: `answer = input("Type {{label}}: ")
+if answer == "{{word}}":
+    print("Exact match")
+print("Word check complete")`, starterInput: "{{word}}", hint: "== compares the exact text, including capital and lowercase letters.", solution: `answer = input("Type {{label}}: ")
+if answer == "{{word}}":
+    print("Exact match")
+print("Word check complete")`, success: "You completed a fresh exact-text decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { label: ["colour", "animal", "city", "word", "answer", "code"], word: ["blue", "cat", "dublin", "python", "yes", "ready"] } },
+        { id: "fresh-zero", skill: "Exact Number", title: "A Fresh Zero Check", mission: "Enter zero to trigger the exact-number message, then try a non-zero value.", starterCode: `number = float(input("Number: "))
+if number == 0:
+    print("Exactly zero")
+print("Number check complete")`, starterInput: "0", hint: "== asks whether number has exactly the value 0.", solution: `number = float(input("Number: "))
+if number == 0:
+    print("Exactly zero")
+print("Number check complete")`, success: "You completed a fresh equality decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { variation: ["a", "b", "c", "d", "e", "f", "g", "h"] } },
+        { id: "fresh-two-if", skill: "Independent Decisions", title: "Two Fresh Checks", mission: "Enter a {{thing}} and the exact word {{word}}. Watch Python check both independent if statements.", starterCode: `number = float(input("{{thing}}: "))
+answer = input("Type {{word}}: ")
+if number >= {{threshold}}:
+    print("Number check passed")
+if answer == "{{word}}":
+    print("Word check passed")
+print("Both checks complete")`, starterInput: `{{number}}
+{{word}}`, hint: "The two if statements are checked separately; neither one is inside the other.", solution: `number = float(input("{{thing}}: "))
+answer = input("Type {{word}}: ")
+if number >= {{threshold}}:
+    print("Number check passed")
+if answer == "{{word}}":
+    print("Word check passed")
+print("Both checks complete")`, success: "You completed two fresh independent decisions.", check: { mustChange: true, minimumInputLines: 2 }, values: { thing: ["Score", "Fuel", "Distance", "Points", "Pages", "Tickets"], word: ["ready", "go", "yes", "start", "python", "green"], threshold: [10, 20, 50, 80, 100], number: ["25", "60", "90", "120"] } },
+        { id: "fresh-logical", skill: "One Combined Condition", title: "A Fresh Two-Fact Decision", mission: "Enter two values that make the condition True, then change one answer and compare.", starterCode: `score = float(input("Score: "))
+ready = input("Ready? ")
+if score >= {{threshold}} and ready == "yes":
+    print("Both requirements passed")
+print("Check complete")`, starterInput: `{{score}}
+yes`, hint: "The message needs both comparisons to be True because the condition uses and.", solution: `score = float(input("Score: "))
+ready = input("Ready? ")
+if score >= {{threshold}} and ready == "yes":
+    print("Both requirements passed")
+print("Check complete")`, success: "You reused and inside a fresh if condition.", check: { mustChange: true, minimumInputLines: 2 }, values: { threshold: [20, 40, 50, 60, 80], score: ["50", "70", "90", "100"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "launch", title: "Launch Readiness Check", mission: "Ask for fuel and a systems answer. Display each passed check with an independent if statement.", starterCode: `fuel = float(input("Fuel level: "))
+systems = input("Systems ready? ")
+
+print(f"Fuel: {fuel}")`, starterInput: `90
+yes`, hint: "Use fuel >= 80 and systems == \"yes\" as two separate conditions.", solution: `fuel = float(input("Fuel level: "))
+systems = input("Systems ready? ")
+if fuel >= 80:
+    print("Fuel check passed")
+if systems == "yes":
+    print("Systems check passed")
+print("Readiness check complete")` },
+        { id: "event-entry", title: "Event Entry Checks", mission: "Ask for age and ticket answer, then show each independent requirement that passes.", starterCode: `age = float(input("Age: "))
+ticket = input("Ticket available? ")
+
+print(age)`, starterInput: `21
+yes`, hint: "Use age >= 18 and ticket == \"yes\" in two separate if statements.", solution: `age = float(input("Age: "))
+ticket = input("Ticket available? ")
+if age >= 18:
+    print("Age check passed")
+if ticket == "yes":
+    print("Ticket check passed")
+print("Entry check complete")` },
+        { id: "study-goals", title: "Study Goal Tracker", mission: "Ask for pages read and minutes studied, then display each milestone reached.", starterCode: `pages = float(input("Pages read: "))
+minutes = float(input("Minutes studied: "))
+
+print("Checking goals")`, starterInput: `25
+40`, hint: "Use pages >= 20 and minutes >= 30 as independent conditions.", solution: `pages = float(input("Pages read: "))
+minutes = float(input("Minutes studied: "))
+if pages >= 20:
+    print("Reading goal reached")
+if minutes >= 30:
+    print("Study-time goal reached")
+print("Goal check complete")` },
+        { id: "delivery", title: "Delivery Milestones", mission: "Ask for order total and distance, then report free delivery and nearby delivery independently.", starterCode: `total = float(input("Order total: "))
+distance = float(input("Distance: "))
+
+print(total)`, starterInput: `60
+3`, hint: "Use total >= 50 and distance <= 5 as two separate checks.", solution: `total = float(input("Order total: "))
+distance = float(input("Distance: "))
+if total >= 50:
+    print("Free delivery unlocked")
+if distance <= 5:
+    print("Nearby delivery")
+print("Delivery check complete")` },
+        { id: "game-achievement", title: "Game Achievements", mission: "Ask for points and collected stars, then display every achievement reached.", starterCode: `points = float(input("Points: "))
+stars = float(input("Stars: "))
+
+print("Checking achievements")`, starterInput: `120
+10`, hint: "Use points >= 100 and stars >= 10 in independent if statements.", solution: `points = float(input("Points: "))
+stars = float(input("Stars: "))
+if points >= 100:
+    print("Point Master unlocked")
+if stars >= 10:
+    print("Star Collector unlocked")
+print("Achievement check complete")` },
+        { id: "repair-if", title: "Repair the Decision", mission: "Repair the missing colon and indentation so the target message runs correctly.", starterCode: `score = float(input("Score: "))
+if score >= 50
+print("Target reached")
+print("Check complete")`, starterInput: "75", hint: "Add : after the condition and four spaces before the controlled print().", solution: `score = float(input("Score: "))
+if score >= 50:
+    print("Target reached")
+print("Check complete")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-purpose", question: "What does an if statement do?", code: "", options: ["Runs an indented block only when a condition is True", "Repeats code forever", "Converts text to a number", "Creates a list"], correct: 0, explanation: "Correct — if controls whether its indented block should run." },
+        { id: "quiz-condition", question: "What must an if condition become?", code: "", options: ["A filename", "True or False", "A comment", "Always a string"], correct: 1, explanation: "Correct — Python uses the condition's Boolean result." },
+        { id: "quiz-colon", question: "Which symbol finishes an if decision line?", code: "", options: [";", ",", ":", "#"], correct: 2, explanation: "Correct — : announces that an indented block follows." },
+        { id: "quiz-indent", question: "Why is the print() line indented?", code: `if score >= 50:
+    print("Target reached")`, options: ["It belongs to the if block", "It is a comment", "It becomes input", "Indentation is only decoration"], correct: 0, explanation: "Correct — indentation tells Python which instruction the decision controls." },
+        { id: "quiz-false", question: "What happens to an if block when its condition is False?", code: "", options: ["Python skips that block", "Python always reports an error", "The block runs twice", "The program restarts"], correct: 0, explanation: "Correct — a False condition quietly skips the controlled block." },
+        { id: "quiz-equals", question: "Which operator asks whether two values are equal?", code: "", options: ["=", "==", ">", "+"], correct: 1, explanation: "Correct — = assigns a value; == compares two values." },
+        { id: "quiz-inclusive", question: "If score is 50, is score >= 50 True?", code: "", options: ["Yes", "No", "Only for strings", "It causes an error"], correct: 0, explanation: "Correct — >= includes equality, so 50 meets the threshold 50." },
+        { id: "quiz-always", question: "Which line always runs?", code: `if number > 5:
+    print("Large")
+print("Done")`, options: ["Large", "Done", "Both always run", "Neither line"], correct: 1, explanation: "Correct — Done is outside the indented if block." },
+        { id: "quiz-case", question: "Does the text \"Yes\" equal \"yes\" in Python?", code: "", options: ["Yes", "No", "Only inside if", "Only for numbers"], correct: 1, explanation: "Correct — Python text comparisons are case-sensitive." },
+        { id: "quiz-true-output", question: "What will this display?", code: `number = 8
+if number > 5:
+    print("Large")
+print("Done")`, options: ["Large then Done", "Done only", "Large only", "Nothing"], correct: 0, explanation: "Correct — the condition is True, then the unindented final line also runs." },
+        { id: "quiz-false-output", question: "What will this display?", code: `number = 3
+if number > 5:
+    print("Large")
+print("Done")`, options: ["Large then Done", "Done only", "Large only", "Nothing"], correct: 1, explanation: "Correct — Large is skipped, but Done remains outside the block." }
+      ]
+    },
+    quiz: {
+      question: "Which code correctly displays a message only when score reaches 50?",
+      code: "",
+      options: [`if score >= 50:\n    print("Target reached")`, `if score >= 50\nprint("Target reached")`, `score = 50:\n    print("Target reached")`, `if = score >= 50`],
+      correct: 0,
+      explanation: "Correct — the condition has a colon, and the controlled instruction is indented."
+    }
   }
 };
