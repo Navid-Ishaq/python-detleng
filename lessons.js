@@ -4528,5 +4528,247 @@ print(number + 3)`, options: ["43", "7", "number + 3", "An error"], correct: 1, 
       correct: 1,
       explanation: "Correct — input() receives text and int() converts suitable whole-number text into an integer."
     }
+  },
+  18: {
+    title: "Your First Mini Calculator — Input, Calculate, Explain",
+    stage: "Input & Decisions",
+    level: "Beginner",
+    time: "30 minutes",
+    tags: ["Interactive calculator", "Input → Output"],
+    usesInput: true,
+    intro: "You can now ask for values, convert them, and calculate with them. Today those skills become one small but real application: a calculator that works with the learner's numbers.",
+    explanation: "A calculator has a simple journey: <strong>input → calculation → output</strong>. It receives values, performs an operation, and explains the answer. Because <code>input()</code> gives text, each answer must become a number before arithmetic begins.",
+    concept: "Ask for two values, convert both with <code>float()</code>, calculate with an arithmetic operator, then display a clearly labelled result.",
+    starterCode: `first_number = float(input("Enter the first number: "))
+second_number = float(input("Enter the second number: "))
+
+total = first_number + second_number
+
+print(f"Total: {total}")`,
+    starterInput: `8
+4`,
+    expectedOutput: `Enter the first number: 8
+Enter the second number: 4
+Total: 12.0`,
+    lineByLine: [
+      '<code>input()</code> asks for the first value, and <code>float()</code> converts its text answer into a number.',
+      'Python repeats that careful process for <code>second_number</code>.',
+      '<code>float()</code> accepts whole-number text such as <code>"8"</code> and decimal-number text such as <code>"2.5"</code>.',
+      '<code>first_number + second_number</code> performs numerical addition—not text joining.',
+      'The meaningful variable <code>total</code> remembers the calculated answer.',
+      'The f-string gives the answer a clear label so a human knows what the number means.'
+    ],
+    outputExplanation: "The first two console lines are the calculator's input. After both answers are converted, Python adds the two numbers and displays the output as <code>Total</code>. The calculator did not know the answer beforehand—it calculated with the values you supplied.",
+    changeIt: "Run the addition calculator with <code>10</code> and <code>5</code>, then try the decimals <code>2.5</code> and <code>1.25</code>.<br><br>Next, change only <code>+</code> to <code>*</code>. Rename <code>total</code> to <code>product</code> and change the output label to <code>Product</code>. Predict the result for 6 and 4 before running.<br><br>Finally, try <code>/</code> with a non-zero second number. Notice how one small operator changes the calculator's job.",
+    challenge: "Build a Four-Answer Calculator. Ask for two numbers once, then calculate and display their sum, difference, product, and quotient.",
+    hint: "Create four clearly named result variables using <code>+</code>, <code>-</code>, <code>*</code>, and <code>/</code>. For division, enter a second number other than zero.",
+    solution: `first_number = float(input("First number: "))
+second_number = float(input("Second number (not zero): "))
+
+sum_answer = first_number + second_number
+difference = first_number - second_number
+product = first_number * second_number
+quotient = first_number / second_number
+
+print(f"Sum: {sum_answer}")
+print(f"Difference: {difference}")
+print(f"Product: {product}")
+print(f"Quotient: {quotient}")`,
+    practiceCoach: {
+      knowledgeBoundary: {
+        current: ["calculator input", "numeric conversion", "addition", "subtraction", "multiplication", "division", "labelled calculator output"],
+        previous: ["print()", "comments", "variables", "integers and floats", "arithmetic operators", "strings", "f-strings", "input()", "type conversion"],
+        prohibited: ["operation menus", "if statements", "loops", "collections", "functions", "try and except", "validation", "rounding APIs", "private information"]
+      },
+      activities: [
+        { id: "add-two", stage: "Easy Start · Addition", title: "Add Two Numbers", mission: "Enter two numbers, predict their total, then run and check your answer.", starterCode: `first = float(input("First number: "))
+second = float(input("Second number: "))
+answer = first + second
+print(answer)`, starterInput: `6
+4`, hint: "Answer both prompts. + adds the converted numbers.", success: "You completed an interactive addition calculation.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "difference", stage: "Easy Start · Subtraction", title: "Find the Difference", mission: "Enter a starting number and a number to subtract. Pay attention to their order.", starterCode: `starting = float(input("Starting number: "))
+take_away = float(input("Subtract: "))
+difference = starting - take_away
+print(difference)`, starterInput: `10
+3`, hint: "Subtraction uses starting - take_away; changing the order changes the answer.", success: "You calculated a difference in the intended order.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "quantity-price", stage: "Growing · Multiplication", title: "Multiply a Quantity", mission: "Enter a whole-number quantity and a decimal price to calculate the total cost.", starterCode: `quantity = float(input("Quantity: "))
+price = float(input("Price each: "))
+total = quantity * price
+print(f"Total cost: {total}")`, starterInput: `3
+2.5`, hint: "* multiplies the two converted values.", success: "You built a small quantity-and-price calculator.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "share-equally", stage: "Growing · Division", title: "Share Equally", mission: "Enter a total and a non-zero number of people to calculate each share.", starterCode: `total = float(input("Total amount: "))
+people = float(input("Number of people (not zero): "))
+each_share = total / people
+print(f"Each share: {each_share}")`, starterInput: `20
+4`, hint: "Use a second answer other than zero because division by zero is not allowed.", success: "You used division to share a value equally.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "cafe-bill", stage: "Growing · Decimal Addition", title: "Café Bill", mission: "Enter a drink price and snack price, then calculate the complete bill.", starterCode: `drink = float(input("Drink price: "))
+snack = float(input("Snack price: "))
+bill = drink + snack
+print(f"Bill: {bill}")`, starterInput: `2.25
+3.5`, hint: "float() keeps decimal prices available for arithmetic.", success: "You calculated a bill from two decimal inputs.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "distance-total", stage: "Growing · Meaningful Output", title: "Journey Distance", mission: "Enter two journey distances and display their combined distance with a clear label.", starterCode: `first_part = float(input("First distance: "))
+second_part = float(input("Second distance: "))
+distance = first_part + second_part
+print(f"Total distance: {distance}")`, starterInput: `3.5
+4.25`, hint: "Convert both answers, add them, and keep the output label meaningful.", success: "You created a clear journey calculator.", check: { mustChange: true, minimumInputLines: 2 } },
+        { id: "repair-calculator", stage: "Ready for a Challenge · Repair", title: "Repair the Calculator", mission: "Fix the program so two answers are added numerically instead of joined as text.", starterCode: `first = input("First number: ")
+second = input("Second number: ")
+answer = first + second
+print(answer)`, starterInput: `2
+3`, hint: "Convert each input() answer with float() before + runs.", success: "You repaired text joining and produced real addition.", check: { mustChange: true, minimumInputLines: 2 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-add", skill: "Addition", title: "A Fresh Total", mission: "Enter two {{things}} values and calculate their total.", starterCode: `first = float(input("First {{things}} value: "))
+second = float(input("Second {{things}} value: "))
+answer = first + second
+print(f"Total: {answer}")`, starterInput: `{{first}}
+{{second}}`, hint: "+ adds both converted values.", solution: `first = float(input("First {{things}} value: "))
+second = float(input("Second {{things}} value: "))
+answer = first + second
+print(f"Total: {answer}")`, success: "You completed a fresh addition calculator.", check: { mustChange: true, minimumInputLines: 2 }, values: { things: ["distance", "price", "score", "weight", "time", "savings"], first: ["2", "3.5", "5", "7.25", "10"], second: ["1", "2.25", "4", "6.5", "8"] } },
+        { id: "fresh-subtract", skill: "Subtraction", title: "A Fresh Difference", mission: "Enter a starting {{thing}} and the amount used, then calculate what remains.", starterCode: `starting = float(input("Starting {{thing}}: "))
+used = float(input("Amount used: "))
+remaining = starting - used
+print(f"Remaining: {remaining}")`, starterInput: `{{starting}}
+{{used}}`, hint: "Keep starting - used in that order.", solution: `starting = float(input("Starting {{thing}}: "))
+used = float(input("Amount used: "))
+remaining = starting - used
+print(f"Remaining: {remaining}")`, success: "You completed a fresh subtraction calculator.", check: { mustChange: true, minimumInputLines: 2 }, values: { thing: ["money", "distance", "time", "points", "material", "water"], starting: ["10", "15", "20", "25.5", "40"], used: ["2", "3.5", "5", "7.25", "10"] } },
+        { id: "fresh-multiply", skill: "Multiplication", title: "A Fresh Cost Calculator", mission: "Enter a {{item}} quantity and price, then calculate the total cost.", starterCode: `quantity = float(input("{{item}} quantity: "))
+price = float(input("Price each: "))
+total = quantity * price
+print(f"Total cost: {total}")`, starterInput: `{{quantity}}
+{{price}}`, hint: "Use quantity * price after both conversions.", solution: `quantity = float(input("{{item}} quantity: "))
+price = float(input("Price each: "))
+total = quantity * price
+print(f"Total cost: {total}")`, success: "You completed a fresh multiplication calculator.", check: { mustChange: true, minimumInputLines: 2 }, values: { item: ["Ticket", "Notebook", "Apple", "Sticker", "Juice", "Book"], quantity: ["2", "3", "4", "5", "6"], price: ["1.5", "2", "2.5", "3", "4.25"] } },
+        { id: "fresh-divide", skill: "Division", title: "A Fresh Equal Share", mission: "Enter a {{thing}} total and a non-zero group count to calculate one share.", starterCode: `total = float(input("{{thing}} total: "))
+groups = float(input("Number of groups (not zero): "))
+share = total / groups
+print(f"Each group: {share}")`, starterInput: `{{total}}
+{{groups}}`, hint: "The second value must not be zero.", solution: `total = float(input("{{thing}} total: "))
+groups = float(input("Number of groups (not zero): "))
+share = total / groups
+print(f"Each group: {share}")`, success: "You completed a fresh division calculator.", check: { mustChange: true, minimumInputLines: 2 }, values: { thing: ["Sweet", "Point", "Page", "Coin", "Distance", "Water"], total: ["12", "20", "24", "30", "36", "48"], groups: ["2", "3", "4", "5", "6"] } },
+        { id: "fresh-change", skill: "Two Operations", title: "A Fresh Shopping Balance", mission: "Enter money available and two costs, then calculate the balance after both purchases.", starterCode: `money = float(input("Money available: "))
+first_cost = float(input("First cost: "))
+second_cost = float(input("Second cost: "))
+balance = money - first_cost - second_cost
+print(f"Balance: {balance}")`, starterInput: `{{money}}
+{{first}}
+{{second}}`, hint: "Subtract both converted costs from money.", solution: `money = float(input("Money available: "))
+first_cost = float(input("First cost: "))
+second_cost = float(input("Second cost: "))
+balance = money - first_cost - second_cost
+print(f"Balance: {balance}")`, success: "You completed a fresh three-input calculator.", check: { mustChange: true, minimumInputLines: 3 }, values: { money: ["20", "25", "30", "40", "50"], first: ["3", "5", "7.5", "8", "10"], second: ["2", "4", "5.5", "6", "9"] } },
+        { id: "fresh-rectangle", skill: "Multiply and Add", title: "A Fresh Rectangle", mission: "Enter a rectangle's length and width, then calculate area and perimeter.", starterCode: `length = float(input("Length: "))
+width = float(input("Width: "))
+area = length * width
+perimeter = 2 * length + 2 * width
+print(f"Area: {area}")
+print(f"Perimeter: {perimeter}")`, starterInput: `{{length}}
+{{width}}`, hint: "Area uses length * width. Perimeter uses two lengths plus two widths.", solution: `length = float(input("Length: "))
+width = float(input("Width: "))
+area = length * width
+perimeter = 2 * length + 2 * width
+print(f"Area: {area}")
+print(f"Perimeter: {perimeter}")`, success: "You completed a fresh two-result calculator.", check: { mustChange: true, minimumInputLines: 2 }, values: { length: ["3", "4", "5", "6.5", "8"], width: ["2", "2.5", "3", "4", "5.5"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "four-results", title: "Four-Answer Calculator", mission: "Ask for two numbers once, then display their sum, difference, product, and quotient.", starterCode: `first = float(input("First number: "))
+second = float(input("Second number (not zero): "))
+
+print(first + second)`, starterInput: `12
+4`, hint: "Create four result variables and use +, -, *, and /.", solution: `first = float(input("First number: "))
+second = float(input("Second number (not zero): "))
+sum_answer = first + second
+difference = first - second
+product = first * second
+quotient = first / second
+print(f"Sum: {sum_answer}")
+print(f"Difference: {difference}")
+print(f"Product: {product}")
+print(f"Quotient: {quotient}")` },
+        { id: "cafe-receipt", title: "Tiny Café Receipt", mission: "Ask for two item prices and display subtotal, a fixed service charge, and final total.", starterCode: `drink = float(input("Drink: "))
+snack = float(input("Snack: "))
+service = 1.5
+
+print(drink + snack)`, starterInput: `2.5
+3.25`, hint: "Calculate subtotal first, then add service for the final total.", solution: `drink = float(input("Drink: "))
+snack = float(input("Snack: "))
+service = 1.5
+subtotal = drink + snack
+total = subtotal + service
+print(f"Subtotal: {subtotal}")
+print(f"Service: {service}")
+print(f"Total: {total}")` },
+        { id: "journey-planner", title: "Journey Planner", mission: "Ask for distance and speed, then calculate travel time using distance divided by speed.", starterCode: `distance = float(input("Distance: "))
+speed = float(input("Speed (not zero): "))
+
+print(distance)`, starterInput: `120
+60`, hint: "Travel time = distance / speed.", solution: `distance = float(input("Distance: "))
+speed = float(input("Speed (not zero): "))
+time = distance / speed
+print(f"Travel time: {time}")` },
+        { id: "money-balance", title: "Pocket-Money Balance", mission: "Ask for starting money and two costs, then display the remaining balance.", starterCode: `money = float(input("Starting money: "))
+first_cost = float(input("First cost: "))
+second_cost = float(input("Second cost: "))
+
+print(money)`, starterInput: `30
+8.5
+4`, hint: "Subtract both costs from the starting money.", solution: `money = float(input("Starting money: "))
+first_cost = float(input("First cost: "))
+second_cost = float(input("Second cost: "))
+remaining = money - first_cost - second_cost
+print(f"Remaining: {remaining}")` },
+        { id: "rectangle", title: "Rectangle Calculator", mission: "Ask for length and width, then display both area and perimeter.", starterCode: `length = float(input("Length: "))
+width = float(input("Width: "))
+
+print(length * width)`, starterInput: `6
+4`, hint: "Area = length * width. Perimeter = 2 * length + 2 * width.", solution: `length = float(input("Length: "))
+width = float(input("Width: "))
+area = length * width
+perimeter = 2 * length + 2 * width
+print(f"Area: {area}")
+print(f"Perimeter: {perimeter}")` },
+        { id: "repair-joining", title: "The 23 Mystery", mission: "The learner enters 2 and 3 but sees 23. Repair the calculator so the output is 5.0.", starterCode: `first = input("First number: ")
+second = input("Second number: ")
+print(first + second)`, starterInput: `2
+3`, hint: "input() gives text. Convert both answers before addition.", solution: `first = float(input("First number: "))
+second = float(input("Second number: "))
+answer = first + second
+print(answer)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "quiz-journey", question: "What are the three parts of this mini calculator?", code: "", options: ["Input → Calculation → Output", "Output → Comment → Input", "Loop → List → Function", "Text → Error → Stop"], correct: 0, explanation: "Correct — a calculator receives input, performs a calculation, and displays output." },
+        { id: "quiz-convert", question: "Why does the calculator use float(input(...))?", code: "", options: ["To convert number-shaped text into a number", "To hide the prompt", "To create a comment", "To stop arithmetic"], correct: 0, explanation: "Correct — input() gives text and float() prepares suitable text for arithmetic." },
+        { id: "quiz-joining", question: "Without conversion, what does adding the input text 2 and 3 produce?", code: `first = "2"
+second = "3"
+print(first + second)`, options: ["5", "5.0", "23", "An empty line"], correct: 2, explanation: "Correct — + joins two strings, producing the text 23." },
+        { id: "quiz-addition", question: "After float conversion, what do inputs 2 and 3 produce with +?", code: "", options: ["23", "5.0", "6.0", "An error"], correct: 1, explanation: "Correct — the values are numbers, so Python calculates 2.0 + 3.0." },
+        { id: "quiz-multiply", question: "Which arithmetic operator multiplies two calculator values?", code: "", options: ["+", "-", "*", "/"], correct: 2, explanation: "Correct — * is Python's multiplication operator." },
+        { id: "quiz-order", question: "What does this calculate?", code: `answer = first_number - second_number`, options: ["Second minus first", "First minus second", "The two values joined", "First divided by second"], correct: 1, explanation: "Correct — subtraction follows the written left-to-right order." },
+        { id: "quiz-product", question: "What will this display?", code: `first = 6.0
+second = 4.0
+answer = first * second
+print(answer)`, options: ["10.0", "24.0", "64", "2.0"], correct: 1, explanation: "Correct — 6.0 multiplied by 4.0 is 24.0." },
+        { id: "quiz-zero", question: "Why should a beginner use a non-zero second number for division here?", code: "", options: ["Zero causes ZeroDivisionError", "Zero changes input into text", "Python cannot print zero", "Division needs a loop"], correct: 0, explanation: "Correct — division by zero stops with ZeroDivisionError." },
+        { id: "quiz-name", question: "Which result variable name is clearer for multiplication?", code: "", options: ["x", "a", "product", "thing"], correct: 2, explanation: "Correct — product tells the reader what the calculated value represents." },
+        { id: "quiz-invalid", question: "Why can float(\"hello\") not power this calculator?", code: "", options: ["hello is not number-shaped text", "float() works only with comments", "Calculators cannot use text prompts", "Variables cannot store floats"], correct: 0, explanation: "Correct — float() needs text that describes a valid number." }
+      ]
+    },
+    quiz: {
+      question: "Which program correctly asks for two numbers and adds them?",
+      code: "",
+      options: [`first = input("First: ")\nsecond = input("Second: ")\nprint(first + second)`, `first = float(input("First: "))\nsecond = float(input("Second: "))\nprint(first + second)`, `print("first + second")`, `first == second`],
+      correct: 1,
+      explanation: "Correct — both text answers are converted before numerical addition."
+    }
   }
 };
