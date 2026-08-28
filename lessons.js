@@ -5891,5 +5891,185 @@ else:
       correct: 0,
       explanation: "Correct — the outer condition is False, so Python does not enter its block or check the nested age condition. It runs the outer else instead."
     }
+  },
+  23: {
+    title: "Conditional Expressions",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Two values", "One-line decision", "Readable choices"],
+    usesInput: true,
+    intro: "A small two-way decision can sometimes choose its value in one clear line. Today you will learn that pattern—and when not to use it.",
+    explanation: `A <strong>conditional expression</strong> chooses one of two values by checking a condition. Its pattern is <code>TRUE_VALUE if CONDITION else FALSE_VALUE</code>.<br><br>For example, <code>message = "Adult" if age &gt;= 18 else "Under 18"</code> gives <code>message</code> exactly one value. Read it naturally: “Use Adult if the age is at least 18; otherwise, use Under 18.”`,
+    concept: "Use a conditional expression to choose between two simple values. If the decision becomes difficult to read, a normal if / elif / else block is better.",
+    starterCode: `temperature = float(input("Temperature: "))
+
+weather_message = "It feels warm." if temperature >= 20 else "It feels cool."
+
+print(weather_message)`,
+    starterInput: "24",
+    expectedOutput: `Temperature: 24
+It feels warm.`,
+    lineByLine: [
+      "input() collects the temperature, and float() converts the typed text into a number.",
+      "temperature >= 20 is the condition. It produces either True or False.",
+      "When the condition is True, Python chooses the value before if: It feels warm.",
+      "When the condition is False, Python chooses the value after else: It feels cool.",
+      "The selected value is stored in weather_message, and print() displays that one value."
+    ],
+    outputExplanation: "With 24, temperature >= 20 is True, so Python selects the first message. It does not display both choices. With 14, the same expression selects the message after else.",
+    changeIt: `Run the starter with <code>24</code>, then with <code>14</code>. Predict each message first.<br><br>Next, test the exact boundary <code>20</code>. Change the messages to <code>"T-shirt weather"</code> and <code>"Jacket weather"</code>. Finally, change the threshold from <code>20</code> to <code>25</code> and run <code>24</code> again.`,
+    challenge: {
+      title: "Player Status Card",
+      mission: "Create status with one conditional expression. Use Level unlocked for a score of 100 or more; otherwise use Keep collecting points. Do not write a full if / else block.",
+      starterCode: `player = input("Player name: ")
+score = int(input("Score: "))
+
+# Create status with one conditional expression
+
+print(f"Player: {player}")
+print(f"Status: {status}")`,
+      starterInput: `Amina
+120`
+    },
+    hint: `Use this shape: <code>status = TRUE_VALUE if CONDITION else FALSE_VALUE</code>. The condition is <code>score &gt;= 100</code>.`,
+    solution: `player = input("Player name: ")
+score = int(input("Score: "))
+
+status = "Level unlocked" if score >= 100 else "Keep collecting points"
+
+print(f"Player: {player}")
+print(f"Status: {status}")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only knowledge from Lessons 1–23: values, input, conversion, strings, arithmetic, comparisons, logical operators, if / elif / else, nested decisions, f-strings and one simple conditional expression. Do not use loops, collections, functions or chained conditional expressions.",
+      activities: [
+        { id: "weather-message", stage: "EASY START · CHOOSE ONE MESSAGE", title: "Weather Message", mission: "Run 24, 14 and the exact boundary 20. Notice that exactly one message is selected.", starterCode: `temperature = float(input("Temperature: "))
+message = "Warm day" if temperature >= 20 else "Cool day"
+print(message)`, starterInput: "24", hint: "The value before if is chosen when the condition is True.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "pass-message", stage: "BOUNDARY · FIFTY BELONGS TO PASS", title: "Pass Message", mission: "Test 49, 50 and 75. Predict which value result receives each time.", starterCode: `score = float(input("Score: "))
+result = "Passed" if score >= 50 else "Keep practising"
+print(result)`, starterInput: "50", hint: ">= includes the exact boundary.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "ticket-type", stage: "REAL-LIFE CHOICE · TWO VALUES", title: "Ticket Type", mission: "Change the age to reach both Adult ticket and Junior ticket.", starterCode: `age = int(input("Age: "))
+ticket = "Adult ticket" if age >= 18 else "Junior ticket"
+print(ticket)`, starterInput: "17", hint: "Try 17 and 18 to test both sides of the boundary.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "stock-message", stage: "NUMBER CHECK · VALUE FROM A CONDITION", title: "Stock Message", mission: "Run zero and a positive quantity. Then replace the two messages with your own clear wording.", starterCode: `quantity = int(input("Quantity: "))
+message = "Available" if quantity > 0 else "Unavailable"
+print(message)`, starterInput: "3", hint: "Zero is not greater than zero.", check: { mustChange: true, mustRun: true, minimumInputLines: 1 } },
+        { id: "number-sign", stage: "COMPARISON · INCLUDE ZERO", title: "Number Sign", mission: "Predict the result for -4, 0 and 8. Explain why zero is Non-negative.", starterCode: `number = float(input("Number: "))
+description = "Non-negative" if number >= 0 else "Negative"
+print(description)`, starterInput: "0", hint: "Non-negative means zero or greater.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "login-greeting", stage: "TEXT CONDITION · EXACT MATCH", title: "Login Greeting", mission: "Try yes, no and YES. Observe that string comparisons pay attention to capital letters.", starterCode: `logged_in = input("Logged in? yes/no: ")
+greeting = "Welcome back" if logged_in == "yes" else "Please sign in"
+print(greeting)`, starterInput: "yes", hint: "The expression compares the answer exactly with lowercase yes.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "repair-expression", stage: "FIX IT · PUT THE PARTS IN ORDER", title: "Repair the Expression", mission: "Repair the one-line decision, then test both score paths.", starterCode: `score = int(input("Score: "))
+result = if score >= 50 "Passed" else "Try again"
+print(result)`, starterInput: "65", hint: "Start with the True value, then if and the condition, then else and the False value.", check: { mustChange: true, mustRun: true, minimumInputLines: 1 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-score", skill: "Score Thresholds", title: "Fresh Score Decision", mission: "Predict which result is selected, then change the score and run both paths.", starterCode: `score = int(input("Score: "))
+result = "{{high_message}}" if score >= {{threshold}} else "{{low_message}}"
+print(result)`, starterInput: "{{score}}", hint: "Read the True value, condition and False value in that order.", solution: `result = "{{high_message}}" if score >= {{threshold}} else "{{low_message}}"`, success: "You completed a fresh score expression.", check: { mustChange: true, minimumInputLines: 1 }, values: { high_message: ["Passed", "Target reached", "Ready for the next step"], low_message: ["Keep practising", "Keep building", "Try once more"], threshold: [40, 50, 60, 70], score: [25, 39, 40, 49, 50, 65, 75, 90] } },
+        { id: "fresh-temperature", skill: "Temperature Messages", title: "Fresh Temperature Choice", mission: "Use a generated temperature boundary to select one clear message.", starterCode: `temperature = float(input("Temperature: "))
+advice = "{{warm}}" if temperature >= {{threshold}} else "{{cool}}"
+print(advice)`, starterInput: "{{temperature}}", hint: "Test the exact threshold and one value below it.", solution: `advice = "{{warm}}" if temperature >= {{threshold}} else "{{cool}}"`, success: "You completed a fresh temperature expression.", check: { mustChange: true, minimumInputLines: 1 }, values: { warm: ["Light clothing", "Warm weather", "Open the window"], cool: ["Take a jacket", "Cool weather", "Keep the window closed"], threshold: [15, 18, 20, 25], temperature: [8, 14, 15, 19, 20, 24, 25, 30] } },
+        { id: "fresh-age", skill: "Age Boundaries", title: "Fresh Age Category", mission: "Choose one of two generated age messages with a readable expression.", starterCode: `age = int(input("Age: "))
+category = "{{older}}" if age >= {{boundary}} else "{{younger}}"
+print(category)`, starterInput: "{{age}}", hint: "The boundary itself reaches the first value because the operator is >=.", solution: `category = "{{older}}" if age >= {{boundary}} else "{{younger}}"`, success: "You completed a fresh age expression.", check: { mustChange: true, minimumInputLines: 1 }, values: { older: ["Adult", "Independent entry", "Main activity"], younger: ["Junior", "Adult needed", "Junior activity"], boundary: [12, 16, 18, 21], age: [10, 11, 12, 15, 16, 17, 18, 22] } },
+        { id: "fresh-stock", skill: "Quantity Choices", title: "Fresh Stock Message", mission: "Compare a quantity with the generated requirement and select one availability message.", starterCode: `quantity = int(input("Quantity: "))
+message = "Enough stock" if quantity >= {{needed}} else "More stock needed"
+print(message)`, starterInput: "{{quantity}}", hint: "Try the exact needed quantity as well as one below it.", solution: `message = "Enough stock" if quantity >= {{needed}} else "More stock needed"`, success: "You completed a fresh stock expression.", check: { mustChange: true, minimumInputLines: 1 }, values: { needed: [2, 3, 5, 8], quantity: [0, 1, 2, 3, 4, 5, 7, 8, 10] } },
+        { id: "fresh-target", skill: "Number Comparisons", title: "Fresh Target Check", mission: "Select Above target or At or below target with one conditional expression.", starterCode: `number = float(input("Number: "))
+message = "Above target" if number > {{target}} else "At or below target"
+print(message)`, starterInput: "{{number}}", hint: "Because the operator is >, equality reaches the value after else.", solution: `message = "Above target" if number > {{target}} else "At or below target"`, success: "You completed a fresh target expression.", check: { mustChange: true, minimumInputLines: 1 }, values: { target: [0, 5, 10, 20], number: [-3, 0, 4, 5, 6, 10, 15, 21, 30] } },
+        { id: "fresh-text", skill: "Text Choices", title: "Fresh Text Decision", mission: "Compare a typed choice and select one generated response.", starterCode: `choice = input("Choose {{expected}} or something else: ")
+reply = "{{match}}" if choice == "{{expected}}" else "{{different}}"
+print(reply)`, starterInput: "{{choice}}", hint: "Text must match the expected lowercase word exactly.", solution: `reply = "{{match}}" if choice == "{{expected}}" else "{{different}}"`, success: "You completed a fresh text expression.", check: { mustChange: true, minimumInputLines: 1 }, values: { expected: ["yes", "ready", "morning", "python"], choice: ["yes", "no", "ready", "later", "morning", "evening", "python", "Python"], match: ["Choice matched", "Welcome", "That is correct"], different: ["Different choice", "Try another answer", "Not matched"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "player-status", title: "Player Status Card", mission: "Set status to Level unlocked for 100+ and Keep collecting points otherwise. Use one conditional expression.", starterCode: `player = input("Player name: ")
+score = int(input("Score: "))
+
+# Create status here
+
+print(f"Player: {player}")
+print(f"Status: {status}")`, starterInput: `Amina
+120`, hint: "The condition is score >= 100. Put the unlocked message before if.", solution: `player = input("Player name: ")
+score = int(input("Score: "))
+status = "Level unlocked" if score >= 100 else "Keep collecting points"
+print(f"Player: {player}")
+print(f"Status: {status}")` },
+        { id: "delivery", title: "Delivery Message", mission: "Choose Free delivery for totals of 50 or more; otherwise choose Delivery charge applies.", starterCode: `total = float(input("Order total: "))
+
+# Create delivery_message
+
+print(delivery_message)`, starterInput: "55", hint: "Use total >= 50 as the middle condition.", solution: `total = float(input("Order total: "))
+delivery_message = "Free delivery" if total >= 50 else "Delivery charge applies"
+print(delivery_message)` },
+        { id: "exam", title: "Exam Result", mission: "Create Passed for 50+ and Keep practising otherwise, without a full if block.", starterCode: `score = float(input("Score: "))
+
+# Create result
+
+print(result)`, starterInput: "50", hint: "Write the Passed value first because it belongs to the True path.", solution: `score = float(input("Score: "))
+result = "Passed" if score >= 50 else "Keep practising"
+print(result)` },
+        { id: "ride", title: "Ride Access", mission: "Select Ride approved for heights of 120 cm or more; otherwise select Height requirement not met.", starterCode: `height = int(input("Height in cm: "))
+
+# Create access_message
+
+print(access_message)`, starterInput: "125", hint: "Test 119 and the exact boundary 120.", solution: `height = int(input("Height in cm: "))
+access_message = "Ride approved" if height >= 120 else "Height requirement not met"
+print(access_message)` },
+        { id: "member", title: "Member Greeting", mission: "Choose Welcome back when the answer is yes, and Please join us otherwise.", starterCode: `member = input("Member? yes/no: ")
+
+# Create greeting
+
+print(greeting)`, starterInput: "yes", hint: "Compare member exactly with the text yes.", solution: `member = input("Member? yes/no: ")
+greeting = "Welcome back" if member == "yes" else "Please join us"
+print(greeting)` },
+        { id: "repair", title: "Repair the One-Line Decision", mission: "Repair the order and add the missing False value, then test 17 and 18.", starterCode: `age = int(input("Age: "))
+ticket = if age >= 18 "Adult ticket"
+print(ticket)`, starterInput: "18", hint: "The complete order is TRUE_VALUE if CONDITION else FALSE_VALUE.", solution: `age = int(input("Age: "))
+ticket = "Adult ticket" if age >= 18 else "Junior ticket"
+print(ticket)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "purpose", question: "What does a conditional expression choose?", code: "", options: ["One of two values", "Every possible value", "A loop count", "A comment"], correct: 0, explanation: "Correct — it checks one condition and selects exactly one of two values." },
+        { id: "syntax", question: "Which is the correct Python pattern?", code: "", options: ["TRUE_VALUE if CONDITION else FALSE_VALUE", "if CONDITION TRUE_VALUE else FALSE_VALUE", "CONDITION ? TRUE_VALUE : FALSE_VALUE", "TRUE_VALUE else CONDITION if FALSE_VALUE"], correct: 0, explanation: "Correct — Python places the True value first, then if, the condition, else and the False value." },
+        { id: "true-path", question: "What is displayed?", code: `age = 20
+message = "Adult" if age >= 18 else "Junior"
+print(message)`, options: ["Adult", "Junior", "True", "Both"], correct: 0, explanation: "Correct — 20 >= 18 is True, so Python selects Adult." },
+        { id: "false-path", question: "What is displayed when score is 42?", code: `result = "Passed" if score >= 50 else "Keep practising"
+print(result)`, options: ["Passed", "Keep practising", "False", "Nothing"], correct: 1, explanation: "Correct — the condition is False, so the value after else is selected." },
+        { id: "boundary", question: "What is selected when score is exactly 50?", code: `result = "Passed" if score >= 50 else "Try again"`, options: ["Passed", "Try again", "Both", "An error"], correct: 0, explanation: "Correct — >= includes equality." },
+        { id: "missing-else", question: "What is missing here?", code: `message = "Ready" if score >= 10`, options: ["else and the False value", "A loop", "Another if", "A list"], correct: 0, explanation: "Correct — a conditional expression needs values for both possible results." },
+        { id: "stored", question: "Where is the selected value stored?", code: `ticket = "Adult" if age >= 18 else "Junior"`, options: ["ticket", "age", "if", "else"], correct: 0, explanation: "Correct — the chosen string is assigned to ticket." },
+        { id: "equivalent", question: "Which normal decision is equivalent?", code: `message = "Open" if shop_open else "Closed"`, options: [`if shop_open:
+    message = "Open"
+else:
+    message = "Closed"`, `if shop_open:
+    message = "Closed"`, `if message:
+    shop_open = "Open"`, `message = "Open" and "Closed"`], correct: 0, explanation: "Correct — both versions assign one of the same two values from the same condition." },
+        { id: "readability", question: "When is a normal if / elif / else usually clearer?", code: "", options: ["When there are several paths or instructions", "Whenever there are two short values", "Only with strings", "Never"], correct: 0, explanation: "Correct — compact code is useful only while it remains easy to understand." },
+        { id: "text", question: "What does this display when answer is no?", code: `reply = "Welcome" if answer == "yes" else "Please try again"
+print(reply)`, options: ["Welcome", "Please try again", "no", "False"], correct: 1, explanation: "Correct — no does not equal yes, so Python selects the value after else." },
+        { id: "boolean", question: "What is selected when ready is True?", code: `status = "Begin" if ready else "Wait"`, options: ["Begin", "Wait", "True", "Nothing"], correct: 0, explanation: "Correct — the Boolean condition is already True, so the first value is selected." },
+        { id: "too-complex", question: "Which version is easier for a beginner to maintain when there are three result paths?", code: "", options: ["A clear if / elif / else block", "Several conditional expressions chained together", "One very long line", "Removing the conditions"], correct: 0, explanation: "Correct — use the shorter form only for a genuinely simple two-value choice." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `score = 70
+result = "Pass" if score >= 50 else "Try again"
+print(result)`,
+      options: ["Pass", "Try again", "True", "Pass and Try again"],
+      correct: 0,
+      explanation: "Correct — score >= 50 is True, so Python selects the value before if: Pass."
+    }
   }
 };
