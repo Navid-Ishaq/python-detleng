@@ -5525,5 +5525,371 @@ print("Excellent")`],
       correct: 0,
       explanation: "Correct — the chain begins with if, checks the highest threshold first, uses colons, and indents each branch body."
     }
+  },
+  22: {
+    title: "Nested Conditions",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Decisions inside decisions", "Nested if", "Indentation"],
+    usesInput: true,
+    intro: "Some decisions only make sense after an earlier decision succeeds. Today you will ask one clear question inside another.",
+    explanation: `A <strong>nested condition</strong> is an <code>if</code> statement inside another decision. Python checks the outer condition first. Only when that path runs can Python reach the inner condition.<br><br>Indentation shows the relationship. The inner <code>if</code> is moved farther to the right, and its instructions move farther again. This lets a program make a second decision only when that second question is relevant.`,
+    concept: "A nested condition asks a second question inside the path created by the first question. If the outer path does not run, the inner question is not checked.",
+    starterCode: `has_ticket = input("Do you have a ticket? yes/no: ")
+age = int(input("What is your age? "))
+
+if has_ticket == "yes":
+    print("Ticket accepted.")
+
+    if age >= 12:
+        print("You may enter the adventure ride.")
+    else:
+        print("You need an adult with you.")
+else:
+    print("Please get a ticket first.")
+
+print("Entrance check complete.")`,
+    starterInput: `yes
+14`,
+    expectedOutput: `Do you have a ticket? yes/no: yes
+What is your age? 14
+Ticket accepted.
+You may enter the adventure ride.
+Entrance check complete.`,
+    lineByLine: [
+      "The two input() calls collect a ticket answer and an age. int() converts the typed age into a number.",
+      "The outer if asks the first question: is has_ticket equal to yes?",
+      "Only inside that True path does Python reach the age decision. The extra indentation shows that the age check belongs inside the ticket check.",
+      "The inner else belongs to if age >= 12. It handles a ticket holder who is younger than 12.",
+      "The outer else lines up with the first if. It handles anyone without a ticket, and the final print() runs after every path."
+    ],
+    outputExplanation: "With yes and 14, the outer ticket condition is True, so Python enters that block and checks age. The age condition is also True, so the ride is approved. If the ticket answer is no, Python never reaches the age decision.",
+    changeIt: `Run the starter with <code>yes</code> and <code>14</code>. Next, keep the ticket but change the age to <code>10</code>. Predict which two decision messages will appear.<br><br>Then use <code>no</code> and <code>14</code>. Notice that Python asks for both inputs first, but the age <em>condition</em> is not checked after the outer ticket condition fails. Finally, test the exact boundary age <code>12</code>.`,
+    challenge: {
+      title: "Adventure Camp Check-In",
+      mission: "Approve check-in only through the correct path. A registered guest under 16 needs permission; a registered guest aged 16 or over can enter without that extra check.",
+      starterCode: `registered = input("Registered? yes/no: ")
+age = int(input("Age: "))
+has_permission = input("Permission? yes/no: ")
+
+# Build the nested check-in decision here`,
+      starterInput: `yes
+13
+yes`
+    },
+    hint: "Begin with registered == \"yes\". Inside that path, ask whether age < 16. Only inside the younger path do you need to check has_permission.",
+    solution: `registered = input("Registered? yes/no: ")
+age = int(input("Age: "))
+has_permission = input("Permission? yes/no: ")
+
+if registered == "yes":
+    print("Registration found.")
+
+    if age < 16:
+        if has_permission == "yes":
+            print("Check-in approved.")
+        else:
+            print("Permission is required.")
+    else:
+        print("Check-in approved.")
+else:
+    print("Please register first.")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only knowledge from Lessons 1–22: input, conversion, values, strings, arithmetic, comparisons, logical operators, if, elif, else, nested decisions and print. Do not use loops, collections or functions.",
+      activities: [
+        { id: "library-computer", stage: "EASY START · SECOND QUESTION", title: "Library Computer", mission: "Try every path: library closed, library open with a computer, and library open without one.", starterCode: `library_open = input("Library open? yes/no: ")
+computer_free = input("Computer free? yes/no: ")
+
+if library_open == "yes":
+    print("You may enter.")
+    if computer_free == "yes":
+        print("A computer is ready.")
+    else:
+        print("Please wait for a computer.")
+else:
+    print("Come back when the library opens.")`, starterInput: `yes
+yes`, hint: "The computer question is meaningful only inside the open-library path.", check: { mustRun: true, minimumInputLines: 2 } },
+        { id: "game-level", stage: "TWO GATES · LOGIN THEN LEVEL", title: "Game Level", mission: "Reach the locked, ready and sign-in paths by changing the two answers.", starterCode: `logged_in = input("Logged in? yes/no: ")
+level = int(input("Player level: "))
+
+if logged_in == "yes":
+    if level >= 5:
+        print("New mission unlocked.")
+    else:
+        print("Reach level 5 first.")
+else:
+    print("Please sign in.")`, starterInput: `yes
+7`, hint: "When logged_in is no, the level condition is not reached.", check: { mustRun: true, minimumInputLines: 2 } },
+        { id: "cinema", stage: "OUTER AND INNER ELSE · FOLLOW INDENTATION", title: "Cinema Entry", mission: "Run a missing ticket, a correct ticket, and a ticket for the wrong screen.", starterCode: `ticket_valid = input("Valid ticket? yes/no: ")
+screen = int(input("Screen number: "))
+
+if ticket_valid == "yes":
+    print("Ticket accepted.")
+    if screen == 3:
+        print("This is your screen.")
+    else:
+        print("Please check your screen number.")
+else:
+    print("Ticket not accepted.")`, starterInput: `yes
+3`, hint: "The indented else beside screen == 3 belongs to the screen decision.", check: { mustRun: true, minimumInputLines: 2 } },
+        { id: "weather-trip", stage: "BOOLEANS · SAFE THEN READY", title: "Weather Trip", mission: "Change the Boolean values to explore all three messages.", starterCode: `weather_safe = True
+transport_ready = False
+
+if weather_safe:
+    print("The weather is safe.")
+    if transport_ready:
+        print("The trip can begin.")
+    else:
+        print("Waiting for transport.")
+else:
+    print("The trip is postponed.")`, starterInput: "", hint: "Change only True and False. Keep the nested structure intact.", check: { mustChange: true, mustRun: true } },
+        { id: "boundary", stage: "BOUNDARY · EXACTLY TWELVE", title: "Ride Boundary", mission: "Test ages 11 and 12 with a valid ticket, then test no ticket. Explain why 12 is approved.", starterCode: `has_ticket = input("Ticket? yes/no: ")
+age = int(input("Age: "))
+
+if has_ticket == "yes":
+    if age >= 12:
+        print("Ride approved.")
+    else:
+        print("Adult needed.")
+else:
+    print("Ticket needed.")`, starterInput: `yes
+12`, hint: ">= includes the boundary itself.", check: { mustRun: true, minimumInputLines: 2 } },
+        { id: "repair", stage: "FIX IT · INDENTATION TELLS THE STORY", title: "Repair the Nest", mission: "Repair the indentation so the stock check happens only when the shop is open.", starterCode: `shop_open = True
+in_stock = True
+
+if shop_open:
+print("Shop is open.")
+if in_stock:
+print("Item available.")
+else:
+print("Shop is closed.")`, starterInput: "", hint: "The stock if belongs inside shop_open. Its print moves one more level right. Add a separate inner else if you want an out-of-stock message.", check: { mustChange: true, mustRun: true } },
+        { id: "and-or-nested", stage: "CHOOSE CLEARLY · NESTING HAS A PURPOSE", title: "Member Discount", mission: "Keep nesting because the program should first confirm membership, then give a separate points message.", starterCode: `member = input("Member? yes/no: ")
+points = int(input("Points: "))
+
+if member == "yes":
+    print("Membership confirmed.")
+    if points >= 100:
+        print("Discount unlocked.")
+    else:
+        print("Keep collecting points.")
+else:
+    print("Join to collect points.")`, starterInput: `yes
+120`, hint: "The separate membership message is one reason this nested structure is easy to follow.", check: { mustRun: true, minimumInputLines: 2 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-library", skill: "Relevant Second Decisions", title: "Fresh Library Check", mission: "Follow the outer opening decision, then the inner resource decision.", starterCode: `open_now = input("{{place}} open? yes/no: ")
+resource_ready = input("{{resource}} ready? yes/no: ")
+if open_now == "yes":
+    print("You may enter.")
+    if resource_ready == "yes":
+        print("{{resource}} is ready.")
+    else:
+        print("Please wait for {{resource}}.")
+else:
+    print("{{place}} is closed.")`, starterInput: `{{outer}}
+{{inner}}`, hint: "The resource check is nested because it matters only when the place is open.", solution: "Run yes/yes, yes/no and no/no to observe every path.", success: "You followed both levels of a fresh place decision.", check: { mustChange: true, minimumInputLines: 2 }, values: { place: ["Library", "Study room", "Learning lab", "Community centre"], resource: ["Computer", "Desk", "Projector", "Practice room"], outer: ["yes", "no"], inner: ["yes", "no"] } },
+        { id: "fresh-level", skill: "Two Gates", title: "Fresh Access Check", mission: "Pass an outer access gate before Python checks a fresh number boundary.", starterCode: `access = input("Access approved? yes/no: ")
+level = int(input("Level: "))
+if access == "yes":
+    if level >= {{required}}:
+        print("{{success}}")
+    else:
+        print("Reach level {{required}} first.")
+else:
+    print("Access is required.")`, starterInput: `{{access}}
+{{level}}`, hint: "The numeric check is reached only inside the approved-access path.", solution: "Test the boundary itself, one value below it, and a no-access path.", success: "You completed a fresh two-gate decision.", check: { mustChange: true, minimumInputLines: 2 }, values: { required: [3, 5, 8, 10], success: ["Mission unlocked.", "Room unlocked.", "Challenge ready.", "Next stage ready."], access: ["yes", "no"], level: [2, 3, 4, 5, 7, 8, 10, 12] } },
+        { id: "fresh-booking", skill: "Text Inside Text", title: "Fresh Booking Check", mission: "Confirm the booking before checking the selected place.", starterCode: `booked = input("Booking found? yes/no: ")
+choice = input("Chosen {{kind}}: ")
+if booked == "yes":
+    print("Booking found.")
+    if choice == "{{correct}}":
+        print("Correct {{kind}} selected.")
+    else:
+        print("Please check your {{kind}}.")
+else:
+    print("Make a booking first.")`, starterInput: `{{booked}}
+{{choice}}`, hint: "Exact text comparisons are case-sensitive.", solution: "Test the correct choice, a different choice, and no booking.", success: "You completed a fresh nested text decision.", check: { mustChange: true, minimumInputLines: 2 }, values: { kind: ["room", "desk", "screen", "session"], correct: ["A", "B", "3", "morning"], booked: ["yes", "no"], choice: ["A", "B", "3", "4", "morning", "evening"] } },
+        { id: "fresh-weather", skill: "Boolean Paths", title: "Fresh Readiness Check", mission: "Change two Boolean values and predict which fresh readiness message appears.", starterCode: `first_ready = {{first}}
+second_ready = {{second}}
+if first_ready:
+    print("First check passed.")
+    if second_ready:
+        print("{{ready}}")
+    else:
+        print("One more thing is needed.")
+else:
+        print("The first check must pass.")`, starterInput: "", hint: "The second Boolean is checked only inside the True outer path.", solution: "Try True/True, True/False and False/True.", success: "You completed a fresh Boolean nest.", check: { mustChange: true }, values: { first: ["True", "False"], second: ["True", "False"], ready: ["Everything is ready.", "The activity can begin.", "Both checks passed.", "Ready to continue."] } },
+        { id: "fresh-age", skill: "Boundary Inside Permission", title: "Fresh Age Check", mission: "Confirm permission before checking a generated age boundary.", starterCode: `permission = input("Permission received? yes/no: ")
+age = int(input("Age: "))
+if permission == "yes":
+    if age >= {{minimum}}:
+        print("Activity approved.")
+    else:
+        print("Minimum age is {{minimum}}.")
+else:
+    print("Permission is required.")`, starterInput: `{{permission}}
+{{age}}`, hint: "Test the exact >= boundary as well as one number below it.", solution: "The outer path controls whether the age decision is reached.", success: "You completed a fresh permission and age check.", check: { mustChange: true, minimumInputLines: 2 }, values: { minimum: [8, 10, 12, 16], permission: ["yes", "no"], age: [7, 8, 9, 10, 11, 12, 15, 16, 18] } },
+        { id: "fresh-stock", skill: "Stock After Opening", title: "Fresh Shop Decision", mission: "Let Python check stock only inside an open-shop path.", starterCode: `shop_open = input("Shop open? yes/no: ")
+quantity = int(input("Quantity in stock: "))
+if shop_open == "yes":
+    print("Shop is open.")
+    if quantity >= {{needed}}:
+        print("Enough items are available.")
+    else:
+        print("Not enough items today.")
+else:
+    print("Come back later.")`, starterInput: `{{open}}
+{{quantity}}`, hint: "The quantity comparison belongs inside the open-shop branch.", solution: "Test open with enough, open without enough, and closed.", success: "You completed a fresh stock decision.", check: { mustChange: true, minimumInputLines: 2 }, values: { needed: [2, 3, 4, 5], open: ["yes", "no"], quantity: [0, 1, 2, 3, 4, 5, 7] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "camp", title: "Adventure Camp Check-In", mission: "A registered guest under 16 needs permission. A registered guest aged 16+ can enter without the extra permission check.", starterCode: `registered = input("Registered? yes/no: ")
+age = int(input("Age: "))
+permission = input("Permission? yes/no: ")
+
+# Build the nested check-in`, starterInput: `yes
+13
+yes`, hint: "Nest age inside registration, then permission inside the under-16 path.", solution: `registered = input("Registered? yes/no: ")
+age = int(input("Age: "))
+permission = input("Permission? yes/no: ")
+if registered == "yes":
+    if age < 16:
+        if permission == "yes":
+            print("Check-in approved.")
+        else:
+            print("Permission is required.")
+    else:
+        print("Check-in approved.")
+else:
+    print("Please register first.")` },
+        { id: "account", title: "Account Security", mission: "First confirm the username, then check the PIN. Give a clear message for each failure.", starterCode: `username = input("Username: ")
+pin = input("PIN: ")
+
+# Add nested security checks`, starterInput: `learner
+2468`, hint: "Compare username first. Put the PIN decision inside its True path.", solution: `username = input("Username: ")
+pin = input("PIN: ")
+if username == "learner":
+    if pin == "2468":
+        print("Welcome back.")
+    else:
+        print("Incorrect PIN.")
+else:
+    print("Unknown username.")` },
+        { id: "delivery", title: "Delivery Checker", mission: "Check whether an item is in stock before checking whether the postcode is supported.", starterCode: `in_stock = input("In stock? yes/no: ")
+postcode = input("Postcode area: ")
+
+# Decide whether delivery is possible`, starterInput: `yes
+D1`, hint: "Only check D1 after confirming stock.", solution: `in_stock = input("In stock? yes/no: ")
+postcode = input("Postcode area: ")
+if in_stock == "yes":
+    if postcode == "D1":
+        print("Delivery available.")
+    else:
+        print("Area not supported yet.")
+else:
+    print("Item is unavailable.")` },
+        { id: "course", title: "Course Progress Gate", mission: "Confirm the previous lesson is complete, then check whether the quiz score is at least 70.", starterCode: `previous_complete = input("Previous lesson complete? yes/no: ")
+score = int(input("Quiz score: "))
+
+# Create the two-step gate`, starterInput: `yes
+78`, hint: "The score matters only after previous_complete is yes.", solution: `previous_complete = input("Previous lesson complete? yes/no: ")
+score = int(input("Quiz score: "))
+if previous_complete == "yes":
+    if score >= 70:
+        print("Next lesson unlocked.")
+    else:
+        print("Try the quiz again.")
+else:
+    print("Complete the previous lesson first.")` },
+        { id: "ride", title: "Ride and Height Check", mission: "Check for a valid pass, then approve heights of 120 or more.", starterCode: `valid_pass = input("Valid pass? yes/no: ")
+height = int(input("Height in cm: "))
+
+# Add the nested ride decision`, starterInput: `yes
+125`, hint: "Pass first, height second. Test 119 and 120.", solution: `valid_pass = input("Valid pass? yes/no: ")
+height = int(input("Height in cm: "))
+if valid_pass == "yes":
+    if height >= 120:
+        print("Ride approved.")
+    else:
+        print("Height requirement not met.")
+else:
+    print("A valid pass is required.")` },
+        { id: "repair-nest", title: "Repair the Decision Tree", mission: "Fix the indentation and connect each else to the intended if.", starterCode: `door_open = True
+light_on = False
+if door_open:
+print("Door is open.")
+if light_on:
+print("Room is bright.")
+else:
+print("Door is closed.")`, starterInput: "", hint: "Nest light_on inside door_open. The inner else describes darkness; the outer else describes a closed door.", solution: `door_open = True
+light_on = False
+if door_open:
+    print("Door is open.")
+    if light_on:
+        print("Room is bright.")
+    else:
+        print("Room is dark.")
+else:
+    print("Door is closed.")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What is a nested condition?", code: "", options: ["A decision inside another decision", "A repeated print", "A type of string", "A comment inside code"], correct: 0, explanation: "Correct — nesting places one decision inside a path created by another." },
+        { id: "outer-false", question: "What happens to the inner if when the outer condition is False?", code: "", options: ["It is not reached", "It always runs", "It becomes True", "Python repeats it"], correct: 0, explanation: "Correct — Python skips the entire indented outer block, including its inner decision." },
+        { id: "both-true", question: "What is displayed when ticket is True and age is 14?", code: `if ticket:
+    print("Ticket accepted")
+    if age >= 12:
+        print("Ride approved")`, options: ["Ticket accepted, then Ride approved", "Ride approved only", "Ticket accepted only", "Nothing"], correct: 0, explanation: "Correct — the outer path runs, then its inner condition is also True." },
+        { id: "inner-false", question: "What is displayed when ticket is True and age is 10?", code: `if ticket:
+    print("Ticket accepted")
+    if age >= 12:
+        print("Ride approved")
+    else:
+        print("Adult needed")`, options: ["Ticket accepted, then Adult needed", "Adult needed only", "Ride approved", "Nothing"], correct: 0, explanation: "Correct — the outer path runs, but the inner else handles the younger age." },
+        { id: "which-else", question: "Which if owns the indented else?", code: `if shop_open:
+    if in_stock:
+        print("Available")
+    else:
+        print("Out of stock")`, options: ["if in_stock", "if shop_open", "Both", "Neither"], correct: 0, explanation: "Correct — alignment shows that else belongs to if in_stock." },
+        { id: "indentation", question: "What tells Python that the age decision is inside the ticket decision?", code: "", options: ["Indentation", "Quotation marks", "The variable name", "A comment"], correct: 0, explanation: "Correct — indentation defines Python's code blocks and their relationships." },
+        { id: "boundary", question: "Does age 12 reach Ride approved here?", code: `if ticket:
+    if age >= 12:
+        print("Ride approved")`, options: ["Yes", "No", "Only with elif", "It causes an error"], correct: 0, explanation: "Correct — >= includes 12 itself." },
+        { id: "relevance", question: "Why might nesting be useful for checking stock inside shop_open?", code: "", options: ["Stock is relevant only after the shop is open", "It repeats the program", "It converts stock to text", "It removes indentation"], correct: 0, explanation: "Correct — nesting mirrors the natural order of related questions." },
+        { id: "and", question: "Which simple check can be written without nesting when no separate messages are needed?", code: "", options: ["if ticket and age >= 12:", "if ticket age >= 12:", "if inside ticket:", "and ticket if age:"], correct: 0, explanation: "Correct — and can combine two requirements when a single result is enough." },
+        { id: "outer-output", question: "What appears when shop_open is False?", code: `if shop_open:
+    print("Open")
+    if in_stock:
+        print("Available")
+else:
+    print("Closed")`, options: ["Closed", "Open", "Available", "Open and Available"], correct: 0, explanation: "Correct — Python skips everything inside the False outer path and runs its else." },
+        { id: "depth", question: "What is a good beginner habit for nested conditions?", code: "", options: ["Keep each level purposeful and readable", "Nest every if", "Remove all indentation", "Use as many levels as possible"], correct: 0, explanation: "Correct — nesting should clarify the decision, not bury it under unnecessary levels." },
+        { id: "syntax", question: "Which version is correctly indented?", code: "", options: [`if ready:
+    if safe:
+        print("Begin")`, `if ready:
+if safe:
+print("Begin")`, `if ready
+    if safe
+        print("Begin")`, `if ready: if safe:
+print("Begin")`], correct: 0, explanation: "Correct — every controlled block is indented one additional level and each if ends with a colon." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display when registered is False?",
+      code: `if registered:
+    print("Registration found")
+    if age >= 16:
+        print("Check-in approved")
+else:
+    print("Please register first")`,
+      options: ["Please register first", "Registration found", "Check-in approved", "Registration found and Check-in approved"],
+      correct: 0,
+      explanation: "Correct — the outer condition is False, so Python does not enter its block or check the nested age condition. It runs the outer else instead."
+    }
   }
 };
