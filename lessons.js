@@ -6071,5 +6071,225 @@ print(result)`,
       correct: 0,
       explanation: "Correct — score >= 50 is True, so Python selects the value before if: Pass."
     }
+  },
+  24: {
+    title: "While Loops",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["Repeat safely", "while", "Stopping conditions"],
+    usesInput: false,
+    intro: "A loop lets Python repeat a useful instruction. Today you will control where repetition starts, why it continues, and exactly how it stops.",
+    explanation: `A <strong>while loop</strong> repeats its indented instructions while a condition remains <code>True</code>. Python checks the condition before every repetition.<br><br>A controlled loop normally has three parts: a starting value, a condition, and a change that moves the loop toward stopping. If the condition is already <code>False</code>, the body runs zero times.`,
+    concept: "A while loop follows this rhythm: start, check, run, change, then check again. The changing value should eventually make the condition False.",
+    starterCode: `count = 1
+
+while count <= 5:
+    print(f"Count: {count}")
+    count = count + 1
+
+print("Counting complete.")`,
+    expectedOutput: `Count: 1
+Count: 2
+Count: 3
+Count: 4
+Count: 5
+Counting complete.`,
+    lineByLine: [
+      "count = 1 gives the loop its starting value.",
+      "while count <= 5 checks the stopping condition before every repetition.",
+      "The indented print() runs only while that condition is True.",
+      "count = count + 1 changes the value, so the loop makes progress toward stopping.",
+      "When count becomes 6, 6 <= 5 is False. Python leaves the loop and prints Counting complete."
+    ],
+    outputExplanation: "The loop displays 1 through 5. After displaying 5, it changes count to 6 and checks again. The condition is now False, so Python continues with the unindented instruction after the loop.",
+    changeIt: `First change the finishing number from <code>5</code> to <code>8</code>. Predict how many Count lines will appear.<br><br>Next start at <code>3</code> and finish at <code>5</code>. Finally, restore the start to <code>1</code> and change the update to <code>count = count + 2</code>. Predict the sequence before running it.`,
+    challenge: {
+      title: "Rocket Countdown",
+      mission: "Display every number from start down to 1, then display Liftoff! The supplied loop must also handle start = 0 safely.",
+      starterCode: `start = 5
+
+# Build the countdown loop here
+
+print("Liftoff!")`
+    },
+    hint: "Use while start > 0. Inside the loop, print start and then subtract 1 from it.",
+    solution: `start = 5
+
+while start > 0:
+    print(start)
+    start = start - 1
+
+print("Liftoff!")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only knowledge from Lessons 1–24: values, strings, numbers, arithmetic, comparisons, decisions, input before a loop, while loops, f-strings and print. Do not use for loops, break, continue, collections or functions.",
+      activities: [
+        { id: "count-five", stage: "EASY START · START CHECK CHANGE", title: "Count to Five", mission: "Run the loop, then identify its starting value, condition and update.", starterCode: `count = 1
+while count <= 5:
+    print(count)
+    count = count + 1`, hint: "Start is 1, the condition uses <= 5, and the update adds 1.", check: { mustRun: true } },
+        { id: "count-twos", stage: "CHANGE THE STEP · PREDICT FIRST", title: "Count by Twos", mission: "Change the starting value and finishing value, then predict the complete sequence.", starterCode: `number = 2
+while number <= 10:
+    print(number)
+    number = number + 2`, hint: "Each repetition adds 2, so the displayed values are evenly spaced.", check: { mustChange: true, mustRun: true } },
+        { id: "countdown", stage: "MOVE DOWNWARD · SUBTRACT ONE", title: "Countdown to Go", mission: "Change the start to 5 and keep the loop stopping safely at zero.", starterCode: `countdown = 3
+while countdown > 0:
+    print(countdown)
+    countdown = countdown - 1
+print("Go!")`, hint: "A countdown needs a decreasing value and a > 0 condition.", check: { mustChange: true, mustRun: true } },
+        { id: "middle", stage: "DIFFERENT START · SAME FINISH", title: "Start in the Middle", mission: "Try starts of 3, 5 and 6. Observe which run has zero repetitions.", starterCode: `count = 3
+while count <= 5:
+    print(count)
+    count = count + 1
+print("Finished")`, hint: "When count starts at 6, the first condition check is already False.", check: { mustRun: true } },
+        { id: "zero-times", stage: "ZERO REPETITIONS · CONDITION FIRST", title: "Skip the Loop", mission: "Run this initially-False loop, then change the start so its body runs exactly twice.", starterCode: `number = 10
+while number <= 5:
+    print(number)
+    number = number + 1
+print("Loop finished")`, hint: "A start of 4 reaches 4 and 5 before stopping.", check: { mustChange: true, mustRun: true } },
+        { id: "points-target", stage: "BUILD TOWARD A TARGET · ADD EACH TIME", title: "Points Builder", mission: "Change the starting points and step while keeping the loop finite.", starterCode: `points = 0
+while points < 20:
+    print(f"Points: {points}")
+    points = points + 5
+print("Target reached")`, hint: "Use a positive step because points must move upward toward 20.", check: { mustChange: true, mustRun: true } },
+        { id: "repair-loop", stage: "FIX IT · MAKE PROGRESS", title: "Repair the Loop", mission: "Add the missing update so the loop displays 1, 2 and 3, then stops.", starterCode: `count = 1
+while count <= 3:
+    print(count)
+    # Add the update here`, hint: "Inside the loop, give count its current value plus 1.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-up", skill: "Count Up", title: "Fresh Count Up", mission: "Predict every displayed number, then change the start while keeping the loop safe.", starterCode: `number = {{start}}
+while number <= {{finish}}:
+    print(number)
+    number = number + 1`, hint: "The value increases by 1 until it becomes greater than the finish.", solution: "Keep a positive update and a <= finishing condition.", success: "You completed a fresh count-up loop.", check: { mustChange: true }, values: { start: [1, 2, 3, 4], finish: [5, 6, 7, 8] } },
+        { id: "fresh-step", skill: "Generated Steps", title: "Fresh Stepping Loop", mission: "Follow a generated positive step and predict the sequence before running.", starterCode: `number = {{start}}
+while number <= {{finish}}:
+    print(number)
+    number = number + {{step}}`, hint: "Add the same positive step every time.", solution: "List values from the start, repeatedly adding the step while they remain <= the finish.", success: "You completed a fresh stepping loop.", check: { mustChange: true }, values: { start: [0, 1, 2, 3], finish: [10, 12, 15, 18], step: [2, 3, 4] } },
+        { id: "fresh-down", skill: "Countdown", title: "Fresh Countdown", mission: "Predict the descending sequence and keep the subtraction inside the loop.", starterCode: `count = {{start}}
+while count > 0:
+    print(count)
+    count = count - 1
+print("Done")`, hint: "Subtract 1 so count moves toward the False condition.", solution: "Print, subtract one, then check > 0 again.", success: "You completed a fresh countdown.", check: { mustChange: true }, values: { start: [3, 4, 5, 6, 7] } },
+        { id: "fresh-points", skill: "Reach a Target", title: "Fresh Points Target", mission: "Add a generated amount until the points reach or pass the target.", starterCode: `points = {{start}}
+while points < {{target}}:
+    print(f"Points: {points}")
+    points = points + {{step}}
+print("Target reached")`, hint: "A positive step makes points move toward the target.", solution: "Keep points < target and add the step inside the loop.", success: "You completed a fresh target loop.", check: { mustChange: true }, values: { start: [0, 2, 5], target: [15, 20, 25, 30], step: [2, 3, 5] } },
+        { id: "fresh-message", skill: "Controlled Repetition", title: "Fresh Message Repeater", mission: "Display the generated message the requested number of times.", starterCode: `repeat = 1
+while repeat <= {{times}}:
+    print("{{message}}")
+    repeat = repeat + 1`, hint: "Start at 1 and add 1 after every displayed message.", solution: "The <= condition includes the final repetition number.", success: "You completed a fresh message loop.", check: { mustChange: true }, values: { times: [2, 3, 4, 5], message: ["Keep learning", "One step at a time", "Python practice", "I can do this"] } },
+        { id: "fresh-boundary", skill: "Zero or More Repetitions", title: "Fresh Boundary Loop", mission: "Decide whether the loop runs zero times or several times, then change its start.", starterCode: `value = {{start}}
+while value < {{limit}}:
+    print(value)
+    value = value + {{step}}
+print("Finished")`, hint: "Check the starting condition before predicting any output from the loop body.", solution: "If start is already at or above limit, only Finished appears.", success: "You completed a fresh boundary loop.", check: { mustChange: true }, values: { start: [0, 2, 5, 8, 10], limit: [5, 8, 10, 12], step: [1, 2, 3] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "rocket", title: "Rocket Countdown", mission: "Display every number from start down to 1, then Liftoff!", starterCode: `start = 5
+
+# Build the countdown
+
+print("Liftoff!")`, hint: "Use while start > 0, print start, then subtract 1.", solution: `start = 5
+while start > 0:
+    print(start)
+    start = start - 1
+print("Liftoff!")` },
+        { id: "savings", title: "Savings Target", mission: "Display savings from 0, adding 10 until the target of 50 is reached.", starterCode: `savings = 0
+
+# Build the savings loop
+
+print("Savings target reached")`, hint: "Repeat while savings < 50 and add 10 each time.", solution: `savings = 0
+while savings < 50:
+    print(f"Savings: {savings}")
+    savings = savings + 10
+print("Savings target reached")` },
+        { id: "training", title: "Training Repetitions", mission: "Display Training 1 through Training 4, then Session complete.", starterCode: `repetition = 1
+
+# Build four repetitions
+
+print("Session complete")`, hint: "Use repetition <= 4 and add 1 inside the loop.", solution: `repetition = 1
+while repetition <= 4:
+    print(f"Training {repetition}")
+    repetition = repetition + 1
+print("Session complete")` },
+        { id: "climber", title: "Number Climber", mission: "Display 2, 5, 8 and 11 using one while loop.", starterCode: `number = 2
+
+# Build the climbing loop`, hint: "The numbers rise by 3 and the final allowed value is 11.", solution: `number = 2
+while number <= 11:
+    print(number)
+    number = number + 3` },
+        { id: "zero", title: "Zero-Run Gate", mission: "Create a loop that displays Ready only while tickets > 0. Begin with zero and confirm that only Finished appears.", starterCode: `tickets = 0
+
+# Build the loop
+
+print("Finished")`, hint: "Use while tickets > 0. The starting condition is False.", solution: `tickets = 0
+while tickets > 0:
+    print("Ready")
+    tickets = tickets - 1
+print("Finished")` },
+        { id: "repair-endless", title: "Repair the Endless Loop", mission: "Add one line so this program displays 1 through 4 and safely stops.", starterCode: `number = 1
+while number <= 4:
+    print(number)
+    # Missing progress`, hint: "Increase number by 1 inside the loop.", solution: `number = 1
+while number <= 4:
+    print(number)
+    number = number + 1` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What does a while loop do?", code: "", options: ["Repeats while a condition is True", "Runs only once", "Creates a string", "Deletes a condition"], correct: 0, explanation: "Correct — Python checks the condition before each repetition." },
+        { id: "three-parts", question: "Which three ideas usually control a beginner while loop?", code: "", options: ["Start, condition and change", "Input, list and function", "String, file and class", "Comment, import and module"], correct: 0, explanation: "Correct — the changing value moves from its start toward making the condition False." },
+        { id: "output-three", question: "What is displayed?", code: `count = 1
+while count <= 3:
+    print(count)
+    count = count + 1`, options: ["1, 2, 3", "1, 2, 3, 4", "1 forever", "Nothing"], correct: 0, explanation: "Correct — count becomes 4 after displaying 3, so the next condition is False." },
+        { id: "zero", question: "How many times does this loop body run?", code: `count = 10
+while count <= 5:
+    print(count)
+    count = count + 1`, options: ["Zero", "One", "Five", "Forever"], correct: 0, explanation: "Correct — the condition is False before the first repetition." },
+        { id: "endless", question: "Why does this loop not stop?", code: `number = 1
+while number < 5:
+    print(number)`, options: ["number never changes", "print is missing", "The condition is False", "while needs else"], correct: 0, explanation: "Correct — number remains 1, so number < 5 stays True." },
+        { id: "fix", question: "Which line safely fixes the loop?", code: `number = 1
+while number < 5:
+    print(number)`, options: ["number = number + 1", "number = 1", "print = number", "while = False"], correct: 0, explanation: "Correct — adding 1 moves number toward the stopping condition." },
+        { id: "after", question: "When does Done appear?", code: `count = 1
+while count <= 2:
+    print(count)
+    count = count + 1
+print("Done")`, options: ["After the loop stops", "Inside every repetition", "Before 1", "Never"], correct: 0, explanation: "Correct — the unindented print runs after the loop." },
+        { id: "countdown", question: "What is the countdown output?", code: `count = 3
+while count > 0:
+    print(count)
+    count = count - 1`, options: ["3, 2, 1", "1, 2, 3", "3, 2, 1, 0", "3 forever"], correct: 0, explanation: "Correct — zero fails the > 0 condition and is not displayed." },
+        { id: "step-two", question: "What values appear?", code: `number = 1
+while number <= 6:
+    print(number)
+    number = number + 2`, options: ["1, 3, 5", "1, 2, 3, 4, 5, 6", "2, 4, 6", "1, 3, 5, 7"], correct: 0, explanation: "Correct — the update adds 2, and 7 is beyond the allowed boundary." },
+        { id: "condition-time", question: "When is the while condition checked?", code: "", options: ["Before every repetition", "Only after the program ends", "Only once after the body", "Never"], correct: 0, explanation: "Correct — this is why the body may run zero times." },
+        { id: "indent", question: "Which instructions repeat?", code: `while count <= 3:
+    print(count)
+    count = count + 1
+print("Done")`, options: ["The two indented instructions", "Only Done", "Every line forever", "No instructions"], correct: 0, explanation: "Correct — indentation marks the loop body." },
+        { id: "safe-progress", question: "Which update moves an upward loop toward a larger target?", code: "", options: ["value = value + 1", "value = value - 1", "value = value", "Remove the condition"], correct: 0, explanation: "Correct — a positive update makes progress toward a larger boundary." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `count = 1
+while count <= 3:
+    print(count)
+    count = count + 1`,
+      options: ["1, 2, 3", "1, 2, 3, 4", "1 forever", "Nothing"],
+      correct: 0,
+      explanation: "Correct — after displaying 3, count becomes 4. The condition 4 <= 3 is False, so the loop stops."
+    }
   }
 };

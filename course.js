@@ -12,6 +12,7 @@
     freshPractice: "python.detleng.freshPractice"
   };
   let pyodideReady = null;
+  const loopSafetyMessage = "This program kept running longer than expected. Check whether a value inside the loop changes so the condition can become False.";
   let hasRun = false;
   let hasPersonalInputRun = false;
   let quizPassed = false;
@@ -448,10 +449,44 @@
     }
   }
 
+  function hasObviousEndlessWhile(code) {
+    if (lessonId < 24 || lessonId > 30) return false;
+    const lines = code.replace(/\t/g, "    ").split("\n");
+    for (let index = 0; index < lines.length; index += 1) {
+      const match = lines[index].match(/^(\s*)while\s+(.+?)\s*:\s*(?:#.*)?$/);
+      if (!match) continue;
+      const baseIndent = match[1].length;
+      const condition = match[2].trim();
+      const body = [];
+      for (let bodyIndex = index + 1; bodyIndex < lines.length; bodyIndex += 1) {
+        if (!lines[bodyIndex].trim()) continue;
+        const indent = lines[bodyIndex].match(/^\s*/)[0].length;
+        if (indent <= baseIndent) break;
+        body.push(lines[bodyIndex].trim());
+      }
+      if (body.some(line => /^break\b/.test(line))) continue;
+      if (["True", "1"].includes(condition)) return true;
+      const names = [...new Set(condition.match(/[A-Za-z_]\w*/g) || [])]
+        .filter(name => !["and", "or", "not", "True", "False"].includes(name));
+      if (!names.length) continue;
+      const changesCondition = names.some(name => body.some(line => new RegExp(`\\b${name}\\s*(?:=|\\+=|-=|\\*=|/=|//=|%=|\\*\\*=)`).test(line)));
+      if (!changesCondition) return true;
+    }
+    return false;
+  }
+
   window.runPython = async function () {
     if (!pyodideReady) return;
     const button = byId("runBtn");
     const code = byId("code").value;
+    if (hasObviousEndlessWhile(code)) {
+      hasRun = true;
+      lastRun = { code, input: byId("programInput").value, succeeded: false, output: loopSafetyMessage };
+      byId("outputText").textContent = loopSafetyMessage;
+      byId("interactionNote").textContent = "Your page is safe. Add or repair the changing loop value, then run again.";
+      scrollConsoleToBottom();
+      return;
+    }
     button.disabled = true;
     button.textContent = "Running…";
     try {
