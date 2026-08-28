@@ -5241,5 +5241,289 @@ else print("Wait")`],
       correct: 0,
       explanation: "Correct — if and else align, each has a colon, and each controlled instruction is indented."
     }
+  },
+  21: {
+    title: "Elif",
+    stage: "Foundations",
+    level: "Beginner",
+    time: "~20 minutes",
+    tags: ["Multiple conditions", "elif", "First match wins"],
+    usesInput: true,
+    intro: "Some decisions need more than two paths. Today you will connect several conditions and let Python choose the first one that matches.",
+    explanation: `An <strong>if / elif / else</strong> chain gives Python several connected paths. Python checks them from top to bottom. The first condition that becomes <code>True</code> runs its indented block, and Python skips the rest of that chain.<br><br>The word <code>elif</code> means “otherwise, if this condition is True”. You may use more than one <code>elif</code>, but every chain begins with <code>if</code>. The final <code>else</code> needs no condition because it handles anything not already matched.`,
+    concept: "Python checks a connected decision chain from top to bottom. The first True branch wins, so condition order matters.",
+    starterCode: `score = float(input("Enter your score: "))
+
+print(f"Score: {score}")
+
+if score >= 80:
+    print("Result: Excellent")
+elif score >= 50:
+    print("Result: Passed")
+else:
+    print("Result: Keep practising")
+
+print("Result check complete.")`,
+    starterInput: "86",
+    expectedOutput: `Enter your score: 86
+Score: 86.0
+Result: Excellent
+Result check complete.`,
+    lineByLine: [
+      "input() asks for a score, and float() converts the typed text into a number.",
+      "Python first checks score >= 80. When it is True, Excellent runs and the rest of the chain is skipped.",
+      "The elif condition is checked only when the earlier if condition was False.",
+      "The final else handles every score that matched neither earlier condition.",
+      "The last print() is outside the chain, so it runs after whichever branch Python chooses."
+    ],
+    outputExplanation: "With 86, both score >= 80 and score >= 50 could be true, but only Excellent appears. Python stops at the first True branch in this connected chain.",
+    changeIt: `Run the starter with <code>86</code>, <code>65</code>, and <code>32</code> to reach all three paths. Predict each result first.<br><br>Then test the exact boundaries <code>80</code>, <code>50</code>, and <code>49</code>. Finally, swap the two conditions so <code>score &gt;= 50</code> comes first. Run 86 again and explain why the result becomes Passed even though the code has no syntax error.`,
+    challenge: {
+      title: "The Adventure Guide",
+      mission: "Use experience points to choose one of four locations. Begin with the highest threshold and keep the final print() outside the decision chain.",
+      starterCode: `points = float(input("Experience points: "))
+
+# Build the decision chain here
+
+print(f"Next location: {location}")`,
+      starterInput: "120"
+    },
+    hint: "Check 100 first, then 60, then 25. Assign location in every branch so the final print() always has a value to display.",
+    solution: `points = float(input("Experience points: "))
+
+if points >= 100:
+    location = "Dragon Mountain"
+elif points >= 60:
+    location = "Crystal Forest"
+elif points >= 25:
+    location = "Green Valley"
+else:
+    location = "Training Camp"
+
+print(f"Next location: {location}")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only knowledge from Lessons 1–21: input, conversion, values, strings, arithmetic, comparisons, logical operators, if, elif, else and print. Do not use nested decisions, loops, collections or functions.",
+      activities: [
+        { id: "score-paths", stage: "EASY START · REACH THREE PATHS", title: "Three Score Paths", mission: "Run 86, 65 and 32 on separate attempts and observe that exactly one result appears each time.", starterCode: `score = float(input("Score: "))
+if score >= 80:
+    print("Excellent")
+elif score >= 50:
+    print("Passed")
+else:
+    print("Keep practising")`, starterInput: "86", hint: "Use one value from each range: 80+, 50–79, and below 50.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "weather", stage: "BOUNDARIES · 25 AND 15", title: "Weather Advice", mission: "Test 25, 15 and 14 and notice where each exact boundary belongs.", starterCode: `temperature = float(input("Temperature: "))
+if temperature >= 25:
+    print("Wear light clothing")
+elif temperature >= 15:
+    print("Take a jacket")
+else:
+    print("Wear a warm coat")`, starterInput: "25", hint: "The >= operator includes the threshold itself.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "ticket", stage: "REAL-LIFE RANGES · HIGHEST FIRST", title: "Ticket Category", mission: "Reach Senior, Adult and Junior with different ages, including exact boundaries.", starterCode: `age = float(input("Age: "))
+if age >= 65:
+    print("Senior ticket")
+elif age >= 18:
+    print("Adult ticket")
+else:
+    print("Junior ticket")`, starterInput: "70", hint: "Try 65, 18 and 17 after the first run.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "delivery", stage: "TEXT CHOICES · HONEST ELSE", title: "Delivery Speed", mission: "Try fast, normal, economy and one unexpected word. Notice what else really means.", starterCode: `choice = input("Choose fast, normal, or economy: ")
+if choice == "fast":
+    print("Express delivery")
+elif choice == "normal":
+    print("Standard delivery")
+else:
+    print("Economy delivery")`, starterInput: "fast", hint: "Any answer other than fast or normal reaches else—even a misspelling.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "sign", stage: "EXACT MATCH · GIVE ZERO A HOME", title: "Number Description", mission: "Run a positive number, zero and a negative number to reach every branch.", starterCode: `number = float(input("Number: "))
+if number > 0:
+    print("Positive")
+elif number == 0:
+    print("Zero")
+else:
+    print("Negative")`, starterInput: "0", hint: "Zero is neither greater than zero nor less than zero.", check: { mustRun: true, minimumInputLines: 1 } },
+        { id: "order", stage: "LOGIC BUG · CODE CAN RUN AND BE WRONG", title: "Order Matters", mission: "Reorder the conditions so 120 displays Gold instead of Silver.", starterCode: `points = float(input("Points: "))
+if points >= 50:
+    print("Silver")
+elif points >= 100:
+    print("Gold")
+else:
+    print("Keep collecting")`, starterInput: "120", hint: "Move the more specific, higher threshold above the broader threshold.", check: { mustChange: true, mustRun: true, minimumInputLines: 1 } },
+        { id: "repair", stage: "FIX IT · COLONS AND INDENTATION", title: "Repair the Chain", mission: "Repair all missing colons and indentation, then run each score path.", starterCode: `score = float(input("Score: "))
+if score >= 80:
+print("Excellent")
+elif score >= 50
+    print("Passed")
+else
+    print("Keep practising")`, starterInput: "65", hint: "Indent the first message and add : after the elif and else lines.", check: { mustChange: true, mustRun: true, minimumInputLines: 1 } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-score-bands", skill: "Score Bands", title: "Fresh Score Categories", mission: "Predict the first matching score category, then run the program.", starterCode: `score = float(input("Score: "))
+if score >= {{high}}:
+    print("High result")
+elif score >= {{middle}}:
+    print("Middle result")
+else:
+    print("Building result")`, starterInput: "{{score}}", hint: "Check the higher threshold first, then the middle threshold.", solution: "Test one value in each of the three ranges.", success: "You completed a fresh score-band decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { high: [80, 85, 90], middle: [40, 50, 60], score: [25, 45, 55, 65, 82, 91, 98] } },
+        { id: "fresh-temperature", skill: "Weather Bands", title: "Fresh Weather Guide", mission: "Use the temperature to select one of three clothing messages.", starterCode: `temperature = float(input("Temperature: "))
+if temperature >= {{warm}}:
+    print("Light clothing")
+elif temperature >= {{cool}}:
+    print("Take a jacket")
+else:
+    print("Warm coat")`, starterInput: "{{temperature}}", hint: "The warm threshold must stay above the cool threshold.", solution: "Try each boundary and a value below both.", success: "You completed a fresh weather-band decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { warm: [24, 25, 28], cool: [10, 12, 15], temperature: [5, 12, 17, 24, 27, 31] } },
+        { id: "fresh-age", skill: "Age Bands", title: "Fresh Ticket Guide", mission: "Choose Senior, Adult or Junior from the entered age.", starterCode: `age = float(input("Age: "))
+if age >= {{senior}}:
+    print("Senior ticket")
+elif age >= {{adult}}:
+    print("Adult ticket")
+else:
+    print("Junior ticket")`, starterInput: "{{age}}", hint: "Highest age threshold comes first.", solution: "Test the two boundaries and one younger age.", success: "You completed a fresh age-band decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { senior: [60, 65, 70], adult: [16, 18, 21], age: [10, 17, 22, 60, 67, 75] } },
+        { id: "fresh-membership", skill: "Membership Levels", title: "Fresh Member Level", mission: "Use points to display one membership level.", starterCode: `points = float(input("Member points: "))
+if points >= {{gold}}:
+    print("Gold member")
+elif points >= {{silver}}:
+    print("Silver member")
+else:
+    print("Starter member")`, starterInput: "{{points}}", hint: "Gold must be checked before Silver.", solution: "Exactly the threshold belongs to that level.", success: "You completed a fresh membership decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { gold: [100, 120, 150], silver: [40, 50, 75], points: [20, 50, 80, 110, 140, 180] } },
+        { id: "fresh-delivery", skill: "Delivery Bands", title: "Fresh Delivery Cost", mission: "Select free, reduced or standard delivery from the order total.", starterCode: `total = float(input("Order total: "))
+if total >= {{free}}:
+    print("Free delivery")
+elif total >= {{reduced}}:
+    print("Reduced delivery")
+else:
+    print("Standard delivery")`, starterInput: "{{total}}", hint: "Check the free-delivery threshold first.", solution: "Run one total in each band.", success: "You completed a fresh delivery-band decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { free: [50, 60, 75], reduced: [20, 25, 30], total: [10, 25, 40, 55, 70, 90] } },
+        { id: "fresh-number", skill: "Number Classification", title: "Fresh Number Description", mission: "Classify a number as above, equal to or below a chosen target.", starterCode: `number = float(input("Number: "))
+target = {{target}}
+if number > target:
+    print("Above target")
+elif number == target:
+    print("Exactly on target")
+else:
+    print("Below target")`, starterInput: "{{number}}", hint: "Equality needs its own elif branch.", solution: "Test the target itself plus one value on either side.", success: "You completed a fresh number-classification decision.", check: { mustChange: true, minimumInputLines: 1 }, values: { target: [0, 5, 10, 20], number: [-4, 0, 4, 5, 9, 10, 15, 25] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "adventure", title: "Adventure Guide", mission: "Assign Dragon Mountain, Crystal Forest, Green Valley or Training Camp using thresholds 100, 60 and 25.", starterCode: `points = float(input("Experience points: "))
+
+# Create the four paths
+
+print(f"Next location: {location}")`, starterInput: "120", hint: "Begin with points >= 100 and move downward.", solution: `points = float(input("Experience points: "))
+if points >= 100:
+    location = "Dragon Mountain"
+elif points >= 60:
+    location = "Crystal Forest"
+elif points >= 25:
+    location = "Green Valley"
+else:
+    location = "Training Camp"
+print(f"Next location: {location}")` },
+        { id: "grade", title: "Grade Band", mission: "Display A for 80+, B for 70+, C for 60+, and Keep learning otherwise.", starterCode: `score = float(input("Score: "))
+
+# Create the grade chain`, starterInput: "74", hint: "Start with the highest threshold.", solution: `score = float(input("Score: "))
+if score >= 80:
+    print("Grade A")
+elif score >= 70:
+    print("Grade B")
+elif score >= 60:
+    print("Grade C")
+else:
+    print("Keep learning")` },
+        { id: "cinema", title: "Cinema Ticket", mission: "Select Senior, Adult or Junior ticket from age, then print the selected ticket.", starterCode: `age = float(input("Age: "))
+
+# Assign ticket here
+
+print(ticket)`, starterInput: "30", hint: "Check senior age before adult age.", solution: `age = float(input("Age: "))
+if age >= 65:
+    ticket = "Senior ticket"
+elif age >= 18:
+    ticket = "Adult ticket"
+else:
+    ticket = "Junior ticket"
+print(ticket)` },
+        { id: "clothing", title: "Clothing Adviser", mission: "Recommend light clothing at 25+, a jacket at 15+, and a warm coat otherwise.", starterCode: `temperature = float(input("Temperature: "))
+
+# Add the decision chain`, starterInput: "16", hint: "Check 25 before 15.", solution: `temperature = float(input("Temperature: "))
+if temperature >= 25:
+    print("Light clothing")
+elif temperature >= 15:
+    print("Take a jacket")
+else:
+    print("Warm coat")` },
+        { id: "delivery-priority", title: "Delivery Priority", mission: "Map urgent to Same-day, normal to Standard, and every remaining answer to Economy.", starterCode: `priority = input("Priority: ")
+
+# Choose delivery`, starterInput: "urgent", hint: "Compare exact text in the if and elif conditions.", solution: `priority = input("Priority: ")
+if priority == "urgent":
+    print("Same-day delivery")
+elif priority == "normal":
+    print("Standard delivery")
+else:
+    print("Economy delivery")` },
+        { id: "rank", title: "Game Rank Reporter", mission: "Display Master for 100+, Explorer for 50+, Beginner for 10+, and New Player otherwise.", starterCode: `points = float(input("Game points: "))
+
+# Report the rank`, starterInput: "55", hint: "Order thresholds 100, 50, 10.", solution: `points = float(input("Game points: "))
+if points >= 100:
+    print("Master")
+elif points >= 50:
+    print("Explorer")
+elif points >= 10:
+    print("Beginner")
+else:
+    print("New Player")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What does elif mean in a decision chain?", code: "", options: ["Otherwise, check another condition", "Repeat the program", "End Python", "Create a variable"], correct: 0, explanation: "Correct — elif checks another condition only after earlier conditions were False." },
+        { id: "first-match", question: "What happens after the first True branch runs?", code: "", options: ["Python skips the remaining chain", "Every later branch runs", "The program restarts", "Python asks again"], correct: 0, explanation: "Correct — the first matching branch wins." },
+        { id: "output-90", question: "What does this display when score is 90?", code: `if score >= 80:
+    print("Excellent")
+elif score >= 50:
+    print("Passed")
+else:
+    print("Keep practising")`, options: ["Excellent", "Passed", "Both Excellent and Passed", "Nothing"], correct: 0, explanation: "Correct — Python stops after the first True branch." },
+        { id: "output-65", question: "What does the same chain display when score is 65?", code: "", options: ["Excellent", "Passed", "Keep practising", "An error"], correct: 1, explanation: "Correct — 65 misses 80 but reaches 50." },
+        { id: "boundary-50", question: "Which branch receives exactly 50?", code: `if score >= 80:
+    print("Excellent")
+elif score >= 50:
+    print("Passed")
+else:
+    print("Keep practising")`, options: ["Excellent", "Passed", "Keep practising", "None"], correct: 1, explanation: "Correct — >= includes equality." },
+        { id: "needs-if", question: "Can elif begin a decision chain without if?", code: "", options: ["No", "Yes", "Only with numbers", "Only with input"], correct: 0, explanation: "Correct — every elif belongs to an earlier if." },
+        { id: "many", question: "Can one chain contain more than one elif?", code: "", options: ["Yes", "No", "Only in comments", "Only after else"], correct: 0, explanation: "Correct — use as many sensible intermediate paths as the decision needs." },
+        { id: "else-condition", question: "Does else need its own condition?", code: "", options: ["No", "Yes", "Only for text", "Only after two elif lines"], correct: 0, explanation: "Correct — else handles everything still unmatched." },
+        { id: "alignment", question: "Where should elif and else line up?", code: "", options: ["With their connected if", "Inside the previous print", "Anywhere", "After the program ends"], correct: 0, explanation: "Correct — the branch keywords align; their controlled instructions are indented." },
+        { id: "wrong-order", question: "Why does 120 display Silver here?", code: `if points >= 50:
+    print("Silver")
+elif points >= 100:
+    print("Gold")`, options: ["The broad 50+ condition matches first", "120 is below 100", "elif never runs", "Python cannot compare numbers"], correct: 0, explanation: "Correct — order is a logic issue even though the code runs." },
+        { id: "independent", question: "How is a chain different from independent if statements?", code: "", options: ["A chain runs only its first matching branch", "A chain runs every matching branch", "A chain cannot compare values", "There is no difference"], correct: 0, explanation: "Correct — separate if statements are each checked independently." },
+        { id: "zero", question: "What is displayed when number is 0?", code: `if number > 0:
+    print("Positive")
+elif number == 0:
+    print("Zero")
+else:
+    print("Negative")`, options: ["Positive", "Zero", "Negative", "Nothing"], correct: 1, explanation: "Correct — equality gives zero its own branch." }
+      ]
+    },
+    quiz: {
+      question: "Which chain correctly checks the highest score range first?",
+      code: "",
+      options: [`if score >= 80:
+    print("Excellent")
+elif score >= 50:
+    print("Passed")
+else:
+    print("Keep practising")`, `elif score >= 80:
+    print("Excellent")
+else:
+    print("Passed")`, `if score >= 50:
+    print("Passed")
+elif score >= 80:
+    print("Excellent")`, `if score >= 80
+print("Excellent")`],
+      correct: 0,
+      explanation: "Correct — the chain begins with if, checks the highest threshold first, uses colons, and indents each branch body."
+    }
   }
 };
