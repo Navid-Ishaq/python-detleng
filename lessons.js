@@ -6291,5 +6291,218 @@ while count <= 3:
       correct: 0,
       explanation: "Correct — after displaying 3, count becomes 4. The condition 4 <= 3 is False, so the loop stops."
     }
+  },
+  25: {
+    title: "For Loops",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["Items one by one", "for", "Finite repetition"],
+    usesInput: false,
+    intro: "A for loop helps Python work with available items one at a time. Today you will greet names, visit characters and see how indentation controls what repeats.",
+    explanation: `A <strong>for loop</strong> takes each item from a sequence and runs its indented instructions once for that item.<br><br>In <code>for colour in colours:</code>, <code>colour</code> is the loop variable. Python gives it the first value, runs the loop body, then gives it the next value. When no items remain, the loop finishes naturally.`,
+    concept: "A for loop says: for each available item, run these instructions. Python moves to the next item automatically and stops when the items are finished.",
+    starterCode: `colours = ["red", "green", "blue"]
+
+for colour in colours:
+    print(f"Colour: {colour}")
+
+print("Finished.")`,
+    expectedOutput: `Colour: red
+Colour: green
+Colour: blue
+Finished.`,
+    lineByLine: [
+      "colours stores three text values for this small example.",
+      "for colour in colours asks Python to take the values one at a time.",
+      "On the first repetition, colour refers to red; next it refers to green, then blue.",
+      "The indented print() belongs to the loop, so it runs once for every colour.",
+      "The final print() is not indented. It runs once after every available colour has been processed."
+    ],
+    outputExplanation: "The three Colour lines come from the indented loop body. Finished appears only once because it is outside the loop. Python needed no changing counter: the collection itself told the for loop when it was finished.",
+    changeIt: `First add <code>"yellow"</code> to the colours and predict how many Colour lines will appear.<br><br>Next rename the loop variable from <code>colour</code> to <code>item</code> in both places. Then indent <code>print("Finished.")</code> so it becomes part of the loop and observe why its output changes.<br><br>Finally try <code>colours = []</code>. The loop body runs zero times, but the unindented final message still appears.`,
+    challenge: {
+      title: "The Travel Roll Call",
+      mission: "Use one for loop to display that each traveller is ready. After every traveller, display the final departure message exactly once.",
+      starterCode: `travellers = ["Amina", "Omar", "Sara"]
+
+# Write your for loop here
+
+print("Everyone is ready. Let us go!")`
+    },
+    hint: "Start with for traveller in travellers:. Put the personal ready message inside the loop and keep the final group message outside it.",
+    solution: `travellers = ["Amina", "Omar", "Sara"]
+
+for traveller in travellers:
+    print(f"{traveller} is ready.")
+
+print("Everyone is ready. Let us go!")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only knowledge from Lessons 1–25: values, strings, numbers, comparisons, decisions, while loops, small provided collections, for loops, f-strings and print. Do not use range, break, continue, nested loops, collection methods or functions.",
+      activities: [
+        { id: "welcome-guests", stage: "EASY START · EACH NAME ONCE", title: "Welcome Each Guest", mission: "Add one guest, change one name and run a personal welcome for everyone.", starterCode: `guests = ["Amina", "Bilal", "Sara"]
+
+for guest in guests:
+    print(f"Welcome, {guest}!")`, hint: "Change only the values in guests first. The loop already handles every available name.", check: { mustChange: true, mustRun: true } },
+        { id: "letters", stage: "TEXT IS A SEQUENCE · ONE CHARACTER AT A TIME", title: "Visit Every Letter", mission: "Change the word, predict its vertical output and run it.", starterCode: `word = "PYTHON"
+
+for letter in word:
+    print(letter)`, hint: "A for loop can take each character directly; no index is needed here.", check: { mustChange: true, mustRun: true } },
+        { id: "packing", stage: "SMALL COLLECTION · USEFUL LABEL", title: "Packing List", mission: "Add one useful item and make sure Bag ready appears only once.", starterCode: `items = ["water", "map", "snack"]
+
+for item in items:
+    print(f"Pack: {item}")
+
+print("Bag ready.")`, hint: "The item message is inside the loop. Keep the final message unindented.", check: { mustChange: true, mustRun: true } },
+        { id: "positive", stage: "REUSE IF · FILTER THE DISPLAY", title: "Positive Numbers", mission: "Predict which values appear, then add one positive and one negative number.", starterCode: `numbers = [4, -2, 7, -1]
+
+for number in numbers:
+    if number > 0:
+        print(number)`, hint: "The loop visits every number, but the if statement displays only numbers greater than zero.", check: { mustChange: true, mustRun: true } },
+        { id: "project-steps", stage: "MEANINGFUL VARIABLE · CLEAR STORY", title: "Project Steps", mission: "Replace one step and add one new step to the project.", starterCode: `steps = ["plan", "build", "test"]
+
+for step in steps:
+    print(f"Current step: {step}")`, hint: "The singular name step represents the current item from the plural collection steps.", check: { mustChange: true, mustRun: true } },
+        { id: "character-count", stage: "REUSE A COUNTER · ADD ONCE PER ITEM", title: "Count the Characters", mission: "Predict the answer, change the word and check its new character count.", starterCode: `word = "code"
+count = 0
+
+for letter in word:
+    count = count + 1
+
+print(count)`, hint: "The loop adds 1 once for every character it visits.", check: { mustChange: true, mustRun: true } },
+        { id: "empty", stage: "ZERO REPETITIONS · STILL CONTINUE", title: "Empty Shopping List", mission: "Run the empty collection, then add two items and compare the output.", starterCode: `shopping = []
+
+for item in shopping:
+    print(item)
+
+print("List checked.")`, hint: "With no items, the body runs zero times. The unindented final line still runs.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-guests", skill: "Each Name Once", title: "Fresh Guest Welcome", mission: "Predict every greeting, then replace one generated guest with a name of your choice.", starterCode: `guests = ["{{guest1}}", "{{guest2}}", "{{guest3}}"]
+
+for guest in guests:
+    print(f"Welcome, {guest}!")`, hint: "The loop uses the same instruction once for each name.", solution: "Keep the loop variable singular and use it inside the f-string.", success: "You welcomed every guest with one for loop.", check: { mustChange: true }, values: { guest1: ["Amina", "Hana", "Omar", "Yusuf"], guest2: ["Bilal", "Sara", "Maya", "Noor"], guest3: ["Ali", "Zara", "Lina", "Hamza"] } },
+        { id: "fresh-word", skill: "Characters in Text", title: "Fresh Letter Walk", mission: "Predict the vertical output, then change the generated word.", starterCode: `word = "{{word}}"
+
+for letter in word:
+    print(letter)`, hint: "Python visits the word from its first character to its last.", solution: "Use for letter in word and print the current letter.", success: "You visited every character in the word.", check: { mustChange: true }, values: { word: ["CODE", "LOOP", "LEARN", "LOGIC", "PYTHON", "BRAVE"] } },
+        { id: "fresh-label", skill: "Label Every Item", title: "Fresh Labelled List", mission: "Run the generated collection, then add one item with the same clear label.", starterCode: `items = ["{{item1}}", "{{item2}}", "{{item3}}"]
+
+for item in items:
+    print(f"{{label}}: {item}")`, hint: "The label stays fixed while item changes on each repetition.", solution: "Keep the f-string inside the loop and use item in its braces.", success: "You labelled every generated item.", check: { mustChange: true }, values: { item1: ["water", "book", "apple", "map"], item2: ["snack", "pen", "banana", "ticket"], item3: ["coat", "lamp", "orange", "camera"], label: ["Item", "Pack", "Choice", "Ready"] } },
+        { id: "fresh-filter", skill: "For with If", title: "Fresh Number Filter", mission: "Predict which generated numbers pass the condition, then add another passing value.", starterCode: `numbers = [{{number1}}, {{number2}}, {{number3}}, {{number4}}]
+
+for number in numbers:
+    if number > {{limit}}:
+        print(number)`, hint: "The for loop visits all four values; the if statement controls which ones are displayed.", solution: "Display the current number only when number > limit is True.", success: "You combined a for loop with a decision.", check: { mustChange: true }, values: { number1: [1, 3, 5], number2: [7, 9, 12], number3: [2, 4, 6], number4: [10, 14, 18], limit: [4, 5, 6, 8] } },
+        { id: "fresh-final", skill: "Inside and Outside", title: "Fresh Final Message", mission: "Add one collection value and keep the final message appearing exactly once.", starterCode: `places = ["{{place1}}", "{{place2}}", "{{place3}}"]
+
+for place in places:
+    print(f"Visiting {place}")
+
+print("{{finalMessage}}")`, hint: "The final message must remain unindented so it runs after the loop.", solution: "Put item-specific output inside the loop and one closing message outside it.", success: "You controlled repeated and one-time output.", check: { mustChange: true }, values: { place1: ["Cork", "Lahore", "Dublin"], place2: ["Galway", "Karachi", "London"], place3: ["Longford", "Islamabad", "Barcelona"], finalMessage: ["Journey complete.", "All places visited.", "Trip finished."] } },
+        { id: "fresh-count", skill: "Count Available Characters", title: "Fresh Character Counter", mission: "Predict the generated word's length, then change the word and check again.", starterCode: `word = "{{word}}"
+count = 0
+
+for letter in word:
+    count = count + 1
+
+print(f"Characters: {count}")`, hint: "The counter increases once for every character visited.", solution: "Start count at zero and add one inside the loop.", success: "You counted items while a for loop visited them.", check: { mustChange: true }, values: { word: ["cat", "river", "planet", "welcome", "practice", "variable"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "travel", title: "The Travel Roll Call", mission: "Display that every traveller is ready, then one final departure message.", starterCode: `travellers = ["Amina", "Omar", "Sara"]
+
+# Build the roll call
+
+print("Everyone is ready. Let us go!")`, hint: "Use for traveller in travellers and place the personal message inside it.", solution: `travellers = ["Amina", "Omar", "Sara"]
+for traveller in travellers:
+    print(f"{traveller} is ready.")
+print("Everyone is ready. Let us go!")` },
+        { id: "cafe", title: "Café Order List", mission: "Display Order: followed by every drink, then Kitchen notified once.", starterCode: `drinks = ["tea", "coffee", "juice"]
+
+# Display every order
+
+print("Kitchen notified.")`, hint: "Use a singular drink variable and keep Kitchen notified outside the loop.", solution: `drinks = ["tea", "coffee", "juice"]
+for drink in drinks:
+    print(f"Order: {drink}")
+print("Kitchen notified.")` },
+        { id: "team", title: "Team Member Welcome", mission: "Welcome every team member with one loop, then display Team ready once.", starterCode: `members = ["Noor", "Ali", "Maya"]
+
+# Welcome the members
+
+print("Team ready.")`, hint: "The loop variable member represents one current value from members.", solution: `members = ["Noor", "Ali", "Maya"]
+for member in members:
+    print(f"Welcome, {member}!")
+print("Team ready.")` },
+        { id: "letters", title: "Secret Word Reveal", mission: "Display each character of the secret word on its own line, then Revealed! once.", starterCode: `secret = "BRAVE"
+
+# Reveal the characters
+
+print("Revealed!")`, hint: "A string can be visited directly: for letter in secret.", solution: `secret = "BRAVE"
+for letter in secret:
+    print(letter)
+print("Revealed!")` },
+        { id: "scores", title: "Scores Above Ten", mission: "Display only scores greater than 10 using one for loop and one if statement.", starterCode: `scores = [6, 14, 9, 18]
+
+# Display qualifying scores`, hint: "Visit every score, then check score > 10 inside the loop.", solution: `scores = [6, 14, 9, 18]
+for score in scores:
+    if score > 10:
+        print(score)` },
+        { id: "packing", title: "Packing Checklist", mission: "Display a check mark message for every item, then Bag ready exactly once.", starterCode: `items = ["passport", "water", "map"]
+
+# Check every item
+
+print("Bag ready.")`, hint: "Put the item-specific check inside the loop and the closing message outside.", solution: `items = ["passport", "water", "map"]
+for item in items:
+    print(f"Checked: {item}")
+print("Bag ready.")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What does a for loop do in this lesson?", code: "", options: ["Processes available items one at a time", "Repeats forever", "Creates a file", "Deletes a value"], correct: 0, explanation: "Correct — Python visits each available item and then stops naturally." },
+        { id: "letters", question: "What is displayed?", code: `for letter in "Hi":
+    print(letter)`, options: ["H then i on separate lines", "Hi twice", "letter twice", "Nothing"], correct: 0, explanation: "Correct — a string supplies its characters from left to right." },
+        { id: "final-once", question: "How many times does Finished appear?", code: `items = ["pen", "book", "bag"]
+for item in items:
+    print(item)
+print("Finished")`, options: ["Once", "Three times", "Four times", "Never"], correct: 0, explanation: "Correct — the final print is outside the loop." },
+        { id: "loop-variable", question: "During each repetition, what does colour refer to?", code: `for colour in colours:
+    print(colour)`, options: ["The current item", "The complete program", "Always the first item", "A condition"], correct: 0, explanation: "Correct — the loop variable receives one current item at a time." },
+        { id: "empty", question: "What is displayed?", code: `items = []
+for item in items:
+    print(item)
+print("Done")`, options: ["Only Done", "item", "An error", "Nothing"], correct: 0, explanation: "Correct — the empty collection gives the body zero repetitions, then the program continues." },
+        { id: "indent", question: "Which instruction repeats?", code: `for city in cities:
+    print(city)
+print("Finished")`, options: ["The indented print(city)", "Only Finished", "Both instructions forever", "Neither instruction"], correct: 0, explanation: "Correct — indentation marks the for-loop body." },
+        { id: "name", question: "Which loop variable is clearer for a collection named students?", code: "", options: ["student", "x", "thing", "value2"], correct: 0, explanation: "Correct — student clearly describes one current item from students." },
+        { id: "while-difference", question: "When is a for loop especially useful?", code: "", options: ["When processing available items", "Only when a condition must stay True", "Only when reading files", "Only for numbers"], correct: 0, explanation: "Correct — a for loop naturally visits the items supplied to it." },
+        { id: "three", question: "How many personal messages appear?", code: `names = ["A", "B", "C"]
+for name in names:
+    print(f"Hello {name}")`, options: ["Three", "One", "Four", "Zero"], correct: 0, explanation: "Correct — the body runs once for each of the three names." },
+        { id: "if-filter", question: "Which values are displayed?", code: `numbers = [2, 7, 4, 9]
+for number in numbers:
+    if number > 5:
+        print(number)`, options: ["7 and 9", "2 and 4", "Every number", "Only 5"], correct: 0, explanation: "Correct — the loop visits all values, while the if statement displays only those above 5." },
+        { id: "counter", question: "What is the final value of count?", code: `count = 0
+for letter in "code":
+    count = count + 1
+print(count)`, options: ["4", "3", "5", "0"], correct: 0, explanation: "Correct — code has four characters, so the loop adds one four times." },
+        { id: "automatic-stop", question: "Why does a for loop over a small list stop?", code: "", options: ["No items remain", "Its variable becomes False", "print stops it", "It always needs break"], correct: 0, explanation: "Correct — after the last available item, the loop is complete." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `for letter in "Hi":
+    print(letter)`,
+      options: ["H then i on separate lines", "Hi twice", "letter twice", "Nothing"],
+      correct: 0,
+      explanation: "Correct — the for loop takes H first and i second, displaying each character on its own line."
+    }
   }
 };
