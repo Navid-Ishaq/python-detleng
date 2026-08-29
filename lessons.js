@@ -7192,5 +7192,255 @@ for item in items:
       correct: 0,
       explanation: "Correct — the iteration for 2 skips print(), but the loop continues with 3 and 4."
     }
+  },
+  29: {
+    title: "Nested Loops: Loops Inside Loops",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "30 minutes",
+    tags: ["Nested loops", "Outer and inner", "Combinations"],
+    usesInput: false,
+    intro: "One learner can have several activities. One row can have several columns. A loop inside another loop lets Python work through these small groups in a clear order.",
+    explanation: `A <strong>nested loop</strong> is a loop inside another loop. The outside loop is called the <strong>outer loop</strong>; the loop indented inside it is the <strong>inner loop</strong>.<br><br>For each one outer-loop value, Python completes every inner-loop iteration. Then the outer loop moves to its next value and the inner loop begins again from its first value.`,
+    concept: "The outer loop chooses one group. For that group, the inner loop processes all of its items before the outer loop moves on.",
+    starterCode: `for learner in ["Amina", "Omar"]:
+    print(f"Learner: {learner}")
+
+    for activity in ["Read", "Practise"]:
+        print(f"- {activity}")
+
+print("Session complete")`,
+    expectedOutput: `Learner: Amina
+- Read
+- Practise
+Learner: Omar
+- Read
+- Practise
+Session complete`,
+    lineByLine: [
+      "The outer loop first gives learner the value Amina.",
+      "The first print is inside the outer loop, so it appears once for each learner.",
+      "The inner activity loop completes Read and Practise for Amina.",
+      "The outer loop then selects Omar, and the inner loop starts again from Read.",
+      "Session complete is outside both loops, so it appears exactly once at the end."
+    ],
+    outputExplanation: "Amina receives both activities before Omar begins. Then the inner loop restarts and gives Omar both activities. Two learners with two activities produce four activity lines. The closing message is outside both indentation levels, so it appears once.",
+    changeIt: `First add <code>"Review"</code> to the activity list. Predict six activity lines: three for each learner.<br><br>Next add <code>"Sara"</code> to the learner list. With three learners and three activities, predict nine activity lines.<br><br>Finally change the inner message to <code>print(f"{learner} will {activity}")</code>. Notice that one line can combine the current value from each loop.`,
+    challenge: {
+      title: "Classroom Activity Board",
+      mission: "Give every learner every activity using nested loops. Display lines such as Amina: Read, then Class complete exactly once. Do not write six separate print instructions.",
+      starterCode: `learners = ["Amina", "Omar", "Sara"]
+activities = ["Read", "Practise"]
+
+# Build the nested loops
+
+print("Class complete")`
+    },
+    hint: "Loop through learners first. Inside that loop, loop through activities and display both current values. Keep the closing message outside both loops.",
+    solution: `learners = ["Amina", "Omar", "Sara"]
+activities = ["Read", "Practise"]
+
+for learner in learners:
+    for activity in activities:
+        print(f"{learner}: {activity}")
+
+print("Class complete")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–29: values, strings, numbers, arithmetic, decisions, input, while loops, for loops, range, small provided lists, f-strings, break, continue and nested loops. Do not use loop else, functions, comprehensions, dictionaries, enumerate or itertools.",
+      activities: [
+        { id: "learners", stage: "EASY START · COMPLETE EACH GROUP", title: "Learners and Activities", mission: "Add one learner and one activity, then predict the new grouped output.", starterCode: `learners = ["Amina", "Omar"]
+activities = ["Read", "Practise"]
+
+for learner in learners:
+    print(f"Learner: {learner}")
+    for activity in activities:
+        print(f"- {activity}")`, hint: "Every learner receives every activity, so both additions affect the total combinations.", check: { mustChange: true, mustRun: true } },
+        { id: "grid", stage: "RANGES · ROWS AND COLUMNS", title: "Rows and Columns", mission: "Change the grid to three rows and four columns, then predict all twelve coordinates.", starterCode: `for row in range(1, 3):
+    for column in range(1, 4):
+        print(f"Row {row}, Column {column}")`, hint: "To include row 3 use stop 4; to include column 4 use stop 5.", check: { mustChange: true, mustRun: true } },
+        { id: "sizes", stage: "COMBINATIONS · TWO SMALL LISTS", title: "Shirts and Sizes", mission: "Add another colour and predict every colour-and-size option.", starterCode: `colours = ["Blue", "Green"]
+sizes = ["Small", "Large"]
+
+for colour in colours:
+    for size in sizes:
+        print(f"{colour} - {size}")`, hint: "Each colour is paired with every size.", check: { mustChange: true, mustRun: true } },
+        { id: "days", stage: "GROUPED WORK · ONE CLOSING LINE", title: "Days and Tasks", mission: "Add Friday and Review, then keep Week planned appearing only once.", starterCode: `days = ["Monday", "Tuesday"]
+tasks = ["Read", "Code"]
+
+for day in days:
+    for task in tasks:
+        print(f"{day}: {task}")
+
+print("Week planned")`, hint: "The final message stays outside both loops.", check: { mustChange: true, mustRun: true } },
+        { id: "inner-break", stage: "REVISE BREAK · STOP ONLY INNER LOOP", title: "Two Attempts per Learner", mission: "Change the inner stopping attempt from 2 to 3 and observe that every learner still begins.", starterCode: `for learner in ["Amina", "Omar"]:
+    print(f"Learner: {learner}")
+    for attempt in range(1, 5):
+        print(f"Attempt {attempt}")
+        if attempt == 2:
+            break`, hint: "This break belongs to the attempt loop; it does not stop the learner loop.", check: { mustChange: true, mustRun: true } },
+        { id: "inner-continue", stage: "REVISE CONTINUE · SKIP ONE INNER TURN", title: "Skip One Activity", mission: "Change the skipped activity and confirm that both learners still receive the other activities.", starterCode: `activities = ["Read", "Skip", "Practise"]
+skip_activity = "Skip"
+
+for learner in ["Amina", "Omar"]:
+    for activity in activities:
+        if activity == skip_activity:
+            continue
+        print(f"{learner}: {activity}")`, hint: "continue skips only the current activity turn of the inner loop.", check: { mustChange: true, mustRun: true } },
+        { id: "count", stage: "COUNT RESULTS · ADD ONE EACH TIME", title: "Count All Combinations", mission: "Add one colour, predict the final count and run the program.", starterCode: `colours = ["Red", "Blue"]
+sizes = ["S", "M", "L"]
+count = 0
+
+for colour in colours:
+    for size in sizes:
+        count = count + 1
+        print(f"{colour} {size}")
+
+print(f"Total: {count}")`, hint: "The counter increases once for each inner-loop combination.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-groups", skill: "Grouped Activities", title: "Fresh Group Planner", mission: "Predict every generated pairing, then add one group or activity.", starterCode: `groups = [{{groups}}]
+activities = [{{activities}}]
+
+for group in groups:
+    print(f"Group: {group}")
+    for activity in activities:
+        print(f"- {activity}")`, hint: "The inner activity list restarts for every group.", solution: "Place the activity loop inside the group loop.", success: "You completed a fresh grouped plan.", check: { mustChange: true }, values: { groups: ['"A", "B"', '"Red", "Blue"', '"Morning", "Evening"'], activities: ['"Read", "Write"', '"Plan", "Build", "Check"', '"Warm up", "Practise"'] } },
+        { id: "fresh-grid", skill: "Grid Coordinates", title: "Fresh Coordinate Grid", mission: "Predict the generated coordinates, then change one grid boundary.", starterCode: `for row in range(1, {{rows}}):
+    for column in range(1, {{columns}}):
+        print(f"Row {row}, Column {column}")`, hint: "Both stopping boundaries are excluded.", solution: "The total pairs equal the available rows multiplied by the available columns.", success: "You completed a fresh grid.", check: { mustChange: true }, values: { rows: [3, 4, 5], columns: [3, 4, 5, 6] } },
+        { id: "fresh-options", skill: "All Combinations", title: "Fresh Option Builder", mission: "Run every generated option, then add a value to either list.", starterCode: `colours = [{{colours}}]
+sizes = [{{sizes}}]
+
+for colour in colours:
+    for size in sizes:
+        print(f"{colour} - {size}")`, hint: "Each outer colour receives every inner size.", solution: "Nest the size loop inside the colour loop.", success: "You built a fresh set of options.", check: { mustChange: true }, values: { colours: ['"Red", "Gold"', '"Blue", "Green", "White"', '"Black", "Silver"'], sizes: ['"S", "M"', '"Small", "Large"', '"1", "2", "3"'] } },
+        { id: "fresh-count", skill: "Count Combinations", title: "Fresh Combination Counter", mission: "Predict the final count, then change an outer or inner boundary.", starterCode: `count = 0
+
+for outer in range(1, {{outerStop}}):
+    for inner in range(1, {{innerStop}}):
+        count = count + 1
+        print(f"{outer} - {inner}")
+
+print(f"Total: {count}")`, hint: "The counter increases once for every pair.", solution: "Multiply the number of available outer values by the number of inner values to predict Total.", success: "You counted a fresh set of combinations.", check: { mustChange: true }, values: { outerStop: [3, 4, 5], innerStop: [3, 4, 5, 6] } },
+        { id: "fresh-break", skill: "Inner break", title: "Fresh Inner Stop", mission: "Predict the attempts for each learner, then change stop_at.", starterCode: `stop_at = {{stop}}
+
+for learner in [{{learners}}]:
+    print(f"Learner: {learner}")
+    for attempt in range(1, 5):
+        print(f"Attempt {attempt}")
+        if attempt == stop_at:
+            break`, hint: "The inner break ends attempts for one learner; the outer loop still selects the next learner.", solution: "Keep break inside the attempt loop's if block.", success: "You controlled a fresh inner break.", check: { mustChange: true }, values: { stop: [1, 2, 3], learners: ['"Amina", "Omar"', '"Sara", "Noor"', '"Ali", "Maya"'] } },
+        { id: "fresh-continue", skill: "Inner continue", title: "Fresh Inner Skip", mission: "Predict the remaining pairings, then choose another inner value to skip.", starterCode: `steps = [{{steps}}]
+skip_step = "{{skip}}"
+
+for round_number in range(1, {{roundStop}}):
+    for step in steps:
+        if step == skip_step:
+            continue
+        print(f"Round {round_number}: {step}")`, hint: "The chosen step is skipped once in every outer round.", solution: "Keep continue inside the inner step loop.", success: "You completed a fresh inner skip.", check: { mustChange: true }, values: { steps: ['"Plan", "Skip", "Build"', '"Read", "Pause", "Practise"', '"Start", "Wait", "Finish"'], skip: ["Skip", "Pause", "Wait"], roundStop: [3, 4, 5] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "class", title: "Classroom Activity Board", mission: "Give all three learners both activities, then display Class complete once.", starterCode: `learners = ["Amina", "Omar", "Sara"]
+activities = ["Read", "Practise"]
+
+# Build nested loops
+
+print("Class complete")`, hint: "The learner loop contains the activity loop.", solution: `learners = ["Amina", "Omar", "Sara"]
+activities = ["Read", "Practise"]
+for learner in learners:
+    for activity in activities:
+        print(f"{learner}: {activity}")
+print("Class complete")` },
+        { id: "products", title: "Product Colour and Size Options", mission: "Display every colour in every size, then Options ready once.", starterCode: `colours = ["Blue", "Green"]
+sizes = ["S", "M", "L"]
+
+# Build every option
+
+print("Options ready")`, hint: "Use colour outside and size inside.", solution: `colours = ["Blue", "Green"]
+sizes = ["S", "M", "L"]
+for colour in colours:
+    for size in sizes:
+        print(f"{colour} - {size}")
+print("Options ready")` },
+        { id: "seats", title: "Seat Map Coordinates", mission: "Display coordinates for 3 rows and 4 seats per row.", starterCode: `# Build rows 1–3 and seats 1–4`, hint: "Use range(1, 4) outside and range(1, 5) inside.", solution: `for row in range(1, 4):
+    for seat in range(1, 5):
+        print(f"Row {row}, Seat {seat}")` },
+        { id: "week", title: "Weekly Task Planner", mission: "Give Monday, Tuesday and Wednesday the tasks Read and Code.", starterCode: `days = ["Monday", "Tuesday", "Wednesday"]
+tasks = ["Read", "Code"]
+
+# Build the weekly plan`, hint: "Each day needs the complete task loop.", solution: `days = ["Monday", "Tuesday", "Wednesday"]
+tasks = ["Read", "Code"]
+for day in days:
+    for task in tasks:
+        print(f"{day}: {task}")` },
+        { id: "attempts", title: "Stop Each Inner Attempt Early", mission: "For each learner display attempts 1 and 2 only, using inner break.", starterCode: `learners = ["Amina", "Omar"]
+
+for learner in learners:
+    print(f"Learner: {learner}")
+    # Build attempts 1–4 but stop at 2`, hint: "The attempt loop and its break both belong inside the learner loop.", solution: `learners = ["Amina", "Omar"]
+for learner in learners:
+    print(f"Learner: {learner}")
+    for attempt in range(1, 5):
+        print(f"Attempt {attempt}")
+        if attempt == 2:
+            break` },
+        { id: "skip", title: "Skip One Inner Activity", mission: "Give each learner Read and Practise, but skip Pause for both.", starterCode: `learners = ["Amina", "Omar"]
+activities = ["Read", "Pause", "Practise"]
+
+# Build nested loops and skip Pause`, hint: "Use continue inside the inner activity loop.", solution: `learners = ["Amina", "Omar"]
+activities = ["Read", "Pause", "Practise"]
+for learner in learners:
+    for activity in activities:
+        if activity == "Pause":
+            continue
+        print(f"{learner}: {activity}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What is a nested loop?", code: "", options: ["A loop inside another loop", "A loop with no body", "A variable inside text", "A program with no repetition"], correct: 0, explanation: "Correct — nesting places one loop inside another loop." },
+        { id: "restart", question: "When does the inner loop begin again?", code: "", options: ["For every new outer-loop value", "Only once in the whole program", "After the program ends", "Only when break closes Python"], correct: 0, explanation: "Correct — each outer iteration receives a complete inner-loop run." },
+        { id: "count", question: "How many pair lines appear?", code: `for row in range(1, 3):
+    for column in range(1, 4):
+        print(row, column)`, options: ["6", "5", "3", "2"], correct: 0, explanation: "Correct — two rows each receive three columns, producing six pairs." },
+        { id: "order", question: "Which pair appears second?", code: `for letter in ["A", "B"]:
+    for number in [1, 2]:
+        print(letter, number)`, options: ["A 2", "B 1", "B 2", "A 1 again"], correct: 0, explanation: "Correct — the inner loop completes A 1 then A 2 before the outer loop moves to B." },
+        { id: "per-group", question: "Where should a Finished learner message go to appear once per learner?", code: "", options: ["Inside the outer loop but after the inner loop", "Inside the inner loop", "Before both loops", "Inside print()"], correct: 0, explanation: "Correct — that position runs after one learner's inner work but before the next learner." },
+        { id: "once", question: "Where should Class complete go to appear once overall?", code: "", options: ["Outside both loops", "Inside both loops", "Inside only the inner loop", "Before continue"], correct: 0, explanation: "Correct — no loop indentation means it runs after all combinations." },
+        { id: "inner-break", question: "What does this break stop?", code: `learners = ["Amina", "Omar"]
+
+for learner in learners:
+    for attempt in range(1, 4):
+        if attempt == 2:
+            break`, options: ["Only the inner attempt loop", "Both loops", "The whole browser", "Only the if statement"], correct: 0, explanation: "Correct — break stops the nearest loop that contains it." },
+        { id: "outer-after-break", question: "After the inner break, does the next learner begin?", code: "", options: ["Yes", "No", "Only after continue", "Only when the page reloads"], correct: 0, explanation: "Correct — the outer learner loop remains active." },
+        { id: "inner-continue", question: "What does inner continue skip?", code: "", options: ["One inner iteration for the current outer value", "Every later outer value", "Both loops forever", "The entire program"], correct: 0, explanation: "Correct — it skips the rest of one current inner turn." },
+        { id: "empty-inner", question: "How many pair lines appear?", code: `for group in ["A", "B"]:
+    for item in []:
+        print(group, item)
+print("Done")`, options: ["Zero pair lines, then Done", "Two pair lines", "One pair line", "An error"], correct: 0, explanation: "Correct — an empty inner collection gives each group zero inner iterations." },
+        { id: "three-two", question: "How many combinations do three outer values and two inner values produce?", code: "", options: ["6", "5", "3", "2"], correct: 0, explanation: "Correct — each of three outer values receives two inner iterations." },
+        { id: "names", question: "Which variable belongs to the inner loop?", code: `learners = ["Amina", "Omar"]
+activities = ["Read", "Practise"]
+
+for learner in learners:
+    for activity in activities:
+        print(learner, activity)`, options: ["activity", "learner", "learners", "Both collections only"], correct: 0, explanation: "Correct — activity receives one current value from the inner activities loop." }
+      ]
+    },
+    quiz: {
+      question: "How many activity lines will this program display?",
+      code: `for learner in ["Amina", "Omar"]:
+    for activity in ["Read", "Practise", "Review"]:
+        print(learner, activity)`,
+      options: ["6", "5", "3", "2"],
+      correct: 0,
+      explanation: "Correct — two learners each receive all three activities, producing six activity lines."
+    }
   }
 };
