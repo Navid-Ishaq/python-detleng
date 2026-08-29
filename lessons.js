@@ -6504,5 +6504,164 @@ print(count)`, options: ["4", "3", "5", "0"], correct: 0, explanation: "Correct 
       correct: 0,
       explanation: "Correct — the for loop takes H first and i second, displaying each character on its own line."
     }
+  },
+  26: {
+    title: "The range() Function",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["Controlled counting", "range()", "Start stop step"],
+    usesInput: false,
+    intro: "A for loop can visit items that already exist. With range(), you can instead describe a safe number sequence—where it starts, where it stops and how it moves.",
+    explanation: `<code>range()</code> describes a sequence of integers that a <code>for</code> loop can use one at a time.<br><br>In <code>range(1, 6)</code>, counting starts at 1 and stops <strong>before</strong> 6. That gives 1, 2, 3, 4 and 5. The stopping value is a boundary, not an included result.`,
+    concept: "range(start, stop) includes the start and stops before the stop. Add a step when you want larger jumps or a countdown.",
+    starterCode: `for repetition in range(1, 6):
+    print(f"Exercise {repetition}")
+
+print("Session complete.")`,
+    expectedOutput: `Exercise 1
+Exercise 2
+Exercise 3
+Exercise 4
+Exercise 5
+Session complete.`,
+    lineByLine: [
+      "range(1, 6) begins at 1 and prepares values up to, but not including, 6.",
+      "The for loop gives each prepared value the meaningful name repetition.",
+      "The indented print() runs once for 1, 2, 3, 4 and 5.",
+      "The default step is 1, so each new value is one larger than the previous value.",
+      "The final unindented message runs once after the range has no more values."
+    ],
+    outputExplanation: "Five Exercise lines appear because range(1, 6) supplies five values. Exercise 6 does not appear: 6 is the excluded stopping boundary. Session complete appears once because it is outside the loop.",
+    changeIt: `First change the stop from <code>6</code> to <code>9</code> and predict the final repetition number.<br><br>Next try <code>range(4)</code>. It begins at zero and supplies 0, 1, 2 and 3. Then try <code>range(2, 11, 2)</code> to count by twos.<br><br>Finally run <code>range(5, 0, -1)</code> for a countdown, and <code>range(5, 5)</code> to observe a loop body that runs zero times.`,
+    challenge: {
+      title: "Launch Sequence Controller",
+      mission: "Use one upward range for Launch check 1 through 5, then another range to count down 3, 2, 1. Display Liftoff! exactly once.",
+      starterCode: `# Display Launch check 1 through Launch check 5
+
+# Count down from 3 to 1
+
+print("Liftoff!")`
+    },
+    hint: "range(1, 6) supplies 1 through 5. range(3, 0, -1) supplies 3 through 1. Keep Liftoff! outside both loops.",
+    solution: `for check in range(1, 6):
+    print(f"Launch check {check}")
+
+for count in range(3, 0, -1):
+    print(count)
+
+print("Liftoff!")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–26: values, strings, numbers, arithmetic, decisions, while loops, for loops, range, f-strings and print. Do not use break, continue, nested loops, collection comprehensions or functions.",
+      activities: [
+        { id: "five-repetitions", stage: "EASY START · START INCLUDED STOP EXCLUDED", title: "Five Exercise Repetitions", mission: "Change the program to eight repetitions and predict the final displayed number.", starterCode: `for repetition in range(1, 6):
+    print(f"Exercise {repetition}")`, hint: "To include 8, the excluded stopping boundary must be 9.", check: { mustChange: true, mustRun: true } },
+        { id: "zero-based", stage: "ONE ARGUMENT · START AT ZERO", title: "Zero-Based Counter", mission: "Run the sequence, change the stop to 7 and explain why the final number is 6.", starterCode: `for number in range(4):
+    print(number)`, hint: "range(stop) starts at zero and stops before the supplied value.", check: { mustChange: true, mustRun: true } },
+        { id: "twos", stage: "THREE ARGUMENTS · CONTROL THE STEP", title: "Count by Twos", mission: "Change the starting value and step, then predict every result before running.", starterCode: `for number in range(2, 11, 2):
+    print(number)`, hint: "Read the three values as start, stop-before and step.", check: { mustChange: true, mustRun: true } },
+        { id: "countdown", stage: "NEGATIVE STEP · MOVE DOWNWARD", title: "Countdown to Go", mission: "Begin at 8, count down to 1 and keep Go! appearing once.", starterCode: `for count in range(5, 0, -1):
+    print(count)
+
+print("Go!")`, hint: "A negative step moves toward the smaller stopping boundary.", check: { mustChange: true, mustRun: true } },
+        { id: "times-table", stage: "REUSE ARITHMETIC · KNOWN REPETITIONS", title: "Small Multiplication Pattern", mission: "Change the multiplier from 3 to 4 and check every answer.", starterCode: `multiplier = 3
+
+for number in range(1, 6):
+    answer = number * multiplier
+    print(f"{number} × {multiplier} = {answer}")`, hint: "Change multiplier only; the same loop will calculate every new answer.", check: { mustChange: true, mustRun: true } },
+        { id: "empty-range", stage: "ZERO REPETITIONS · CONTINUE AFTERWARD", title: "Empty Range", mission: "Run the empty range, then change stop so exactly three numbers appear.", starterCode: `for number in range(4, 4):
+    print(number)
+
+print("Finished.")`, hint: "Starting at 4 with a stop of 7 supplies 4, 5 and 6.", check: { mustChange: true, mustRun: true } },
+        { id: "tickets", stage: "REAL-WORLD NUMBERS · FIRST AND LAST", title: "Ticket Numbers", mission: "Extend the sequence by two tickets without changing the print instruction.", starterCode: `for ticket in range(101, 106):
+    print(f"Ticket {ticket}")`, hint: "The current final ticket is 105, while 106 is excluded.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-up", skill: "Start and Stop", title: "Fresh Count Up", mission: "Predict the generated sequence, then extend its stopping boundary.", starterCode: `for number in range({{start}}, {{stop}}):
+    print(number)`, hint: "Begin at start and finish one number before stop.", solution: "The last possible value is stop minus one.", success: "You completed a fresh count-up range.", check: { mustChange: true }, values: { start: [0, 1, 2, 3, 4], stop: [6, 7, 8, 9, 10] } },
+        { id: "fresh-zero", skill: "Zero-Based Range", title: "Fresh Zero Start", mission: "Predict how many values appear, then choose a new stop.", starterCode: `for number in range({{stop}}):
+    print(f"Number: {number}")`, hint: "One-argument range begins at zero and excludes the stop.", solution: "The output runs from zero through stop minus one.", success: "You completed a fresh zero-based range.", check: { mustChange: true }, values: { stop: [3, 4, 5, 6, 7, 8] } },
+        { id: "fresh-step", skill: "Positive Steps", title: "Fresh Stepping Range", mission: "Predict each generated jump, then change the positive step.", starterCode: `for number in range({{start}}, {{stop}}, {{step}}):
+    print(number)`, hint: "Add the step repeatedly while the result remains below stop.", solution: "Use a positive step because the sequence moves upward.", success: "You completed a fresh stepped range.", check: { mustChange: true }, values: { start: [0, 1, 2, 3], stop: [10, 12, 15, 18], step: [2, 3, 4] } },
+        { id: "fresh-down", skill: "Countdown", title: "Fresh Countdown", mission: "Predict the descending output, then choose a new starting number.", starterCode: `for count in range({{start}}, {{stop}}, -1):
+    print(count)
+
+print("Done!")`, hint: "The negative step moves downward and the stop remains excluded.", solution: "For a countdown to 1, use stop 0 with step -1.", success: "You completed a fresh countdown range.", check: { mustChange: true }, values: { start: [3, 4, 5, 6, 7, 8], stop: [0] } },
+        { id: "fresh-label", skill: "Numbered Messages", title: "Fresh Numbered Activity", mission: "Run the generated activity count, then increase its total.", starterCode: `for number in range(1, {{stop}}):
+    print(f"{{label}} {number}")`, hint: "The stop is one greater than the final displayed activity number.", solution: "Keep start at 1 and increase stop to create more messages.", success: "You created a fresh numbered activity.", check: { mustChange: true }, values: { stop: [4, 5, 6, 7], label: ["Round", "Exercise", "Step", "Practice"] } },
+        { id: "fresh-table", skill: "Range with Arithmetic", title: "Fresh Multiplication Pattern", mission: "Check every generated product, then change the multiplier.", starterCode: `multiplier = {{multiplier}}
+
+for number in range(1, {{stop}}):
+    answer = number * multiplier
+    print(f"{number} × {multiplier} = {answer}")`, hint: "The loop controls number; multiplier stays fixed during this run.", solution: "Multiply the current number by the stored multiplier inside the loop.", success: "You completed a fresh multiplication pattern.", check: { mustChange: true }, values: { multiplier: [2, 3, 4, 5, 6], stop: [4, 5, 6] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "launch", title: "Launch Sequence Controller", mission: "Display Launch check 1 through 5, count down 3 through 1, then Liftoff! once.", starterCode: `# Build the check loop
+
+# Build the countdown
+
+print("Liftoff!")`, hint: "Use range(1, 6), then range(3, 0, -1).", solution: `for check in range(1, 6):
+    print(f"Launch check {check}")
+for count in range(3, 0, -1):
+    print(count)
+print("Liftoff!")` },
+        { id: "exercise", title: "Exercise Repetition Board", mission: "Display Repetition 1 through Repetition 8, then Workout complete once.", starterCode: `# Build eight repetitions
+
+print("Workout complete.")`, hint: "To include 8, stop before 9.", solution: `for repetition in range(1, 9):
+    print(f"Repetition {repetition}")
+print("Workout complete.")` },
+        { id: "evens", title: "Even Number Display", mission: "Display every even number from 2 through 12 using one range.", starterCode: `# Build the even-number loop`, hint: "Start at 2, stop before 13 and move by 2.", solution: `for number in range(2, 13, 2):
+    print(number)` },
+        { id: "tickets", title: "Ticket Number Printer", mission: "Display Ticket 201 through Ticket 206 without writing six print instructions.", starterCode: `# Build the ticket loop`, hint: "Start at 201 and use an excluded stop of 207.", solution: `for ticket in range(201, 207):
+    print(f"Ticket {ticket}")` },
+        { id: "table", title: "Five Times Pattern", mission: "Display 1 × 5 through 6 × 5 with calculated answers.", starterCode: `multiplier = 5
+
+# Build the multiplication loop`, hint: "Use range(1, 7), calculate answer, then display all three values.", solution: `multiplier = 5
+for number in range(1, 7):
+    answer = number * multiplier
+    print(f"{number} × {multiplier} = {answer}")` },
+        { id: "reverse", title: "Reverse Countdown", mission: "Display 10, 8, 6, 4 and 2, then Finished once.", starterCode: `# Build the descending loop
+
+print("Finished.")`, hint: "Start at 10, stop before 0 and step by -2.", solution: `for number in range(10, 0, -2):
+    print(number)
+print("Finished.")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "stop-excluded", question: "What values does range(1, 5) provide?", code: "", options: ["1, 2, 3, 4", "1, 2, 3, 4, 5", "0, 1, 2, 3, 4", "Only 5"], correct: 0, explanation: "Correct — start is included and stop is excluded." },
+        { id: "zero-start", question: "What is displayed?", code: `for number in range(3):
+    print(number)`, options: ["0, 1, 2", "1, 2, 3", "0, 1, 2, 3", "Only 3"], correct: 0, explanation: "Correct — one-argument range begins at zero and stops before 3." },
+        { id: "twos", question: "Which range provides 2, 4, 6 and 8?", code: "", options: ["range(2, 9, 2)", "range(2, 8, 2)", "range(1, 9, 2)", "range(8, 2, 2)"], correct: 0, explanation: "Correct — 2 starts the sequence, 9 is excluded and the step is 2." },
+        { id: "down", question: "What is displayed?", code: `for count in range(3, 0, -1):
+    print(count)`, options: ["3, 2, 1", "3, 2, 1, 0", "0, 1, 2, 3", "Nothing"], correct: 0, explanation: "Correct — the negative step moves downward and zero is excluded." },
+        { id: "empty", question: "How many times does the body run?", code: `for number in range(5, 5):
+    print(number)`, options: ["Zero", "One", "Five", "Forever"], correct: 0, explanation: "Correct — the start is already at the excluded stop boundary." },
+        { id: "zero-step", question: "What happens with range(1, 5, 0)?", code: "", options: ["Python raises ValueError", "It repeats 1 forever", "It displays zero", "It counts normally"], correct: 0, explanation: "Correct — a range step cannot be zero because it would not move." },
+        { id: "last-value", question: "What is the final displayed number?", code: `for number in range(4, 9):
+    print(number)`, options: ["8", "9", "4", "7"], correct: 0, explanation: "Correct — 9 is excluded, so 8 is the final value." },
+        { id: "step-three", question: "What values appear?", code: `for number in range(1, 10, 3):
+    print(number)`, options: ["1, 4, 7", "1, 4, 7, 10", "3, 6, 9", "1 through 9"], correct: 0, explanation: "Correct — repeatedly add 3 while remaining below 10." },
+        { id: "wrong-direction", question: "Why does range(5, 0) provide no values?", code: "", options: ["The default positive step moves the wrong way", "Five is invalid", "Stop must be larger than 10", "A for loop needs input"], correct: 0, explanation: "Correct — a countdown needs a negative step." },
+        { id: "five-runs", question: "How many times does the body run?", code: `for repetition in range(1, 6):
+    print(repetition)`, options: ["Five", "Six", "Four", "One"], correct: 0, explanation: "Correct — the supplied values are 1 through 5." },
+        { id: "after-loop", question: "How many times does Done appear?", code: `for number in range(3):
+    print(number)
+print("Done")`, options: ["Once", "Three times", "Four times", "Never"], correct: 0, explanation: "Correct — the unindented line runs once after the loop." },
+        { id: "best-use", question: "When is for with range() especially clear?", code: "", options: ["When a numeric sequence or known repetition count is needed", "Only for strings", "Only for endless repetition", "Only after defining a list"], correct: 0, explanation: "Correct — range describes controlled integer movement without manually listing every value." }
+      ]
+    },
+    quiz: {
+      question: "What values will this program display?",
+      code: `for number in range(1, 5):
+    print(number)`,
+      options: ["1, 2, 3, 4", "1, 2, 3, 4, 5", "0, 1, 2, 3, 4", "Only 5"],
+      correct: 0,
+      explanation: "Correct — range includes 1 and stops before 5, so the final displayed value is 4."
+    }
   }
 };
