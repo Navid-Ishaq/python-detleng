@@ -6931,5 +6931,266 @@ while True:
       correct: 0,
       explanation: "Correct — Python displays 3, then break immediately ends the loop before 4 and 5."
     }
+  },
+  28: {
+    title: "continue: Skipping an Iteration",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["continue", "Skip one turn", "Keep looping"],
+    usesInput: false,
+    intro: "Sometimes one value should be ignored, but the loop still has useful work ahead. The continue statement skips that one turn and lets repetition carry on.",
+    explanation: `<code>continue</code> tells Python to skip the remaining instructions in the <strong>current iteration</strong> and begin the loop's next iteration.<br><br>Unlike <code>break</code>, it does not end the loop. Think: <code>break</code> means “leave the loop”; <code>continue</code> means “skip this turn and keep going.”`,
+    concept: "continue skips the rest of one iteration. The loop itself remains active and moves to its next available value.",
+    starterCode: `for number in range(1, 6):
+    if number == 3:
+        continue
+
+    print(number)
+
+print("Loop finished")`,
+    expectedOutput: `1
+2
+4
+5
+Loop finished`,
+    lineByLine: [
+      "range(1, 6) supplies the numbers 1 through 5.",
+      "For each number, the if statement checks whether the current value is 3.",
+      "When number is 3, continue skips the remaining instruction in that iteration.",
+      "The print(number) line is therefore skipped for 3, but it runs for all other values.",
+      "The loop still reaches 4 and 5, then the unindented final message runs once."
+    ],
+    outputExplanation: "Python displays 1 and 2 normally. At 3, continue sends execution directly to the next iteration, so 3 is not printed. The loop continues with 4 and 5. Loop finished appears once after every iteration is complete.",
+    changeIt: `First change <code>number == 3</code> to <code>number == 4</code>. Predict which four numbers will appear.<br><br>Next try a skip value of 8. Because the range never supplies 8, <code>continue</code> never runs and every number appears.<br><br>Finally add <code>print(f"Checking: {number}")</code> above the <code>if</code>. Notice that Checking: 3 appears, while the later <code>print(number)</code> remains skipped. Placement controls what has already happened before <code>continue</code>.`,
+    challenge: {
+      title: "Clean Score List",
+      mission: "Treat -1 as missing data. Use continue to skip both -1 values while displaying every valid score. Do not change the list.",
+      starterCode: `scores = [10, -1, 8, -1, 6]
+
+for score in scores:
+    # Skip missing scores
+
+    print(f"Valid score: {score}")`
+    },
+    hint: "Inside the loop, check whether score == -1. Put continue inside that if block, before the print().",
+    solution: `scores = [10, -1, 8, -1, 6]
+
+for score in scores:
+    if score == -1:
+        continue
+
+    print(f"Valid score: {score}")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–28: values, strings, numbers, arithmetic, decisions, input, while loops, for loops, range, small provided lists, f-strings, break and continue. Do not use nested loops, loop else, functions, comprehensions or exceptions.",
+      activities: [
+        { id: "skip-number", stage: "EASY START · SKIP ONE VALUE", title: "Skip One Number", mission: "Change skip_number, predict the remaining values and run the program.", starterCode: `skip_number = 4
+
+for number in range(1, 7):
+    if number == skip_number:
+        continue
+    print(number)`, hint: "Only the matching iteration skips its print(). The loop then keeps going.", check: { mustChange: true, mustRun: true } },
+        { id: "sold-out", stage: "TEXT VALUES · IGNORE ONE LABEL", title: "Ignore Sold Out", mission: "Change which label is unavailable and confirm that the other items still appear.", starterCode: `items = ["book", "sold out", "pen", "bag"]
+unavailable = "sold out"
+
+for item in items:
+    if item == unavailable:
+        continue
+    print(f"Available: {item}")`, hint: "The matching text is skipped; later items are still visited.", check: { mustChange: true, mustRun: true } },
+        { id: "missing-score", stage: "DATA CLEANING · SKIP A MARKER", title: "Skip Missing Scores", mission: "Change missing_value from -1 to 0 and update one list value so the new marker is skipped.", starterCode: `scores = [12, -1, 9, 7]
+missing_value = -1
+
+for score in scores:
+    if score == missing_value:
+        continue
+    print(f"Score: {score}")`, hint: "The list and missing_value must agree about which value means missing.", check: { mustChange: true, mustRun: true } },
+        { id: "odd", stage: "ARITHMETIC · FILTER WITH REMAINDER", title: "Display Odd Numbers", mission: "Run the program, then change it so even numbers appear and odd numbers are skipped.", starterCode: `for number in range(1, 9):
+    if number % 2 == 0:
+        continue
+    print(number)`, hint: "To skip odd numbers instead, check number % 2 != 0.", check: { mustChange: true, mustRun: true } },
+        { id: "blank", stage: "EMPTY TEXT · KEEP USEFUL MESSAGES", title: "Ignore Blank Text", mission: "Add another blank value and another real message; verify that only useful text appears.", starterCode: `messages = ["Hello", "", "Keep learning", ""]
+
+for message in messages:
+    if message == "":
+        continue
+    print(message)`, hint: "An empty string is written as two quotation marks with nothing between them.", check: { mustChange: true, mustRun: true } },
+        { id: "safe-while", stage: "WHILE LOOP · UPDATE BEFORE SKIP", title: "Safe While Skip", mission: "Change skip_number and verify the loop still reaches its ending safely.", starterCode: `number = 0
+skip_number = 3
+
+while number < 5:
+    number = number + 1
+
+    if number == skip_number:
+        continue
+
+    print(number)
+
+print("Safely finished")`, hint: "Keep the number update above continue so every iteration makes progress.", check: { mustChange: true, mustRun: true } },
+        { id: "letter", stage: "STRING LOOP · OMIT A CHARACTER", title: "Skip One Letter", mission: "Change skip_letter to another character in the word and predict the displayed letters.", starterCode: `word = "python"
+skip_letter = "h"
+
+for letter in word:
+    if letter == skip_letter:
+        continue
+    print(letter)`, hint: "The matching character is omitted, but the string loop visits later characters.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-number", skill: "Skip a Number", title: "Fresh Number Skip", mission: "Predict the output, run it, then choose a different reachable value to skip.", starterCode: `skip_number = {{skip}}
+
+for number in range(1, {{stop}}):
+    if number == skip_number:
+        continue
+    print(number)`, hint: "Every value except skip_number reaches print().", solution: "Keep the equality check and continue before the print instruction.", success: "You completed a fresh numeric skip.", check: { mustChange: true }, values: { skip: [2, 3, 4, 5, 6], stop: [7, 8, 9, 10] } },
+        { id: "fresh-word", skill: "Skip Text", title: "Fresh Unavailable Item", mission: "Predict which item disappears, then choose another listed item to skip.", starterCode: `items = [{{items}}]
+unavailable = "{{skip}}"
+
+for item in items:
+    if item == unavailable:
+        continue
+    print(f"Available: {item}")`, hint: "The loop keeps processing after the unavailable item.", solution: "Compare each current item with unavailable before displaying it.", success: "You filtered a fresh text list.", check: { mustChange: true }, values: { items: ['"tea", "coffee", "juice", "water"', '"book", "pen", "bag", "map"', '"red", "blue", "green", "gold"'], skip: ["coffee", "bag", "green"] } },
+        { id: "fresh-marker", skill: "Missing Data", title: "Fresh Missing Marker", mission: "Run the generated scores, then change both the marker and one matching list value.", starterCode: `scores = [{{scores}}]
+missing = {{missing}}
+
+for score in scores:
+    if score == missing:
+        continue
+    print(f"Valid: {score}")`, hint: "The missing marker is skipped every time it appears.", solution: "Check score == missing before displaying valid data.", success: "You cleaned a fresh set of scores.", check: { mustChange: true }, values: { scores: ["8, -1, 10, -1, 6", "0, 12, 9, 0, 7", "5, 99, 8, 99, 4"], missing: [-1, 0, 99] } },
+        { id: "fresh-remainder", skill: "Odd and Even", title: "Fresh Remainder Filter", mission: "Predict the values that remain, then reverse which kind of number is skipped.", starterCode: `for number in range({{start}}, {{stop}}):
+    if number % 2 == {{remainder}}:
+        continue
+    print(number)`, hint: "Even numbers have remainder 0; odd numbers have remainder 1.", solution: "Swap the remainder between 0 and 1 to reverse the filter.", success: "You completed a fresh odd/even filter.", check: { mustChange: true }, values: { start: [1, 2, 3], stop: [8, 9, 10], remainder: [0, 1] } },
+        { id: "fresh-letter", skill: "Character Skip", title: "Fresh Letter Omission", mission: "Predict the visible characters, then select a different character in the word.", starterCode: `word = "{{word}}"
+skip_letter = "{{letter}}"
+
+for letter in word:
+    if letter == skip_letter:
+        continue
+    print(letter)`, hint: "Every occurrence of the chosen character is skipped.", solution: "Compare the current letter before printing it.", success: "You completed a fresh character skip.", check: { mustChange: true }, values: { word: ["banana", "letter", "python", "garden"], letter: ["a", "t", "h", "e"] } },
+        { id: "fresh-while", skill: "Safe While Continue", title: "Fresh Safe While Skip", mission: "Predict the missing number, then change it without moving the update below continue.", starterCode: `number = 0
+limit = {{limit}}
+skip_number = {{skip}}
+
+while number < limit:
+    number = number + 1
+    if number == skip_number:
+        continue
+    print(number)
+
+print("Finished")`, hint: "Updating number first guarantees that the while loop keeps progressing.", solution: "Keep number = number + 1 above the condition and continue.", success: "You safely completed a fresh while skip.", check: { mustChange: true }, values: { limit: [4, 5, 6, 7], skip: [2, 3, 4, 5] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "scores", title: "Clean Score List", mission: "Skip every -1 marker and display only valid scores.", starterCode: `scores = [10, -1, 8, -1, 6]
+
+for score in scores:
+    # Skip -1
+    print(f"Valid score: {score}")`, hint: "Check score == -1 before print().", solution: `scores = [10, -1, 8, -1, 6]
+for score in scores:
+    if score == -1:
+        continue
+    print(f"Valid score: {score}")` },
+        { id: "shop", title: "Skip the Closed Shop", mission: "Display a visit message for every shop except closed.", starterCode: `shops = ["bakery", "closed", "bookshop", "café"]
+
+for shop in shops:
+    # Skip closed
+    print(f"Visiting: {shop}")`, hint: "Use if shop == closed text, then continue.", solution: `shops = ["bakery", "closed", "bookshop", "café"]
+for shop in shops:
+    if shop == "closed":
+        continue
+    print(f"Visiting: {shop}")` },
+        { id: "letter", title: "Remove One Letter from Display", mission: "Display every character in banana except a.", starterCode: `word = "banana"
+
+for letter in word:
+    # Skip a
+    print(letter)`, hint: "Compare letter with a before print().", solution: `word = "banana"
+for letter in word:
+    if letter == "a":
+        continue
+    print(letter)` },
+        { id: "zero", title: "Ignore Zero Values", mission: "Display only non-zero measurements while preserving their order.", starterCode: `measurements = [4, 0, 7, 0, 3]
+
+for measurement in measurements:
+    # Skip zero
+    print(measurement)`, hint: "Use measurement == 0.", solution: `measurements = [4, 0, 7, 0, 3]
+for measurement in measurements:
+    if measurement == 0:
+        continue
+    print(measurement)` },
+        { id: "while", title: "Safe While Counter", mission: "Display 1 through 6 except 4, then Safely finished once. Keep the update safe.", starterCode: `number = 0
+
+while number < 6:
+    # Update, skip 4 and display other values
+
+print("Safely finished")`, hint: "Increase number first, then check for 4 and continue.", solution: `number = 0
+while number < 6:
+    number = number + 1
+    if number == 4:
+        continue
+    print(number)
+print("Safely finished")` },
+        { id: "tickets", title: "Skip Even Ticket Numbers", mission: "Display only odd ticket numbers from 101 through 109.", starterCode: `for ticket in range(101, 110):
+    # Skip even tickets
+    print(f"Ticket {ticket}")`, hint: "Even numbers give remainder 0 after % 2.", solution: `for ticket in range(101, 110):
+    if ticket % 2 == 0:
+        continue
+    print(f"Ticket {ticket}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What does continue do?", code: "", options: ["Skips the rest of the current iteration", "Ends the whole loop", "Closes Python", "Repeats the same value forever"], correct: 0, explanation: "Correct — continue moves directly to the next iteration." },
+        { id: "output", question: "Which number is missing?", code: `for number in range(1, 5):
+    if number == 2:
+        continue
+    print(number)`, options: ["2", "1", "3", "4"], correct: 0, explanation: "Correct — only the iteration for 2 skips print()." },
+        { id: "keeps-going", question: "After skipping 2, does the loop reach 3 and 4?", code: "", options: ["Yes", "No", "Only 3", "Only when break is added"], correct: 0, explanation: "Correct — continue does not end the loop." },
+        { id: "difference", question: "Which comparison is correct?", code: "", options: ["break ends the loop; continue skips one iteration", "Both end the program", "continue ends the loop; break skips one iteration", "They always do the same thing"], correct: 0, explanation: "Correct — they control the loop in different ways." },
+        { id: "before", question: "What appears for number 3?", code: `for number in range(1, 5):
+    print(f"Checking {number}")
+    if number == 3:
+        continue
+    print(f"Accepted {number}")`, options: ["Checking 3 only", "Accepted 3 only", "Both messages", "Neither message"], correct: 0, explanation: "Correct — the first print already ran before continue skipped the second." },
+        { id: "unreachable", question: "What happens when skip_number is 8?", code: `skip_number = 8
+for number in range(1, 4):
+    if number == skip_number:
+        continue
+    print(number)`, options: ["1, 2 and 3 all appear", "Nothing appears", "Only 8 appears", "The loop never stops"], correct: 0, explanation: "Correct — the condition never becomes True, so no iteration is skipped." },
+        { id: "safe", question: "Why is this while loop safe?", code: `number = 0
+while number < 4:
+    number = number + 1
+    if number == 2:
+        continue
+    print(number)`, options: ["number updates before continue", "continue ends the loop", "The condition is always False", "print changes number"], correct: 0, explanation: "Correct — the counter keeps progressing even on the skipped iteration." },
+        { id: "danger", question: "What is the important while-loop rule?", code: "", options: ["Make necessary progress before continue can skip it", "Always remove the condition", "Put every update after continue", "Use break and continue together"], correct: 0, explanation: "Correct — otherwise a while loop can become stuck on one value." },
+        { id: "empty", question: "Which values appear?", code: `for text in ["Hi", "", "Bye"]:
+    if text == "":
+        continue
+    print(text)`, options: ["Hi and Bye", "Only the empty string", "Hi only", "All three values"], correct: 0, explanation: "Correct — the empty text is skipped while later text still runs." },
+        { id: "even", question: "Which values are displayed?", code: `for number in range(1, 6):
+    if number % 2 == 0:
+        continue
+    print(number)`, options: ["1, 3, 5", "2, 4", "1 through 5", "Only 0"], correct: 0, explanation: "Correct — even values are skipped, leaving the odd values." },
+        { id: "placement", question: "Which instruction is skipped by continue?", code: `items = ["book", "missing", "pen"]
+
+for item in items:
+    if item == "missing":
+        continue
+    print(item)`, options: ["print(item) for the missing item", "The entire loop", "The if condition", "Every later item"], correct: 0, explanation: "Correct — remaining instructions in only that iteration are skipped." },
+        { id: "purpose", question: "When is continue useful?", code: "", options: ["When one value should be ignored but later values still matter", "Whenever the whole loop must stop", "Only for creating variables", "Only after a program ends"], correct: 0, explanation: "Correct — continue filters an unwanted turn without abandoning the loop." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `for number in range(1, 5):
+    if number == 2:
+        continue
+    print(number)`,
+      options: ["1, 3 and 4", "1 and 2", "2, 3 and 4", "Nothing"],
+      correct: 0,
+      explanation: "Correct — the iteration for 2 skips print(), but the loop continues with 3 and 4."
+    }
   }
 };
