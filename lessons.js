@@ -6663,5 +6663,273 @@ print("Done")`, options: ["Once", "Three times", "Four times", "Never"], correct
       correct: 0,
       explanation: "Correct — range includes 1 and stops before 5, so the final displayed value is 4."
     }
+  },
+  27: {
+    title: "break: Stopping a Loop Early",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["break", "Stop early", "Search safely"],
+    usesInput: false,
+    intro: "Loops are useful because they repeat. But sometimes the answer arrives before every repetition is needed. The break statement lets your program leave a loop at exactly that moment.",
+    explanation: `<code>break</code> tells Python to stop the current loop immediately and continue with the first instruction after that loop.<br><br>In this lesson, an <code>if</code> statement decides when to use that exit. <code>break</code> does not close the whole program—it stops only the loop that currently contains it.`,
+    concept: "Use break when a loop has reached its goal and further repetitions are no longer useful.",
+    starterCode: `for number in range(1, 6):
+    print(number)
+
+    if number == 3:
+        break
+
+print("Loop finished")`,
+    expectedOutput: `1
+2
+3
+Loop finished`,
+    lineByLine: [
+      "range(1, 6) can supply 1, 2, 3, 4 and 5, one value at a time.",
+      "The first indented print() displays the current number before Python checks the condition.",
+      "The if statement asks whether the current number is 3.",
+      "When the condition becomes True, break immediately ends the for loop.",
+      "Python skips 4 and 5, then continues with the unindented message after the loop."
+    ],
+    outputExplanation: "The loop displays 1 and 2 while the condition is False. It displays 3, the condition becomes True and break ends the loop. Numbers 4 and 5 never reach the loop body. Loop finished still appears because it belongs to the program after the loop.",
+    changeIt: `First change <code>number == 3</code> to <code>number == 4</code>. Predict the last number before running.<br><br>Next try a stopping value of 1, then a value of 8. Notice that 8 is never reached by <code>range(1, 6)</code>, so the loop completes normally.<br><br>Finally create <code>stop_at = 2</code> above the loop and compare <code>number == stop_at</code>. Change one value and watch the same program stop somewhere new.`,
+    challenge: {
+      title: "Find the Secret Number",
+      mission: "Try the numbers 1 through 6. When the guess equals secret, display Secret number found! and stop immediately. Later guesses must not appear.",
+      starterCode: `secret = 4
+
+for guess in range(1, 7):
+    print(f"Trying: {guess}")
+
+    # Stop when the secret is found`
+    },
+    hint: "Inside the loop, check whether guess == secret. Put the success message and break inside that if block.",
+    solution: `secret = 4
+
+for guess in range(1, 7):
+    print(f"Trying: {guess}")
+
+    if guess == secret:
+        print("Secret number found!")
+        break`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–27: values, strings, numbers, arithmetic, decisions, input, while loops, for loops, range, f-strings, lists and break. Do not use continue, nested loops, loop else, functions or exceptions.",
+      activities: [
+        { id: "stop-number", stage: "EASY START · CHOOSE THE EXIT", title: "Stop at a Number", mission: "Change stop_at, predict the final displayed number and run the program.", starterCode: `stop_at = 4
+
+for number in range(1, 8):
+    print(number)
+    if number == stop_at:
+        break`, hint: "The number is printed before the equality check.", check: { mustChange: true, mustRun: true } },
+        { id: "find-key", stage: "REAL PURPOSE · STOP SEARCHING", title: "Find the Key", mission: "Change the target, predict which items will be checked and run the search.", starterCode: `items = ["book", "pen", "key", "cup"]
+target = "key"
+
+for item in items:
+    print(f"Checking: {item}")
+    if item == target:
+        print("Found it!")
+        break`, hint: "Once item equals target, later items are not visited.", check: { mustChange: true, mustRun: true } },
+        { id: "safe-while", stage: "WHILE TRUE · REACHABLE EXIT", title: "Safe Endless Loop", mission: "Change the limit, predict the output and confirm that break safely ends the loop.", starterCode: `count = 1
+limit = 3
+
+while True:
+    print(count)
+    if count == limit:
+        break
+    count = count + 1
+
+print("Safely stopped")`, hint: "The counter must move toward the limit so the break condition can become True.", check: { mustChange: true, mustRun: true } },
+        { id: "password", stage: "LIST SEARCH · FIRST MATCH", title: "Access Code Search", mission: "Change the wanted code and observe how many codes Python checks before stopping.", starterCode: `codes = ["BLUE", "SUN", "MOON", "STAR"]
+wanted = "MOON"
+
+for code in codes:
+    print(f"Testing {code}")
+    if code == wanted:
+        print("Access granted")
+        break`, hint: "Choose a wanted value that exists in the list.", check: { mustChange: true, mustRun: true } },
+        { id: "no-match", stage: "UNREACHED CONDITION · NORMAL FINISH", title: "Target Outside the Range", mission: "Run with target 9, then change it to a reachable value and compare the two runs.", starterCode: `target = 9
+
+for number in range(1, 6):
+    print(number)
+    if number == target:
+        break
+
+print("Search ended")`, hint: "A break instruction only runs if its condition becomes True.", check: { mustChange: true, mustRun: true } },
+        { id: "temperature", stage: "CONDITION · STOP AT WARNING", title: "Temperature Watch", mission: "Change the warning level and predict the final reading displayed.", starterCode: `readings = [18, 21, 24, 29, 33]
+warning = 29
+
+for temperature in readings:
+    print(f"Reading: {temperature}")
+    if temperature >= warning:
+        print("Warning reached")
+        break`, hint: "The comparison can become True when the reading equals or exceeds warning.", check: { mustChange: true, mustRun: true } },
+        { id: "attempts", stage: "CONTROLLED ATTEMPTS · FINISH EARLY", title: "Winning Attempt", mission: "Change winning_attempt and see how many attempts the game needs.", starterCode: `winning_attempt = 3
+
+for attempt in range(1, 6):
+    print(f"Attempt {attempt}")
+    if attempt == winning_attempt:
+        print("You won!")
+        break`, hint: "The loop can provide five attempts, but the chosen winning attempt ends it early.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-number", skill: "Numeric Stop", title: "Fresh Stopping Point", mission: "Predict the last value, run the loop, then choose a different reachable target.", starterCode: `target = {{target}}
+
+for number in range(1, {{stop}}):
+    print(number)
+    if number == target:
+        break`, hint: "The loop stops immediately after displaying target.", solution: "Choose a target between the range start and its final available value.", success: "You controlled a fresh numeric exit.", check: { mustChange: true }, values: { target: [2, 3, 4, 5, 6], stop: [7, 8, 9, 10] } },
+        { id: "fresh-search", skill: "Search a List", title: "Fresh Item Search", mission: "Predict the checked items, then change the wanted item and run again.", starterCode: `items = [{{items}}]
+wanted = "{{wanted}}"
+
+for item in items:
+    print(f"Checking: {item}")
+    if item == wanted:
+        print("Found!")
+        break`, hint: "Python checks from left to right and leaves at the first match.", solution: "Keep the equality check and break together inside the loop.", success: "You completed a fresh search.", check: { mustChange: true }, values: { items: ['"map", "coin", "torch", "rope"', '"red", "blue", "green", "gold"', '"tea", "water", "juice", "milk"'], wanted: ["coin", "green", "juice", "rope", "gold", "milk"] } },
+        { id: "fresh-attempt", skill: "Stop Attempts", title: "Fresh Winning Attempt", mission: "Predict how many attempts run, then choose a new winning attempt.", starterCode: `winning_attempt = {{target}}
+
+for attempt in range(1, {{stop}}):
+    print(f"Attempt {attempt}")
+    if attempt == winning_attempt:
+        print("Success!")
+        break`, hint: "Success and break belong under the same if condition.", solution: "Use a reachable winning attempt to end before all attempts are used.", success: "You stopped a fresh attempt loop.", check: { mustChange: true }, values: { target: [1, 2, 3, 4, 5], stop: [6, 7, 8] } },
+        { id: "fresh-threshold", skill: "Threshold Exit", title: "Fresh Warning Level", mission: "Predict the stopping reading, then change the warning threshold.", starterCode: `readings = [{{readings}}]
+warning = {{warning}}
+
+for reading in readings:
+    print(reading)
+    if reading >= warning:
+        print("Warning!")
+        break`, hint: "The first reading equal to or above warning ends the loop.", solution: "Compare each current reading with the threshold before using break.", success: "You handled a fresh threshold exit.", check: { mustChange: true }, values: { readings: ["12, 16, 21, 27", "5, 10, 15, 20", "22, 25, 28, 31"], warning: [15, 20, 25, 28] } },
+        { id: "fresh-while", skill: "Safe while True", title: "Fresh Safe Counter", mission: "Predict the final count, then change limit while keeping the exit reachable.", starterCode: `count = 1
+limit = {{limit}}
+
+while True:
+    print(count)
+    if count == limit:
+        break
+    count = count + 1
+
+print("Done")`, hint: "Increment count after the check so it eventually reaches limit.", solution: "A reachable equality condition makes this while True loop safe.", success: "You safely ended a fresh while loop.", check: { mustChange: true }, values: { limit: [2, 3, 4, 5, 6] } },
+        { id: "fresh-word", skill: "Character Search", title: "Fresh Letter Finder", mission: "Predict which letters appear, then change wanted to another character in the word.", starterCode: `word = "{{word}}"
+wanted = "{{wanted}}"
+
+for letter in word:
+    print(letter)
+    if letter == wanted:
+        print("Letter found")
+        break`, hint: "The string is visited from left to right.", solution: "Set wanted to a character that occurs in word.", success: "You completed a fresh character search.", check: { mustChange: true }, values: { word: ["python", "garden", "planet", "coding"], wanted: ["t", "d", "n", "i"] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "secret", title: "Find the Secret Number", mission: "Try 1 through 6 and stop immediately when secret is found.", starterCode: `secret = 4
+
+for guess in range(1, 7):
+    print(f"Trying: {guess}")
+    # Add the stopping decision`, hint: "Check guess == secret, display success and then break.", solution: `secret = 4
+for guess in range(1, 7):
+    print(f"Trying: {guess}")
+    if guess == secret:
+        print("Secret number found!")
+        break` },
+        { id: "key", title: "Stop at the Key", mission: "Check each object and stop as soon as key appears.", starterCode: `objects = ["book", "cup", "key", "lamp"]
+
+for item in objects:
+    print(f"Checking {item}")
+    # Stop at key`, hint: "Compare item with the text key.", solution: `objects = ["book", "cup", "key", "lamp"]
+for item in objects:
+    print(f"Checking {item}")
+    if item == "key":
+        print("Key found!")
+        break` },
+        { id: "countdown", title: "Emergency Countdown Stop", mission: "Count down from 8 and stop at 4, then display Countdown stopped once.", starterCode: `for count in range(8, 0, -1):
+    print(count)
+    # Stop at 4
+
+print("Countdown stopped")`, hint: "Use if count == 4 followed by break.", solution: `for count in range(8, 0, -1):
+    print(count)
+    if count == 4:
+        break
+print("Countdown stopped")` },
+        { id: "safe", title: "Build a Safe while True Loop", mission: "Display 1 through 5 and use break to stop the otherwise endless loop.", starterCode: `number = 1
+
+while True:
+    print(number)
+    # Add a reachable exit and update`, hint: "Check for 5 before increasing number.", solution: `number = 1
+while True:
+    print(number)
+    if number == 5:
+        break
+    number = number + 1` },
+        { id: "temperature", title: "First Unsafe Reading", mission: "Display readings and stop at the first value of 30 or more.", starterCode: `readings = [19, 24, 27, 31, 34]
+
+for reading in readings:
+    print(reading)
+    # Stop at the first unsafe reading`, hint: "Use reading >= 30.", solution: `readings = [19, 24, 27, 31, 34]
+for reading in readings:
+    print(reading)
+    if reading >= 30:
+        print("Unsafe reading")
+        break` },
+        { id: "name", title: "Guest List Search", mission: "Search the names in order and stop when Sara is found.", starterCode: `guests = ["Omar", "Amina", "Sara", "Noor"]
+
+for guest in guests:
+    print(f"Checking {guest}")
+    # Stop when Sara is found`, hint: "Compare guest with Sara inside an if statement.", solution: `guests = ["Omar", "Amina", "Sara", "Noor"]
+for guest in guests:
+    print(f"Checking {guest}")
+    if guest == "Sara":
+        print("Guest found")
+        break` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "meaning", question: "What does break do here?", code: "", options: ["Stops the current loop immediately", "Closes Python", "Skips only one print", "Restarts the loop"], correct: 0, explanation: "Correct — break leaves the current loop and execution continues afterward." },
+        { id: "last", question: "What is the final number displayed?", code: `for number in range(1, 6):
+    print(number)
+    if number == 3:
+        break`, options: ["3", "5", "2", "4"], correct: 0, explanation: "Correct — 3 is displayed before its condition triggers break." },
+        { id: "after", question: "Does Done appear?", code: `for number in range(5):
+    if number == 2:
+        break
+print("Done")`, options: ["Yes, once", "No", "Yes, twice", "Forever"], correct: 0, explanation: "Correct — break stops the loop, not the instructions that follow it." },
+        { id: "unreached", question: "How does this loop finish?", code: `for number in range(1, 4):
+    if number == 8:
+        break`, options: ["Normally, because 8 is never reached", "At number 8", "With an error", "It never stops"], correct: 0, explanation: "Correct — the condition stays False and the finite range ends naturally." },
+        { id: "search", question: "Which item is never checked?", code: `for item in ["pen", "key", "cup"]:
+    print(item)
+    if item == "key":
+        break`, options: ["cup", "pen", "key", "Every item is checked"], correct: 0, explanation: "Correct — break runs at key, before the loop reaches cup." },
+        { id: "program", question: "Which statement is true?", code: "", options: ["break stops a loop, not the whole program", "break always closes the page", "break works only with while", "break prints a value"], correct: 0, explanation: "Correct — normal program instructions after the loop can still run." },
+        { id: "while", question: "Why is this while True loop safe?", code: `count = 1
+while True:
+    if count == 3:
+        break
+    count = count + 1`, options: ["count reaches 3 and triggers break", "True becomes False", "print stops it", "It is not safe"], correct: 0, explanation: "Correct — count moves toward a reachable stopping condition." },
+        { id: "placement", question: "Where should break go when a target is found?", code: "", options: ["Inside the matching if block", "Before the loop", "Inside print()", "After the whole program"], correct: 0, explanation: "Correct — the condition decides the exact repetition that exits." },
+        { id: "printed-first", question: "What is displayed?", code: `for number in range(1, 5):
+    if number == 3:
+        break
+    print(number)`, options: ["1 then 2", "1 then 2 then 3", "Only 3", "1 through 4"], correct: 0, explanation: "Correct — this time the break check occurs before print, so 3 is not displayed." },
+        { id: "finite", question: "Does every for loop need break?", code: "", options: ["No, finite loops can finish naturally", "Yes, always", "Only loops over strings do", "Only range loops do"], correct: 0, explanation: "Correct — use break only when an early exit is useful." },
+        { id: "purpose", question: "When is break most useful?", code: "", options: ["When the loop's goal has already been reached", "Whenever a loop begins", "To create a variable", "To format a string"], correct: 0, explanation: "Correct — there is no need to continue after the goal is reached." },
+        { id: "current", question: "What does break stop when used inside one loop?", code: "", options: ["The loop that contains it", "Every future program", "The browser", "Only the if statement"], correct: 0, explanation: "Correct — break belongs to its containing loop." }
+      ]
+    },
+    quiz: {
+      question: "What is the final number displayed by this loop?",
+      code: `for number in range(1, 6):
+    print(number)
+    if number == 3:
+        break`,
+      options: ["3", "5", "2", "4"],
+      correct: 0,
+      explanation: "Correct — Python displays 3, then break immediately ends the loop before 4 and 5."
+    }
   }
 };
