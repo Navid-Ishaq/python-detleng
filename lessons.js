@@ -7442,5 +7442,350 @@ for learner in learners:
       correct: 0,
       explanation: "Correct — two learners each receive all three activities, producing six activity lines."
     }
+  },
+  30: {
+    title: "Loop Challenges: Counters, Totals and Patterns",
+    stage: "Repetition",
+    level: "Beginner",
+    time: "30 minutes",
+    tags: ["Counters", "Running totals", "Loop patterns"],
+    usesInput: false,
+    intro: "You can now repeat, stop, skip and nest loops. Today those pieces work together: a variable will remember how many things happened and how a total grows while a loop moves forward.",
+    explanation: `A loop performs repeated work, while a variable can remember progress across those repetitions.<br><br>A <strong>counter</strong> usually adds 1 when something happens. A <strong>running total</strong> adds the current value. Create that memory <em>before</em> the loop so it is not reset during every iteration.`,
+    concept: "Create a counter or total before the loop, update it inside the loop and display the final result after the loop.",
+    starterCode: `completed = 0
+
+for exercise in range(1, 6):
+    print(f"Exercise {exercise}")
+    completed = completed + 1
+
+print(f"Completed: {completed}")`,
+    expectedOutput: `Exercise 1
+Exercise 2
+Exercise 3
+Exercise 4
+Exercise 5
+Completed: 5`,
+    lineByLine: [
+      "completed = 0 creates the counter once, before repetition begins.",
+      "range(1, 6) supplies five exercise numbers.",
+      "The first indented print displays the current exercise.",
+      "completed = completed + 1 remembers one more finished exercise during every iteration.",
+      "The final unindented print runs once and displays the counter after the loop has finished."
+    ],
+    outputExplanation: "The five Exercise lines come from the five range values. The counter starts at zero and grows 0 → 1 → 2 → 3 → 4 → 5. Because the final message is outside the loop, only the completed total appears there—not five partial totals.",
+    changeIt: `First change the range so there are eight exercises. Predict the final counter before running.<br><br>Next change <code>completed = 0</code> to <code>completed = 10</code>. The program now begins with ten already completed exercises.<br><br>Finally move the completed print inside the loop to see every partial count, then return it outside the loop to show only the final result.`,
+    challenge: {
+      title: "Learning Progress Report",
+      mission: "Treat -1 as missing work. Skip it, count every valid score, add valid scores to total and display Strong result for scores of 8 or more. Display the final report once.",
+      starterCode: `scores = [8, 5, -1, 9, 4, 7]
+
+valid_scores = 0
+total = 0
+
+# Process the scores
+
+print(f"Valid scores: {valid_scores}")
+print(f"Total points: {total}")`
+    },
+    hint: "Loop through scores. Continue when score is -1. Otherwise add 1 to valid_scores, add score to total, display it and check whether it is at least 8.",
+    solution: `scores = [8, 5, -1, 9, 4, 7]
+
+valid_scores = 0
+total = 0
+
+for score in scores:
+    if score == -1:
+        continue
+
+    valid_scores = valid_scores + 1
+    total = total + score
+    print(f"Score: {score}")
+
+    if score >= 8:
+        print("Strong result")
+
+print(f"Valid scores: {valid_scores}")
+print(f"Total points: {total}")`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–30: values, strings, numbers, arithmetic, decisions, input, while loops, for loops, range, small provided lists, f-strings, break, continue, nested loops, counters and running totals. Do not use sum, len, functions, comprehensions, dictionaries, enumerate or itertools.",
+      activities: [
+        { id: "count", stage: "EASY START · REMEMBER EACH ITERATION", title: "Count Repetitions", mission: "Change the range to nine repetitions and predict the final count.", starterCode: `count = 0
+
+for repetition in range(1, 6):
+    print(f"Repetition {repetition}")
+    count = count + 1
+
+print(f"Count: {count}")`, hint: "The counter begins before the loop and increases once per repetition.", check: { mustChange: true, mustRun: true } },
+        { id: "shopping", stage: "RUNNING TOTAL · ADD CURRENT VALUE", title: "Shopping Total", mission: "Add another price, predict every partial total and run the program.", starterCode: `prices = [3, 5, 2]
+total = 0
+
+for price in prices:
+    total = total + price
+    print(f"Total so far: {total}")
+
+print(f"Final total: {total}")`, hint: "Each new price is added to the total remembered from earlier iterations.", check: { mustChange: true, mustRun: true } },
+        { id: "passing", stage: "CONDITION · COUNT SELECTED VALUES", title: "Count Passing Scores", mission: "Change the passing score from 6 to 7 and predict the new count.", starterCode: `scores = [4, 8, 3, 9, 6]
+passing_score = 6
+passed = 0
+
+for score in scores:
+    if score >= passing_score:
+        passed = passed + 1
+
+print(f"Passed: {passed}")`, hint: "Only scores that make the condition True increase passed.", check: { mustChange: true, mustRun: true } },
+        { id: "missing", stage: "CONTINUE · CLEAN BEFORE ADDING", title: "Skip Missing Data", mission: "Add another valid number and another -1 marker, then predict count and total.", starterCode: `numbers = [3, -1, 5, -1, 2]
+count = 0
+total = 0
+
+for number in numbers:
+    if number == -1:
+        continue
+    count = count + 1
+    total = total + number
+
+print(f"Valid values: {count}")
+print(f"Valid total: {total}")`, hint: "continue prevents missing markers from reaching either update.", check: { mustChange: true, mustRun: true } },
+        { id: "target", stage: "BREAK · STOP AFTER GOAL", title: "Stop at the Target", mission: "Change target to 15, predict where additions stop and run the program.", starterCode: `numbers = [4, 3, 5, 2, 6]
+target = 10
+total = 0
+
+for number in numbers:
+    total = total + number
+    print(f"Total: {total}")
+    if total >= target:
+        print("Target reached")
+        break`, hint: "The current number is added before the target comparison.", check: { mustChange: true, mustRun: true } },
+        { id: "while-total", stage: "WHILE · UPDATE COUNT AND TOTAL", title: "While-Loop Total", mission: "Change the limit to 6 and predict the sum from 1 through 6.", starterCode: `number = 1
+limit = 4
+total = 0
+
+while number <= limit:
+    total = total + number
+    number = number + 1
+
+print(f"Total: {total}")`, hint: "Both total and number must update inside the loop.", check: { mustChange: true, mustRun: true } },
+        { id: "nested-count", stage: "NESTED LOOPS · COUNT EVERY PAIR", title: "Count Activity Combinations", mission: "Add a learner and predict the new total combinations.", starterCode: `learners = ["Amina", "Omar"]
+activities = ["Read", "Code", "Review"]
+count = 0
+
+for learner in learners:
+    for activity in activities:
+        count = count + 1
+        print(f"{learner}: {activity}")
+
+print(f"Total activities: {count}")`, hint: "The counter increases once for each outer-and-inner pairing.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-count", skill: "Counter", title: "Fresh Repetition Counter", mission: "Predict the final count, then change the repetition boundary.", starterCode: `count = 0
+
+for repetition in range(1, {{stop}}):
+    count = count + 1
+    print(f"Repetition {repetition}")
+
+print(f"Count: {count}")`, hint: "The excluded stop is one greater than the final repetition.", solution: "Start count before the loop and add one inside it.", success: "You completed a fresh counter.", check: { mustChange: true }, values: { stop: [4, 5, 6, 7, 8, 9] } },
+        { id: "fresh-total", skill: "Running Total", title: "Fresh Number Total", mission: "Predict each partial total, then add or change one number.", starterCode: `numbers = [{{numbers}}]
+total = 0
+
+for number in numbers:
+    total = total + number
+    print(f"Total so far: {total}")
+
+print(f"Final total: {total}")`, hint: "Add the current number to the total from earlier iterations.", solution: "Create total once before the loop and update it for every number.", success: "You completed a fresh running total.", check: { mustChange: true }, values: { numbers: ["2, 4, 3", "5, 1, 6, 2", "7, 3, 4", "10, 5, 2"] } },
+        { id: "fresh-threshold", skill: "Conditional Counter", title: "Fresh Threshold Count", mission: "Predict how many values qualify, then change the threshold.", starterCode: `values = [{{values}}]
+threshold = {{threshold}}
+count = 0
+
+for value in values:
+    if value >= threshold:
+        count = count + 1
+
+print(f"Qualified: {count}")`, hint: "The counter updates only when the comparison is True.", solution: "Put count = count + 1 inside the if block.", success: "You completed a fresh conditional count.", check: { mustChange: true }, values: { values: ["3, 8, 5, 9, 2", "10, 4, 7, 6", "12, 15, 9, 18"], threshold: [5, 7, 10, 12] } },
+        { id: "fresh-missing", skill: "Filtered Total", title: "Fresh Clean Total", mission: "Predict count and total, then change the missing marker and one matching value.", starterCode: `values = [{{values}}]
+missing = {{missing}}
+count = 0
+total = 0
+
+for value in values:
+    if value == missing:
+        continue
+    count = count + 1
+    total = total + value
+
+print(f"Count: {count}")
+print(f"Total: {total}")`, hint: "Skip the marker before either memory variable is updated.", solution: "continue keeps missing data out of both count and total.", success: "You completed a fresh cleaned total.", check: { mustChange: true }, values: { values: ["4, -1, 6, -1, 3", "0, 5, 8, 0, 2", "7, 99, 4, 5, 99"], missing: [-1, 0, 99] } },
+        { id: "fresh-target", skill: "Target Total", title: "Fresh Target Stop", mission: "Predict the number that reaches the target, then change target.", starterCode: `numbers = [{{numbers}}]
+target = {{target}}
+total = 0
+
+for number in numbers:
+    total = total + number
+    print(f"Total: {total}")
+    if total >= target:
+        print("Target reached")
+        break`, hint: "Each value is added before the target check.", solution: "Use break inside the True target condition.", success: "You completed a fresh target total.", check: { mustChange: true }, values: { numbers: ["2, 4, 5, 3", "5, 3, 6, 2", "4, 7, 2, 5"], target: [6, 8, 10, 12] } },
+        { id: "fresh-nested", skill: "Nested Count", title: "Fresh Combination Count", mission: "Predict the total pairs, then change an outer or inner boundary.", starterCode: `count = 0
+
+for outer in range(1, {{outerStop}}):
+    for inner in range(1, {{innerStop}}):
+        count = count + 1
+        print(f"{outer} - {inner}")
+
+print(f"Combinations: {count}")`, hint: "The counter increases once for every outer-and-inner pair.", solution: "The available outer count multiplied by the inner count predicts the result.", success: "You counted fresh nested combinations.", check: { mustChange: true }, values: { outerStop: [3, 4, 5], innerStop: [3, 4, 5, 6] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "progress", title: "Learning Progress Report", mission: "Skip -1, count valid scores, total them and mark scores of 8 or more.", starterCode: `scores = [8, 5, -1, 9, 4, 7]
+valid_scores = 0
+total = 0
+
+# Process the scores
+
+print(f"Valid scores: {valid_scores}")
+print(f"Total points: {total}")`, hint: "Continue at -1, then update both memories before checking Strong result.", solution: `scores = [8, 5, -1, 9, 4, 7]
+valid_scores = 0
+total = 0
+for score in scores:
+    if score == -1:
+        continue
+    valid_scores = valid_scores + 1
+    total = total + score
+    print(f"Score: {score}")
+    if score >= 8:
+        print("Strong result")
+print(f"Valid scores: {valid_scores}")
+print(f"Total points: {total}")` },
+        { id: "cafe", title: "Café Order Total", mission: "Display every price, count orders and calculate the final café total.", starterCode: `prices = [4, 3, 6, 2]
+orders = 0
+total = 0
+
+# Process all prices`, hint: "For each price add one to orders and add price to total.", solution: `prices = [4, 3, 6, 2]
+orders = 0
+total = 0
+for price in prices:
+    orders = orders + 1
+    total = total + price
+    print(f"Order: {price}")
+print(f"Orders: {orders}")
+print(f"Total: {total}")` },
+        { id: "passing", title: "Count Passing Learners", mission: "Count and total only scores of 6 or more.", starterCode: `scores = [4, 8, 6, 3, 9]
+passed = 0
+points = 0
+
+# Process passing scores`, hint: "Put both updates inside score >= 6.", solution: `scores = [4, 8, 6, 3, 9]
+passed = 0
+points = 0
+for score in scores:
+    if score >= 6:
+        passed = passed + 1
+        points = points + score
+print(f"Passed: {passed}")
+print(f"Passing points: {points}")` },
+        { id: "savings", title: "Savings Target", mission: "Add deposits in order and stop as soon as savings reach at least 20.", starterCode: `deposits = [5, 4, 7, 6, 8]
+savings = 0
+
+# Add until target is reached`, hint: "After each addition check savings >= 20 and break.", solution: `deposits = [5, 4, 7, 6, 8]
+savings = 0
+for deposit in deposits:
+    savings = savings + deposit
+    print(f"Savings: {savings}")
+    if savings >= 20:
+        print("Target reached")
+        break` },
+        { id: "measurements", title: "Skip Invalid Measurements", mission: "Skip every -1, then count and total the remaining measurements.", starterCode: `measurements = [5, -1, 8, 4, -1, 6]
+valid = 0
+total = 0
+
+# Clean and process the measurements`, hint: "Continue at -1 before updating valid or total.", solution: `measurements = [5, -1, 8, 4, -1, 6]
+valid = 0
+total = 0
+for measurement in measurements:
+    if measurement == -1:
+        continue
+    valid = valid + 1
+    total = total + measurement
+print(f"Valid: {valid}")
+print(f"Total: {total}")` },
+        { id: "training", title: "Training Week Activity Count", mission: "Give three days two activities each and count all completed activity pairs.", starterCode: `days = ["Monday", "Wednesday", "Friday"]
+activities = ["Read", "Code"]
+completed = 0
+
+# Build and count the plan`, hint: "Increase completed inside the inner activity loop.", solution: `days = ["Monday", "Wednesday", "Friday"]
+activities = ["Read", "Code"]
+completed = 0
+for day in days:
+    for activity in activities:
+        completed = completed + 1
+        print(f"{day}: {activity}")
+print(f"Completed: {completed}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "start-zero", question: "Why does a basic counter often start at 0?", code: "", options: ["Nothing has been counted yet", "Python requires every variable to be 0", "It ends the loop", "It skips the first value"], correct: 0, explanation: "Correct — before processing begins, zero events have been counted." },
+        { id: "placement", question: "Where should a counter be created when it must remember the whole loop?", code: "", options: ["Before the loop", "Inside the loop on every turn", "After print only", "Inside a string"], correct: 0, explanation: "Correct — creating it once prevents repeated resetting." },
+        { id: "count", question: "What is displayed?", code: `count = 0
+for value in [4, 8, 2]:
+    count = count + 1
+print(count)`, options: ["3", "14", "2", "0"], correct: 0, explanation: "Correct — three values cause three counter updates." },
+        { id: "total", question: "What is displayed?", code: `total = 0
+for number in [2, 4, 3]:
+    total = total + number
+print(total)`, options: ["9", "3", "4", "0"], correct: 0, explanation: "Correct — the running total becomes 2, then 6, then 9." },
+        { id: "difference", question: "What is the difference between these updates?", code: `count = 0
+total = 0
+value = 5
+
+count = count + 1
+total = total + value`, options: ["Count adds one event; total adds the current value", "They always do the same thing", "Count stops the loop", "Total skips the value"], correct: 0, explanation: "Correct — counters measure occurrences while totals accumulate values." },
+        { id: "reset", question: "Why does this final value stay 1?", code: `for item in ["A", "B", "C"]:
+    count = 0
+    count = count + 1
+print(count)`, options: ["count resets to 0 during every iteration", "The list has one item", "print resets count", "The loop never runs"], correct: 0, explanation: "Correct — each iteration forgets the previous count." },
+        { id: "continue", question: "What total is displayed?", code: `total = 0
+for number in [3, -1, 5]:
+    if number == -1:
+        continue
+    total = total + number
+print(total)`, options: ["8", "7", "3", "-1"], correct: 0, explanation: "Correct — the missing marker is skipped, so only 3 and 5 are added." },
+        { id: "break", question: "What is the final total?", code: `total = 0
+for number in [4, 3, 5, 8]:
+    total = total + number
+    if total >= 10:
+        break
+print(total)`, options: ["12", "20", "10", "7"], correct: 0, explanation: "Correct — totals are 4, 7 and 12; break then prevents adding 8." },
+        { id: "conditional", question: "What is the final value of passed?", code: `passed = 0
+for score in [4, 8, 6, 3]:
+    if score >= 6:
+        passed = passed + 1
+print(passed)`, options: ["2", "4", "14", "1"], correct: 0, explanation: "Correct — only 8 and 6 satisfy the condition." },
+        { id: "while", question: "Which variables must change inside this while loop?", code: `number = 1
+total = 0
+while number <= 4:
+    total = total + number
+    number = number + 1`, options: ["Both total and number", "Only print", "Neither variable", "Only the condition text"], correct: 0, explanation: "Correct — total accumulates and number makes the loop progress." },
+        { id: "nested", question: "What final count is displayed?", code: `count = 0
+for outer in range(2):
+    for inner in range(3):
+        count = count + 1
+print(count)`, options: ["6", "5", "3", "2"], correct: 0, explanation: "Correct — two outer turns each contain three inner turns." },
+        { id: "final-print", question: "Where should Final total normally go to appear once?", code: "", options: ["After the loop", "Inside every iteration", "Before total is created", "Inside continue"], correct: 0, explanation: "Correct — an unindented print after the loop shows the completed result once." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `total = 0
+
+for number in [2, 4, 3]:
+    total = total + number
+
+print(total)`,
+      options: ["9", "3", "4", "0"],
+      correct: 0,
+      explanation: "Correct — the running total grows from 0 to 2, then 6, then 9."
+    }
   }
 };
