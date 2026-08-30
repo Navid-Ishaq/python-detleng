@@ -7787,5 +7787,214 @@ print(total)`,
       correct: 0,
       explanation: "Correct — the running total grows from 0 to 2, then 6, then 9."
     }
+  },
+  31: {
+    title: "Lists: Storing Multiple Values",
+    stage: "Collections",
+    level: "Beginner",
+    time: "20 minutes",
+    tags: ["Lists", "Multiple values", "len()"],
+    usesInput: false,
+    intro: "Until now, one variable usually remembered one value. Today one useful name will hold a whole collection: favourite foods, scores, cities or anything else that belongs together.",
+    explanation: `A <strong>list</strong> keeps several related values together under one name. Write the values between square brackets and separate them with commas:<br><br><code>fruits = ["apple", "banana", "mango"]</code><br><br>The brackets mark the collection. Each value inside is an <strong>item</strong>. Python can display the whole list, and <code>len()</code> can tell us how many items it contains.`,
+    concept: "A list stores several related values together. Square brackets surround its items, commas separate them and len() counts them.",
+    starterCode: `fruits = ["apple", "banana", "mango"]
+
+print("My fruits:")
+print(fruits)
+
+print("Number of fruits:")
+print(len(fruits))`,
+    expectedOutput: `My fruits:
+['apple', 'banana', 'mango']
+Number of fruits:
+3`,
+    lineByLine: [
+      `fruits = ["apple", "banana", "mango"] gives one name to three related text values.`,
+      "The square brackets show where the list begins and ends. Commas separate its three items.",
+      `print("My fruits:") displays a friendly label before the collection.`,
+      "print(fruits) asks Python to display the complete list, including its brackets and quoted text items.",
+      "len(fruits) counts the items in the list, so the final line displays 3."
+    ],
+    outputExplanation: "Python first displays the label, then the list exactly as a collection. The square brackets and quotes in the output help show that these are three text items inside one list. len(fruits) returns 3 because the list contains apple, banana and mango.",
+    changeIt: `First replace the three fruits with foods you enjoy and run the program.<br><br>Next add a fourth item inside the square brackets. Predict the new result of <code>len(fruits)</code>, then run to test it.<br><br>Finally remove one item. Notice that changing the collection also changes the count automatically.`,
+    challenge: {
+      title: "Pack for a Journey",
+      mission: "Add two useful items to the travel_bag list without changing any print instructions. Predict the final item count before running.",
+      starterCode: `travel_bag = ["passport", "phone", "water"]
+
+print("TRAVEL BAG")
+print(travel_bag)
+
+print("ITEMS PACKED")
+print(len(travel_bag))`
+    },
+    hint: "Keep every item inside the square brackets, put quotation marks around each text value and separate neighbouring items with commas.",
+    solution: `travel_bag = ["passport", "phone", "water", "charger", "jacket"]
+
+print("TRAVEL BAG")
+print(travel_bag)
+
+print("ITEMS PACKED")
+print(len(travel_bag))`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–31: output, comments, variables, strings, numbers, arithmetic, decisions, input, loops, counters, small list literals and len(). Do not teach indexing, slicing, append, insert, remove, pop, sorting, comprehensions, tuples, sets, dictionaries or functions yet.",
+      activities: [
+        { id: "weekend", stage: "EASY START · KEEP PLANS TOGETHER", title: "Weekend Plans", mission: "Replace all three activities with plans of your own, then run and check that the count stays 3.", starterCode: `plans = ["read", "walk", "cook"]
+
+print("Weekend plans:")
+print(plans)
+print(f"Number of plans: {len(plans)}")`, hint: "Change only the quoted values. Keep the brackets and commas in place.", success: "Your weekend plans are stored together in one clear list.", check: { mustChange: true, mustRun: true } },
+        { id: "colours", stage: "ADD AN ITEM · WATCH THE COUNT", title: "Favourite Colours", mission: "Add one more colour, predict the new count and run the program.", starterCode: `colours = ["green", "blue", "yellow"]
+
+print(colours)
+print(f"Colours chosen: {len(colours)}")`, hint: "Put a comma after the current final item, then add another quoted colour before ].", success: "You added a list item and watched len() report the new count.", check: { mustChange: true, mustRun: true } },
+        { id: "scores", stage: "NUMBER LIST · ONE COLLECTION", title: "Team Scores", mission: "Change the scores and add a fifth score. Notice that numbers do not need quotation marks.", starterCode: `scores = [8, 6, 9, 7]
+
+print("Team scores:")
+print(scores)
+print(f"Games played: {len(scores)}")`, hint: "Separate number items with commas just like text items.", success: "You created and counted a list of number values.", check: { mustChange: true, mustRun: true } },
+        { id: "places", stage: "MAKE IT YOURS · MEANINGFUL DATA", title: "Places to Visit", mission: "Build a list of at least four places you would like to visit and run it.", starterCode: `places = ["Cork", "Dublin", "Galway"]
+
+print("Places to visit:")
+print(places)
+print(f"Total places: {len(places)}")`, hint: "Every place is text, so keep each one inside quotation marks.", success: "Your choices now form a meaningful list of places.", check: { mustChange: true, mustRun: true } },
+        { id: "empty", stage: "EMPTY LIST · READY FOR LATER", title: "Empty Backpack", mission: "Run the empty list first. Then place two items inside it and observe the count change from 0 to 2.", starterCode: `backpack = []
+
+print("Backpack:")
+print(backpack)
+print(f"Items: {len(backpack)}")`, hint: "An empty list is []. Add quoted items between those brackets.", success: "You turned an empty list into a collection with two items.", check: { mustChange: true, mustRun: true } },
+        { id: "topics", stage: "REUSE LEARNING · BUILD A COLLECTION", title: "Study Topics", mission: "Add two more Python topics you have already learned, then predict the final count.", starterCode: `topics = ["variables", "strings", "loops"]
+
+print("Topics learned:")
+print(topics)
+print(f"Topic count: {len(topics)}")`, hint: "You could add comments, numbers, decisions or another earlier topic.", success: "You reused earlier knowledge inside a new list.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-text", skill: "Text Lists", title: "Fresh Collection", mission: "Replace one item and add another item. Predict the new count before running.", starterCode: `{{variable}} = [{{items}}]
+
+print("{{label}}")
+print({{variable}})
+print(f"Items: {len({{variable}})}")`, hint: "Keep text items quoted, separated by commas and inside square brackets.", solution: "Change values inside the brackets and let len() count the finished collection.", success: "You built and counted a fresh text list.", check: { mustChange: true }, values: { variable: ["fruits", "cities", "animals", "subjects", "tools", "activities"], items: [`"apple", "pear", "mango"`, `"Lahore", "Cork", "Barcelona"`, `"cat", "horse", "bird"`, `"Python", "English", "Science"`, `"pencil", "ruler", "notebook"`, `"read", "walk", "practise"`], label: ["My collection:", "Items together:", "Today’s list:"] } },
+        { id: "fresh-numbers", skill: "Number Lists", title: "Fresh Number Collection", mission: "Change two numbers and add one more. Run to confirm the new item count.", starterCode: `{{variable}} = [{{numbers}}]
+
+print({{variable}})
+print(f"Values stored: {len({{variable}})}")`, hint: "Number items need commas but do not need quotation marks.", solution: "Place every number inside one pair of square brackets and separate them with commas.", success: "You created a fresh number list.", check: { mustChange: true }, values: { variable: ["scores", "prices", "temperatures", "steps", "ratings"], numbers: ["4, 7, 9", "10, 15, 12, 8", "18, 21, 20", "100, 250, 400", "5, 4, 5, 3"] } },
+        { id: "fresh-empty", skill: "Empty Lists", title: "Fill a Fresh Empty List", mission: "The list begins empty. Add the requested number of text items and run to check its length.", starterCode: `{{variable}} = []
+
+print("Add {{count}} {{kind}}:")
+print({{variable}})
+print(f"Current items: {len({{variable}})}")`, hint: "Add quoted values between [ and ], separated by commas.", solution: "An empty list becomes a filled list when values are written between its brackets.", success: "You filled and counted a fresh list.", check: { mustChange: true }, values: { variable: ["ideas", "goals", "snacks", "books", "destinations"], count: [2, 3, 4], kind: ["ideas", "choices", "items"] } },
+        { id: "fresh-remove", skill: "List Size", title: "Make the List Smaller", mission: "Remove one item without disturbing the brackets or remaining commas. Predict the new length.", starterCode: `{{variable}} = [{{items}}]
+
+print({{variable}})
+print(f"Items remaining: {len({{variable}})}")`, hint: "Delete one complete value and one nearby comma so the remaining list stays valid.", solution: "After one item is removed, len() reports one less than before.", success: "You safely made a fresh list smaller.", check: { mustChange: true }, values: { variable: ["chores", "messages", "orders", "lessons"], items: [`"tidy", "wash", "shop", "cook"`, `"hello", "thanks", "welcome", "goodbye"`, `"tea", "soup", "rice", "fruit"`, `"variables", "strings", "decisions", "loops"`] } },
+        { id: "fresh-predict", skill: "Predict len()", title: "Fresh Count Prediction", mission: "Predict the result of len(), run to check, then add two more items and predict again.", starterCode: `collection = [{{items}}]
+
+print(collection)
+print(len(collection))`, hint: "Count complete comma-separated values—not letters inside each value.", solution: "len(collection) returns the number of items between the outer square brackets.", success: "You predicted and tested a fresh list length.", check: { mustChange: true }, values: { items: [`"sun", "moon"`, `3, 6, 9`, `"red", "green", "blue", "violet"`, `10, 20, 30, 40, 50`] } },
+        { id: "fresh-loop", skill: "Lists with Earlier Loops", title: "Display a Fresh List", mission: "Add another item. The familiar for loop will display every item and count how many it processed.", starterCode: `{{variable}} = [{{items}}]
+count = 0
+
+for item in {{variable}}:
+    print(item)
+    count = count + 1
+
+print(f"Displayed: {count}")`, hint: "Change only the list first. The earlier loop already processes every value in it.", solution: "Adding one list item gives the loop one more iteration and the counter one more update.", success: "You connected a fresh list to your earlier loop knowledge.", check: { mustChange: true }, values: { variable: ["tasks", "names", "foods", "places"], items: [`"read", "code", "review"`, `"Amina", "Omar", "Sara"`, `"rice", "fruit", "soup"`, `"park", "library", "museum"`] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "travel", title: "Pack for a Journey", mission: "Add two useful items and make the final count 5 without changing the print instructions.", starterCode: `travel_bag = ["passport", "phone", "water"]
+
+print("TRAVEL BAG")
+print(travel_bag)
+print(f"ITEMS PACKED: {len(travel_bag)}")`, hint: "Add two quoted values before the closing square bracket.", solution: `travel_bag = ["passport", "phone", "water", "charger", "jacket"]
+
+print("TRAVEL BAG")
+print(travel_bag)
+print(f"ITEMS PACKED: {len(travel_bag)}")` },
+        { id: "library", title: "Build a Tiny Library", mission: "Replace the starter books and make a collection of four titles. Display the list and its count.", starterCode: `books = ["The Little Prince", "Charlotte's Web"]
+
+print("MY LIBRARY")
+print(books)
+print(f"Books: {len(books)}")`, hint: "Keep every title quoted and separate four titles with commas.", solution: `books = ["The Little Prince", "Charlotte's Web", "Matilda", "Wonder"]
+
+print("MY LIBRARY")
+print(books)
+print(f"Books: {len(books)}")` },
+        { id: "scores", title: "Tournament Scores", mission: "Create a five-number score list without changing the output instructions.", starterCode: `scores = [8, 6, 9]
+
+print("TOURNAMENT SCORES")
+print(scores)
+print(f"Rounds: {len(scores)}")`, hint: "Add two comma-separated numbers before ].", solution: `scores = [8, 6, 9, 7, 10]
+
+print("TOURNAMENT SCORES")
+print(scores)
+print(f"Rounds: {len(scores)}")` },
+        { id: "menu", title: "Create a Café Menu", mission: "Create a menu with exactly five text items and let len() verify it.", starterCode: `menu = ["tea", "soup", "rice"]
+
+print("TODAY'S MENU")
+print(menu)
+print(f"Choices: {len(menu)}")`, hint: "Two more quoted foods will make five choices.", solution: `menu = ["tea", "soup", "rice", "salad", "fruit"]
+
+print("TODAY'S MENU")
+print(menu)
+print(f"Choices: {len(menu)}")` },
+        { id: "empty-plan", title: "Start from Nothing", mission: "Turn the empty list into a three-item study plan and confirm its size.", starterCode: `study_plan = []
+
+print("STUDY PLAN")
+print(study_plan)
+print(f"Topics: {len(study_plan)}")`, hint: "Place three quoted Python topics between the empty brackets.", solution: `study_plan = ["strings", "decisions", "loops"]
+
+print("STUDY PLAN")
+print(study_plan)
+print(f"Topics: {len(study_plan)}")` },
+        { id: "reduce", title: "Shorten the Guest List", mission: "Remove two names so that exactly three guests remain. Keep the code valid.", starterCode: `guests = ["Amina", "Omar", "Sara", "Noah", "Lina"]
+
+print("GUESTS")
+print(guests)
+print(f"Expected guests: {len(guests)}")`, hint: "Delete two complete quoted items and repair any extra comma.", solution: `guests = ["Amina", "Omar", "Sara"]
+
+print("GUESTS")
+print(guests)
+print(f"Expected guests: {len(guests)}")` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "recognise", question: "Which value is a Python list?", code: "", options: [`["red", "blue", "green"]`, `"red, blue, green"`, `(red, blue, green)`, `red + blue + green`], correct: 0, explanation: "Correct — a list places comma-separated values inside square brackets." },
+        { id: "length-two", question: "What does this program display?", code: `pets = ["cat", "dog"]
+print(len(pets))`, options: ["2", "6", "cat dog", "pets"], correct: 0, explanation: "Correct — the list contains two items, so len(pets) returns 2." },
+        { id: "empty", question: "Which line creates an empty list?", code: "", options: ["items = []", `items = ""`, "items = 0", "items = False"], correct: 0, explanation: "Correct — [] is a list containing zero items." },
+        { id: "four", question: "How many items are stored?", code: `scores = [5, 10, 15, 20]`, options: ["4", "50", "3", "20"], correct: 0, explanation: "Correct — four comma-separated numbers are inside the brackets." },
+        { id: "display", question: "What does print(cities) display?", code: `cities = ["Cork", "Dublin"]
+print(cities)`, options: [`['Cork', 'Dublin']`, "2", "cities", "CorkDublin"], correct: 0, explanation: "Correct — printing the variable displays the complete list." },
+        { id: "name", question: "Which variable name most clearly describes a list of school subjects?", code: "", options: ["subjects", "x", "thing", "one"], correct: 0, explanation: "Correct — subjects explains what the collection contains." },
+        { id: "add-count", question: "What is the final count after adding one written item?", code: `foods = ["rice", "soup", "fruit"]
+foods = ["rice", "soup", "fruit", "bread"]
+print(len(foods))`, options: ["4", "3", "1", "bread"], correct: 0, explanation: "Correct — the newer list contains four food items." },
+        { id: "numbers-quotes", question: "Which list correctly stores three numbers?", code: "", options: ["scores = [5, 8, 10]", `scores = "5, 8, 10"`, "scores = 5, 8, 10]", "scores = 5 + 8 + 10"], correct: 0, explanation: "Correct — square brackets collect the three number values into one list." },
+        { id: "item-meaning", question: "What is an item in a list?", code: `tools = ["pencil", "ruler", "book"]`, options: ["One value inside the collection", "The variable name only", "The square bracket", "The print button"], correct: 0, explanation: "Correct — pencil, ruler and book are individual list items." },
+        { id: "commas", question: "What separates neighbouring list items?", code: `colours = ["red", "blue", "yellow"]`, options: ["Commas", "Full stops", "Plus signs", "Hash symbols"], correct: 0, explanation: "Correct — commas separate the values inside a list." },
+        { id: "remove", question: "What does the second print display?", code: `names = ["Amina", "Omar", "Sara"]
+print(len(names))
+
+names = ["Amina", "Omar"]
+print(len(names))`, options: ["2", "3", "5", "names"], correct: 0, explanation: "Correct — the newer list contains two items." },
+        { id: "len-meaning", question: "What does len(places) tell us?", code: `places = ["park", "library", "museum"]`, options: ["How many items the list contains", "How many letters every word has", "The first place", "Whether the list is text"], correct: 0, explanation: "Correct — len() returns the number of list items." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `subjects = ["Python", "English", "Science"]
+
+print(len(subjects))`,
+      options: ["3", "21", "subjects", "Python"],
+      correct: 0,
+      explanation: "Correct — subjects contains three items, so len(subjects) returns 3."
+    }
   }
 };
