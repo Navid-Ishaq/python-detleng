@@ -7996,5 +7996,240 @@ print(len(subjects))`,
       correct: 0,
       explanation: "Correct — subjects contains three items, so len(subjects) returns 3."
     }
+  },
+  32: {
+    title: "List Indexing & Slicing",
+    stage: "Collections",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["List indexes", "List slices", "Replacing items"],
+    usesInput: false,
+    intro: "A list can remember many values, but a program rarely needs all of them at once. Today you will choose one exact item, take a useful portion and replace an existing value without rebuilding the collection.",
+    explanation: `Every list item has a position called an <strong>index</strong>. Python starts those positions at <code>0</code>, just as it did when you indexed strings.<br><br><code>fruits[0]</code> selects one item. <code>fruits[1:3]</code> creates a new list containing a portion. A slice includes its start index but stops <em>before</em> its end index.`,
+    concept: "Use an index to select one list item and a slice to select a range. Python counts forward from 0 and backward from -1.",
+    starterCode: `fruits = ["apple", "banana", "mango", "orange"]
+
+print("Complete list:")
+print(fruits)
+
+print("First fruit:")
+print(fruits[0])
+
+print("Third fruit:")
+print(fruits[2])
+
+print("Last fruit:")
+print(fruits[-1])
+
+print("Middle fruits:")
+print(fruits[1:3])`,
+    expectedOutput: `Complete list:
+['apple', 'banana', 'mango', 'orange']
+First fruit:
+apple
+Third fruit:
+mango
+Last fruit:
+orange
+Middle fruits:
+['banana', 'mango']`,
+    lineByLine: [
+      `fruits creates a four-item list. Its positive indexes are 0, 1, 2 and 3.`,
+      `fruits[0] selects apple. Python starts list positions at zero, not one.`,
+      `fruits[2] selects mango, the third item.`,
+      `fruits[-1] counts backward and selects orange, the final item.`,
+      `fruits[1:3] starts at index 1 and stops before index 3, producing a new list with banana and mango.`
+    ],
+    outputExplanation: "The complete collection appears first. Indexing then returns individual text values, so those lines have no list brackets. The final slice returns a new list, which is why square brackets appear again around banana and mango.",
+    changeIt: `First predict the result of <code>fruits[-2]</code>, add that print and run it.<br><br>Next replace the second item with <code>fruits[1] = "pear"</code>. Print the whole list and confirm that only one value changed while its length stayed 4.<br><br>Finally try <code>fruits[:3]</code>, <code>fruits[2:]</code>, <code>fruits[::2]</code> and <code>fruits[::-1]</code>. Predict each result before running.`,
+    challenge: {
+      title: "Build a Playlist View",
+      mission: "Replace Quiet Rain through its index. Then display the first song, last song, first three songs and every other song without recreating the list.",
+      starterCode: `songs = ["Morning Light", "Open Road", "Quiet Rain", "New Beginning", "Home Again"]
+
+# Replace Quiet Rain through its index
+
+print("FIRST SONG")
+
+print("LAST SONG")
+
+print("FIRST THREE")
+
+print("EVERY OTHER SONG")`
+    },
+    hint: "Quiet Rain is at index 2. Use [0] and [-1] for single items, [:3] for the first three and [::2] for every other item.",
+    solution: `songs = ["Morning Light", "Open Road", "Quiet Rain", "New Beginning", "Home Again"]
+
+songs[2] = "Bright Sky"
+
+print("FIRST SONG")
+print(songs[0])
+
+print("LAST SONG")
+print(songs[-1])
+
+print("FIRST THREE")
+print(songs[:3])
+
+print("EVERY OTHER SONG")
+print(songs[::2])`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–32: earlier Python foundations, loops, list literals, len(), positive and negative list indexing, replacing an existing item and list slicing with start, stop and step. Do not use append, insert, extend, remove, pop, del, sort, reverse, comprehensions, tuples, sets or dictionaries.",
+      activities: [
+        { id: "winner", stage: "EASY START · CHOOSE ONE ITEM", title: "Pick the Winner", mission: "Change the winner index so Python displays Lina, then also display the final player using a negative index.", starterCode: `players = ["Amina", "Omar", "Lina", "Noah"]
+
+winner_index = 0
+
+print("Winner:")
+print(players[winner_index])
+
+print("Final player:")
+print(players[-1])`, hint: "Lina is the third item, and Python calls the third position index 2.", success: "You selected exact list items with positive and negative indexes.", check: { mustChange: true, mustRun: true } },
+        { id: "destination", stage: "INDEX MAP · COUNT FROM ZERO", title: "Choose a Destination", mission: "Display Cork using a positive index and Barcelona using a negative index.", starterCode: `cities = ["Lahore", "Dublin", "Cork", "Barcelona", "Galway"]
+
+print(cities[0])
+print(cities[-1])`, hint: "Cork is at positive index 2. Barcelona is second from the end.", success: "You reached two destinations by counting from both ends.", check: { mustChange: true, mustRun: true } },
+        { id: "menu", stage: "REPLACE · KEEP THE SAME SIZE", title: "Update the Menu", mission: "Replace soup with pasta through its index. Do not recreate the whole list.", starterCode: `menu = ["tea", "soup", "fruit", "cake"]
+
+print("Before:")
+print(menu)
+
+# Replace soup here
+
+print("After:")
+print(menu)
+print(f"Choices: {len(menu)}")`, hint: "Soup is the second item, so assign a new value to menu[1].", success: "You replaced one item while keeping the list length unchanged.", check: { mustChange: true, mustRun: true } },
+        { id: "morning", stage: "SLICE · TAKE THE BEGINNING", title: "Morning Tasks", mission: "Use one slice to display the first three tasks.", starterCode: `tasks = ["wake up", "breakfast", "study", "walk", "cook"]
+
+print("Morning tasks:")
+print(tasks)`, hint: "Omit the start and stop before index 3: tasks[:3].", success: "You selected the beginning of a list with a slice.", check: { mustChange: true, mustRun: true } },
+        { id: "remaining", stage: "SLICE · CONTINUE TO THE END", title: "Remaining Lessons", mission: "Display lessons from Decisions to the end using one slice.", starterCode: `lessons = ["Variables", "Strings", "Lists", "Decisions", "Loops"]
+
+print("Remaining lessons:")
+print(lessons)`, hint: "Decisions is at index 3. Leave the slice end empty.", success: "You sliced from one position through the end of a list.", check: { mustChange: true, mustRun: true } },
+        { id: "scores", stage: "SLICE STEP · TAKE EVERY OTHER ITEM", title: "Every Other Score", mission: "Display scores at indexes 0, 2 and 4 using a step, then display the complete list in reverse.", starterCode: `scores = [10, 20, 30, 40, 50, 60]
+
+print("Every other score:")
+print(scores)
+
+print("Reversed view:")
+print(scores)`, hint: "Use scores[::2] for every other item and scores[::-1] for a reversed slice.", success: "You controlled a slice with a step and created a reversed view.", check: { mustChange: true, mustRun: true } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-index", skill: "Positive Indexing", title: "Fresh Position Pick", mission: "Predict the selected item, then change the index to choose a different one.", starterCode: `items = [{{items}}]
+position = {{position}}
+
+print(items)
+print(f"Selected: {items[position]}")`, hint: "The first item is position 0. Count carefully from the left.", solution: "Use any valid index from 0 through 4 for this five-item list.", success: "You completed a fresh positive-index selection.", check: { mustChange: true }, values: { items: [`"red", "blue", "green", "yellow", "violet"`, `"tea", "rice", "fruit", "soup", "bread"`, `10, 20, 30, 40, 50`, `"A", "B", "C", "D", "E"`], position: [0, 1, 2, 3, 4] } },
+        { id: "fresh-negative", skill: "Negative Indexing", title: "Fresh Backward Pick", mission: "Predict the selected item, then change the negative index to choose another item from the end.", starterCode: `items = [{{items}}]
+position = {{position}}
+
+print(f"Selected: {items[position]}")`, hint: "-1 is the final item, -2 is second from the end and -3 is third from the end.", solution: "Use a negative position from -1 through -5 for this list.", success: "You completed a fresh negative-index selection.", check: { mustChange: true }, values: { items: [`"north", "south", "east", "west", "home"`, `5, 10, 15, 20, 25`, `"Monday", "Tuesday", "Wednesday", "Thursday", "Friday"`], position: [-1, -2, -3, -4, -5] } },
+        { id: "fresh-replace", skill: "Replacing Items", title: "Fresh List Update", mission: "Replace the selected existing item without rebuilding the list, then run to inspect the result.", starterCode: `items = [{{items}}]
+
+print("Before:")
+print(items)
+
+items[{{position}}] = {{replacement}}
+
+print("After:")
+print(items)`, hint: "Assignment to items[index] changes one position and keeps the same list length.", solution: "Place the replacement value on the right side of items[index] = value.", success: "You completed a fresh indexed replacement.", check: { mustChange: true }, values: { items: [`"red", "blue", "green", "yellow"`, `"tea", "rice", "fruit", "soup"`, `10, 20, 30, 40`], position: [0, 1, 2, 3], replacement: [`"new value"`, `"updated"`, `99`] } },
+        { id: "fresh-slice", skill: "List Slicing", title: "Fresh Middle Slice", mission: "Predict the portion, then change either slice boundary and run again.", starterCode: `items = [{{items}}]
+start = {{start}}
+stop = {{stop}}
+
+print(items[start:stop])`, hint: "The start item is included; the stop item is not included.", solution: "Choose boundaries from 0 through 6 and remember that slicing stops before stop.", success: "You completed a fresh list slice.", check: { mustChange: true }, values: { items: [`"A", "B", "C", "D", "E", "F"`, `10, 20, 30, 40, 50, 60`, `"sun", "rain", "wind", "snow", "cloud", "mist"`], start: [0, 1, 2], stop: [3, 4, 5, 6] } },
+        { id: "fresh-open-slice", skill: "Open-Ended Slices", title: "Fresh Beginning and Ending", mission: "Predict both portions, then change the boundary value.", starterCode: `items = [{{items}}]
+boundary = {{boundary}}
+
+print("Beginning:")
+print(items[:boundary])
+
+print("Ending:")
+print(items[boundary:])`, hint: "The boundary belongs to the ending slice, not the beginning slice.", solution: "[:boundary] stops before the boundary; [boundary:] starts there and continues.", success: "You divided a fresh list into beginning and ending portions.", check: { mustChange: true }, values: { items: [`"one", "two", "three", "four", "five"`, `2, 4, 6, 8, 10`, `"read", "code", "test", "fix", "share"`], boundary: [1, 2, 3, 4] } },
+        { id: "fresh-step", skill: "Slice Steps", title: "Fresh Stepped View", mission: "Predict the stepped result, then change the step or reverse the complete list.", starterCode: `items = [{{items}}]
+step = {{step}}
+
+print(items[::step])
+print(items[::-1])`, hint: "A positive step skips forward; -1 produces a reversed slice.", solution: "Use [::2] or [::3] for spaced selections and [::-1] to reverse the view.", success: "You completed a fresh stepped and reversed slice.", check: { mustChange: true }, values: { items: [`1, 2, 3, 4, 5, 6`, `"A", "B", "C", "D", "E", "F"`, `10, 20, 30, 40, 50, 60`], step: [2, 3] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "playlist", title: "Build a Playlist View", mission: "Replace the third song, then display first, last, first three and every other song.", starterCode: `songs = ["Morning Light", "Open Road", "Quiet Rain", "New Beginning", "Home Again"]
+
+# Replace and display the requested views`, hint: "Use songs[2] for replacement, then [0], [-1], [:3] and [::2].", solution: `songs = ["Morning Light", "Open Road", "Quiet Rain", "New Beginning", "Home Again"]
+songs[2] = "Bright Sky"
+print(songs[0])
+print(songs[-1])
+print(songs[:3])
+print(songs[::2])` },
+        { id: "route", title: "Travel Route Section", mission: "Display the starting city, destination and three middle stops. Then show the route in reverse.", starterCode: `route = ["Lahore", "Dublin", "Cork", "Galway", "Barcelona"]
+
+# Display the requested route views`, hint: "Use [0], [-1], [1:4] and [::-1].", solution: `route = ["Lahore", "Dublin", "Cork", "Galway", "Barcelona"]
+print(route[0])
+print(route[-1])
+print(route[1:4])
+print(route[::-1])` },
+        { id: "temperature", title: "Weekly Temperature Window", mission: "Display the first three temperatures, the final three and every other reading.", starterCode: `temperatures = [18, 20, 21, 19, 22, 24, 23]
+
+# Display three useful slices`, hint: "Use [:3], [-3:] and [::2].", solution: `temperatures = [18, 20, 21, 19, 22, 24, 23]
+print(temperatures[:3])
+print(temperatures[-3:])
+print(temperatures[::2])` },
+        { id: "lineup", title: "Team Line-up Positions", mission: "Replace the second player, then display the first three players and the final player.", starterCode: `players = ["Amina", "Omar", "Lina", "Noah", "Sara"]
+
+# Update and display the line-up`, hint: "The second position is index 1. Use [:3] and [-1] for the requested views.", solution: `players = ["Amina", "Omar", "Lina", "Noah", "Sara"]
+players[1] = "Hassan"
+print(players[:3])
+print(players[-1])` },
+        { id: "reading", title: "Reading Queue", mission: "Display the current book, remaining books after it and the queue in reverse order.", starterCode: `books = ["Wonder", "Matilda", "Charlotte's Web", "The Little Prince"]
+current = 1
+
+# Display the current and remaining queue`, hint: "Use books[current], books[current + 1:] and books[::-1].", solution: `books = ["Wonder", "Matilda", "Charlotte's Web", "The Little Prince"]
+current = 1
+print(books[current])
+print(books[current + 1:])
+print(books[::-1])` },
+        { id: "repair", title: "Repair an IndexError", mission: "The program requests a position outside the list. Fix only the index so it displays bird.", starterCode: `pets = ["cat", "dog", "bird"]
+
+print(pets[3])`, hint: "Three items have valid positive indexes 0, 1 and 2.", solution: `pets = ["cat", "dog", "bird"]
+
+print(pets[2])` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "first", question: "What does this program display?", code: `colours = ["red", "blue", "green"]
+print(colours[0])`, options: ["red", "blue", "green", "0"], correct: 0, explanation: "Correct — positive index 0 selects the first item." },
+        { id: "last", question: "What does this program display?", code: `scores = [5, 10, 15, 20]
+print(scores[-1])`, options: ["20", "5", "15", "-1"], correct: 0, explanation: "Correct — negative index -1 selects the final item." },
+        { id: "slice", question: "What does this slice produce?", code: `letters = ["A", "B", "C", "D"]
+print(letters[1:3])`, options: [`['B', 'C']`, `['A', 'B', 'C']`, `['B', 'C', 'D']`, "B"], correct: 0, explanation: "Correct — the slice includes index 1 and 2, then stops before index 3." },
+        { id: "replace", question: "Which statement replaces the second item?", code: `items = ["old", "keep", "last"]`, options: [`items[1] = "new value"`, `items[2] = "new value"`, `items[0:1]`, `items[-1]`], correct: 0, explanation: "Correct — the second item is at index 1." },
+        { id: "error", question: "Why does this code raise IndexError?", code: `pets = ["cat", "dog"]
+print(pets[2])`, options: ["Index 2 is outside the valid positions 0 and 1", "Lists cannot store text", "print cannot display an item", "The list needs parentheses"], correct: 0, explanation: "Correct — a two-item list has positive indexes 0 and 1 only." },
+        { id: "minus-two", question: "Which item does places[-2] select?", code: `places = ["park", "library", "museum", "home"]`, options: ["museum", "home", "library", "park"], correct: 0, explanation: "Correct — -1 is home, so -2 is museum." },
+        { id: "beginning", question: "What does numbers[:3] return?", code: `numbers = [10, 20, 30, 40, 50]`, options: ["[10, 20, 30]", "[10, 20, 30, 40]", "[30, 40, 50]", "30"], correct: 0, explanation: "Correct — an omitted start begins at index 0 and the slice stops before index 3." },
+        { id: "ending", question: "What does numbers[2:] return?", code: `numbers = [10, 20, 30, 40, 50]`, options: ["[30, 40, 50]", "[10, 20]", "[20, 30]", "30"], correct: 0, explanation: "Correct — the slice begins at index 2 and continues through the end." },
+        { id: "step", question: "What does this stepped slice display?", code: `numbers = [10, 20, 30, 40, 50, 60]
+print(numbers[::2])`, options: ["[10, 30, 50]", "[20, 40, 60]", "[10, 20]", "[60, 50, 40]"], correct: 0, explanation: "Correct — step 2 takes indexes 0, 2 and 4." },
+        { id: "reverse", question: "What does items[::-1] do?", code: `items = ["A", "B", "C"]`, options: ["Creates a reversed list view", "Deletes the final item", "Selects only A", "Raises IndexError"], correct: 0, explanation: "Correct — a step of -1 creates a reversed slice without changing the original list." },
+        { id: "safe-slice", question: "What happens when a slice stop goes beyond the list?", code: `pets = ["cat", "dog", "bird"]
+print(pets[1:10])`, options: ["It safely returns ['dog', 'bird']", "It always raises IndexError", "It returns an empty list", "It adds seven items"], correct: 0, explanation: "Correct — a slice safely stops when it reaches the end of the list." },
+        { id: "one-vs-many", question: "Which expression returns a list rather than one text item?", code: `fruits = ["apple", "banana", "mango"]`, options: ["fruits[0:2]", "fruits[0]", "fruits[-1]", "len(fruits)"], correct: 0, explanation: "Correct — slicing returns a new list, while a single index returns one item." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `cities = ["Lahore", "Dublin", "Cork", "Galway"]
+
+print(cities[1:3])`,
+      options: [`['Dublin', 'Cork']`, `['Lahore', 'Dublin', 'Cork']`, `['Dublin', 'Cork', 'Galway']`, "Dublin"],
+      correct: 0,
+      explanation: "Correct — the slice begins at index 1 and stops before index 3, so it contains Dublin and Cork."
+    }
   }
 };
