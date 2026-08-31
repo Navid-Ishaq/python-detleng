@@ -308,6 +308,7 @@
   function validatePractice(activity, code, output, programInput) {
     const outputLines = output.split("\n").map(line => line.trim());
     const commentLines = code.split("\n").filter(line => /^\s*#/.test(line));
+    const executableCode = code.split("\n").filter(line => !/^\s*#/.test(line)).join("\n");
     const inputLines = programInput.replace(/\r/g, "").split("\n");
     if (activity.check.minimumInputLines && inputLines.filter(line => line.trim()).length < activity.check.minimumInputLines) {
       return `Run the practice and answer all ${activity.check.minimumInputLines} interactive console prompts.`;
@@ -319,6 +320,11 @@
       const escaped = text.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
       if (!new RegExp(`^\\s*#\\s*${escaped}\\s*$`, "m").test(code)) {
         return `Place # before ${text} so Python temporarily ignores that instruction.`;
+      }
+    }
+    for (const requirement of activity.check.requiredCode || []) {
+      if (!executableCode.includes(requirement.text)) {
+        return requirement.message || `Use ${requirement.text} in your working code, then run it again.`;
       }
     }
     if (activity.check.minimumPrints) {

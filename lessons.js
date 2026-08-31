@@ -8231,5 +8231,281 @@ print(cities[1:3])`,
       correct: 0,
       explanation: "Correct — the slice begins at index 1 and stops before index 3, so it contains Dublin and Cork."
     }
+  },
+  33: {
+    title: "Adding & Removing List Items",
+    stage: "Collections",
+    level: "Beginner",
+    time: "25 minutes",
+    tags: ["append and insert", "remove and pop", "Changing lists"],
+    usesInput: false,
+    intro: "Your lists can already store, select and replace values. Today they become active collections that can grow and shrink while a program is running.",
+    explanation: `Lists are <strong>mutable</strong>, which means an existing list can change. <code>append()</code> adds one item at the end, <code>insert()</code> adds at a chosen position and <code>extend()</code> adds several items.<br><br>To make a list smaller, <code>remove()</code> finds a value, while <code>pop()</code> removes by position and gives the removed value back.`,
+    concept: "Use append, insert or extend to grow a list. Use remove, pop or del to make it smaller without manually recreating it.",
+    starterCode: `tasks = ["read", "practise"]
+
+print("Starting tasks:")
+print(tasks)
+
+tasks.append("review")
+tasks.insert(1, "take notes")
+
+print("Updated tasks:")
+print(tasks)
+
+finished_task = tasks.pop(0)
+
+print("Finished:")
+print(finished_task)
+
+print("Tasks remaining:")
+print(tasks)`,
+    expectedOutput: `Starting tasks:
+['read', 'practise']
+Updated tasks:
+['read', 'take notes', 'practise', 'review']
+Finished:
+read
+Tasks remaining:
+['take notes', 'practise', 'review']`,
+    lineByLine: [
+      `tasks begins as a two-item list.`,
+      `tasks.append("review") adds one new item at the end.`,
+      `tasks.insert(1, "take notes") adds at index 1 and moves later items to the right; it does not replace practise.`,
+      `tasks.pop(0) removes the first item and returns it, so the removed text is stored in finished_task.`,
+      `The final prints show both the removed value and the three items still waiting in tasks.`
+    ],
+    outputExplanation: "The updated list contains four tasks because append and insert each added one. pop(0) then removes read and returns that value. The list itself is left with take notes, practise and review.",
+    changeIt: `First append one task of your own and predict the new list length.<br><br>Next insert <code>"urgent message"</code> at index 0 and notice that every existing item moves right.<br><br>Finally remove a known value with <code>remove()</code>, then use <code>pop()</code> without an index to keep the final removed item in a variable. Run after every small change.`,
+    challenge: {
+      title: "Organise a Reading Queue",
+      mission: "Append Charlotte's Web, insert Python for Beginners at the beginning, remove Matilda by value and pop the first book into current_book. Do not recreate the list.",
+      starterCode: `reading_queue = ["Wonder", "Matilda", "The Little Prince"]
+
+print("STARTING QUEUE")
+print(reading_queue)
+
+# Change the queue with list methods
+
+print("READING NOW")
+print(current_book)
+
+print("QUEUE REMAINING")
+print(reading_queue)`
+    },
+    hint: "Use append(), insert(0, ...), remove() and finally current_book = reading_queue.pop(0).",
+    solution: `reading_queue = ["Wonder", "Matilda", "The Little Prince"]
+
+print("STARTING QUEUE")
+print(reading_queue)
+
+reading_queue.append("Charlotte's Web")
+reading_queue.insert(0, "Python for Beginners")
+reading_queue.remove("Matilda")
+current_book = reading_queue.pop(0)
+
+print("READING NOW")
+print(current_book)
+
+print("QUEUE REMAINING")
+print(reading_queue)`,
+    practiceCoach: {
+      knowledgeBoundary: "Use only Lessons 1–33: earlier Python foundations, list literals, len(), indexing, slicing, indexed replacement, append(), insert(), extend(), remove(), pop() and simple del. Do not use sort, sorted, reverse, comprehensions, tuples, sets, dictionaries, functions or exception handling.",
+      activities: [
+        { id: "shopping", stage: "APPEND · GROW AT THE END", title: "Grow a Shopping List", mission: "Use append() twice to add fruit and rice. Do not rewrite the original list.", starterCode: `shopping = ["bread", "milk"]
+
+# Add fruit and rice here
+
+print(shopping)
+print(f"Items: {len(shopping)}")`, hint: "Call shopping.append() once for each new item.", success: "You grew an existing list one item at a time.", check: { mustChange: true, mustRun: true, requiredCode: [{ text: ".append(", message: "Use append() to grow the existing list instead of rewriting it." }] } },
+        { id: "urgent", stage: "INSERT · CHOOSE A POSITION", title: "Add an Urgent Task", mission: "Insert urgent call at the beginning without replacing the first task.", starterCode: `tasks = ["email", "study", "walk"]
+
+# Insert the urgent task here
+
+print(tasks)`, hint: "The beginning is index 0: tasks.insert(0, ...).", success: "You inserted a new first item and kept every earlier task.", check: { mustChange: true, mustRun: true, requiredCode: [{ text: ".insert(", message: "Use insert() so the urgent task is added at a chosen position." }] } },
+        { id: "plans", stage: "EXTEND · ADD SEVERAL ITEMS", title: "Combine Two Plans", mission: "Use extend() to add the weekend activities as separate items.", starterCode: `plans = ["read", "practise"]
+weekend = ["walk", "cook"]
+
+# Add every weekend item to plans
+
+print(plans)`, hint: "Call plans.extend(weekend).", success: "You extended one list with several separate items.", check: { mustChange: true, mustRun: true, requiredCode: [{ text: ".extend(", message: "Use extend() to add the second collection item by item." }] } },
+        { id: "cancelled", stage: "REMOVE · FIND A VALUE", title: "Remove a Cancelled Event", mission: "Remove meeting by value and leave the other events in their original order.", starterCode: `events = ["breakfast", "meeting", "study", "walk"]
+
+# Remove the cancelled meeting
+
+print(events)`, hint: `Use events.remove("meeting").`, success: "You removed one known value from the list.", check: { mustChange: true, mustRun: true, requiredCode: [{ text: ".remove(", message: "Use remove() with the cancelled value." }] } },
+        { id: "queue", stage: "POP · REMOVE AND REMEMBER", title: "Serve the Queue", mission: "Pop the first name into served, then display served and everyone still waiting.", starterCode: `queue = ["Amina", "Omar", "Sara"]
+
+# Remove and remember the first person
+
+print("Served:")
+print(served)
+print("Waiting:")
+print(queue)`, hint: "Use served = queue.pop(0).", success: "You removed by position and kept the returned value.", check: { mustChange: true, mustRun: true, requiredCode: [{ text: ".pop(", message: "Use pop(0) so Python removes and returns the first name." }] } },
+        { id: "repair", stage: "ERROR REPAIR · USE A REAL VALUE", title: "Repair a Broken Removal", mission: "The requested value is absent. Change only the remove() value so the program safely removes blue.", starterCode: `colours = ["red", "blue", "green"]
+
+colours.remove("yellow")
+
+print(colours)`, hint: "remove() needs an exact value currently inside the list.", success: "You read a ValueError and repaired the removal safely.", check: { mustChange: true, mustRun: true, requiredCode: [{ text: ".remove(", message: "Keep remove(), but give it a value that exists." }] } }
+      ]
+    },
+    freshPracticeGenerator: {
+      templates: [
+        { id: "fresh-append", skill: "append()", title: "Fresh End Addition", mission: "Append the requested item, then add one choice of your own.", starterCode: `items = [{{items}}]
+
+items.append({{addition}})
+
+print(items)
+print(f"Items: {len(items)}")`, hint: "Each append() call adds exactly one value at the end.", solution: "Call items.append(value) for every single new item.", success: "You completed a fresh append activity.", check: { mustChange: true, requiredCode: [{ text: ".append(", message: "Use append() to add the new value." }] }, values: { items: [`"bread", "milk"`, `"red", "blue"`, `10, 20`, `"read", "study"`], addition: [`"fruit"`, `"green"`, `30`, `"review"`] } },
+        { id: "fresh-insert", skill: "insert()", title: "Fresh Positioned Addition", mission: "Predict the result, then change the inserted value or its valid position.", starterCode: `items = [{{items}}]
+position = {{position}}
+
+items.insert(position, {{addition}})
+
+print(items)`, hint: "insert() adds before the item currently at that index.", solution: "Use items.insert(position, value) to add without replacing.", success: "You completed a fresh insert activity.", check: { mustChange: true, requiredCode: [{ text: ".insert(", message: "Use insert() for the positioned addition." }] }, values: { items: [`"A", "B", "C"`, `10, 20, 30`, `"tea", "rice", "fruit"`], position: [0, 1, 2, 3], addition: [`"new"`, `99`] } },
+        { id: "fresh-extend", skill: "extend()", title: "Fresh Collection Merge", mission: "Predict the combined list, then change one extra item.", starterCode: `main_items = [{{main}}]
+extra_items = [{{extra}}]
+
+main_items.extend(extra_items)
+
+print(main_items)`, hint: "extend() adds each value from extra_items separately.", solution: "Call main_items.extend(extra_items), not append(extra_items).", success: "You completed a fresh extend activity.", check: { mustChange: true, requiredCode: [{ text: ".extend(", message: "Use extend() to add the extra values separately." }] }, values: { main: [`"A", "B"`, `1, 2`, `"read", "code"`], extra: [`"C", "D"`, `3, 4`, `"test", "share"`] } },
+        { id: "fresh-remove", skill: "remove()", title: "Fresh Value Removal", mission: "Predict the remaining list, then change target to another value that exists.", starterCode: `items = [{{items}}]
+target = {{target}}
+
+items.remove(target)
+
+print(items)`, hint: "The target must match an item currently in the list.", solution: "Use items.remove(target) when you know the value rather than its position.", success: "You completed a fresh value removal.", check: { mustChange: true, requiredCode: [{ text: ".remove(", message: "Use remove() to delete the known value." }] }, values: { items: [`10, 20, 30, 40`, `5, 20, 25, 35`, `20, 40, 60, 80`], target: [20] } },
+        { id: "fresh-pop", skill: "pop()", title: "Fresh Position Removal", mission: "Predict removed and remaining values, then change the valid pop position.", starterCode: `items = [{{items}}]
+position = {{position}}
+
+removed = items.pop(position)
+
+print(f"Removed: {removed}")
+print(f"Remaining: {items}")`, hint: "pop() uses an index and returns the removed value.", solution: "Store items.pop(position) when the removed item is still useful.", success: "You completed a fresh pop activity.", check: { mustChange: true, requiredCode: [{ text: ".pop(", message: "Use pop() to remove by position and keep the result." }] }, values: { items: [`"A", "B", "C", "D"`, `10, 20, 30, 40`, `"read", "code", "test", "share"`], position: [0, 1, 2, 3] } },
+        { id: "fresh-del", skill: "del", title: "Fresh Indexed Deletion", mission: "Predict the remaining list, then change the valid deletion index.", starterCode: `items = [{{items}}]
+position = {{position}}
+
+del items[position]
+
+print(items)`, hint: "del removes the value at an index but does not return it.", solution: "Use del items[position] when you do not need the removed value.", success: "You completed a fresh indexed deletion.", check: { mustChange: true, requiredCode: [{ text: "del items[", message: "Use del with the indexed list item." }] }, values: { items: [`"A", "B", "C", "D"`, `5, 10, 15, 20`, `"north", "south", "east", "west"`], position: [0, 1, 2, 3] } }
+      ]
+    },
+    challengeGenerator: {
+      activities: [
+        { id: "reading", title: "Organise a Reading Queue", mission: "Append one book, insert one first, remove Matilda and pop the current book. Do not recreate the list.", starterCode: `reading_queue = ["Wonder", "Matilda", "The Little Prince"]
+
+# Change the queue with list methods
+
+print(current_book)
+print(reading_queue)`, hint: "Use append, insert, remove and current_book = reading_queue.pop(0).", solution: `reading_queue = ["Wonder", "Matilda", "The Little Prince"]
+reading_queue.append("Charlotte's Web")
+reading_queue.insert(0, "Python for Beginners")
+reading_queue.remove("Matilda")
+current_book = reading_queue.pop(0)
+print(current_book)
+print(reading_queue)` },
+        { id: "cafe", title: "Café Order List", mission: "Append cake, insert water first, remove tea and pop the final order into collected.", starterCode: `orders = ["tea", "soup", "rice"]
+
+# Update the orders
+
+print(collected)
+print(orders)`, hint: "Use append, insert(0, ...), remove and collected = orders.pop().", solution: `orders = ["tea", "soup", "rice"]
+orders.append("cake")
+orders.insert(0, "water")
+orders.remove("tea")
+collected = orders.pop()
+print(collected)
+print(orders)` },
+        { id: "travel", title: "Travel Packing List", mission: "Extend the bag with two items, insert passport first and remove water.", starterCode: `bag = ["phone", "water"]
+extras = ["charger", "jacket"]
+
+# Pack the bag
+
+print(bag)`, hint: "Use extend(extras), insert(0, ...) and remove().", solution: `bag = ["phone", "water"]
+extras = ["charger", "jacket"]
+bag.extend(extras)
+bag.insert(0, "passport")
+bag.remove("water")
+print(bag)` },
+        { id: "guests", title: "Event Guest Manager", mission: "Append Lina, insert the host first, remove Omar and pop the final guest into leaving.", starterCode: `guests = ["Amina", "Omar", "Sara"]
+
+# Update the guest list
+
+print(leaving)
+print(guests)`, hint: "Use all four requested list methods in order.", solution: `guests = ["Amina", "Omar", "Sara"]
+guests.append("Lina")
+guests.insert(0, "Host")
+guests.remove("Omar")
+leaving = guests.pop()
+print(leaving)
+print(guests)` },
+        { id: "support", title: "Support Queue", mission: "Add two names with extend, insert an urgent caller first and pop that caller into serving.", starterCode: `queue = ["Amina", "Omar"]
+new_callers = ["Sara", "Noah"]
+
+# Build and serve the queue
+
+print(serving)
+print(queue)`, hint: "Use extend, insert(0, ...) and serving = queue.pop(0).", solution: `queue = ["Amina", "Omar"]
+new_callers = ["Sara", "Noah"]
+queue.extend(new_callers)
+queue.insert(0, "Urgent caller")
+serving = queue.pop(0)
+print(serving)
+print(queue)` },
+        { id: "inventory", title: "Repair the Inventory", mission: "The program removes a missing value and pops an invalid index. Fix both operations.", starterCode: `inventory = ["pen", "book", "ruler"]
+
+inventory.remove("phone")
+sold = inventory.pop(5)
+
+print(sold)
+print(inventory)`, hint: "Remove book, then pop a valid remaining position such as 1.", solution: `inventory = ["pen", "book", "ruler"]
+inventory.remove("book")
+sold = inventory.pop(1)
+print(sold)
+print(inventory)` }
+      ]
+    },
+    quizGenerator: {
+      activities: [
+        { id: "append", question: "Which method adds one item at the end?", code: "", options: [`items.append("new")`, `items.remove("new")`, `items.pop()`, `items[0]`], correct: 0, explanation: "Correct — append() adds its one supplied value at the end." },
+        { id: "insert", question: "What does this program display?", code: `items = ["A", "B"]
+items.insert(1, "X")
+print(items)`, options: [`['A', 'X', 'B']`, `['A', 'X']`, `['X', 'A', 'B']`, `['A', 'B', 'X']`], correct: 0, explanation: "Correct — insert adds X before the item previously at index 1." },
+        { id: "remove", question: "Which statement removes by value?", code: `items = ["A", "B", "C"]`, options: [`items.remove("B")`, `items.pop(1)`, `del items[1]`, `items[1]`], correct: 0, explanation: "Correct — remove() searches for the supplied value." },
+        { id: "pop-value", question: "What is stored in finished?", code: `tasks = ["read", "write", "review"]
+finished = tasks.pop(0)`, options: ["read", "write", "review", "0"], correct: 0, explanation: "Correct — pop(0) removes and returns the first item." },
+        { id: "extend", question: "What does extend() do here?", code: `items = ["A"]
+items.extend(["B", "C"])
+print(items)`, options: ["Adds B and C as separate items", "Adds one nested list", "Removes A", "Raises IndexError"], correct: 0, explanation: "Correct — extend adds each value from the supplied collection." },
+        { id: "append-list", question: "What does append() do here?", code: `items = ["A"]
+items.append(["B", "C"])
+print(items)`, options: [`Creates ['A', ['B', 'C']]`, `Creates ['A', 'B', 'C']`, `Creates ['B', 'C']`, "Raises ValueError"], correct: 0, explanation: "Correct — append adds the supplied list as one nested item." },
+        { id: "missing", question: "Why does this raise ValueError?", code: `fruits = ["apple", "banana"]
+fruits.remove("mango")`, options: ["mango is not in the list", "Lists cannot remove text", "The list is too short", "remove needs an index"], correct: 0, explanation: "Correct — remove() needs an exact matching value currently in the list." },
+        { id: "pop-default", question: "Which item does pop() remove when no index is supplied?", code: `items = ["A", "B", "C"]
+removed = items.pop()`, options: ["C", "A", "B", "Every item"], correct: 0, explanation: "Correct — pop() removes and returns the final item by default." },
+        { id: "del", question: "What remains after this code?", code: `colours = ["red", "blue", "green"]
+del colours[1]
+print(colours)`, options: [`['red', 'green']`, `['blue', 'green']`, `['red', 'blue']`, `['green']`], correct: 0, explanation: "Correct — del removes the item at index 1." },
+        { id: "replace-insert", question: "Which statement adds X without replacing B?", code: `items = ["A", "B", "C"]`, options: [`items.insert(1, "X")`, `items[1] = "X"`, `items.remove("B")`, `items.pop(1)`], correct: 0, explanation: "Correct — insert adds a new item and moves B to the right." },
+        { id: "duplicate", question: "What remains after remove(5)?", code: `numbers = [5, 8, 5, 10]
+numbers.remove(5)
+print(numbers)`, options: ["[8, 5, 10]", "[8, 10]", "[5, 8, 10]", "[5, 8, 5]"], correct: 0, explanation: "Correct — remove deletes only the first matching 5." },
+        { id: "empty-pop", question: "Why does items.pop() fail here?", code: `items = []
+items.pop()`, options: ["There is no item to remove", "pop only works on text", "The list needs a name", "pop always needs two indexes"], correct: 0, explanation: "Correct — an empty list has no final item for pop() to return." }
+      ]
+    },
+    quiz: {
+      question: "What will this program display?",
+      code: `queue = ["Amina", "Omar", "Sara"]
+
+served = queue.pop(0)
+
+print(served)
+print(queue)`,
+      options: ["Amina, then ['Omar', 'Sara']", "Sara, then ['Amina', 'Omar']", "Omar, then ['Amina', 'Sara']", "Only ['Omar', 'Sara']"],
+      correct: 0,
+      explanation: "Correct — pop(0) removes and returns Amina, leaving Omar and Sara in the queue."
+    }
   }
 };
